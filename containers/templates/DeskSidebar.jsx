@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import { Layout, Menu, Badge } from 'antd';
 import {
-  DesktopOutlined,
+  StarOutlined,
   PieChartOutlined,
-  FileOutlined,
+  GoldOutlined,
   TeamOutlined,
+  SelectOutlined,
+  ProfileOutlined,
+  AccountBookOutlined,
+  SmileOutlined,
+  ContactsOutlined,
+  CommentOutlined,
+  SettingOutlined,
+  BuildOutlined,
+  GiftOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { AuthLink } from '../../components';
@@ -13,19 +22,19 @@ const { Sider } = Layout;
 export const DeskSidebar = ({ active }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = React.useState(false);
-  const [openKeys, setOpenKeys] = React.useState([]);
-  const onChangeOpenKeys = (c) => {
-    if (!c) {
-      if (active === 'home' || active === 'discover' || active === 'members') {
-        setOpenKeys(['community']);
-      }
-    } else {
-      setOpenKeys([]);
-    }
-  };
+  // const [openKeys, setOpenKeys] = React.useState([]);
+  // const onChangeOpenKeys = (c) => {
+  // if (!c) {
+  // if (active === 'home' || active === 'discover' || active === 'members') {
+  // setOpenKeys(['community']);
+  // }
+  // } else {
+  // setOpenKeys([]);
+  // }
+  // };
   const onCollapse = c => {
     setCollapsed(c);
-    onChangeOpenKeys(c);
+    // onChangeOpenKeys(c);
   };
   useEffect(async () => {
     window.addEventListener('resize', () => {
@@ -35,7 +44,11 @@ export const DeskSidebar = ({ active }) => {
   }, []);
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className='desk-sider' width={300}>
-      <Menu defaultSelectedKeys={[`${active}`]} mode="inline" openKeys={openKeys}>
+      <Menu
+        defaultSelectedKeys={active.active}
+        defaultOpenKeys={active.open}
+        mode="inline"
+      >
         <Menu.Item key="dashboard" icon={<PieChartOutlined />}>
           <AuthLink href='/desk/dashboard'>
             <a>
@@ -43,13 +56,167 @@ export const DeskSidebar = ({ active }) => {
             </a>
           </AuthLink>
         </Menu.Item>
-        <Menu.Item key="activities" icon={<DesktopOutlined />}>
+        <Menu.Item key="activities" icon={<StarOutlined />}>
           <AuthLink href='/desk/activities'>
             <a>
               Activities&nbsp;&nbsp;
             </a>
           </AuthLink>
         </Menu.Item>
+        <Menu.Item key="choose-your-launch" icon={<SelectOutlined />}>
+          <AuthLink href='/desk/choose-your-launch'>
+            <a>
+              Choose your launch
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="profile" icon={<ProfileOutlined />}>
+          <AuthLink href='/desk/profile'>
+            <a>
+              Profile
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="account-preference" icon={<AccountBookOutlined />}>
+          <AuthLink href='/desk/account-preference'>
+            <a>
+              Account preference
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="assessment" icon={<SmileOutlined />}>
+          <AuthLink href='/desk/assessment'>
+            <a>
+              Assessment
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="contacts" icon={<ContactsOutlined />}>
+          <AuthLink href='/desk/contacts'>
+            <a>
+              Contacts
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="messages" icon={<CommentOutlined />}>
+          <AuthLink href='/desk/messages'>
+            <a>
+              Messages
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="project-setting" icon={<SettingOutlined />}>
+          <AuthLink href='/desk/project-setting'>
+            <a>
+              Project setting
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="modules" icon={<BuildOutlined />}>
+          <AuthLink href='/desk/modules'>
+            <a>
+              Modules
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <SubMenu
+          key="my-product"
+          icon={<GiftOutlined />}
+          title={
+            <AuthLink href='/desk/my-product'>
+              <a>
+                My Product
+                <Badge
+                  count={120}
+                  size='small'
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </a>
+            </AuthLink>
+          }
+        >
+          <SubMenu
+            key="product1"
+            icon={<TeamOutlined />}
+            title={
+              <AuthLink href='/desk/my-product/product1'>
+                <a>
+                  Product1
+                  <Badge
+                    count={120}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            }
+          >
+            <Menu.Item key="product-detail">
+              <AuthLink href='/desk/my-product/product1/detail'>
+                <a>
+                  Product Detail
+                  <Badge
+                    count={23}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            </Menu.Item>
+            <Menu.Item key="team-setting">
+              <AuthLink href='/desk/my-product/product1/team-setting'>
+                <a>
+                  Team &amp; Setttings
+                  <Badge
+                    count={23}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            </Menu.Item>
+            <Menu.Item key="workspace">
+              <AuthLink href='/desk/my-product/product1/workspace'>
+                <a>
+                  Workspace
+                  <Badge
+                    count={23}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            </Menu.Item>
+          </SubMenu>
+        </SubMenu>
+        <SubMenu key="my-expertise"
+          icon={<GoldOutlined />}
+          title={
+            <AuthLink href='/desk/my-expertise'>
+              <a>
+                My Expertise
+                <Badge
+                  count={120}
+                  size='small'
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </a>
+            </AuthLink>
+          }
+        >
+          <Menu.Item key="expertise1">
+            <AuthLink href='/desk/my-expertise/expertise1'>
+              <a>
+                Expertise1
+                <Badge
+                  count={23}
+                  size='small'
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </a>
+            </AuthLink>
+          </Menu.Item>
+        </SubMenu>
         <SubMenu key="community"
           icon={<TeamOutlined />}
           title={
@@ -102,14 +269,8 @@ export const DeskSidebar = ({ active }) => {
             </AuthLink>
           </Menu.Item>
         </SubMenu>
-        <Menu.Item key="expertise" icon={<FileOutlined />}>
-          <AuthLink href='/desk/expertise'>
-            <a>
-              Expertise&nbsp;&nbsp;
-            </a>
-          </AuthLink>
-        </Menu.Item>
       </Menu>
+      <div style={{ height: '4rem' }}></div>
     </Sider>
   );
 };

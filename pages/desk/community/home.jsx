@@ -19,7 +19,7 @@ const Home = (props) => {
   return (
     router.query.community === 'join' ?
       <JoinInCommunity />
-      : <DeskPageHoc title='Home' activeSide='home'>
+      : <DeskPageHoc title='Home' activeSide={{ active: ['home'], open: ['community'] }}>
         <div className='max-w-80 m-auto px-3'>
           <div className="f-right" style={{ right: 10, top: 70 }}>
             <SwitchCommunity />

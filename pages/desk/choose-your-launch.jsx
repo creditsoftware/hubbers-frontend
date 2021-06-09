@@ -1,8 +1,8 @@
 import React from 'react';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
-const Expertise = () => {
+const ChooseYourLaunch = () => {
   return (
-    <DeskPageHoc title='Expertise' activeSide='expertise'>
+    <DeskPageHoc title='Choose your launch' activeSide='choose-your-launch'>
       <React.Fragment>
 
       </React.Fragment>
@@ -12,4 +12,4 @@ const Expertise = () => {
 export async function getServerSideProps() {
   return { props: {} };
 }
-export default Expertise;
+export default ChooseYourLaunch;

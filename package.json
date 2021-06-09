@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
+    "up":"forever ./node_modules/.bin/next start -p 8080",
     "ncu": "ncu",
     "ncu:update": "ncu -u",
     "ncu:global": "ncu -g",

@@ -15,7 +15,7 @@ const Discover = (props) => {
     }
   }, [router]);
   return (
-    <DeskPageHoc title='Discover' activeSide='discover'>
+    <DeskPageHoc title='Discover' activeSide={{ active: ['discover'], open: ['community'] }}>
       <div className='max-w-80 m-auto px-3 pt-5'>
         <h1 className="fw-6 fs-5">
           Discover

@@ -18,7 +18,7 @@ const JoinInCommunity = (props) => {
     }
   }, [router]);
   return (
-    <DeskPageHoc title='Join in Community' activeSide='join'>
+    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }}>
       <div className="h-100 bg-white">
         <div className='bg-hbs-primary'>
           <div className='max-w-80 m-auto px-3 pt-4 pb-5'>

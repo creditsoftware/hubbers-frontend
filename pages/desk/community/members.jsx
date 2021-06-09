@@ -1,8 +1,16 @@
 import { Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { MemberInvitationBtn, MemberFilter, MemberTile } from '../../../components';
-import { denisAvatar, jomarieAvatar, wangAvatar } from '../../../constants/etc';
+import {
+  MemberInvitationBtn,
+  // MemberFilter,
+  MemberTile
+} from '../../../components';
+import {
+  // denisAvatar,
+  jomarieAvatar,
+  // wangAvatar
+} from '../../../constants/etc';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
 import { httpApiServer } from '../../../utils/httpRequest';
@@ -11,18 +19,18 @@ import { REQUEST_TYPE } from '../../../constants/requestType';
 
 const Members = (props) => {
   const router = useRouter();
-  const [filterValue, setFilterValue] = React.useState('all');
+  // const [filterValue, setFilterValue] = React.useState('all');
   useEffect(() => {
     console.log(props);
     if (props.error === 'Unautherized you') {
       router.push('/auth/signin');
     }
-    if (router.query.filter) {
-      setFilterValue(router.query.filter);
-    }
+    // if (router.query.filter) {
+    //   setFilterValue(router.query.filter);
+    // }
   }, [router]);
   return (
-    <DeskPageHoc title='Members' activeSide='members'>
+    <DeskPageHoc title='Members' activeSide={{ active: ['members'], open: ['community'] }}>
       <React.Fragment>
         <div className='max-w-80 m-auto px-3 pt-5'>
           <Row>
@@ -38,18 +46,18 @@ const Members = (props) => {
             {
               // props.data &&
               // props.data.data &&
-              
+
             }
-            {/* <MemberTile
-              showAction={false}
-              avatar={denisAvatar}
-              name={'Denis Kravchenko'}
-              role={'Host'}
-            />
             <MemberTile
               showActions
               avatar={jomarieAvatar}
               name={'Jomarie Janner'}
+              role={'Host'}
+            />
+            {/* <MemberTile
+              showAction={false}
+              avatar={denisAvatar}
+              name={'Denis Kravchenko'}
               role={'Host'}
             />
             <MemberTile
