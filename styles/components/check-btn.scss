@@ -1,0 +1,21 @@
+.hbs-check-btn{
+    position: relative;
+    label {
+        position: absolute;
+        left: .6rem;
+        top: 50%;
+        transform: translate(0%, -50%);
+        .ant-checkbox-inner{
+            border-color: $primary-color;
+        }
+        .ant-checkbox-checked .ant-checkbox-inner{
+            background-color: white;
+            &::after{
+                border-color: $primary-color;
+            }
+        }
+    }
+    button{
+        padding-left: 2rem;
+    }
+}

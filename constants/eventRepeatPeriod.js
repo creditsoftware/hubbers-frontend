@@ -1,0 +1,1 @@
+export const EventRepeatPeriod = ['daily', 'weekly', 'biweekly', 'monthly', 'every_3_monthly', 'every_6_monthly', 'yearly', 'custom'];

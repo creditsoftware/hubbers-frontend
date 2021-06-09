@@ -1,0 +1,12 @@
+.member-tile{
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: .5rem;
+    .ant-avatar-image{
+        width: 5rem;
+        height: 5rem;
+    }
+    & > div:nth-child(2) {
+        width: calc(100% - 5rem - 130px);
+    }
+}

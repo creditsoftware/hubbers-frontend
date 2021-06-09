@@ -1,0 +1,42 @@
+.hubbers-team-member-tile{
+    border: 1px solid $primary-color;
+    width: 100%;
+    max-width: 16rem;
+    margin: auto;
+    cursor: pointer;
+    min-height: 28rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    font-size: 1rem;
+    transition: .3s;
+    margin-top: .4rem;
+    &:hover{
+        background-color: white;
+        box-shadow: 0 5px 10px #aaa;
+        transform: translateY(-.3rem);
+    }
+    &>div:first-child{
+        text-align: center;
+        img{
+            border-radius: 1rem;
+        }
+    }
+    &>div:last-child{
+        text-align: center;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        height: auto;
+    }
+    .join-us-job-board{
+        margin: 4rem 0;
+        span{
+            font-size: 5rem;
+            color: $primary-color;
+        }
+        &+p{
+            transform: translate(0,100%);
+        }
+    }
+}

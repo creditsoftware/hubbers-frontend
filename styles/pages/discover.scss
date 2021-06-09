@@ -1,0 +1,9 @@
+.discover-members-wrap{
+    padding: 1rem;
+    &>div{
+        &>span, &>span>div{
+            width: 6rem;
+            height: 6rem;
+        }
+    }
+}

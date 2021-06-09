@@ -1,0 +1,11 @@
+.ant-layout.ant-layout-has-sider.desk-body{
+    margin-top: 65px;
+    height: calc(100vh - 65px);
+    min-height: calc(100vh - 65px);
+    max-height: calc(100vh - 65px);
+    .ant-layout-content{
+        height: 100%;
+        overflow-y: auto;
+        padding-bottom: 3rem;
+    }
+}

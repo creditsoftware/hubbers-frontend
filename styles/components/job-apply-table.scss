@@ -1,0 +1,12 @@
+.job-detail-social-wrap{
+    display: flex;
+    justify-content: flex-end;
+}
+.job-apply-table{
+    .ant-table{
+        background-color: transparent;
+        tbody{
+            background-color: white;
+        }
+    }
+}

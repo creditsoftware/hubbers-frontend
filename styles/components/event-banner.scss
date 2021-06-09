@@ -1,0 +1,39 @@
+.event-banner-bg-image{
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    &>div{
+        content:"";
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width:70%;
+        font-weight: 600;
+        font-size:48px;
+        color:white;
+        z-index:1000;
+        text-align: center;
+    }
+    &:before{
+        position: absolute;
+        content:"";
+        width: 100%;
+        height:100%;
+        top:0;
+        left:0;
+        background: rgba(51, 51, 51, 0.45);
+    }
+}
+@media (max-width: 615px) {
+    .event-banner-bg-image{
+        background-position: center;
+        background-size: cover;
+        &>div{
+            font-size: 2rem;
+        }
+    }
+}

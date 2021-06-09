@@ -1,0 +1,12 @@
+.not-found-title{
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: $primary-color;
+    text-align: center;
+}
+@media (max-width: 600px){
+    .not-found-title{
+        font-size: 4rem;
+    }
+}

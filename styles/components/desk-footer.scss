@@ -1,0 +1,17 @@
+.desk-footer{
+    z-index: 100;
+    position: fixed;
+    top: 100vh;
+    bottom: auto;
+    width: 100vw;
+    transition: .3s;
+    &.show{
+        transform: translate(0, -100%);
+    }
+}
+.desk-footer-action{
+    position: fixed!important;
+    bottom: 8px;
+    left: 8px;
+    z-index: 1000;
+}

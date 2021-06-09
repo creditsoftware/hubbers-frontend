@@ -1,0 +1,49 @@
+{
+  "name": "hubbers-front-new",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "ncu": "ncu",
+    "ncu:update": "ncu -u",
+    "ncu:global": "ncu -g",
+    "ncu:doctor": "ncu --doctor -u",
+    "lint": "eslint pages --ext .jsx --no-error-on-unmatched-pattern && eslint components --ext .jsx --no-error-on-unmatched-pattern && eslint containers --ext .jsx --no-error-on-unmatched-pattern && eslint locales --ext .jsx --no-error-on-unmatched-pattern",
+    "lint:init": "eslint --init",
+    "lint:fix": "eslint --fix pages --ext .jsx --no-error-on-unmatched-pattern && eslint --fix components --ext .jsx --no-error-on-unmatched-pattern && eslint --fix containers --ext .jsx --no-error-on-unmatched-pattern && eslint --fix locales --ext .jsx --no-error-on-unmatched-pattern"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-react": "^3.0.2",
+    "antd": "^4.15.4",
+    "antd-mask-input": "^0.1.15",
+    "axios": "^0.21.1",
+    "ckeditor5-build-classic-dna": "^1.1.1",
+    "dotenv-webpack": "^7.0.2",
+    "es6-promise": "^4.2.8",
+    "forever": "^3.0.4",
+    "google-map-react": "^2.1.9",
+    "moment": "^2.29.1",
+    "next": "10.2.0",
+    "next-iron-session": "^4.1.13",
+    "next-js-suggest-input": "^1.0.2",
+    "nextjs-fonts": "^0.22.0",
+    "nextjs-progressbar": "^0.0.9",
+    "npm-check-updates": "^11.5.9",
+    "react": "17.0.2",
+    "react-color": "^2.19.3",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "17.0.2",
+    "react-highlight-words": "^0.17.0",
+    "react-intl": "^5.17.4",
+    "sass": "^1.32.12",
+    "swiper": "^6.5.9",
+    "swr": "^0.5.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-plugin-react": "^7.23.2",
+    "redux-devtools-extension": "^2.13.9"
+  }
+}

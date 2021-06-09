@@ -1,0 +1,19 @@
+.signin-page{
+    max-width: 1024px;
+    padding: 0 1rem;
+    margin: auto;
+    .img{
+        div{
+            margin: auto;
+            width: 5rem;
+            img{
+                width: calc(100% - 1rem);
+                margin: .5rem;
+            }
+        }
+    }
+    .signin-right-side{
+        display: flex;
+        align-items: center;
+    }
+}

@@ -1,0 +1,129 @@
+html body{
+    font-family: 'Avenir';
+    color:rgba(0, 0, 0, 0.85);
+    a{
+        color: rgba(0, 0, 0, 0.85);
+        &:hover, &:active{
+            color: $fourth-color;
+        }
+    }
+}
+.ant-btn-hbs-outline-default:hover{
+    border-color: $primary-color!important;
+}
+.ant-btn.ant-btn-linkedin{
+    background-color: #257AB6;
+    border-color: #257AB6;
+    color: white;
+    &:hover{
+        background-color: #156Aa6;
+        color: white;
+    }
+}
+.ant-btn.ant-btn-hbs-primary, .ant-btn.ant-btn-hbs-primary:focus{
+    color: white;
+    background: $primary-color;
+    border-color: $primary-color;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    &:hover, &:active{
+        color: #333;
+        background: $fourth-color;
+        border-color: $fourth-color;
+    }
+}
+.ant-btn.ant-btn-hbs-outline-primary, .ant-btn.ant-btn-hbs-outline-primary:focus {
+    color: $primary-color;
+    border-color: $primary-color;
+    background-color: white;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    &:hover, &:active {
+        color: white;
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
+}
+.ant-btn.ant-btn-hbs-dashed{
+    border: 1px dashed #d9d9d9;
+    &:hover, &:active, &:focus{
+        color: $primary-color;
+        background: #fff;
+        border-color: $primary-color;
+    }
+}
+#__next .ant-layout{
+    background-color: $primary-background-color;
+}
+section.ant-layout{
+    min-height: 100vh;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+    width: 1rem;
+    background-color: $fourth-color;
+    transition: .4s;
+}
+.ant-menu-item-selected a, .ant-menu-item-selected a:hover, .ant-menu-item a:hover{
+    color: $fourth-color;
+}
+.ant-btn:hover, .ant-btn:focus{
+    color: $primary-color;
+}
+.ant-btn-hbs-link{
+    border-color: transparent;
+    &:active, &:focus{
+        border-color: transparent;
+    }
+    &:hover{
+        border-color: transparent;
+        color: $primary-color;
+        span{
+            color: $primary-color!important;
+        }
+    }
+}
+.ant-menu-submenu-active{
+    &>div{
+        span, i, a {
+            color: $fourth-color!important;
+        }
+    }
+}
+.ant-menu-submenu-selected{
+    &>div{
+        color: $fourth-color;
+    }
+}
+.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-expand-icon, .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow{
+    color: $fourth-color;
+}
+.ant-menu-item.ant-menu-item-selected{
+    background-color: $primary-background-color!important;
+    color: $fourth-color;
+}
+.ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after{
+    border-right: 3px solid $fourth-color;
+}
+.ant-checkbox-checked .ant-checkbox-inner{
+    background-color: $fourth-color;
+    border-color: $fourth-color;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner{
+    border-color: $fourth-color;
+}
+.ant-tabs-tab.ant-tabs-tab-active, .ant-tabs-tab:hover{
+    div{
+        color: $fourth-color!important;
+    }
+}
+.ant-tabs-ink-bar{
+    background-color: $fourth-color;
+}
+.hbs-tag{
+    display: inline-block;
+    padding: .3rem .7rem;
+    background-image: linear-gradient(90deg, #ECF1F5 6.2%, #ECF1F5 78.2%);
+    margin: .3rem;
+    border-radius: 3rem;
+    box-shadow: 0 1px 5px #bbb;
+}
