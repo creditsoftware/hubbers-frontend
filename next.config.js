@@ -32,7 +32,11 @@ module.exports = withFonts({
       'hubbers-us.oss-us-west-1.aliyuncs.com',
       'hubbers-hk.oss-cn-hongkong.aliyuncs.com',
       'encrypted-tbn0.gstatic.com',
-      'i.ytimg.com'
+      'www.countryflags.io',
+      'i.ytimg.com',
+      'cdn.pixabay.com',
+      'fiverr-res.cloudinary.com',
+      'images.pexels.com'
     ],
   },
   api: {

@@ -11,14 +11,14 @@ export const LeftMenu = ({menuType}) => {
     <Menu mode={menuType} className="left-menu" defaultSelectedKeys={router.pathname}>
       <SubMenu key="hubbers-tools" title="Hubbers Tools">
         <Menu.Item key="/product-launcher">
-          <Link href="/product-launcher">
+          <Link href="/hubbers/product-launcher">
             <a>
               Product launcher
             </a>
           </Link>
         </Menu.Item>
         <Menu.Item key="/marketplace">
-          <Link href="/marketplace">
+          <Link href="/hubbers/marketplace">
             <a>
               Marketplace
             </a>
