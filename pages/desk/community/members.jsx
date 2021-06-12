@@ -21,7 +21,6 @@ const Members = (props) => {
   const router = useRouter();
   // const [filterValue, setFilterValue] = React.useState('all');
   useEffect(() => {
-    console.log(props);
     if (props.error === 'Unautherized you') {
       router.push('/auth/signin');
     }

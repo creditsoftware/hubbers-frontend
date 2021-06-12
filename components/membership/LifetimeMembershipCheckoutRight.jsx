@@ -135,7 +135,6 @@ export const LifetimeMembershipCheckoutRight = () => {
               () => ({
                 validator(rule, value) {
                   let v = value.replace(/[^0-9]/g, '');
-                  console.log(v);
                   if (v.length === 16)
                     return Promise.resolve();
                   return Promise.reject('Please input exact CVC!');

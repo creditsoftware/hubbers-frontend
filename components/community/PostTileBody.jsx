@@ -17,7 +17,6 @@ export const PostTileBody = ({ ...props }) => {
   const [newPost, setNewPost] = React.useState(null);
   const router = useRouter();
   React.useEffect(() => {
-    console.log(props);
     setNewPost({
       id: props.post.id,
       isReply: props.post.isReply,

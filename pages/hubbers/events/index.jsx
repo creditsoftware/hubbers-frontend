@@ -116,7 +116,6 @@ const ProductLauncher = () => {
       imgUrl: 'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/events/bangkok.jpg'
     }
   ];
-  console.log(event);
   return (
     <MainPageHoc title='Hubers events'>
       <React.Fragment>
