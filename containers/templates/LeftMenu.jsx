@@ -2,11 +2,18 @@ import React from 'react';
 import { Menu } from 'antd';
 import { BLOG_SITE_URL } from '../../constants/urls';
 import Link from 'next/link';
+import { fetchJson } from '../../utils/fetchJson';
+import { API } from '../../constants';
 import { useRouter } from 'next/router';
 import { AuthLink } from '../../components';
 const { SubMenu } = Menu;
-export const LeftMenu = ({menuType}) => {
+export const LeftMenu = ({ menuType }) => {
   const router = useRouter();
+  const [auth, setAuth] = React.useState(null);
+  React.useEffect(async () => {
+    const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
+    setAuth(response);
+  }, [router]);
   return (
     <Menu mode={menuType} className="left-menu" defaultSelectedKeys={router.pathname}>
       <SubMenu key="hubbers-tools" title="Hubbers Tools">
@@ -46,18 +53,26 @@ export const LeftMenu = ({menuType}) => {
           </a>
         </Link>
       </Menu.Item>
-      <Menu.Item key="/desk/community">
-        <AuthLink href='/desk/community'>
-          <a>
-            Community
-          </a>
-        </AuthLink>
-        {/* <Link href="/desk/community">
-          <a>
-            Community
-          </a>
-        </Link> */}
-      </Menu.Item>
+      {
+        auth && (
+          auth.isLoggedIn ?
+            <Menu.Item key="/desk/community">
+              <AuthLink href='/desk/community'>
+                <a>
+                  Community
+                </a>
+              </AuthLink>
+            </Menu.Item>
+            :
+            <Menu.Item key="/hubbers/community">
+              <Link href='/hubbers/community'>
+                <a>
+                  Community
+                </a>
+              </Link>
+            </Menu.Item>
+        )
+      }
       <Menu.Item key="/hubbers/events">
         <Link href="/hubbers/events">
           <a>
