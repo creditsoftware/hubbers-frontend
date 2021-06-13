@@ -13,8 +13,9 @@ import { useRouter } from 'next/router';
 
 const Signin = () => {
   const size = useWindowSize();
+  const router = useRouter();
   const { mutateUser } = useUser({
-    redirectTo: '',
+    redirectTo: !router.query.redirect ? '' : router.query.redirect,
     redirectIfFound: true,
   });
   const [errorMsg, setErrorMsg] = React.useState('');
@@ -25,7 +26,12 @@ const Signin = () => {
   const tailLayout = {
     wrapperCol: { offset: size.width > 575 ? 8 : 0, span: 16 },
   };
-  const router = useRouter();
+  React.useEffect(async () => {
+    const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
+    if(response.isLoggedIn){
+      router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
+    }
+  }, [router]);
   const onFinish = async (values) => {
     try {
       await mutateUser(
