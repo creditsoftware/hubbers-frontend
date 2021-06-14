@@ -136,6 +136,7 @@ const Community = () => {
   const settings = {
     dots: true,
     infinite: false,
+    arrows: false,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 6,
@@ -233,7 +234,7 @@ const Community = () => {
             <Button type="hbs-outline-primary" size="large" shape="round">HBB REWARD</Button>
           </Space>
         </div>
-        <div className="community-leader bg-white pt-4 px-4">
+        <div className="community-leader bg-white pt-4">
           <h2 className="text-center fs-5 fw-6">Community leaders</h2>
           <Slider {...settings}>
             {
@@ -243,7 +244,7 @@ const Community = () => {
             }
           </Slider>
         </div>
-        <div className="hubbers-singapore bg-white pt-4 px-4">
+        <div className="hubbers-singapore bg-white pt-4">
           <h2 className="text-center fs-5 fw-6">They have just joined Hubbers Singapore</h2>
           <Slider {...settings}>
             {
