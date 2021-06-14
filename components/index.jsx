@@ -41,7 +41,9 @@ export {
   PostTileContent,
   PostTileCtrlMenu,
   PostTileHeader,
-  ReplyPostTile
+  ReplyPostTile,
+  DeskCommunity,
+  Userdata
 } from './community';
 export * as JobBoard from './job-board';
 export {

@@ -26,3 +26,5 @@ export { PostTileContent } from './PostTileContent';
 export { PostTileCtrlMenu } from './PostTileCtrlMenu';
 export { PostTileHeader } from './PostTileHeader';
 export { ReplyPostTile } from './ReplyPostTile';
+export { Userdata } from './Userdata';
+export { DeskCommunity } from './DeskCommunity';
