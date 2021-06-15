@@ -2,7 +2,7 @@ import React from 'react';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 const Contacts = () => {
   return (
-    <DeskPageHoc title='Contacts' activeSide='contacts'>
+    <DeskPageHoc title='Contacts' activeSide={{ active: ['contacts'], open: [] }}>
       <React.Fragment>
 
       </React.Fragment>
