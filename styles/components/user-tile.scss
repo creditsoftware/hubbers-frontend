@@ -1,0 +1,10 @@
+.user-box {
+    max-width: 130px;
+    &>h3,
+    span,
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
