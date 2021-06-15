@@ -7,7 +7,7 @@ import {
 } from '../../../../utils/withSession';
 
 export default withSession((req, res) => {
-  const communityId = req.query.communityId;
+  const data = req.body;
   try {
     const accessToken = req.session.get('accessToken');
     const apiInstance = axios.create({
@@ -16,7 +16,7 @@ export default withSession((req, res) => {
         Authorization: `Bearer ${accessToken}`
       }
     });
-    apiInstance.get(`${API.GET_MEMBER_LIST_API}/${communityId}`)
+    apiInstance.post(`${API.COMMUNITY_MEMBER_INVITE_API}`, {...data})
       .then((response) => {
         res.status(200).json(response.data);
       })

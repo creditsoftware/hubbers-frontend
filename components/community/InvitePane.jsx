@@ -2,52 +2,97 @@ import React from 'react';
 import ReactTagInput from 'next-js-suggest-input';
 import { AvatarTextarea } from '../AvatarTextarea';
 import { denisAvatar } from '../../constants/etc';
-import { Button, Card, Col, Row, Select, Space } from 'antd';
-import { LinkCopy } from '../LinkCopy';
+import {
+  Button,
+  Card,
+  Col,
+  Row,
+  Select,
+  Form,
+  // Space
+} from 'antd';
+// import { LinkCopy } from '../LinkCopy';
+import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
+import { useRouter } from 'next/router';
+import { httpRequestLocal } from '../../utils/httpRequestLocal';
+import { REQUEST_TYPE } from '../../constants/requestType';
+import { fetchJson } from '../../utils/fetchJson';
+import { defaultMsgOfCommunityMemberInvitation } from '../../constants/defaultMsgOfCommunityMemberInvitation';
+import { API } from '../../constants';
+import { useForm } from 'antd/lib/form/Form';
 const { Option } = Select;
 export const InvitePane = () => {
   const [tags, setTags] = React.useState([]);
   const suggestions = [];
-  const [msg, setMsg] = React.useState(`Hello!
-
-I’d like to invite you to our community, hubby.
-
-https://media1-production-mightynetworks.imgix.net/asset/22361108/Untitled-3.png?ixlib=rails-0.3.0&auto=format&w=42&h=42&fit=crop&crop=facesIt takes less than a minute to join and together we’re sharing our stories, experiences, and ideas.
-
-I know you’ll love it.
-
-See you here!
-Denis Kravchenko`);
+  const router = useRouter();
+  const [auth, setAuth] = React.useState(null);
+  const [msg, setMsg] = React.useState(null);
+  const [roles, setRoles] = React.useState(null);
+  const [form] = useForm();
+  React.useEffect(async () => {
+    const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
+    setAuth(response);
+    const rs = await fetchJson(`${API.LOCAL_GET_COMMUNITY_MEMBER_ROLES_API}`);
+    if (rs.success) {
+      setRoles(rs.data);
+      form.setFieldsValue({ roleId: 3 });
+    } else {
+      setRoles([]);
+    }
+  }, [router]);
+  const invite = (values) => {
+    let data = { ...values, communityId: router.query.community, from: auth && auth.communityMember.filter((member) => member.communityId === Number(router.query.community))[0].id };
+    httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
+      .then((response) => {
+        openNotificationWithIcon('success', 'Success', response.message);
+        // mutate(`${API.LOCAL_GET_POST_LIST_API}`, async () => {
+        //   if (router.query.community) {
+        //     let response = await fetch(`${API.LOCAL_GET_POST_LIST_API}?communityId=${router.query.community}`);
+        //     response = await response.json();
+        //     return response.data;
+        //   } else {
+        //     return [];
+        //   }
+        // });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
   return <React.Fragment>
     <h1 className="fw-6 fs-4 text-center">
       Let&apos;s Invite!
     </h1>
-    <React.Fragment>
-      <ReactTagInput
-        tags={tags}
-        placeholder="Enter emails"
-        maxTags={100}
-        editable={false}
-        readOnly={false}
-        removeOnBackspace={true}
-        suggestions={suggestions}
-        onChange={(newTags) => setTags(newTags)}
-      />
-      <AvatarTextarea
-        avatar={denisAvatar}
-        placeholder='Hello!
-
-I’d like to invite you to our community, hubby.
-
-https://media1-production-mightynetworks.imgix.net/asset/22361108/Untitled-3.png?ixlib=rails-0.3.0&auto=format&w=42&h=42&fit=crop&crop=facesIt takes less than a minute to join and together we’re sharing our stories, experiences, and ideas.
-
-I know you’ll love it.
-
-See you here!
-Denis Kravchenko'
-        value={msg}
-        onChange={(e) => setMsg(e.target.value)}
-      />
+    <Form
+      form={form}
+      onFinish={invite}
+    >
+      <Form.Item
+        name='to'
+        rules={[{ required: true, message: 'Please input emails!' }]}
+      >
+        <ReactTagInput
+          tags={tags}
+          placeholder="Enter emails"
+          maxTags={100}
+          editable={false}
+          readOnly={false}
+          removeOnBackspace={true}
+          suggestions={suggestions}
+          onChange={(newTags) => setTags(newTags)}
+        />
+      </Form.Item>
+      <Form.Item
+        name='message'
+        rules={[{ required: true, message: 'Please input description!' }]}
+      >
+        <AvatarTextarea
+          avatar={denisAvatar}
+          placeholder={`${defaultMsgOfCommunityMemberInvitation}\n${auth && auth.firstname ? auth.firstname : ''} ${auth && auth.lastname ? auth.lastname : ''}`}
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+        />
+      </Form.Item>
       <Card
         title='More Options'
         className='mt-3'
@@ -58,24 +103,33 @@ Denis Kravchenko'
         <p>
           Choose what permissions these members will have hubby.
         </p>
-        <Select defaultValue="member" size='large' style={{ width: '100%' }} allowClear>
-          <Option value="host">Host</Option>
-          <Option value="moderator">Morderator</Option>
-          <Option value="member">Member</Option>
-        </Select>
+        <Form.Item
+          name='roleId'
+          rules={[{ required: true, message: 'Please select role!' }]}
+        >
+          <Select defaultValue={3} size='large' style={{ width: '100%' }} allowClear>
+            {
+              roles && roles.map((r) => {
+                return <Option value={r.id} key={r.id}>{r.name}</Option>;
+              })
+            }
+          </Select>
+        </Form.Item>
       </Card>
       <Row className='mt-4 mx-4'>
         <Col span={16}>
-          <Space>
+          {/* <Space>
             <Button type='hbs-outline-primary' size='large'>Import Contacts</Button>
             <Button type='hbs-outline-primary' size='large'>Upload CSV</Button>
-          </Space>
+          </Space> */}
         </Col>
         <Col span={8} className='text-right'>
-          <Button type='hbs-primary' size='large'>Send</Button>
+          <Form.Item>
+            <Button htmlType='submit' type='hbs-primary' size='large'>Send</Button>
+          </Form.Item>
         </Col>
       </Row>
-      <Card
+      {/* <Card
         className='mt-5'
         title={
           <React.Fragment>
@@ -88,8 +142,8 @@ Denis Kravchenko'
           </React.Fragment>
         }
       >
-        <LinkCopy value='https://hubbers.io/community/hubby/000' />
-      </Card>
-    </React.Fragment>
+        <LinkCopy value={`${process.env.LOCAL_API_V1}/auth/signin?redirect=${process.env.LOCAL_API_V1}/desk/community/activate?community=${router.query.community}`} />
+      </Card> */}
+    </Form>
   </React.Fragment>;
 };

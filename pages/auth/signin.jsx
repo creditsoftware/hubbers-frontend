@@ -74,7 +74,7 @@ const Signin = () => {
                 <div className="text-center">
                   <Button type="linkedin" icon={<LinkedinOutlined />} size='large'>
                     Sign in with Linkedin
-                  </Button>
+                  </Button> 
                 </div>
               </Form.Item>
               <Form.Item {...tailLayout}>

@@ -7,7 +7,6 @@ import {
 } from '../../../../utils/withSession';
 
 export default withSession((req, res) => {
-  const communityId = req.query.communityId;
   try {
     const accessToken = req.session.get('accessToken');
     const apiInstance = axios.create({
@@ -16,7 +15,7 @@ export default withSession((req, res) => {
         Authorization: `Bearer ${accessToken}`
       }
     });
-    apiInstance.get(`${API.GET_MEMBER_LIST_API}/${communityId}`)
+    apiInstance.get(`${API.GET_MEMBER_ROLE_LIST_API}`)
       .then((response) => {
         res.status(200).json(response.data);
       })

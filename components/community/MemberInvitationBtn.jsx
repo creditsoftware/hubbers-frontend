@@ -1,10 +1,17 @@
 import React from 'react';
-import { Button, Col, Drawer, Row, Tabs, Typography } from 'antd';
+import {
+  Button,
+  Col,
+  Drawer,
+  Row,
+  Tabs,
+  // Typography
+} from 'antd';
 import { InvitePane } from './InvitePane';
 import { SentInvitePane } from './SentInvitePane';
-import { RequestToJoinPane } from './RequestToJoinPane';
+// import { RequestToJoinPane } from './RequestToJoinPane';
 const { TabPane } = Tabs;
-const { Text } = Typography;
+// const { Text } = Typography;
 export const MemberInvitationBtn = ({ ...props }) => {
   const [visibleInvitation, setVisibleInvitation] = React.useState(false);
   const onCloseInvitation = () => {
@@ -43,14 +50,14 @@ export const MemberInvitationBtn = ({ ...props }) => {
           <TabPane tab="Sent Invites" key="2">
             <SentInvitePane />
           </TabPane>
-          <TabPane tab={
+          {/* <TabPane tab={
             <span>
               Request to Join&nbsp;
               <Text mark>1</Text>
             </span>
           } key="3">
             <RequestToJoinPane />
-          </TabPane>
+          </TabPane> */}
         </Tabs>
       </Drawer>
     </React.Fragment>

@@ -22,19 +22,8 @@ const { Sider } = Layout;
 export const DeskSidebar = ({ active }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = React.useState(false);
-  // const [openKeys, setOpenKeys] = React.useState([]);
-  // const onChangeOpenKeys = (c) => {
-  // if (!c) {
-  // if (active === 'home' || active === 'discover' || active === 'members') {
-  // setOpenKeys(['community']);
-  // }
-  // } else {
-  // setOpenKeys([]);
-  // }
-  // };
   const onCollapse = c => {
     setCollapsed(c);
-    // onChangeOpenKeys(c);
   };
   useEffect(async () => {
     window.addEventListener('resize', () => {

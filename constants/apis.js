@@ -17,6 +17,9 @@ export const API = {
   LOCAL_GET_POST_LIST_API: process.env.LOCAL_API_V1 + '/api/community/post/get-list',
   LOCAL_GET_MEMBER_LIST_API: process.env.LOCAL_API_V1 + '/api/community/member/get',
   LOCAL_VERIFY_EMAIL_API: process.env.LOCAL_API_V1 + '/api/auth/verify-email',
+  LOCAL_GET_COMMUNITY_MEMBER_ROLES_API: process.env.LOCAL_API_V1 + '/api/community/member/get-roles',
+  LOCAL_COMMUNITY_MEMBER_INVITE_API: process.env.LOCAL_API_V1 + '/api/community/member/invite',
+  GET_LOCAL_COMMUNITY_MEMBER_INVITE_API: process.env.LOCAL_API_V1 + '/api/community/member/get-invites',
   LOCAL_UPLOAD_IMAGE_API: process.env.LOCAL_API_V1 + '/api/upload/image',
   LOCAL_UPLOAD_AVATAR_API: process.env.LOCAL_API_V1 + '/api/upload/avatar',
   //SERVER APIS : TO BACKEND
@@ -38,6 +41,9 @@ export const API = {
   DELETE_POST_API: process.env.API_V1 + 'community/post', //delete /:postId
   GET_POST_LIST_API: process.env.API_V1 + 'community/post/list', //get /:communityId
   GET_MEMBER_LIST_API: process.env.API_V1 + 'community/member/published', //get /:communityId
+  GET_MEMBER_ROLE_LIST_API: process.env.API_V1 + 'community/member-role', //get
+  COMMUNITY_MEMBER_INVITE_API: process.env.API_V1 + 'community/member/invite', //post
+  GET_COMMUNITY_MEMBER_INVITES_API: process.env.API_V1 + 'community/member-invite', //get /:communityId
   UPLOAD_IMAGE_API: process.env.API_V1 + 'upload/image',
   UPLOAD_AVATAR_API: process.env.API_V1 + 'upload/avatar',
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list' //get /:communityId

@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar from 'antd/lib/avatar/avatar';
-import { MoreOutlined } from '@ant-design/icons';
-import { Button, Popover, Space, Menu, Divider, Radio } from 'antd';
+// import { MoreOutlined } from '@ant-design/icons';
+import {
+  // Button,
+  // Popover,
+  Space,
+  // Menu,
+  // Divider,
+  // Radio
+} from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-const { SubMenu } = Menu;
-export const MemberTile = ({ showActions, avatar, name, role, ...props }) => {
-  const [show, setShow] = useState(0);
-  const router = useRouter();
+// import { useRouter } from 'next/router';
+// const { SubMenu } = Menu;
+export const MemberTile = ({
+  showActions,
+  // id,
+  avatar,
+  name,
+  role,
+  // ...props
+}) => {
+  const [show, setShow] = React.useState(0);
+  // const router = useRouter();
+  // const [memberId, setMemberId] = React.useState(null);
+  // useEffect(()=>{
+  //   setMemberId(id);
+  // },[]);
   const onShowActions = () => {
     if (showActions) {
       setShow(1);
@@ -32,10 +50,10 @@ export const MemberTile = ({ showActions, avatar, name, role, ...props }) => {
             </div>
           </div>
           <div className={show ? 'transition-4 opacity-1' : 'transition-4 opacity-0'}>
-            <Button type='hbs-outline-primary' shape='round'>
+            {/* <Button type='hbs-outline-primary' shape='round'>
               Follow
-            </Button>
-            <Popover
+            </Button> */}
+            {/* <Popover
               placement='bottomRight'
               title={''}
               content={
@@ -99,7 +117,7 @@ export const MemberTile = ({ showActions, avatar, name, role, ...props }) => {
               <Button type='hbs-outline-primary' shape='circle' className='ml-1'>
                 <MoreOutlined />
               </Button>
-            </Popover>
+            </Popover> */}
           </div>
         </Space>
       </div>

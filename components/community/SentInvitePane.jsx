@@ -1,6 +1,6 @@
 import React from 'react';
 import { CommunityMembersTable } from './CommunityMembersTable';
-import { InviteStatusPane } from './InviteStatusPane';
+// import { InviteStatusPane } from './InviteStatusPane';
 export const SentInvitePane = () => {
   return <React.Fragment>
     <h1 className="fw-6 fs-4 text-center">
@@ -9,7 +9,7 @@ export const SentInvitePane = () => {
     <p className="text-center">
       Here&apos;s a list of the people that have been invited to join hubby.
     </p>
-    <InviteStatusPane />
+    {/* <InviteStatusPane /> */}
     <CommunityMembersTable />
   </React.Fragment>;
 };
