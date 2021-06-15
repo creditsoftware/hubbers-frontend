@@ -36,3 +36,11 @@ yarn.lock
 package-lock.json
 
 #environment variable
+
+
+#lib
+/lib/*/node_modules
+/lib/*/yarn.lock
+/lib/*/package-lock.json
+/lib/*/dist
+/lib/*/.parcel-cache

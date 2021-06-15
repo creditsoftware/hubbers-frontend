@@ -4,10 +4,11 @@
   "version": "1.0.2",
   "scripts": {
     "build": "rm -rf build && npm run module-build && npm run umd-build && npm run umd-minify && npm run scss-build",
+    "build:w": "npm run module-build && npm run umd-build && npm run umd-minify && npm run scss-build",
     "example": "parcel ./example/index.html",
     "module-build": "tsc",
     "push": "git push origin master --tags && npm publish",
-    "scss-build": "sass src/styles/index.scss build/index.css --style compressed --source-map",
+    "scss-build": "sass src/styles/index.scss build/react-tag-input.css --style compressed --source-map",
     "umd-build": "rollup ./build/module/index.js --format umd -m --name 'ReactTagInput' -g react:React --file ./build/umd/index.js",
     "umd-minify": "uglifyjs ./build/umd/index.js -o ./build/umd/index.min.js --source-map url"
   },
@@ -36,5 +37,12 @@
   "homepage": "https://github.com/riohifi/next-js-suggest-input/",
   "directories": {
     "example": "example"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.0.0-beta.3.1",
+    "parcel": "^2.0.0-beta.3.1",
+    "rollup": "^2.51.2",
+    "typescript": "^4.3.2",
+    "uglify-js": "^3.13.9"
   }
 }

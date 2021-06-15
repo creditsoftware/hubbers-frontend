@@ -20,6 +20,7 @@ export default class ReactTagInput extends React.Component<ReactTagInputProps, S
     inputRef: React.RefObject<HTMLInputElement>;
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onInputKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    onBulr: () => void;
     addTag: (value: string) => void;
     removeTag: (i: number) => void;
     updateTag: (i: number, value: string) => void;

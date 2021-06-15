@@ -69,6 +69,24 @@ export default class ReactTagInput extends React.Component<ReactTagInputProps, S
 
   }
 
+  onBulr = () => {
+
+    const { input } = this.state;
+    const { validator, removeOnBackspace } = this.props;
+
+    // If input is blank, do nothing
+    if (input === "") { return; }
+
+    // Check if input is valid
+    const valid = validator !== undefined ? validator(input) : true;
+    if (!valid) {
+      return;
+    }
+
+    // Add input to tag list
+    this.addTag(input);
+  }
+
   addTag = (value: string) => {
     const tags = [ ...this.props.tags ];
     tags.push(value);
@@ -123,6 +141,7 @@ export default class ReactTagInput extends React.Component<ReactTagInputProps, S
             className={classSelectors.input}
             placeholder={placeholder || "Type and press enter"}
             onChange={this.onInputChange}
+            onBlurCapture={this.onBulr}
             onKeyDown={this.onInputKeyDown}
           />
         }
