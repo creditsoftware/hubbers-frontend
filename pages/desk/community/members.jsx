@@ -55,7 +55,7 @@ const Members = (props) => {
                   key={m.id}
                   id={m.id}
                   showActions={Number(m.user?.id) !== Number(auth.id) ? true : false}
-                  avatar={m.user?.avatar}
+                  avatar={m.user?.avatar ? m.user?.avatar : '/images/icons/avatar.png'}
                   name={m.user?.firstname + ' ' + m.user.lastname}
                   role={m.role?.name}
                 />;

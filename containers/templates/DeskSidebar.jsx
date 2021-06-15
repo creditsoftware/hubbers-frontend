@@ -17,25 +17,53 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { AuthLink } from '../../components';
+// import { fetchJson } from '../../utils/fetchJson';
+// import { API } from '../../constants';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 export const DeskSidebar = ({ active }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = React.useState(false);
+  const [communityId, setCommunityId] = React.useState(null);
+  // const [communityList, setCommunityList] = React.useState([]);
+  const [activeKey, setActiveKey] = React.useState([]);
   const onCollapse = c => {
     setCollapsed(c);
   };
   useEffect(async () => {
+    if(router.query.community){
+      setCommunityId(router.query.community);
+      if(router.pathname) {
+        let paths = router.pathname.split('/');
+        if(paths && paths[paths.length-1]) {
+          setActiveKey([`${paths[paths.length-1]}-${router.query.community}`]);
+        }
+      }
+    }
+    // fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
+    //   .then((response) => {
+    //     setCommunityList(response.data.data);
+    //     if (response.data && response.data.data?.length > 0) {
+    //       if (!router.query.community) {
+    //         router.push({ query: { ...router.query, community: response.data?.data[0].id } });
+    //       }
+    //     } else {
+    //       router.push({ query: { community: 'join' } });
+    //     }
+    //   })
+    //   .catch(() => {
+    //     setCommunityList([]);
+    //   });
     window.addEventListener('resize', () => {
       onCollapse(window.innerWidth < 1024);
     });
     onCollapse(window.innerWidth < 1024);
-  }, []);
+  }, [router]);
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className='desk-sider' width={300}>
       <Menu
-        defaultSelectedKeys={active.active}
-        defaultOpenKeys={active.open}
+        defaultSelectedKeys={[...active.active, ...activeKey]}
+        defaultOpenKeys={[...active.open, `community-${communityId}`]}
         mode="inline"
       >
         <Menu.Item key="dashboard" icon={<PieChartOutlined />}>
@@ -209,18 +237,79 @@ export const DeskSidebar = ({ active }) => {
         <SubMenu key="community"
           icon={<TeamOutlined />}
           title={
-            <AuthLink href={`/desk/community${router.query.community ? '?community=' + router.query.community : ''}`}>
-              <a>
-                Community&nbsp;&nbsp;
-                <Badge
-                  count={120}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
+            // <AuthLink href={`/desk/community${router.query.community ? '?community=' + router.query.community : ''}`}>
+            //   <a>
+            <div>
+              Community&nbsp;&nbsp;
+              <Badge
+                count={120}
+                size='small'
+                style={{ backgroundColor: '#52c41a' }}
+              />
+            </div>
+            //   </a>
+            // </AuthLink>
           }
         >
+          {/* {
+            communityList &&
+            communityList.length > 0 &&
+            communityList.map((community) => {
+              return <SubMenu
+                key={`community-${community.id}`}
+                icon={<TeamOutlined />}
+                title={
+                  <AuthLink href={`/desk/community?community=${community.id}`}>
+                    <a>
+                      {community.name}&nbsp;&nbsp;
+                      <Badge
+                        count={120}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                }
+              >
+                <Menu.Item key={`home-${community.id}`}>
+                  <AuthLink href={`/desk/community/home?community=${community.id}`}>
+                    <a>
+                      Home&nbsp;&nbsp;
+                      <Badge
+                        count={23}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+                <Menu.Item key={`discover-${community.id}`}>
+                  <AuthLink href={`/desk/community/discover?community=${community.id}`}>
+                    <a>
+                      Discover&nbsp;&nbsp;
+                      <Badge
+                        count={23}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+                <Menu.Item key={`members-${community.id}`}>
+                  <AuthLink href={`/desk/community/members?community=${community.id}`}>
+                    <a>
+                      Members&nbsp;&nbsp;
+                      <Badge
+                        count={80}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+              </SubMenu>;
+            })
+          } */}
           <Menu.Item key="home">
             <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`}>
               <a>
