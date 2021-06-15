@@ -75,7 +75,7 @@ export const InvitePane = () => {
           tags={tags}
           placeholder="Enter emails"
           maxTags={100}
-          editable={false}
+          editable={true}
           readOnly={false}
           removeOnBackspace={true}
           suggestions={suggestions}
