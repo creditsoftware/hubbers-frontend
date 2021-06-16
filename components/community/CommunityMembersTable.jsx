@@ -3,84 +3,42 @@ import { Table, Input, Button, Space, Avatar } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import Image from 'next/image';
-import { denisAvatar } from '../../constants/etc';
-
-const data = [
-  {
-    key: '1',
-    firstName:'Jomarie',
-    lastName:'Janner',
-    email:'jomariejaner258@gmail.com',
-    invitedBy:<React.Fragment>
-      <Space>
-        <Avatar src={<Image src={denisAvatar} width={100} height={100}/>}/>
-        <span className="fw-6">Denis Kravchenko</span>
-      </Space>
-    </React.Fragment>,
-    lastUpdated:'	Fri, Apr 23, 2021, 3:17pm',
-    status:<span className='fw-6 fc-primary'>Joined!</span>
-  },
-  {
-    key: '2',
-    firstName:'Jomarie',
-    lastName:'Janner',
-    email:'jomariejaner258@gmail.com',
-    invitedBy:<React.Fragment>
-      <Space>
-        <Avatar src={<Image src={denisAvatar} width={100} height={100}/>}/>
-        <span className="fw-6">Denis Kravchenko</span>
-      </Space>
-    </React.Fragment>,
-    lastUpdated:'	Fri, Apr 23, 2021, 3:17pm',
-    status:<span className='fw-6 fc-primary'>Joined!</span>
-  },
-  // {
-  //   key: '3',
-  //   firstName:'Jomarie',
-  //   lastName:'Janner',
-  //   email:'jomariejaner258@gmail.com',
-  //   invitedBy:<React.Fragment>
-  //     <Space>
-  //       <Avatar src={<Image src={denisAvatar} width={100} height={100}/>}/>
-  //       <span className="fw-6">Denis Kravchenko</span>
-  //     </Space>
-  //   </React.Fragment>,
-  //   lastUpdated:'	Fri, Apr 23, 2021, 3:17pm',
-  //   status:<span className='fw-6 fc-primary'>Joined!</span>
-  // },
-  // {
-  //   key: '4',
-  //   firstName:'Jomarie',
-  //   lastName:'Janner',
-  //   email:'jomariejaner258@gmail.com',
-  //   invitedBy:<React.Fragment>
-  //     <Space>
-  //       <Avatar src={<Image src={denisAvatar} width={100} height={100}/>}/>
-  //       <span className="fw-6">Denis Kravchenko</span>
-  //     </Space>
-  //   </React.Fragment>,
-  //   lastUpdated:'	Fri, Apr 23, 2021, 3:17pm',
-  //   status:<span className='fw-6 fc-primary'>Joined!</span>
-  // },
-  // {
-  //   key: '5',
-  //   firstName:'Jomarie',
-  //   lastName:'Janner',
-  //   email:'jomariejaner258@gmail.com',
-  //   invitedBy:<React.Fragment>
-  //     <Space>
-  //       <Avatar src={<Image src={denisAvatar} width={100} height={100}/>}/>
-  //       <span className="fw-6">Denis Kravchenko</span>
-  //     </Space>
-  //   </React.Fragment>,
-  //   lastUpdated:'	Fri, Apr 23, 2021, 3:17pm',
-  //   status:<span className='fw-6 fc-primary'>Joined!</span>
-  // },
-];
+import { fetchJson } from '../../utils/fetchJson';
+// import { mutate } from 'swr';
+import { API } from '../../constants';
+import { useRouter } from 'next/router';
 
 export const CommunityMembersTable = () => {
   const [searchText, setSearchText] = React.useState('');
   const [searchedColumn, setSearchedColumn] = React.useState('');
+  const router = useRouter();
+  const [invitationData, setInvitationData] = React.useState(null);
+  React.useEffect(async () => {
+    // mutate(`${API.GET_LOCAL_COMMUNITY_MEMBER_INVITE_API}`);
+    let result = await fetchJson(`${API.GET_LOCAL_COMMUNITY_MEMBER_INVITE_API}?communityId=${router.query.community}`);
+    if (result && result.success) {
+      let d = [];
+      if (result.data) {
+        await result.data.map((item, index) => {
+          d.push({
+            key: index,
+            firstName: item?.toMember?.user?.firstname,
+            lastName: item?.toMember?.user?.lastname,
+            email: item?.toMember?.user?.email,
+            invitedBy: <React.Fragment>
+              <Space>
+                <Avatar src={<Image src={item?.fromMember?.user?.avatar} width={100} height={100} />} />
+                <span className="fw-6">{item?.fromMember?.user?.firstname + ' ' + item?.fromMember?.user?.lastname}</span>
+              </Space>
+            </React.Fragment>,
+            lastUpdated: item?.toMember?.invitedAt,
+            status: <span className={`fw-6 fc-${item?.toMember?.status.toLowerCase()}`}>{item?.toMember?.status}</span>
+          });
+        });
+      }
+      setInvitationData(d);
+    }
+  }, []);
   const getColumnSearchProps = (dataIndex) => ({
     // eslint-disable-next-line react/display-name
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
@@ -120,7 +78,7 @@ export const CommunityMembersTable = () => {
       </div>;
     },
     // eslint-disable-next-line react/display-name
-    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }}/>,
+    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
     onFilter: (value, record) =>
       record[dataIndex]
         ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
@@ -137,7 +95,7 @@ export const CommunityMembersTable = () => {
       ) : (
         text
       ),
-  }); 
+  });
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -187,5 +145,5 @@ export const CommunityMembersTable = () => {
       ...getColumnSearchProps('status'),
     },
   ];
-  return <Table columns={columns} dataSource={data} />;
+  return <Table columns={columns} dataSource={invitationData ? invitationData : []} />;
 };

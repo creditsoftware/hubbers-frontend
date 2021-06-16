@@ -42,8 +42,10 @@ export {
   PostTileCtrlMenu,
   PostTileHeader,
   ReplyPostTile,
-  DeskCommunity,
-  Userdata
+  GlobalBlogSlider,
+  Userdata,
+  CommunityProgress,
+  GlobalEventSlider
 } from './community';
 export * as JobBoard from './job-board';
 export {

@@ -15,54 +15,79 @@
     src: url("/fonts/AvenirLTStd-Black.otf") format('truetype');
     font-weight: 600;
 }
-.fw-4{
-    font-weight: 400!important;
+
+.fw-4 {
+    font-weight: 400 !important;
 }
-.fw-5{
-    font-weight: 500!important;
+
+.fw-5 {
+    font-weight: 500 !important;
 }
-.fw-6{
-    font-weight: 600!important;
+
+.fw-6 {
+    font-weight: 600 !important;
 }
-.fs-1{
-    font-size: 1rem!important;
+
+.fs-1 {
+    font-size: 1rem !important;
 }
-.fs-2{
-    font-size: 1.25rem!important;
+
+.fs-2 {
+    font-size: 1.25rem !important;
 }
-.fs-3{
-    font-size: 1.5rem!important;
+
+.fs-3 {
+    font-size: 1.5rem !important;
 }
-.fs-4{
-    font-size: 1.75rem!important;
+
+.fs-4 {
+    font-size: 1.75rem !important;
 }
-.fs-5{
-    font-size: 2rem!important;
+
+.fs-5 {
+    font-size: 2rem !important;
 }
-.fs-6{
-    font-size: 2.5rem!important;
+
+.fs-6 {
+    font-size: 2.5rem !important;
 }
-.fs-7{
-    font-size: 3rem!important;
+
+.fc-pending {
+    color: orange !important;
 }
-.fc-primary{
-    color: $primary-color!important;
+
+.fc-declined,
+.fc-failed,
+.fc-canceled {
+    color: red !important;
 }
-.fc-secondary{
-    color: $secondary-color!important;
+
+.fc-primary,
+.fc-success,
+.fc-activated {
+    color: $primary-color !important;
 }
-.fc-third{
-    color: $third-color!important;
+
+.fc-secondary {
+    color: $secondary-color !important;
 }
-.fc-fourth{
-    color: $fourth-color!important;
+
+.fc-third {
+    color: $third-color !important;
 }
-.fc-white{
-    color: white!important;
+
+.fc-fourth {
+    color: $fourth-color !important;
 }
-.fc-grey{
-    color: grey!important;
+
+.fc-white {
+    color: white !important;
 }
-.fc-black{
-    color: black!important;
+
+.fc-grey {
+    color: grey !important;
+}
+
+.fc-black {
+    color: black !important;
 }

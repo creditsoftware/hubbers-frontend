@@ -28,7 +28,7 @@
     "moment": "^2.29.1",
     "next": "10.2.0",
     "next-iron-session": "^4.1.13",
-    "next-js-suggest-input": "^1.0.2",
+    "next-js-suggest-input": "file:lib/next-js-suggest-input",
     "nextjs-fonts": "^0.22.0",
     "nextjs-progressbar": "^0.0.9",
     "npm-check-updates": "^11.5.9",

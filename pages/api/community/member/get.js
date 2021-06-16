@@ -18,11 +18,9 @@ export default withSession((req, res) => {
     });
     apiInstance.get(`${API.GET_MEMBER_LIST_API}/${communityId}`)
       .then((response) => {
-        console.log(response);
         res.status(200).json(response.data);
       })
       .catch(async (err) => {
-        console.log(err);
         if (err.response && err.response.status === 401) {
           await req.session.destroy();
           res.status(401).json({

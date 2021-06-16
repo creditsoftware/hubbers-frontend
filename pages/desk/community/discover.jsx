@@ -2,8 +2,16 @@ import { Space } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import Image from 'next/image';
 import React from 'react';
-import { TopicSwiper, TopPostSwiper } from '../../../components';
-import { denisAvatar, jomarieAvatar, wangAvatar } from '../../../constants/etc';
+import {
+  TopicSwiper,
+  TopPostSwiper,
+  SwitchCommunity
+} from '../../../components';
+import {
+  denisAvatar,
+  jomarieAvatar,
+  wangAvatar
+} from '../../../constants/etc';
 import { DeskPageHoc } from '../../../containers';
 import { useRouter } from 'next/router';
 import { withSession } from '../../../utils/withSession';
@@ -19,6 +27,9 @@ const Discover = (props) => {
       <div className='max-w-80 m-auto px-3 pt-5'>
         <h1 className="fw-6 fs-5">
           Discover
+          <span style={{ float: 'right' }}>
+            <SwitchCommunity />
+          </span>
         </h1>
         <div className="fw-6 fs-2 mb-3">
           Top Posts

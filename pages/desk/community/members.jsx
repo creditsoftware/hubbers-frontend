@@ -4,13 +4,10 @@ import React, { useEffect } from 'react';
 import {
   MemberInvitationBtn,
   // MemberFilter,
+  SwitchCommunity,
   MemberTile
 } from '../../../components';
-import {
-  // denisAvatar,
-  jomarieAvatar,
-  // wangAvatar
-} from '../../../constants/etc';
+import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
 import { httpApiServer } from '../../../utils/httpRequest';
@@ -20,9 +17,15 @@ import { REQUEST_TYPE } from '../../../constants/requestType';
 const Members = (props) => {
   const router = useRouter();
   // const [filterValue, setFilterValue] = React.useState('all');
+  const [auth, setAuth] = React.useState(null);
+  const [members, setMembers] = React.useState(null);
   useEffect(() => {
     if (props.error === 'Unautherized you') {
       router.push('/auth/signin');
+    }
+    if(props.data && props.data.success){
+      setMembers(props.data.data);
+      setAuth(props.data.auth);
     }
     // if (router.query.filter) {
     //   setFilterValue(router.query.filter);
@@ -37,34 +40,27 @@ const Members = (props) => {
               <h1 className='fw-6 fs-5'>Members</h1>
             </Col>
             <Col span={12} className='text-right'>
-              <MemberInvitationBtn />
+              <Space>
+                <MemberInvitationBtn />
+                <SwitchCommunity/>
+              </Space>
             </Col>
           </Row>
           {/* <MemberFilter value={filterValue} /> */}
           <div>
             {
-              // props.data &&
-              // props.data.data &&
-
+              members &&
+              members.map((m) => {
+                return <MemberTile
+                  key={m.id}
+                  id={m.id}
+                  showActions={Number(m.user?.id) !== Number(auth.id) ? true : false}
+                  avatar={m.user?.avatar ? m.user?.avatar : '/images/icons/avatar.png'}
+                  name={m.user?.firstname + ' ' + m.user.lastname}
+                  role={m.role?.name}
+                />;
+              })
             }
-            <MemberTile
-              showActions
-              avatar={jomarieAvatar}
-              name={'Jomarie Janner'}
-              role={'Host'}
-            />
-            {/* <MemberTile
-              showAction={false}
-              avatar={denisAvatar}
-              name={'Denis Kravchenko'}
-              role={'Host'}
-            />
-            <MemberTile
-              showActions
-              avatar={wangAvatar}
-              name={'Wang Wei'}
-              role={'New member'}
-            /> */}
           </div>
         </div>
       </React.Fragment>
@@ -81,7 +77,7 @@ export const getServerSideProps = withSession(async (ctx) => {
   }
   return httpApiServer(`${API.LOCAL_GET_MEMBER_LIST_API}?communityId=${query.community}`, REQUEST_TYPE.GET, null, ctx)
     .then((response) => {
-      return { props: { data: response, error: null } };
+      return { props: { data: {...response, auth:user}, error: null } };
     })
     .catch(async (err) => {
       if (err.response && err.response.status === 401) {
