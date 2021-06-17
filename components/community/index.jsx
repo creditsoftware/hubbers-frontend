@@ -28,5 +28,5 @@ export { PostTileHeader } from './PostTileHeader';
 export { ReplyPostTile } from './ReplyPostTile';
 export { Userdata } from './Userdata';
 export { GlobalBlogSlider } from './GlobalBlogSlider';
-export { CommunityProgress } from './CommunityProgress';
 export { GlobalEventSlider } from './GlobalEventSlider';
+export { CommunityProgress } from './CommunityProgress';

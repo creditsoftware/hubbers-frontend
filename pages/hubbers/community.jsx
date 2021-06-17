@@ -93,8 +93,7 @@ const Community = () => {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
+          slidesToScroll: 2
         }
       },
       {
@@ -167,15 +166,15 @@ const Community = () => {
           </Container>
         </div>
         <Container>
-          <Row className="py-5 mx--3">
-            <Col lg={12} xs={24} className="px-3">
+          <Row className="py-5">
+            <Col lg={12} xs={24} className="pl-2">
               <h2 className="fs-5 fw-6">Latest activities</h2>
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>
             </Col>
-            <Col lg={12} xs={24} className="px-3">
+            <Col lg={12} xs={24} className="pl-2">
               <h2 className="fs-5 fw-6">Latest threads</h2>
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>

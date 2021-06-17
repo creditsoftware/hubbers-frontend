@@ -12,7 +12,7 @@ export const GlobalEventSlider = () => {
     },{
       url: '/hubbers/events/5d7756ae58de1b001ffad536/product-development-40-milan-italy',
       image:'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/events/milan.jpg',
-      date:'JSep 16 2019',
+      date:'Sep 16 2019',
       content:'Creators & Inventors Welcome! Hubbers introduces 4 product development tools to help creators successfully start and complete their product development journey.',
     },{
       url: '/hubbers/events/5d6662f07f1961001fe6fead/product-development-40-barcelona-spain',
