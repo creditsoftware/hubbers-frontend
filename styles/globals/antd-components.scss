@@ -1,0 +1,14 @@
+//antd switch button
+.ant-switch-checked{
+    background-color: $primary-color;
+}
+//antd radio button
+.ant-radio-checked::after{
+    border: 1px solid $primary-color;
+}
+.ant-radio-checked .ant-radio-inner{
+    border-color: $primary-color;
+}
+.ant-radio-inner::after{
+    background-color: $primary-color;
+}

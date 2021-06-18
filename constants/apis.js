@@ -34,7 +34,9 @@ export const API = {
   SIMPLE_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all', //get /:communityId
   ALL_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all/detail', //get /:communityId
   ADD_TOPIC_API: process.env.API_V1 + 'community/topic/add', //get /:communityId
+  GET_ALL_TOPIC_LIST_API: process.env.API_V1 + 'community/topic', //get
   FOLLOW_TOPIC_API: process.env.API_V1 + 'community/topic/follow', //get /:communityId
+  CREATE_EVENT_API: process.env.API_V1 + 'community/event', //post
   CREATE_POST_API: process.env.API_V1 + 'community/post', //post
   UPDATE_POST_API: process.env.API_V1 + 'community/post', //put /:id of post
   REPLY_POST_API: process.env.API_V1 + 'community/post/reply', //post /:parentId
