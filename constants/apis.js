@@ -29,6 +29,8 @@ export const API = {
   SIGNUP_API: process.env.API_V1 + 'auth/user/signup',
   RESEND_EAMIL_API: process.env.API_V1 + 'auth/user/resend-email',
   VERIFY_EMAIL_API: process.env.API_V1 + 'auth/user/verify-email',
+  FORGOT_PASSWORD_API: process.env.API_V1 + 'auth/user/forgot-password', //post
+  RESET_PASSWORD_API: process.env.API_V1 + 'auth/user/reset-password', //post
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
   COMMUNITY_DETAIL_API: process.env.API_V1 + 'community/detail', // /:id
   SIMPLE_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all', //get /:communityId
