@@ -3,7 +3,7 @@ import { denisAvatar } from '../../constants/etc';
 import { ArrowsAltOutlined } from '@ant-design/icons';
 import { Button, Drawer, Space, Row, Col, Avatar, Input, Select } from 'antd';
 import Image from 'next/image';
-import useWindowSize from '../../hooks/useWindowSize';
+import { useWindowSize } from '../../hooks';
 import { CKEditor5 } from '../CKEditor5';
 import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
@@ -39,7 +39,7 @@ export const EditPostDrawer = ({ visible, onHide, article }) => {
     });
   }, [router]);
   const clear = () => {
-    setPost({...post, topicId:'', content:'', title:''});
+    setPost({ ...post, topicId: '', content: '', title: '' });
   };
   const onClose = () => {
     clear();

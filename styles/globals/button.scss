@@ -1,0 +1,60 @@
+.ant-btn-hbs-outline-default:hover{
+    border-color: $primary-color!important;
+}
+.ant-btn.ant-btn-linkedin{
+    background-color: #257AB6;
+    border-color: #257AB6;
+    color: white;
+    &:hover{
+        background-color: #156Aa6;
+        color: white;
+    }
+}
+.ant-btn.ant-btn-hbs-primary, .ant-btn.ant-btn-hbs-primary:focus{
+    color: white;
+    background: $primary-color;
+    border-color: $primary-color;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    &:hover, &:active{
+        color: #333;
+        background: $fourth-color;
+        border-color: $fourth-color;
+    }
+}
+.ant-btn.ant-btn-hbs-outline-primary, .ant-btn.ant-btn-hbs-outline-primary:focus {
+    color: $primary-color;
+    border-color: $primary-color;
+    background-color: white;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    &:hover, &:active {
+        color: white;
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
+}
+.ant-btn.ant-btn-hbs-dashed{
+    border: 1px dashed #d9d9d9;
+    &:hover, &:active, &:focus{
+        color: $primary-color;
+        background: #fff;
+        border-color: $primary-color;
+    }
+}
+.ant-btn:hover, .ant-btn:focus{
+    color: $primary-color;
+}
+.ant-btn-hbs-link{
+    border-color: transparent;
+    &:active, &:focus{
+        border-color: transparent;
+    }
+    &:hover{
+        border-color: transparent;
+        color: $primary-color;
+        span{
+            color: $primary-color!important;
+        }
+    }
+}

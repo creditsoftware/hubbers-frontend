@@ -1,5 +1,5 @@
 import React from 'react';
-function useWindowSize() {
+export const useWindowSize = () => {
   const [windowSize, setWindowSize] = React.useState({
     width: undefined,
     height: undefined,
@@ -16,5 +16,4 @@ function useWindowSize() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   return windowSize;
-}
-export default useWindowSize;
+};

@@ -16,7 +16,7 @@ import {
 } from 'antd';
 import { ArrowsAltOutlined } from '@ant-design/icons';
 import { Container } from '../Container';
-import useWindowSize from '../../hooks/useWindowSize';
+import { useWindowSize } from '../../hooks';
 import {
   EventRepeatPeriod,
   timezoneList,

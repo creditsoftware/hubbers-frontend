@@ -1,6 +1,6 @@
 import React from 'react';
 import { Radio, Tooltip } from 'antd';
-import useWindowSize from '../hooks/useWindowSize';
+import {useWindowSize} from '../hooks';
 import { primaryColor } from '../constants/color';
 import Link from 'next/link';
 

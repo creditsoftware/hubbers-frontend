@@ -82,3 +82,6 @@ export {
   LifetimeMembershipCheckoutLeft,
   LifetimeMembershipCheckoutRight
 } from './membership';
+export {
+  LinkedinLogin
+} from './auth';

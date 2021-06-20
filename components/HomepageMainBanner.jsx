@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import useWindowSize from '../hooks/useWindowSize';
+import { useWindowSize } from '../hooks';
 import Image from 'next/image';
 import { MailChimp } from './MailChimp';
 import { Container } from './Container';

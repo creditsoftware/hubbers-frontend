@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { jomarieAvatar } from '../../constants/etc';
 import { Container } from '../Container';
 import { UploadImage } from '../UploadImage';
-import useWindowSize from '../../hooks/useWindowSize';
+import { useWindowSize } from '../../hooks';
 import { MemberInvitationBtn } from './MemberInvitationBtn';
 import { httpRequestLocal } from '../../utils/httpRequestLocal';
 import { API } from '../../constants';

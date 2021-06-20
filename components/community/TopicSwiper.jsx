@@ -1,6 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import useWindowSize from '../../hooks/useWindowSize';
+import { useWindowSize } from '../../hooks';
 import { useRouter } from 'next/router';
 import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';

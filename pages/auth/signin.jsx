@@ -1,15 +1,27 @@
-import { Col, Divider, Row } from 'antd';
+import {
+  Col,
+  Divider,
+  Row,
+  Form,
+  Input,
+  Button
+} from 'antd';
 import React from 'react';
-import { LinkedinOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  LockOutlined
+} from '@ant-design/icons';
 import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
-import { Form, Input, Button } from 'antd';
-import useWindowSize from '../../hooks/useWindowSize';
+import {
+  useWindowSize,
+  useUser
+} from '../../hooks';
 import Link from 'next/link';
 import { API, signinFeatureObj } from '../../constants/index';
-import { useUser } from '../../hooks/useUser';
 import { fetchJson } from '../../utils/fetchJson';
 import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 import { useRouter } from 'next/router';
+import { LinkedinLogin } from '../../components';
 
 const Signin = () => {
   const size = useWindowSize();
@@ -28,7 +40,7 @@ const Signin = () => {
   };
   React.useEffect(async () => {
     const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
-    if(response.isLoggedIn){
+    if (response.isLoggedIn) {
       router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
     }
   }, [router]);
@@ -67,9 +79,7 @@ const Signin = () => {
             >
               <Form.Item {...tailLayout}>
                 <div className="text-center">
-                  <Button type="linkedin" icon={<LinkedinOutlined />} size='large'>
-                    Sign in with Linkedin
-                  </Button> 
+                  <LinkedinLogin />
                 </div>
               </Form.Item>
               <Form.Item {...tailLayout}>

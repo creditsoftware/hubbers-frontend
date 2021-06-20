@@ -50,5 +50,6 @@ export const API = {
   GET_COMMUNITY_MEMBER_INVITES_API: process.env.API_V1 + 'community/member-invite', //get /:communityId
   UPLOAD_IMAGE_API: process.env.API_V1 + 'upload/image',
   UPLOAD_AVATAR_API: process.env.API_V1 + 'upload/avatar',
-  SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list' //get /:communityId
+  SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
+  LINKEDIN_LOGIN_REDIRECT_API: process.env.LP_API_V1 + 'auth/linkedin'
 };
