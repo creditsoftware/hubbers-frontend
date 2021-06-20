@@ -6,15 +6,12 @@ import { Form, Input, Button } from 'antd';
 import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants/index';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 
 const ForgotPassword = () => {
-  const router = useRouter();
-  React.useEffect(async () => {
-
-  }, [router]);
+  const [btnLoading, setBtnLoading] = React.useState(false);
   const onFinish = async (values) => {
+    setBtnLoading(true);
     fetchJson(`${API.FORGOT_PASSWORD_API}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,8 +22,10 @@ const ForgotPassword = () => {
       } else {
         openNotificationWithIcon('error', 'Failed', response.message);
       }
+      setBtnLoading(false);
     }).catch((err) => {
       console.log(err);
+      setBtnLoading(false);
       openNotificationWithIcon('error', 'Failed', 'Failed to reset password!');
     });
   };
@@ -53,7 +52,7 @@ const ForgotPassword = () => {
           </Form.Item>
           <Form.Item>
             <div className="text-center pt-4">
-              <Button type="hbs-primary" size='large' htmlType="submit" shape="round">
+              <Button loading={btnLoading} type="hbs-primary" size='large' htmlType="submit" shape="round">
                 Send email
               </Button>
             </div>

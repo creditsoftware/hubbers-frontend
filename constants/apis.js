@@ -27,7 +27,7 @@ export const API = {
   SIGNOUT_API: process.env.API_V1 + 'auth/user/signout',
   REFRESH_API: process.env.API_V1 + 'auth/user/refresh',
   SIGNUP_API: process.env.API_V1 + 'auth/user/signup',
-  RESEND_EAMIL_API: process.env.API_V1 + 'auth/user/resend-email',
+  RESEND_EAMIL_API: process.env.API_V1 + 'auth/user/send-email',
   VERIFY_EMAIL_API: process.env.API_V1 + 'auth/user/verify-email',
   FORGOT_PASSWORD_API: process.env.API_V1 + 'auth/user/forgot-password', //post
   RESET_PASSWORD_API: process.env.API_V1 + 'auth/user/reset-password', //post

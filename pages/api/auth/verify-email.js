@@ -18,6 +18,6 @@ export default async (req, res) => {
     const {
       response: fetchResponse
     } = err;
-    res.status(fetchResponse?.status || 500).json(err.data);
+    res.status(fetchResponse?.status || 500).json(fetchResponse.data);
   }
 };

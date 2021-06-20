@@ -13,22 +13,26 @@ import { Promise } from '../../utils/promise';
 const ResetPassword = () => {
   const router = useRouter();
   const formRef = React.createRef();
+  const [btnLoading, setBtnloading] = React.useState(false);
   React.useEffect(() => {
     formRef.current.setFieldsValue({ email: router.query.email });
   }, [router]);
   const onFinish = async (values) => {
+    setBtnloading(true);
     const data = {password:values.password, token:router.query.token};
     fetchJson(`${API.RESET_PASSWORD_API}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }).then((response) => {
+      setBtnloading(false);
       if(response.success) {
         openNotificationWithIcon('success', 'Success', response.message);
       } else {
         openNotificationWithIcon('error', 'Failed', response.message);
       }
     }).catch((err) => {
+      setBtnloading(false);
       console.log(err);
       openNotificationWithIcon('error', 'Failed', 'Failed to reset password!');
     });
@@ -95,7 +99,7 @@ const ResetPassword = () => {
           </Form.Item>
           <Form.Item>
             <div className="text-center pt-4">
-              <Button type="hbs-primary" size='large' htmlType="submit" shape="round">
+              <Button loading={btnLoading} type="hbs-primary" size='large' htmlType="submit" shape="round">
                 Reset password
               </Button>
             </div>

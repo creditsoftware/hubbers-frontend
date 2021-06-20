@@ -7,21 +7,26 @@ import { API } from '../../constants';
 import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 
 const SendVerifyEmail = () => {
+  const [btnLoading, setBtnLoading] = React.useState(false);
   const onFinish = (values) => {
-    axios.post(`${API.RESEND_EAMIL_API}`, { ...values })
+    setBtnLoading(true);
+    axios.get(`${API.RESEND_EAMIL_API}/${values.email}`)
       .then((response) => {
+        setBtnLoading(false);
         if (response.data.success === true) {
-          openNotificationWithIcon('success', response.data.message, '');
+          openNotificationWithIcon('success', 'Success', response.data.message);
         } else {
-          openNotificationWithIcon('error', response.data.message, '');
+          openNotificationWithIcon('error', 'Failed to send email', response.data.message);
         }
       })
-      .catch((err) => {
-        openNotificationWithIcon('error', 'Something went wrong!', err.response.data.message);
+      .catch((error) => {
+        setBtnLoading(false);
+        if (error.response) {
+          openNotificationWithIcon('error', 'Something went wrong!', error.response.data.message);
+        } else if (error.request) {
+          openNotificationWithIcon('error', 'Something went wrong!', error.message);
+        }
       });
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
   return (
     <MainPageHoc title="Resend verify email">
@@ -36,7 +41,6 @@ const SendVerifyEmail = () => {
             name="sendEmail"
             initialValues={{ remember: false }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
           >
             <Form.Item
               name="email"
@@ -45,7 +49,7 @@ const SendVerifyEmail = () => {
               <Input size='large' prefix={<UserOutlined />} placeholder='Enter your email' />
             </Form.Item>
             <Form.Item>
-              <Button size='large' shape='round' className='mt-4' htmlType='submit' type='hbs-primary'>
+              <Button loading={btnLoading} size='large' shape='round' className='mt-4' htmlType='submit' type='hbs-primary'>
                 Resend verification email
               </Button>
             </Form.Item>

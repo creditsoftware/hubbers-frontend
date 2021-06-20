@@ -14,11 +14,11 @@ import { useRouter } from 'next/router';
 const Signin = () => {
   const size = useWindowSize();
   const router = useRouter();
+  const [btnLoading, setBtnLoading] = React.useState(false);
   const { mutateUser } = useUser({
     redirectTo: !router.query.redirect ? '' : router.query.redirect,
     redirectIfFound: true,
   });
-  const [errorMsg, setErrorMsg] = React.useState('');
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -33,6 +33,7 @@ const Signin = () => {
     }
   }, [router]);
   const onFinish = async (values) => {
+    setBtnLoading(true);
     try {
       await mutateUser(
         fetchJson(`${API.LOCAL_SIGNIN_API}`, {
@@ -41,20 +42,15 @@ const Signin = () => {
           body: JSON.stringify(values),
         }),
       );
+      setBtnLoading(false);
       openNotificationWithIcon('success', 'Login successfully!', '');
       router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
     } catch (error) {
-      setErrorMsg(error.data.message);
-    }
-    if (errorMsg) {
-      openNotificationWithIcon('error', 'Something went wrong!', errorMsg);
-      setErrorMsg('');
+      setBtnLoading(false);
+      openNotificationWithIcon('error', 'Something went wrong!', error.data.message);
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <MainPageHoc title="Sign in">
       <div className='signin-page'>
@@ -68,7 +64,6 @@ const Signin = () => {
               name="signin"
               initialValues={{ remember: false }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
             >
               <Form.Item {...tailLayout}>
                 <div className="text-center">
@@ -99,7 +94,7 @@ const Signin = () => {
 							</Form.Item> */}
               <Form.Item {...tailLayout}>
                 <div className="text-center pt-4">
-                  <Button type="hbs-primary" size='large' htmlType="submit" shape="round">
+                  <Button loading={btnLoading} type="hbs-primary" size='large' htmlType="submit" shape="round">
                     Sign in
                   </Button>
                 </div>

@@ -12,6 +12,7 @@ import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 
 const Signup = () => {
   const router = useRouter();
+  const [btnLoading, setBtnLoading] = React.useState(false);
   const layout = {
     labelCol: { span: 0 },
     wrapperCol: { span: 24 },
@@ -20,8 +21,10 @@ const Signup = () => {
     wrapperCol: { offset: 0, span: 24 },
   };
   const onFinish = (values) => {
+    setBtnLoading(true);
     axios.post(`${API.LOCAL_SIGNUP_API}`, { ...values })
       .then((response) => {
+        setBtnLoading(false);
         if (response.status === 200 && response.data?.success) {
           openNotificationWithIcon('success', 'Sign up successfully!', '');
           setTimeout(() => {
@@ -32,11 +35,9 @@ const Signup = () => {
         }
       })
       .catch((err) => {
+        setBtnLoading(false);
         openNotificationWithIcon('error', 'Something went wrong!', err.response.data.message);
       });
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
   return (
     <MainPageHoc title="Sign Up">
@@ -54,7 +55,6 @@ const Signup = () => {
               name="signup"
               initialValues={{ remember: false }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
             >
               <Form.Item {...tailLayout}>
                 <p className="text-center">
@@ -126,7 +126,7 @@ const Signup = () => {
               </Form.Item>
               <Form.Item {...tailLayout}>
                 <div className="text-center pt-4">
-                  <Button type="hbs-primary" size='large' htmlType="submit" shape="round">
+                  <Button loading={btnLoading} type="hbs-primary" size='large' htmlType="submit" shape="round">
                     Join Hubbers
                   </Button>
                 </div>
