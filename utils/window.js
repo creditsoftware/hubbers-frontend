@@ -3,7 +3,7 @@ import {
 } from './promise';
 
 export const openPopupCenter = (url, title, w, h, redirect) => {
-  return Promise((resolve) => {
+  return new Promise((resolve) => {
     // Fixes dual-screen position                         Most browsers      Firefox
     const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
     const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;

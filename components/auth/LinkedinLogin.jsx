@@ -9,11 +9,16 @@ export const LinkedinLogin = () => {
     window.addEventListener('message', receiveToken);
   }, []);
   const receiveToken = (response) => {
-    if (response.data.type === 'linkedin') {
-      console.log(response);
-    }
+    // if (response.data.type === 'linkedin') {
+    console.log(response);
+    // }
   };
   const handleClick = () => {
+    console.log(`
+    https://www.linkedin.com/oauth/v2/authorization?response_type=code` +
+  `&client_id=${process.env.LINKEDIN_API_KEY}&redirect_uri=${API.LINKEDIN_LOGIN_REDIRECT_API}` +
+  `&state=${Math.floor(Math.random() * 90000) + 10000}` +
+  '&scope=r_liteprofile,r_emailaddress', 'Linkedin Authentication', 600, 600, API.LINKEDIN_LOGIN_REDIRECT_API);
     openPopupCenter(`
       	https://www.linkedin.com/oauth/v2/authorization?response_type=code` +
       `&client_id=${process.env.LINKEDIN_API_KEY}&redirect_uri=${API.LINKEDIN_LOGIN_REDIRECT_API}` +
