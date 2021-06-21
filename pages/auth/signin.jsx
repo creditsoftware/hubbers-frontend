@@ -54,9 +54,16 @@ const Signin = () => {
           body: JSON.stringify(values),
         }),
       );
-      setBtnLoading(false);
-      openNotificationWithIcon('success', 'Login successfully!', '');
-      router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
+      if(router.query.sig && router.query.sso){
+        const ssoResult = await fetchJson(`${API.SINGLE_SIGN_ON_API}?email=${values.email}&sig=${router.query.sig}&payload=${router.query.sso}`);
+        setBtnLoading(false);
+        openNotificationWithIcon('success', 'Login successfully!', ssoResult.message);
+        router.push(ssoResult.data.redirectUrl);
+      } else {
+        setBtnLoading(false);
+        openNotificationWithIcon('success', 'Login successfully!', '');
+        router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
+      }
     } catch (error) {
       setBtnLoading(false);
       openNotificationWithIcon('error', 'Something went wrong!', error.data.message);

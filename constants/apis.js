@@ -51,5 +51,6 @@ export const API = {
   UPLOAD_IMAGE_API: process.env.API_V1 + 'upload/image',
   UPLOAD_AVATAR_API: process.env.API_V1 + 'upload/avatar',
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
-  LINKEDIN_LOGIN_REDIRECT_API: process.env.LP_API_V1 + 'auth/linkedin'
+  LINKEDIN_LOGIN_REDIRECT_API: process.env.API_V1 + 'auth/user/linkedin',
+  SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso'
 };
