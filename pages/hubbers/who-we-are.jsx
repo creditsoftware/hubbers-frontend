@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import React from 'react';
-import { useWindowSize } from '../../hooks/useWindowSize';
+import { useWindowSize } from '../../hooks';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Container, HubbersTeamMemberTile } from '../../components';
 import { MainPageHoc } from '../../containers';
