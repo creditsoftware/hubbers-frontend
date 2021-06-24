@@ -18,14 +18,14 @@ import {
 } from '../../hooks';
 import Link from 'next/link';
 import { API, signinFeatureObj } from '../../constants/index';
-import { fetchJson } from '../../utils/fetchJson';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
+import { fetchJson, withSession, openNotificationWithIcon, fetcher } from '../../utils';
 import { useRouter } from 'next/router';
 import { LinkedinLogin } from '../../components';
-
-const Signin = () => {
+import useSWR from 'swr';
+const Signin = ({ ...props }) => {
   const size = useWindowSize();
   const router = useRouter();
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [btnLoading, setBtnLoading] = React.useState(false);
   const { mutateUser } = useUser({
     redirectTo: !router.query.redirect ? '' : router.query.redirect,
@@ -54,7 +54,7 @@ const Signin = () => {
           body: JSON.stringify(values),
         }),
       );
-      if(router.query.sig && router.query.sso){
+      if (router.query.sig && router.query.sso) {
         const ssoResult = await fetchJson(`${API.SINGLE_SIGN_ON_API}?email=${values.email}&sig=${router.query.sig}&payload=${router.query.sso}`);
         setBtnLoading(false);
         openNotificationWithIcon('success', 'Login successfully!', ssoResult.message);
@@ -71,7 +71,7 @@ const Signin = () => {
   };
 
   return (
-    <MainPageHoc title="Sign in">
+    <MainPageHoc title="Sign in" auth={{ ...data }}>
       <div className='signin-page'>
         <h1 className="fw-5 text-upper fs-6 text-center py-5 m-0">
           welcome back to hubbers
@@ -170,5 +170,13 @@ const Signin = () => {
     </MainPageHoc>
   );
 };
-
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default Signin;

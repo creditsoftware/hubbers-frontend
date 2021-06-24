@@ -3,10 +3,14 @@ import Image from 'next/image';
 import { Row, Col } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Container, MainBanner } from '../../components';
-
-const GetOurApp = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const GetOurApp = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title="Get Our App">
+    <MainPageHoc title="Get Our App" auth={{ ...data }}>
       <React.Fragment>
         <div className="p-rel w-100 get-our-app">
           <MainBanner className='p-abs' url='/images/app_store_banner.png' />
@@ -52,7 +56,13 @@ const GetOurApp = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default GetOurApp;

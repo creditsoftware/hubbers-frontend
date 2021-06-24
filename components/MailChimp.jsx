@@ -3,19 +3,13 @@ import { UserOutlined } from '@ant-design/icons';
 import { Form, Input, Button } from 'antd';
 
 export const MailChimp = ({label, placeholder}) => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className='mailchimp-wrap'>
       <Form
         layout="vertical"
         name="mailchimp"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        // onFinish={onFinish}
+        // onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label={label}

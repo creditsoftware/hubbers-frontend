@@ -3,9 +3,14 @@ import Image from 'next/image';
 import React from 'react';
 import { Container, JobApplyTable } from '../../components';
 import { MainPageHoc } from '../../containers';
-const HubbersJobBoard = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const HubbersJobBoard = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title='Hubbers Job Board'>
+    <MainPageHoc title='Hubbers Job Board' auth={{ ...data }}>
       <React.Fragment>
         <Container className='mt-5'>
           <React.Fragment>
@@ -81,7 +86,13 @@ const HubbersJobBoard = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default HubbersJobBoard;

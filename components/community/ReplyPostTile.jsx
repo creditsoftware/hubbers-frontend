@@ -6,9 +6,8 @@ import {
   Input,
   Space
 } from 'antd';
-import { httpRequestLocal } from '../../utils/httpRequestLocal';
+import { httpRequestLocal, openNotificationWithIcon } from '../../utils';
 import { REQUEST_TYPE } from '../../constants/requestType';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -43,9 +42,6 @@ export const ReplyPostTile = ({ ...props }) => {
             return [];
           }
         });
-      })
-      .catch((err) => {
-        console.log(err.response);
       });
     cancel();
   };

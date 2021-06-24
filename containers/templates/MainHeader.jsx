@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { LeftMenu } from './LeftMenu';
 import { RightMenu } from './RightMenu';
 const { Header } = Layout;
-export const MainHeader = () => {
-
+export const MainHeader = (props) => {
   const [state, setState] = React.useState({
     visible: false
   });
@@ -29,8 +28,8 @@ export const MainHeader = () => {
           </a>
         </Link>
         <div className="menu-content">
-          <LeftMenu menuType='horizontal' />
-          <RightMenu menuType='horizontal' />
+          <LeftMenu menuType='horizontal' {...props} />
+          <RightMenu menuType='horizontal' {...props} />
           <div className="bars-menu-wrapper">
             <Button className="bars-menu" type='hbs-outline-default' onClick={showDrawer}>
               <span className="bars-btn"></span>
@@ -43,8 +42,8 @@ export const MainHeader = () => {
             onClose={onClose}
             visible={state.visible}
           >
-            <LeftMenu menuType='vertical' />
-            <RightMenu menuType='vertical' />
+            <LeftMenu menuType='vertical' {...props} />
+            <RightMenu menuType='vertical' {...props} />
           </Drawer>
         </div>
       </Header>

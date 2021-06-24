@@ -7,7 +7,7 @@ import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
-const GrabAShare = ({ ...props }) => {
+const RequestInvestorAccess = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
     <MainPageHoc title="Grab a share" auth={{ ...data }}>
@@ -127,4 +127,4 @@ export const getServerSideProps = withSession(async (ctx) => {
     return { props: { auth: { isLoggedIn: false } } };
   }
 });
-export default GrabAShare;
+export default RequestInvestorAccess;

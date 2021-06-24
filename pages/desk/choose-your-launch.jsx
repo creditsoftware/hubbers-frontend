@@ -3,10 +3,14 @@ import Image from 'next/image';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container, ChooseYourLaunchProgress, ChooseYourLaunchSelector } from '../../components';
 import { Space, Button } from 'antd';
-
-const ChooseYourLaunch = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const ChooseYourLaunch = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <DeskPageHoc title='Choose your launch' activeSide={{ active: ['choose-your-launch'], open: [] }}>
+    <DeskPageHoc title='Choose your launch' activeSide={{ active: ['choose-your-launch'], open: [] }} auth={{ ...data }}>
       <Container className="pt-5">
         <React.Fragment>
           <ChooseYourLaunchProgress />
@@ -53,7 +57,13 @@ const ChooseYourLaunch = () => {
     </DeskPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default ChooseYourLaunch;

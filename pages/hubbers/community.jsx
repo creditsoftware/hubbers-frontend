@@ -5,66 +5,70 @@ import { Row, Col } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Userdata, CommunityProgress, Container, GlobalEventSlider, GlobalBlogSlider } from '../../components';
 import Slider from 'react-slick';
-
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
 const leaders = [
   {
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
-    name:'Benjamin Vignon',
-    country:'France',
-    date:'Dec - 2017',
-  },{
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJfo814Dr.jpg',
-    name:'Himanshi',
-    country:'Singapore',
-    date:'Apr - 2021',
-  },{
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/Bkd0oUZVS.jpg',
-    name:'David Kung',
-    country:'China',
-    date:'Apr - 2017',
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
+    name: 'Benjamin Vignon',
+    country: 'France',
+    date: 'Dec - 2017',
+  }, {
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJfo814Dr.jpg',
+    name: 'Himanshi',
+    country: 'Singapore',
+    date: 'Apr - 2021',
+  }, {
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/Bkd0oUZVS.jpg',
+    name: 'David Kung',
+    country: 'China',
+    date: 'Apr - 2017',
   }
 ];
 const hubbers = [
   {
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
-    name:'Benjamin Vignon',
-    country:'France',
-    date:'Dec - 2017',
-  },{
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJfo814Dr.jpg',
-    name:'Himanshi',
-    country:'Singapore',
-    date:'Apr - 2021',
-  },{
-    image:'https://ui-avatars.com/api/?background=444444&size=200&font-size=0.4&color=fff&name=selimbarkan',
-    name:'Selim Barkan',
-    country:'Singapore',
-    date:'Dec - 2017',
-  },{
-    image:'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/H12cSpnZm.jpg',
-    name:'Thomas Alix',
-    country:'Viet Nam',
-    date:'Jan - 2021',
-  },{
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/AVf7pEP7Z.png',
-    name:'Max Henry',
-    country:'China',
-    date:'Jan - 2021',
-  },{
-    image:'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/rktekaIRX.jpg',
-    name:'Rakesh  Murali',
-    country:'Singapore',
-    date:'Apr - 2021',
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
+    name: 'Benjamin Vignon',
+    country: 'France',
+    date: 'Dec - 2017',
+  }, {
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJfo814Dr.jpg',
+    name: 'Himanshi',
+    country: 'Singapore',
+    date: 'Apr - 2021',
+  }, {
+    image: 'https://ui-avatars.com/api/?background=444444&size=200&font-size=0.4&color=fff&name=selimbarkan',
+    name: 'Selim Barkan',
+    country: 'Singapore',
+    date: 'Dec - 2017',
+  }, {
+    image: 'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/H12cSpnZm.jpg',
+    name: 'Thomas Alix',
+    country: 'Viet Nam',
+    date: 'Jan - 2021',
+  }, {
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/AVf7pEP7Z.png',
+    name: 'Max Henry',
+    country: 'China',
+    date: 'Jan - 2021',
+  }, {
+    image: 'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/rktekaIRX.jpg',
+    name: 'Rakesh  Murali',
+    country: 'Singapore',
+    date: 'Apr - 2021',
   }
 ];
 const partners = [
   {
     url: '/hubbers/sponsor/5fc648e517706a0018c61a23',
-    image:'https://hubbers-us.oss-us-west-1.aliyuncs.com/OeT5X1rU6.png',
-    name:'Komaspec',
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/OeT5X1rU6.png',
+    name: 'Komaspec',
   }
 ];
-const Community = () => {
+const Community = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const settings = {
     dots: true,
     infinite: false,
@@ -106,11 +110,11 @@ const Community = () => {
     ]
   };
   return (
-    <MainPageHoc title="Community">
+    <MainPageHoc title="Community" auth={{ ...data }}>
       <React.Fragment>
         <Container className='pt-5 px-4 pb-4'>
           <React.Fragment>
-            <h1 className="text-center fs-6 fw-6">Jump in a great community of innovators,<br/>experts and contributors</h1>
+            <h1 className="text-center fs-6 fw-6">Jump in a great community of innovators,<br />experts and contributors</h1>
             <CommunityProgress />
             <Space size={16} wrap align="center" className="my-4 fjc-center w-100">
               <Button style={{ background: '#A9A5D1', borderColor: '#A9A5D1', color: 'white' }} size="large" shape="round">SINGAPORE</Button>
@@ -120,21 +124,21 @@ const Community = () => {
             <div className="hubbers-hbb d-flex fjc-center">
               <div className="d-flex f-align-center mr-3">
                 <div className="p-rel">
-                  <Image width={80} height={80} src="/images/polygon/pol7.png"/>
+                  <Image width={80} height={80} src="/images/polygon/pol7.png" />
                   <span className="p-abs p-center fs-1 fw-6 fc-white">11</span>
                 </div>
                 <div className="fw-6 fs-1">HUBBERS</div>
               </div>
               <div className="d-flex f-align-center ml-3">
                 <div className="p-rel">
-                  <Image width={80} height={80} src="/images/polygon/pol5.png"/>
+                  <Image width={80} height={80} src="/images/polygon/pol5.png" />
                   <span className="p-abs p-center fs-1 fw-6 fc-white">123455</span>
                 </div>
                 <div className="fw-6 fs-1">HBB collected</div>
               </div>
             </div>
             <div className="text-center px-3">
-              <Image width={800} height={400} src='/images/community/schanghai_2.png'/>
+              <Image width={800} height={400} src='/images/community/schanghai_2.png' />
             </div>
             <Space size={16} wrap align="center" className="my-3 fjc-center w-100">
               <Button type="hbs-outline-primary" size="large" shape="round">SHARE AN ARTICLE</Button>
@@ -150,7 +154,7 @@ const Community = () => {
               <Slider {...settings}>
                 {
                   leaders.map((leader, index) => {
-                    return <Userdata  key={index} image={leader.image} name={leader.name} country={leader.country} date={leader.date}/>;
+                    return <Userdata key={index} image={leader.image} name={leader.name} country={leader.country} date={leader.date} />;
                   })
                 }
               </Slider>
@@ -158,7 +162,7 @@ const Community = () => {
               <Slider {...settings}>
                 {
                   hubbers.map((hubber, index) => {
-                    return <Userdata key={index} image={hubber.image} name={hubber.name} country={hubber.country} date={hubber.date}/>;
+                    return <Userdata key={index} image={hubber.image} name={hubber.name} country={hubber.country} date={hubber.date} />;
                   })
                 }
               </Slider>
@@ -185,11 +189,11 @@ const Community = () => {
         </Container>
         <div className="bg-white">
           <Container>
-            <GlobalBlogSlider/>
+            <GlobalBlogSlider />
           </Container>
         </div>
         <Container>
-          <GlobalEventSlider/>
+          <GlobalEventSlider />
         </Container>
         <div className="bg-white py-5">
           <Container>
@@ -212,7 +216,13 @@ const Community = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default Community;

@@ -4,7 +4,7 @@ import { Container } from '../../components';
 import { Footer } from 'antd/lib/layout/layout';
 import { InstagramOutlined, LinkedinOutlined, FacebookFilled, TwitterOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-export const MainFooter = ({ className }) => {
+export const MainFooter = ({ className, ...props }) => {
   let classname = 'main-footer';
   if (className) {
     classname = 'main-footer ' + className;
@@ -147,7 +147,7 @@ export const MainFooter = ({ className }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/hubbers/grab-a-share">
+                <Link href={props.auth?.isLoggedIn ? '/hubbers/grab-a-share' : '/hubbers/request-investor-access'}>
                   <a>
                     Grab a share
                   </a>

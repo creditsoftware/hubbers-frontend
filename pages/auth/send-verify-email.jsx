@@ -4,10 +4,12 @@ import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
 import { API } from '../../constants';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
+import useSWR from 'swr';
+import { fetcher, openNotificationWithIcon, withSession } from '../../utils';
 
-const SendVerifyEmail = () => {
+const SendVerifyEmail = ({ ...props }) => {
   const [btnLoading, setBtnLoading] = React.useState(false);
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const onFinish = (values) => {
     setBtnLoading(true);
     axios.get(`${API.RESEND_EAMIL_API}/${values.email}`)
@@ -29,12 +31,12 @@ const SendVerifyEmail = () => {
       });
   };
   return (
-    <MainPageHoc title="Resend verify email">
+    <MainPageHoc title="Resend verify email" auth={{ ...data }}>
       <div className='signin-page'>
         <p className="text-center py-5 fs-1">
           First step done.<br />
-					Please check your email inbox to verify your email address. If you don&apos;t see in your email inbox, check in your spam box.<br />
-					If after 2 minutes you have still not received your verification email, enter your email again and we will resend it to you.
+          Please check your email inbox to verify your email address. If you don&apos;t see in your email inbox, check in your spam box.<br />
+          If after 2 minutes you have still not received your verification email, enter your email again and we will resend it to you.
         </p>
         <div className="text-center">
           <Form
@@ -59,5 +61,13 @@ const SendVerifyEmail = () => {
     </MainPageHoc>
   );
 };
-
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default SendVerifyEmail;

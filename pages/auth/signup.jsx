@@ -6,12 +6,12 @@ import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { API, URLS, signupFeatureObj } from '../../constants/index';
-import { Promise } from '../../utils/promise';
+import { Promise, withSession, openNotificationWithIcon, fetcher } from '../../utils';
 import axios from 'axios';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
-
-const Signup = () => {
+import useSWR from 'swr';
+const Signup = ({ ...props }) => {
   const router = useRouter();
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [btnLoading, setBtnLoading] = React.useState(false);
   const layout = {
     labelCol: { span: 0 },
@@ -40,7 +40,7 @@ const Signup = () => {
       });
   };
   return (
-    <MainPageHoc title="Sign Up">
+    <MainPageHoc title="Sign Up" auth={{ ...data }}>
       <div className='signin-page'>
         <h1 className="fw-5 text-upper fs-6 text-center pt-5 pb-1 m-0">
           One more step to join Hubbers
@@ -103,7 +103,7 @@ const Signup = () => {
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
                       if (!value || getFieldValue('password') === value) {
-                        return Promise.resolve(); 
+                        return Promise.resolve();
                       }
                       return Promise.reject('The two passwords that you entered do not match!');
                     },
@@ -118,7 +118,7 @@ const Signup = () => {
                   <a href={URLS.HUBBERS_TERM_OF_SERVICE_URL} className='primary-link'>
                     &nbsp;Hubbers Terms of Service&nbsp;
                   </a>
-									and
+                  and
                   <a href={URLS.HUBBERS_PRIVACY_POLICY_URL} className='primary-link'>
                     &nbsp;Privacy policy.
                   </a>
@@ -174,5 +174,13 @@ const Signup = () => {
     </MainPageHoc>
   );
 };
-
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default Signup;

@@ -26,10 +26,8 @@ import {
   API
 } from '../../constants';
 import { UploadImage } from '../UploadImage';
-import { fetchJson } from '../../utils/fetchJson';
+import { fetchJson, openNotificationWithIcon, slugify } from '../../utils';
 import { useRouter } from 'next/router';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
-import { slugify } from '../../utils/string';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -112,14 +110,9 @@ export const EditEventDrawer = ({ visible, onHide }) => {
           openNotificationWithIcon('error', 'Something went wrong!', response.message ? response.message : response.errors[0]?.message);
         }
       })
-      .catch((err) => {
-        console.log(err.response);
+      .catch(() => {
         openNotificationWithIcon('error', 'Something went wrong!', 'Faild to create event');
       });
-  };
-
-  const failed = (err) => {
-    console.log(err);
   };
 
   return <Drawer
@@ -150,7 +143,6 @@ export const EditEventDrawer = ({ visible, onHide }) => {
         name='eventForm'
         onFinish={createEvent}
         ref={formRef}
-        onFinishFailed={failed}
         initialValues={{
           isGlobal: isGlobal,
           isRepeat: isRepeat,

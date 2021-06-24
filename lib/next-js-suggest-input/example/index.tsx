@@ -19,7 +19,6 @@ const initialSettings: ReactTagInputProps = {
 function Example() {
   const [tags, setTags] = React.useState<string[]>(["machine-1", "machine-2"]);
   const [settings, setSettings] = React.useState(initialSettings);
-  console.log(tags, settings);
   return (
     <>
       <ReactTagInput

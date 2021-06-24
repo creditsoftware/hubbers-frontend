@@ -21,7 +21,7 @@ import { AuthLink } from '../../components';
 // import { API } from '../../constants';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
-export const DeskSidebar = ({ active }) => {
+export const DeskSidebar = ({ active, ...props }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = React.useState(false);
   const [communityId, setCommunityId] = React.useState(null);
@@ -31,12 +31,12 @@ export const DeskSidebar = ({ active }) => {
     setCollapsed(c);
   };
   useEffect(async () => {
-    if(router.query.community){
+    if (router.query.community) {
       setCommunityId(router.query.community);
-      if(router.pathname) {
+      if (router.pathname) {
         let paths = router.pathname.split('/');
-        if(paths && paths[paths.length-1]) {
-          setActiveKey([`${paths[paths.length-1]}-${router.query.community}`]);
+        if (paths && paths[paths.length - 1]) {
+          setActiveKey([`${paths[paths.length - 1]}-${router.query.community}`]);
         }
       }
     }
@@ -67,70 +67,70 @@ export const DeskSidebar = ({ active }) => {
         mode="inline"
       >
         <Menu.Item key="dashboard" icon={<PieChartOutlined />}>
-          <AuthLink href='/desk/dashboard'>
+          <AuthLink href='/desk/dashboard' {...props}>
             <a>
               Dashboard&nbsp;&nbsp;
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="activities" icon={<StarOutlined />}>
-          <AuthLink href='/desk/activities'>
+          <AuthLink href='/desk/activities' {...props}>
             <a>
               Activities&nbsp;&nbsp;
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="choose-your-launch" icon={<SelectOutlined />}>
-          <AuthLink href='/desk/choose-your-launch'>
+          <AuthLink href='/desk/choose-your-launch' {...props}>
             <a>
               Choose your launch
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="profile" icon={<ProfileOutlined />}>
-          <AuthLink href='/desk/profile'>
+          <AuthLink href='/desk/profile' {...props}>
             <a>
               Profile
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="account-preference" icon={<AccountBookOutlined />}>
-          <AuthLink href='/desk/account-preference'>
+          <AuthLink href='/desk/account-preference' {...props}>
             <a>
               Account preference
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="assessment" icon={<SmileOutlined />}>
-          <AuthLink href='/desk/assessment'>
+          <AuthLink href='/desk/assessment' {...props}>
             <a>
               Assessment
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="contacts" icon={<ContactsOutlined />}>
-          <AuthLink href='/desk/contacts'>
+          <AuthLink href='/desk/contacts' {...props}>
             <a>
               Contacts
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="messages" icon={<CommentOutlined />}>
-          <AuthLink href='/desk/messages'>
+          <AuthLink href='/desk/messages' {...props}>
             <a>
               Messages
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="project-setting" icon={<SettingOutlined />}>
-          <AuthLink href='/desk/project-setting'>
+          <AuthLink href='/desk/project-setting' {...props}>
             <a>
               Project setting
             </a>
           </AuthLink>
         </Menu.Item>
         <Menu.Item key="modules" icon={<BuildOutlined />}>
-          <AuthLink href='/desk/modules'>
+          <AuthLink href='/desk/modules' {...props}>
             <a>
               Modules
             </a>
@@ -140,7 +140,7 @@ export const DeskSidebar = ({ active }) => {
           key="my-product"
           icon={<GiftOutlined />}
           title={
-            <AuthLink href='/desk/my-product'>
+            <AuthLink href='/desk/my-product' {...props}>
               <a>
                 My Product
                 <Badge
@@ -156,7 +156,7 @@ export const DeskSidebar = ({ active }) => {
             key="product1"
             icon={<TeamOutlined />}
             title={
-              <AuthLink href='/desk/my-product/product1'>
+              <AuthLink href='/desk/my-product/product1' {...props}>
                 <a>
                   Product1
                   <Badge
@@ -169,7 +169,7 @@ export const DeskSidebar = ({ active }) => {
             }
           >
             <Menu.Item key="product-detail">
-              <AuthLink href='/desk/my-product/product1/detail'>
+              <AuthLink href='/desk/my-product/product1/detail' {...props}>
                 <a>
                   Product Detail
                   <Badge
@@ -181,7 +181,7 @@ export const DeskSidebar = ({ active }) => {
               </AuthLink>
             </Menu.Item>
             <Menu.Item key="team-setting">
-              <AuthLink href='/desk/my-product/product1/team-setting'>
+              <AuthLink href='/desk/my-product/product1/team-setting' {...props}>
                 <a>
                   Team &amp; Setttings
                   <Badge
@@ -193,7 +193,7 @@ export const DeskSidebar = ({ active }) => {
               </AuthLink>
             </Menu.Item>
             <Menu.Item key="workspace">
-              <AuthLink href='/desk/my-product/product1/workspace'>
+              <AuthLink href='/desk/my-product/product1/workspace' {...props}>
                 <a>
                   Workspace
                   <Badge
@@ -209,7 +209,7 @@ export const DeskSidebar = ({ active }) => {
         <SubMenu key="my-expertise"
           icon={<GoldOutlined />}
           title={
-            <AuthLink href='/desk/my-expertise'>
+            <AuthLink href='/desk/my-expertise' {...props}>
               <a>
                 My Expertise
                 <Badge
@@ -222,7 +222,7 @@ export const DeskSidebar = ({ active }) => {
           }
         >
           <Menu.Item key="expertise1">
-            <AuthLink href='/desk/my-expertise/expertise1'>
+            <AuthLink href='/desk/my-expertise/expertise1' {...props}>
               <a>
                 Expertise1
                 <Badge
@@ -237,7 +237,7 @@ export const DeskSidebar = ({ active }) => {
         <SubMenu key="community"
           icon={<TeamOutlined />}
           title={
-            // <AuthLink href={`/desk/community${router.query.community ? '?community=' + router.query.community : ''}`}>
+            // <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
             //   <a>
             <div>
               Community&nbsp;&nbsp;
@@ -259,7 +259,7 @@ export const DeskSidebar = ({ active }) => {
                 key={`community-${community.id}`}
                 icon={<TeamOutlined />}
                 title={
-                  <AuthLink href={`/desk/community?community=${community.id}`}>
+                  <AuthLink href={`/desk/community/home?community=${community.id}`} {...props}>
                     <a>
                       {community.name}&nbsp;&nbsp;
                       <Badge
@@ -272,7 +272,7 @@ export const DeskSidebar = ({ active }) => {
                 }
               >
                 <Menu.Item key={`home-${community.id}`}>
-                  <AuthLink href={`/desk/community/home?community=${community.id}`}>
+                  <AuthLink href={`/desk/community/home?community=${community.id}`} {...props}>
                     <a>
                       Home&nbsp;&nbsp;
                       <Badge
@@ -284,7 +284,7 @@ export const DeskSidebar = ({ active }) => {
                   </AuthLink>
                 </Menu.Item>
                 <Menu.Item key={`discover-${community.id}`}>
-                  <AuthLink href={`/desk/community/discover?community=${community.id}`}>
+                  <AuthLink href={`/desk/community/discover?community=${community.id}`} {...props}>
                     <a>
                       Discover&nbsp;&nbsp;
                       <Badge
@@ -296,7 +296,7 @@ export const DeskSidebar = ({ active }) => {
                   </AuthLink>
                 </Menu.Item>
                 <Menu.Item key={`members-${community.id}`}>
-                  <AuthLink href={`/desk/community/members?community=${community.id}`}>
+                  <AuthLink href={`/desk/community/members?community=${community.id}`} {...props}>
                     <a>
                       Members&nbsp;&nbsp;
                       <Badge
@@ -311,7 +311,7 @@ export const DeskSidebar = ({ active }) => {
             })
           } */}
           <Menu.Item key="home">
-            <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`}>
+            <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
               <a>
                 Home&nbsp;&nbsp;
                 <Badge
@@ -323,7 +323,7 @@ export const DeskSidebar = ({ active }) => {
             </AuthLink>
           </Menu.Item>
           <Menu.Item key="discover">
-            <AuthLink href={`/desk/community/discover${router.query.community ? '?community=' + router.query.community : ''}`}>
+            <AuthLink href={`/desk/community/discover${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
               <a>
                 Discover&nbsp;&nbsp;
                 <Badge
@@ -335,7 +335,7 @@ export const DeskSidebar = ({ active }) => {
             </AuthLink>
           </Menu.Item>
           <Menu.Item key="members">
-            <AuthLink href={`/desk/community/members${router.query.community ? '?community=' + router.query.community : ''}`}>
+            <AuthLink href={`/desk/community/members${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
               <a>
                 Members&nbsp;&nbsp;
                 <Badge

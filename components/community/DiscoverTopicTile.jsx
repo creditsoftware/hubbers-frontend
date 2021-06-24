@@ -19,9 +19,6 @@ export const DiscoverTopicTile = ({ data }) => {
     fetchJson(`${API.LOCAL_FOLLOW_TOPIC_API}?topicId=${data.id}`)
       .then((response) => {
         setTopic(response);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   };
   return <div className='p-rel w-100'>

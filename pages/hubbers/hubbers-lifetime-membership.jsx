@@ -12,9 +12,14 @@ import {
   MembershipBanner10
 } from '../../components';
 import { MainPageHoc } from '../../containers';
-const LifetimeMembership = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const LifetimeMembership = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title='Hubbers Lifetime Membership'>
+    <MainPageHoc title='Hubbers Lifetime Membership' auth={{ ...data }}>
       <React.Fragment>
         <MembershipBanner1 />
         <MembershipBanner2 />
@@ -30,7 +35,13 @@ const LifetimeMembership = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default LifetimeMembership;

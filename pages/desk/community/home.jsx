@@ -7,19 +7,19 @@ import { useRouter } from 'next/router';
 import { API } from '../../../constants/apis';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { httpApiServer } from '../../../utils/httpRequest';
-const Home = (props) => {
+import useSWR from 'swr';
+import { fetcher } from '../../../utils/fetcher';
+const Home = ({ ...props }) => {
   const router = useRouter();
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [community, setCommunity] = React.useState(null);
-  React.useLayoutEffect(() => {
-    if (props.error === 'Unautherized you') {
-      router.push('/auth/signin');
-    }
+  React.useEffect(() => {
     setCommunity(props.data?.data);
   }, [router]);
   return (
     router.query.community === 'join' ?
-      <JoinInCommunity />
-      : <DeskPageHoc title='Home' activeSide={{ active: ['home'], open: ['community'] }}>
+      <JoinInCommunity auth={{ ...data }} />
+      : <DeskPageHoc title='Home' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }}>
         <div className='max-w-80 m-auto px-3'>
           <div className="f-right" style={{ right: 10, top: 70 }}>
             <SwitchCommunity />
@@ -49,7 +49,7 @@ export const getServerSideProps = withSession(async (ctx) => {
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
-    return { props: { error: 'Unautherized you', data: null } };
+    return { props: { auth: { isLoggedIn: false, ...user } } };
   }
   let communityId;
   if (query.community && query.community !== 'join') {
@@ -62,21 +62,21 @@ export const getServerSideProps = withSession(async (ctx) => {
       .catch(async (err) => {
         if (err.response && err.response.status === 401) {
           await req.session.destroy();
-          return { props: { error: err.message, data: null } };
+          return { props: { error: err.message, data: null, auth: { isLoggedIn: true, ...user } } };
         }
-        return { props: { data: null, error: err.message } };
+        return { props: { data: null, error: err.message, auth: { isLoggedIn: true, ...user } } };
       });
   }
   return httpApiServer(`${API.COMMUNITY_DETAIL_API}/${communityId}`, REQUEST_TYPE.GET, null, ctx)
     .then((response) => {
-      return { props: { data: response, error: null } };
+      return { props: { data: response, error: null, auth: { isLoggedIn: true, ...user } } };
     })
     .catch(async (err) => {
       if (err.response && err.response.status === 401) {
         await req.session.destroy();
-        return { props: { error: err.message, data: null } };
+        return { props: { error: err.message, data: null, auth: { isLoggedIn: true, ...user } } };
       }
-      return { props: { data: null, error: err.message } };
+      return { props: { data: null, error: err.message, auth: { isLoggedIn: true, ...user } } };
     });
 });
 export default Home;

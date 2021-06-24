@@ -5,24 +5,24 @@ import { useRouter } from 'next/router';
 import { Option } from 'antd/lib/mentions';
 import { Container } from '../../components';
 import { countryList } from '../../constants/index';
-
+import { API } from '../../constants';
+import { withSession } from '../../utils/withSession';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
 const { Panel } = Collapse;
 const { Step } = Steps;
 
-const SignupDetail = () => {
+const SignupDetail = ({ ...props }) => {
   const router = useRouter();
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [current, setCurrent] = React.useState(0);
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const onFinish = () => {
     if (current < 2) {
       next();
     }
     if (current === 2) {
       router.push('/desk/dashboard');
     }
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
   const skip = () => {
     if (current === 0) {
@@ -39,18 +39,6 @@ const SignupDetail = () => {
   const prev = () => {
     setCurrent(current - 1);
   };
-  function onChange(value) {
-    console.log(`selected ${value}`);
-  }
-  function onBlur() {
-    console.log('blur');
-  }
-  function onFocus() {
-    console.log('focus');
-  }
-  function onSearch(val) {
-    console.log('search:', val);
-  }
   const steps = [
     {
       title: 'Basic Information',
@@ -65,7 +53,6 @@ const SignupDetail = () => {
           name="register-detail"
           initialValues={{ remember: false }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             name="firstName"
@@ -117,7 +104,7 @@ const SignupDetail = () => {
       content: <div className='pt-5'>
         <p>
           The power of our community is at the core of Hubbers.<br />
-					In your community, you can share, exchange ideas, participate to events.
+          In your community, you can share, exchange ideas, participate to events.
         </p>
         <p>
           As a new free member, you can be part of 2 communities.
@@ -172,7 +159,6 @@ const SignupDetail = () => {
           name="register-detail"
           initialValues={{ remember: false }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             name="nationality"
@@ -182,10 +168,6 @@ const SignupDetail = () => {
               showSearch
               placeholder="Which country are you from?"
               optionFilterProp="children"
-              onChange={onChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -208,10 +190,6 @@ const SignupDetail = () => {
               showSearch
               placeholder="Which country are you living in?"
               optionFilterProp="children"
-              onChange={onChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -230,7 +208,7 @@ const SignupDetail = () => {
             name="birthday"
             rules={[{ required: true, message: 'Please input your birthday!' }]}
           >
-            <DatePicker onChange={onChange} style={{ width: '100%' }} size='large' />
+            <DatePicker style={{ width: '100%' }} size='large' />
           </Form.Item>
           <p>
             Tell us more about you, so we are able to tailor activities that are important to you.
@@ -243,10 +221,6 @@ const SignupDetail = () => {
               showSearch
               placeholder="Select Innovation category"
               optionFilterProp="children"
-              onChange={onChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -262,10 +236,6 @@ const SignupDetail = () => {
               showSearch
               placeholder="Select Product category"
               optionFilterProp="children"
-              onChange={onChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -297,7 +267,7 @@ const SignupDetail = () => {
     },
   ];
   return (
-    <MainPageHoc title="Sign Up">
+    <MainPageHoc title="Sign Up" auth={{ ...data }}>
       <Container>
         <div className="max-w-40 m-auto">
           <React.Fragment>
@@ -313,5 +283,13 @@ const SignupDetail = () => {
     </MainPageHoc>
   );
 };
-
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default SignupDetail;

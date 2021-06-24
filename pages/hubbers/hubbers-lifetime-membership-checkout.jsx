@@ -6,9 +6,14 @@ import {
   LifetimeMembershipCheckoutRight
 } from '../../components';
 import { MainPageHoc } from '../../containers';
-const LifetimeMembershipCheckout = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const LifetimeMembershipCheckout = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title='Hubbers Lifetime Membership Checkout'>
+    <MainPageHoc title='Hubbers Lifetime Membership Checkout' auth={{ ...data }}>
       <React.Fragment>
         <h1 className="fw-6 fs-5 text-center mt-5">
           Hubbers LifeTime Membership
@@ -23,10 +28,10 @@ const LifetimeMembershipCheckout = () => {
           <Container>
             <Row>
               <Col lg={12} md={12} sm={24}>
-                <LifetimeMembershipCheckoutLeft/>
+                <LifetimeMembershipCheckoutLeft />
               </Col>
               <Col lg={12} md={12} sm={24}>
-                <LifetimeMembershipCheckoutRight/>
+                <LifetimeMembershipCheckoutRight />
               </Col>
             </Row>
           </Container>
@@ -35,7 +40,13 @@ const LifetimeMembershipCheckout = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default LifetimeMembershipCheckout;

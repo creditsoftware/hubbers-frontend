@@ -4,8 +4,7 @@ import { PostTileContent } from './PostTileContent';
 import { PostTileHeader } from './PostTileHeader';
 import { REQUEST_TYPE } from '../../constants/requestType';
 import { API } from '../../constants';
-import { httpRequestLocal } from '../../utils/httpRequestLocal';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
+import { httpRequestLocal, openNotificationWithIcon } from '../../utils';
 import {
   HeartOutlined,
   MessageOutlined

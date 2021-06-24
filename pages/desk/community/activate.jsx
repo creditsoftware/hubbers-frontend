@@ -1,28 +1,26 @@
 import React from 'react';
 import { MainPageHoc } from '../../../containers';
 import { useRouter } from 'next/router';
-import { withSession } from '../../../utils/withSession';
 import { Button } from 'antd';
-import { fetchJson } from '../../../utils/fetchJson';
-import openNotificationWithIcon from '../../../utils/openNotificationWithIcon';
-const Activate = (props) => {
+import { fetchJson, openNotificationWithIcon, withSession, fetcher } from '../../../utils';
+import { API } from '../../../constants/index';
+import useSWR from 'swr';
+const Activate = ({ ...props }) => {
   const router = useRouter();
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [communityDetail, setCommunityDetail] = React.useState(null);
   const fetchCommunity = async () => {
     let community = await fetchJson(`${process.env.API_V1}community/${router.query.community}`);
-    if(community.success) {
+    if (community.success) {
       setCommunityDetail(community.data);
     }
   };
-  React.useLayoutEffect(() => {
-    if (props.error === 'Unautherized you') {
-      router.push('/auth/signin');
-    }
+  React.useEffect(() => {
     fetchCommunity();
   }, [router]);
   const activate = async () => {
-    let result = await fetchJson(`${process.env.API_V1}community/member-invite/activate/${router.query.community}/${props.data?.id}`);
-    if(result && result.success) {
+    let result = await fetchJson(`${process.env.API_V1}community/member-invite/activate/${router.query.community}/${props.auth?.id}`);
+    if (result && result.success) {
       openNotificationWithIcon('success', 'Activated you', `${result.message}`);
       router.push(`/desk/community/home?community=${router.query.community}`);
     } else {
@@ -31,7 +29,7 @@ const Activate = (props) => {
     return;
   };
   return (
-    <MainPageHoc title='Activate'>
+    <MainPageHoc title='Activate' auth={{ ...data }}>
       <div className='max-w-80 m-auto px-3 pt-5 text-center'>
         <h1 className="fs-5 fw-6">
           Join in {communityDetail && communityDetail.name} community
@@ -46,10 +44,10 @@ const Activate = (props) => {
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
   const user = await req.session.get('user');
-  if (!user) {
-    await req.session.destroy();
-    return { props: { error: 'Unautherized you', data: null } };
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
   }
-  return { props: { error: null, data: user } };
 });
 export default Activate;

@@ -3,12 +3,15 @@ const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = withFonts({
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    console.log('buildId=>', buildId);
-    console.log('isServer=>', isServer);
-    console.log('defaultLoaders=>', defaultLoaders);
+  webpack: (config, {
+    // buildId,
+    dev,
+    // isServer,
+    // defaultLoaders,
+    webpack
+  }) => {
     config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
-    if(dev) {
+    if (dev) {
       config.plugins.push(new Dotenv({
         path: path.join(__dirname, '.env.dev'),
         systemvars: true
@@ -24,7 +27,7 @@ module.exports = withFonts({
   i18n: {
     locales: ['en', 'fr', 'es'],
     defaultLocale: 'en',
-    localeDetection:true
+    localeDetection: true
   },
   images: {
     domains: [

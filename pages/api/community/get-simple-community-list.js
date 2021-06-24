@@ -21,7 +21,7 @@ export default withSession(async (req, res) => {
       .then((response) => {
         res.status(200).json({ data: response, error: null });
       })
-      .catch(async(err) => {
+      .catch(async (err) => {
         if(err.response && err.response.status === 401) {
           await req.session.destroy();
           res.status(401).json({ error: err.message, data: null });

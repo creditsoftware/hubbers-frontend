@@ -1,7 +1,12 @@
 import React from 'react';
 import { MainPageHoc } from '../../../containers';
 import { MainBanner, EventItemSection } from '../../../components';
-const ProductLauncher = () => {
+import { withSession } from '../../../utils/withSession';
+import { API } from '../../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../../utils/fetcher';
+const Event = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const event = [
     {
       day: '22',
@@ -117,7 +122,7 @@ const ProductLauncher = () => {
     }
   ];
   return (
-    <MainPageHoc title='Hubers events'>
+    <MainPageHoc title='Hubers events' auth={{ ...data }}>
       <React.Fragment>
         <MainBanner title={'GLOVAL EVENTS'} date={''} url={'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/home-banner-1.jpg'} />
         <div className='event-group mt-5 mb-5'>
@@ -134,7 +139,13 @@ const ProductLauncher = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
-export default ProductLauncher;
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
+export default Event;

@@ -8,11 +8,10 @@ import { Container } from '../Container';
 import { UploadImage } from '../UploadImage';
 import { useWindowSize } from '../../hooks';
 import { MemberInvitationBtn } from './MemberInvitationBtn';
-import { httpRequestLocal } from '../../utils/httpRequestLocal';
+import { httpRequestLocal, openNotificationWithIcon } from '../../utils';
 import { API } from '../../constants';
 import { REQUEST_TYPE } from '../../constants/requestType';
 import { useRouter } from 'next/router';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -32,9 +31,6 @@ export const EditTopicDrawer = ({ visible, onHide }) => {
         form.resetFields();
       });
     onHide();
-  };
-  const onFinishFailed = (err) => {
-    console.log(err);
   };
   return <Drawer
     title={
@@ -69,7 +65,6 @@ export const EditTopicDrawer = ({ visible, onHide }) => {
       name='topic-edit'
       form={form}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <PageHeader
         title='Create Topic'

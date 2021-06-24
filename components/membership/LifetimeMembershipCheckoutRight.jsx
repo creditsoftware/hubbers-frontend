@@ -9,13 +9,6 @@ import { Promise } from '../../utils/promise';
 import MaskedInput from 'antd-mask-input';
 
 export const LifetimeMembershipCheckoutRight = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <React.Fragment>
       <Button type='text' style={{ padding: 0, overflow: 'auto', height: 'auto' }}>
@@ -31,8 +24,7 @@ export const LifetimeMembershipCheckoutRight = () => {
       <Form
         name="basic"
         initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        // onFinish={onFinish}
       >
         <div className="fs-3 fw-6">
           Shipping information:

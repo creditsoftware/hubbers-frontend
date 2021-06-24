@@ -3,13 +3,16 @@ import Image from 'next/image';
 import { Row, Col, Button, Form, Input, Select } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Container } from '../../components';
-
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
 const { Option } = Select;
 
-const AcceleratorProgram = () => {
-
+const AcceleratorProgram = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title="Accelerator Program">
+    <MainPageHoc title="Accelerator Program" auth={{ ...data }}>
       <React.Fragment>
         <Container>
           <React.Fragment>
@@ -194,7 +197,13 @@ const AcceleratorProgram = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default AcceleratorProgram;

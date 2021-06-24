@@ -5,10 +5,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Container, HubbersTeamMemberTile } from '../../components';
 import { MainPageHoc } from '../../containers';
 import Link from 'next/link';
-const Marketplace = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const Marketplace = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const size = useWindowSize();
   return (
-    <MainPageHoc title='Who We Are'>
+    <MainPageHoc title='Who We Are' auth={{ ...data }}>
       <Container>
         <React.Fragment>
           <h1 className="fw-6 mt-5 fs-5">
@@ -87,7 +92,13 @@ const Marketplace = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default Marketplace;

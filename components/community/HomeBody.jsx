@@ -17,9 +17,6 @@ export const HomeBody = () => {
           .then((response) => {
             let result = response.json();
             return result.data;
-          })
-          .catch((e) => {
-            console.log(e);
           });
       } else {
         return [];
@@ -27,9 +24,6 @@ export const HomeBody = () => {
     }
   );
   React.useEffect(() => {
-    if (!d) {
-      console.log('loading ...');
-    }
     if (!err && d) {
       setData(d);
     }
@@ -41,9 +35,6 @@ export const HomeBody = () => {
       fetchJson(`${API.LOCAL_GET_POST_LIST_API}?communityId=${router.query.community}`)
         .then((response) => {
           setData(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
         });
     }
   }, [router]);

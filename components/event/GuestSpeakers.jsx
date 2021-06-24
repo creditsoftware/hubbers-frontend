@@ -17,8 +17,6 @@ export const GuestSpeakers = () => {
         observer
         loop
         observeParents
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
       >
         <SwiperSlide>
           <div className='text-center'>

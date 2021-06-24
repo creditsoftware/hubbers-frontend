@@ -4,20 +4,20 @@ import { Layout } from 'antd';
 import { MainHeader, DeskFooter, DeskSidebar } from '../templates';
 const { Content } = Layout;
 
-export const DeskPageHoc = ({ children, title, activeSide }) => {
+export const DeskPageHoc = ({ children, title, activeSide, ...props }) => {
   return (
     <Layout>
       <title>
         {title}
       </title>
-      <MainHeader />
+      <MainHeader {...props} />
       <Layout className='desk-body'>
-        <DeskSidebar active={activeSide} />
+        <DeskSidebar active={activeSide} {...props} />
         <Content>
           {children}
         </Content>
       </Layout>
-      <DeskFooter />
+      <DeskFooter {...props} />
     </Layout>
   );
 };

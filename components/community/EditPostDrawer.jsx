@@ -5,12 +5,10 @@ import { Button, Drawer, Space, Row, Col, Avatar, Input, Select } from 'antd';
 import Image from 'next/image';
 import { useWindowSize } from '../../hooks';
 import { CKEditor5 } from '../CKEditor5';
-import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
-import { httpRequestLocal } from '../../utils/httpRequestLocal';
+import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../utils';
 import { REQUEST_TYPE } from '../../constants/requestType';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 import { mutate } from 'swr';
 const { TextArea } = Input;
 const { Option } = Select;
@@ -66,9 +64,6 @@ export const EditPostDrawer = ({ visible, onHide, article }) => {
             return [];
           }
         });
-      })
-      .catch((err) => {
-        console.log(err.response);
       });
     onClose();
   };

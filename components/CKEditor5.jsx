@@ -2,11 +2,10 @@ import React
   // { Component }
   from 'react';
 // import PropTypes from 'prop-types';
-import { Promise } from '../utils/promise';
+import { Promise, openNotificationWithIcon } from '../utils';
 import { API } from '../constants/apis';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import openNotificationWithIcon from '../utils/openNotificationWithIcon';
 
 class MyUploadAdapter {
   constructor(loader, onUpload) {

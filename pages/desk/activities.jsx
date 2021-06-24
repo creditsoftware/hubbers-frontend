@@ -1,10 +1,14 @@
 import React from 'react';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container, ActivityCards } from '../../components';
-
-const Activities = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const Activities = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }}>
+    <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
       <Container className="py-5">
         <React.Fragment>
           <p className="max-w-40 m-auto fw-6 fs-1 text-center pt-5">
@@ -16,7 +20,13 @@ const Activities = () => {
     </DeskPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default Activities;

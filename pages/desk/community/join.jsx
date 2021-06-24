@@ -1,24 +1,18 @@
 import React from 'react';
 import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
-import { useRouter } from 'next/router';
-// import { API } from '../../../constants/apis';
-// import { REQUEST_TYPE } from '../../../constants/requestType';
-// import { httpApiServer } from '../../../utils/httpRequest';
 import { Col, Collapse, Empty, Row } from 'antd';
 import { CheckBtn, SwitchCommunity } from '../../../components';
 import Image from 'next/image';
+import { API } from '../../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../../utils/fetcher';
 const { Panel } = Collapse;
-const JoinInCommunity = (props) => {
-  const router = useRouter();
+const JoinInCommunity = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [checked, setChecked] = React.useState(false);
-  React.useLayoutEffect(() => {
-    if (props.error === 'Unautherized you') {
-      router.push('/auth/signin');
-    }
-  }, [router]);
   return (
-    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }}>
+    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }}>
       <div className="h-100 bg-white">
         <div className='bg-hbs-primary'>
           <div className='max-w-80 m-auto px-3 pt-4 pb-5'>
@@ -71,21 +65,10 @@ const JoinInCommunity = (props) => {
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
   const user = await req.session.get('user');
-  if (!user) {
-    await req.session.destroy();
-    return { props: { error: 'Unautherized you', data: null } };
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
   }
-  return { props: { error: null, data: null } };
-  //   return httpApiServer(`${API.COMMUNITY_DETAIL_API}/${communityId}`, REQUEST_TYPE.GET, null, ctx)
-  //     .then((response) => {
-  //       return { props: { data: response, error: null } };
-  //     })
-  //     .catch(async (err) => {
-  //       if (err.response && err.response.status === 401) {
-  //         await req.session.destroy();
-  //         return { props: { error: err.message, data: null } };
-  //       }
-  //       return { props: { data: null, error: err.message } };
-  //     });
 });
 export default JoinInCommunity;

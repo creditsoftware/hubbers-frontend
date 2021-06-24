@@ -4,9 +4,11 @@ import { Button } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { API } from '../../constants';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
-const ConfirmVerifyEmail = () => {
+import useSWR from 'swr';
+import { fetcher, withSession, openNotificationWithIcon } from '../../utils';
+const ConfirmVerifyEmail = ({ ...props }) => {
   const router = useRouter();
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [btnLoading, setBtnLoading] = React.useState(false);
   const confirmHandle = () => {
     setBtnLoading(true);
@@ -27,7 +29,7 @@ const ConfirmVerifyEmail = () => {
       });
   };
   return (
-    <MainPageHoc title="Confirm email">
+    <MainPageHoc title="Confirm email" auth={{ ...data }}>
       <div className='signin-page'>
         <p className="text-center py-5 fs-1">
           Please activate your account
@@ -41,5 +43,13 @@ const ConfirmVerifyEmail = () => {
     </MainPageHoc>
   );
 };
-
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default ConfirmVerifyEmail;

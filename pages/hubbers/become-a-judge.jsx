@@ -3,8 +3,12 @@ import Image from 'next/image';
 import { Row, Col, Space } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Container, MainBanner } from '../../components';
-
-const BecomeAJudge = () => {
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const BecomeAJudge = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   // const products = [
   //   {
   //     image: 'url("https://hubbers-files-storage.s3.amazonaws.com/0xE0y6Va6.png")',
@@ -38,7 +42,7 @@ const BecomeAJudge = () => {
   //   }
   // ];
   return (
-    <MainPageHoc title="Become a Judge">
+    <MainPageHoc title="Become a Judge" auth={{ ...data }}>
       <React.Fragment>
         <MainBanner
           url='https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/home-banner-1.jpg'
@@ -152,7 +156,13 @@ const BecomeAJudge = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default BecomeAJudge;

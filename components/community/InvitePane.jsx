@@ -12,11 +12,9 @@ import {
   // Space
 } from 'antd';
 // import { LinkCopy } from '../LinkCopy';
-import openNotificationWithIcon from '../../utils/openNotificationWithIcon';
 import { useRouter } from 'next/router';
-import { httpRequestLocal } from '../../utils/httpRequestLocal';
+import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../utils';
 import { REQUEST_TYPE } from '../../constants/requestType';
-import { fetchJson } from '../../utils/fetchJson';
 import { defaultMsgOfCommunityMemberInvitation } from '../../constants/defaultMsgOfCommunityMemberInvitation';
 import { API } from '../../constants';
 import { useForm } from 'antd/lib/form/Form';
@@ -54,9 +52,6 @@ export const InvitePane = () => {
         //     return [];
         //   }
         // });
-      })
-      .catch((err) => {
-        console.log(err.response);
       });
   };
   return <React.Fragment>

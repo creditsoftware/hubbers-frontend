@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import { Layout } from 'antd';
 import { MainHeader, MainFooter } from '../templates';
 const { Content } = Layout;
-export const MainPageHoc = ({ children, title }) => {
+export const MainPageHoc = ({ children, title, ...props }) => {
   let child = <></>;
   if (children) {
     child = Children.only(children);
@@ -12,11 +12,11 @@ export const MainPageHoc = ({ children, title }) => {
       <title>
         {title}
       </title>
-      <MainHeader />
+      <MainHeader {...props} />
       <Content className="main-body">
         {React.cloneElement(child)}
       </Content>
-      <MainFooter />
+      <MainFooter {...props} />
     </Layout>
   );
 };

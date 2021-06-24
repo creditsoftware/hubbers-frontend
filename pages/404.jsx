@@ -3,10 +3,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Container } from '../components';
 import { MainPageHoc } from '../containers';
-
-const Custom404 = () => {
+import useSWR from 'swr';
+import { API } from '../constants';
+import { fetcher } from '../utils/fetcher';
+const Custom404 = ({...props}) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title="404-not-found">
+    <MainPageHoc title="404-not-found" auth={{ ...data }}>
       <Container className='mt-4'>
         <div>
           <div className='not-found-title'>

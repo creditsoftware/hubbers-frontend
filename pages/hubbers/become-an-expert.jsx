@@ -3,11 +3,14 @@ import Image from 'next/image';
 import { Row, Col, Button } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Container, MainBanner } from '../../components';
-
-const BecomeAnExpert = () => {
-
+import { withSession } from '../../utils/withSession';
+import { API } from '../../constants/index';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+const BecomeAnExpert = ({ ...props }) => {
+  const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title="Become an Expert">
+    <MainPageHoc title="Become an Expert" auth={{ ...data }}>
       <React.Fragment>
         <MainBanner
           url='https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/hero-banner-expert.jpg'
@@ -105,7 +108,13 @@ const BecomeAnExpert = () => {
     </MainPageHoc>
   );
 };
-export async function getServerSideProps() {
-  return { props: {} };
-}
+export const getServerSideProps = withSession(async (ctx) => {
+  const { req } = ctx;
+  const user = await req.session.get('user');
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
+  }
+});
 export default BecomeAnExpert;

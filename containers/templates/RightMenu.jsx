@@ -6,13 +6,9 @@ import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
 import { avatar } from '../../constants/etc';
-export const RightMenu = ({ menuType }) => {
-  const [auth, setAuth] = React.useState({ isLoggedIn: false });
+export const RightMenu = ({ menuType, ...props }) => {
+  const { auth } = props;
   const router = useRouter();
-  React.useEffect(async () => {
-    const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
-    setAuth(response);
-  }, [router]);
   const signout = async () => {
     const response = await fetchJson(`${API.LOCAL_SIGNOUT_API}`);
     if (response?.isLoggedIn === false) {
@@ -129,7 +125,7 @@ export const RightMenu = ({ menuType }) => {
       <Divider className='my-1' />
       <Row>
         <Col span={12}>
-          <Link href='/desk/community'>
+          <Link href='/desk/community/home'>
             <a className='primary-link'>
               Community
             </a>

@@ -3,13 +3,6 @@ import { Button, Col, Input, Modal, Row, Form } from 'antd';
 import Image from 'next/image';
 export const JobApplyModal = () => {
   const [visible, setVisible] = React.useState(false);
-  const onFinish = (values) => {
-    console.log(values);
-  };
-	
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return <React.Fragment>
     <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={()=>setVisible(true)}>Apply</Button>
     <Modal
@@ -35,8 +28,7 @@ export const JobApplyModal = () => {
           <Form
             name='job-apply'
             layout='vertical'
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+            // onFinish={onFinish}
           >
             <p>
               To make the hiring process smoother, we rely on your Linkedin profile information, so make sure that your profile is up to date.
