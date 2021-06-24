@@ -37,9 +37,13 @@ const Home = () => {
                   Find mentoring, experts and fundings for your product launch
                 </h2>
                 <div className="my-4 text-center">
-                  <Button type='hbs-primary' shape='round' size='large'>
-                    Enter the accelerator program
-                  </Button>
+                  <Link href='/hubbers/accelerator-program'>
+                    <a>
+                      <Button type='hbs-primary' shape='round' size='large'>
+                        Enter the accelerator program
+                      </Button>
+                    </a>
+                  </Link>
                 </div>
                 <Row className='mb-3'>
                   <Col span={2}>

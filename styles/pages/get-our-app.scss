@@ -1,0 +1,27 @@
+.get-our-app{
+    .app-link{
+        text-align: center;
+    }
+    @media(min-width: 992px){
+        .app-text{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 400px;
+            color: white;
+            text-align: left;
+        }
+        .app-link{
+            padding-top: 42px;
+            text-align: left;
+        }
+    }
+    @media(max-width: 472px){
+        .app-img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+        }
+    }
+}

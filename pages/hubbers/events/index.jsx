@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainPageHoc } from '../../../containers';
-import { EventsBanner, EventItemSection } from '../../../components';
+import { MainBanner, EventItemSection } from '../../../components';
 const ProductLauncher = () => {
   const event = [
     {
@@ -119,7 +119,7 @@ const ProductLauncher = () => {
   return (
     <MainPageHoc title='Hubers events'>
       <React.Fragment>
-        <EventsBanner title={'GLOVAL EVENTS'} date={''} url={'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/home-banner-1.jpg'} />
+        <MainBanner title={'GLOVAL EVENTS'} date={''} url={'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/home-banner-1.jpg'} />
         <div className='event-group mt-5 mb-5'>
           {
             event.map((item, index) => {

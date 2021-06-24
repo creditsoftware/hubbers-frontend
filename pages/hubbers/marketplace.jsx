@@ -2,7 +2,7 @@ import { Button, Row, Col, Dropdown, Space, Slider, Card, Avatar } from 'antd';
 import { CaretDownOutlined, StarFilled } from '@ant-design/icons';
 import React from 'react';
 import Image from 'next/image';
-import { EventsBanner, Container } from '../../components';
+import { MainBanner, Container } from '../../components';
 import { MainPageHoc } from '../../containers';
 import Link from 'next/link';
 const categories = [
@@ -159,7 +159,7 @@ const Marketplace = () => {
   return (
     <MainPageHoc title='Marketplace'>
       <React.Fragment>
-        <EventsBanner
+        <MainBanner
           title='EXPLORE THE MARKETPLACE'
           url='https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/pldt/expert-packages-hero-bg%281%29.png'
           date={<Button type='hbs-primary' shape='round' size='large'>START EXPLORING</Button>}

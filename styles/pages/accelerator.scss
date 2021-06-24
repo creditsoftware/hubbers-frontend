@@ -1,0 +1,93 @@
+.accelerator-help{
+    position: relative;
+    padding: 0 0 0 90px;
+    &>div{
+        position: absolute!important;
+        top: 10px;
+        left: 0;
+    }
+}
+@media(min-width: 992px){
+    .accelerator-help-left{
+        padding: 0 90px 0 0;
+        &>div{
+            left: unset;
+            right: 0;
+        }
+    }
+    .accelerator-help-right{
+        padding: 50px 0 0 90px;
+        &>div{
+            top: 60px;
+        }
+    }
+    .accelerator-help::after{
+        content: '';
+        display: block;
+        height: 2px;
+        position: absolute;
+    }
+    .accelerator-help-left::after{
+        width: 18%;
+        right: -18%;
+        top: 66px;
+        transform: rotate(18deg);
+    }
+    .accelerator-help-right::after{
+        width: 20%;
+        left: -20%;
+        top: 138px;
+        transform: rotate(-28deg);
+    }
+    .accelerator-help:nth-child(1)::after{
+        background: #d2e5b7;
+    }
+    .accelerator-help:nth-child(3)::after{
+        background: #f7cdbc;
+    }
+    .accelerator-help:nth-child(4)::after{
+        background: #d4e4e9;
+    }
+    .accelerator-help:nth-child(6)::after{
+        background: #e0daf1;
+        transform: rotate(-42deg);
+        width: 27%;
+        left: -23%;
+        top: 158px;
+    }
+    .accelerator-help:nth-child(7)::after{
+        background: #e0b9e2;
+    }
+    .accelerator-help:nth-child(9)::after{
+        background: #dcf0b9;
+        transform: rotate(-42deg);
+        width: 27%;
+        left: -23%;
+        top: 158px;
+    }
+}
+@media(min-width: 1200px){
+    .accelerator-help:nth-child(6)::after{
+        transform: rotate(-36deg);
+        width: 23%;
+        left: -21%;
+        top: 148px;
+    }
+}
+@media(min-width: 1359px){
+    .accelerator-help:nth-child(9)::after{
+        transform: rotate(-32deg);
+        width: 22%;
+        left: -20%;
+        top: 148px;
+    }
+}
+.accelerator-form{
+    margin: auto;
+    max-width: 50rem;
+    padding: 52px 94px;
+    box-shadow: 5px 1px 5px 5px rgb(0 0 0 / 20%), 2px 4px 5px 2px rgb(0 0 0 / 19%);
+    @media(max-width: 575px){
+        padding: 24px 42px;
+    }
+}

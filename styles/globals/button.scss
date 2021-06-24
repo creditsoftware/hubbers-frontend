@@ -58,3 +58,16 @@
         }
     }
 }
+.ant-btn-hbs-main{
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    height: auto;
+    padding: 1rem 3rem;
+    font-size: 22px;
+    color: white;
+    background: linear-gradient(to right, #abe741, #a3de40, #9fda3f, #9fda3f, #8bc53b, #93cd3d, #8bc53b);
+    &:hover, &:active, &:focus{
+        background-image: linear-gradient(to right, #abe741, #a3de40, #9fda3f, #9fda3f, #8bc53b, #93cd3d, #8bc53b);
+    }
+}

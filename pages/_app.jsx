@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import NextNprogress from 'nextjs-progressbar';
 import * as locales from '../locales';
 import '../styles/index.scss';
+React.useLayoutEffect = React.useEffect;
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { locale, defaultLocale } = router;

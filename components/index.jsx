@@ -15,6 +15,7 @@ export { MailChimp } from './MailChimp';
 export { PageLoading } from './PageLoading';
 export { UploadImage } from './UploadImage';
 export { ActivityCards } from './ActivityCards';
+export { MainBanner } from './MainBanner';
 export * as Communities from './community';
 export {
   InvitePane,
@@ -59,7 +60,6 @@ export {
 export * as Event from './event';
 export {
   EventItemSection,
-  EventsBanner,
   GuestSpeakers,
   Location,
   TalkAbout,

@@ -27,6 +27,7 @@
     "google-map-react": "^2.1.9",
     "moment": "^2.29.1",
     "next": "10.2.0",
+    "next-auth": "^3.27.0",
     "next-iron-session": "^4.1.13",
     "next-js-suggest-input": "file:lib/next-js-suggest-input",
     "nextjs-fonts": "^0.22.0",

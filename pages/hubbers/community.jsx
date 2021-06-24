@@ -138,7 +138,7 @@ const Community = () => {
             </div>
             <Space size={16} wrap align="center" className="my-3 fjc-center w-100">
               <Button type="hbs-outline-primary" size="large" shape="round">SHARE AN ARTICLE</Button>
-              <Button type="hbs-outline-primary" size="large" shape="round">SHARE AN ARTICLE</Button>
+              <Button type="hbs-outline-primary" size="large" shape="round">SHARE AN EVENT</Button>
               <Button type="hbs-outline-primary" size="large" shape="round">HBB REWARD</Button>
             </Space>
           </React.Fragment>

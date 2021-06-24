@@ -56,7 +56,7 @@ export const MainFooter = ({ className }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/">
+                <Link href="/hubbers/become-an-expert">
                   <a>
                     Become an expert
                   </a>
@@ -105,7 +105,7 @@ export const MainFooter = ({ className }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/">
+                <Link href="/hubbers/become-a-judge">
                   <a>
                     Become a judge
                   </a>
@@ -147,14 +147,14 @@ export const MainFooter = ({ className }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/">
+                <Link href="/hubbers/grab-a-share">
                   <a>
                     Grab a share
                   </a>
                 </Link>
               </div>
               <div>
-                <Link href="/">
+                <Link href="/hubbers/get-our-app">
                   <a>
                     Get our app
                   </a>
