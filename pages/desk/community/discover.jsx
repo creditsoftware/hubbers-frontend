@@ -1,17 +1,12 @@
-import { Space } from 'antd';
+import { Space, Tooltip } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import Image from 'next/image';
 import React from 'react';
 import {
   TopicSwiper,
-  TopPostSwiper,
+  // TopPostSwiper,
   SwitchCommunity
 } from '../../../components';
-import {
-  denisAvatar,
-  jomarieAvatar,
-  wangAvatar
-} from '../../../constants/etc';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
@@ -21,7 +16,13 @@ import JoinInCommunity from './join';
 import { useRouter } from 'next/router';
 const Discover = ({ ...props }) => {
   const router = useRouter();
+  const [memberList, setMemberList] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
+  React.useEffect(()=>{
+    if(router.query.community) {
+      fetch(`${API.GET_MEMBER_LIST_API}/${router.query.community}`).then( async (response)=>setMemberList( await response.json()));
+    }
+  },[router]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -33,10 +34,10 @@ const Discover = ({ ...props }) => {
               <SwitchCommunity />
             </span>
           </h1>
-          <div className="fw-6 fs-2 mb-3">
+          {/* <div className="fw-6 fs-2 mb-3">
             Top Posts
           </div>
-          <TopPostSwiper />
+          <TopPostSwiper /> */}
           <div className="fw-6 fs-2 mt-5">
             Members near you
           </div>
@@ -45,9 +46,15 @@ const Discover = ({ ...props }) => {
           </div>
           <div>
             <Space className='discover-members-wrap' wrap>
-              <Avatar src={<Image width={100} height={100} src={denisAvatar} />} />
-              <Avatar src={<Image width={100} height={100} src={jomarieAvatar} />} />
-              <Avatar src={<Image width={100} height={100} src={wangAvatar} />} />
+              {
+                memberList &&
+                memberList.data &&
+                memberList.data.map((e) => {
+                  return <Tooltip key={e.id} title={`${e.user?.firstname && e.user?.firstname} ${e.user?.lastname && e.user?.lastname}${!e.user?.lastname && !e.user?.lastname && e.user?.email}`}>
+                    <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'}/>} />
+                  </Tooltip>;
+                })
+              }
             </Space>
           </div>
           <div className="fw-6 fs-2 mt-5 mb-3">
