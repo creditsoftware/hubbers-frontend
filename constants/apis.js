@@ -31,8 +31,10 @@ export const API = {
   VERIFY_EMAIL_API: process.env.API_V1 + 'auth/user/verify-email',
   FORGOT_PASSWORD_API: process.env.API_V1 + 'auth/user/forgot-password', //post
   RESET_PASSWORD_API: process.env.API_V1 + 'auth/user/reset-password', //post
+  GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
   COMMUNITY_DETAIL_API: process.env.API_V1 + 'community/detail', // /:id
+  JOININ_COMMUNITY_API: process.env.API_V1 + 'community/member/join',//post /:userId
   SIMPLE_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all', //get /:communityId
   ALL_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all/detail', //get /:communityId
   ADD_TOPIC_API: process.env.API_V1 + 'community/topic/add', //get /:communityId
@@ -52,5 +54,7 @@ export const API = {
   UPLOAD_AVATAR_API: process.env.API_V1 + 'upload/avatar',
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
   LINKEDIN_LOGIN_REDIRECT_API: process.env.API_V1 + 'auth/user/linkedin',
-  SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso'
+  SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso',
+  //socket stream endpoint
+  SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1
 };

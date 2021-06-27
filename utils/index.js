@@ -13,3 +13,4 @@ export { slugify } from './string';
 export { openPopupCenter } from './window';
 export { withSession } from './withSession';
 export { loadIframelyEmbedJs } from './iframely';
+export { socket } from './socketio';

@@ -1,16 +1,49 @@
 import React from 'react';
 import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
-import { Col, Collapse, Empty, Row } from 'antd';
+import { Col, Collapse, Empty, Row, Button, Space } from 'antd';
 import { CheckBtn, SwitchCommunity } from '../../../components';
 import Image from 'next/image';
-import { API } from '../../../constants/index';
+import { API, CONTINENTS } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
+import { openNotificationWithIcon } from '../../../utils';
 const { Panel } = Collapse;
 const JoinInCommunity = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const [checked, setChecked] = React.useState(false);
+  const [communityList, setCommunitylist] = React.useState(null);
+  const [selectedCommunities, setSelectedCommunities] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(async () => {
+    console.log(data);
+    const communities = await (await fetch(`${API.GET_COMMUNITY_LIST_API}`)).json();
+    setCommunitylist(communities.data);
+  }, []);
+  const selectCommunityEvnet = (e) => {
+    // if(data.communityMember.length > 1) return;
+    // if(data.communityMember.length + selectedCommunities.length > 1) return;
+    if (selectedCommunities.filter((i) => i === e).length > 0) {
+      setSelectedCommunities([...selectedCommunities.filter((i) => i !== e)]);
+    } else {
+      setSelectedCommunities([...selectedCommunities, e]);
+    }
+  };
+  const joinIn = () => {
+    setLoading(true);
+    fetch(`${API.JOININ_COMMUNITY_API}/${data.id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(selectedCommunities),
+    }).then(async (response) => {
+      setLoading(false);
+      const result = await response.json();
+      openNotificationWithIcon('success', 'Success', result[0]?.message);
+    }).catch((err) => {
+      setLoading(false);
+      console.log(err);
+      openNotificationWithIcon('error', 'Failed', 'Failed to join in the Community');
+    });
+  };
   return (
     <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }}>
       <div className="h-100 bg-white">
@@ -34,26 +67,40 @@ const JoinInCommunity = ({ ...props }) => {
           <Row>
             <Col lg={12} md={12} span={24}>
               <Collapse>
-                <Panel header='Asia' key='1'>
-                  <CheckBtn checked={checked} onChange={(v) => setChecked(v)} label='Singapore' />
-                </Panel>
-                <Panel header='Europe' key='2'>
-                  <Empty />
-                </Panel>
-                <Panel header='Africa' key='3'>
-                  <Empty />
-                </Panel>
-                <Panel header='North America' key='4'>
-                  <Empty />
-                </Panel>
-                <Panel header='South America' key='5'>
-                  <Empty />
-                </Panel>
+                {
+                  CONTINENTS.map((item) => {
+                    return <Panel key={item} header={item}>
+                      <Space wrap>
+                        {
+                          communityList &&
+                          communityList
+                            .filter((c) => c.country?.continent === item)
+                            .map((c) => {
+                              return <CheckBtn
+                                key={c.id}
+                                disabled={data.communityMember?.filter((m)=>m.communityId === c.id).length > 0}
+                                checked={selectedCommunities.filter((i) => i === Number(c.id)).length > 0}
+                                onChange={() => selectCommunityEvnet(Number(c.id))}
+                                label={c.name} />;
+                            })
+                        }
+                      </Space>
+                      {
+                        communityList &&
+                        communityList.filter((c) => c.country?.continent === item).length === 0 &&
+                        <Empty />
+                      }
+                    </Panel>;
+                  })
+                }
               </Collapse>
             </Col>
             <Col lg={12} md={12} span={24}>
               <div className="text-center h-100">
                 <Image src='/images/community/join.png' width={400} height={300} />
+                <Button loading={loading} type='hbs-outline-primary' shape='round' size='large' disabled={selectedCommunities.length === 0} onClick={joinIn}>
+                  Join
+                </Button>
               </div>
             </Col>
           </Row>

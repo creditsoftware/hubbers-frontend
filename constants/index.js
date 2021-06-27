@@ -19,3 +19,4 @@ export { timezoneList } from './timezone';
 export { signinFeatureObj } from './signin-feature';
 export { signupFeatureObj } from './signup-feature';
 export * as URLS from './urls';
+export { CONTINENTS } from './continents';
