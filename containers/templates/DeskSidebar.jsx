@@ -73,167 +73,6 @@ export const DeskSidebar = ({ active, ...props }) => {
             </a>
           </AuthLink>
         </Menu.Item>
-        <Menu.Item key="activities" icon={<StarOutlined />}>
-          <AuthLink href='/desk/activities' {...props}>
-            <a>
-              Activities&nbsp;&nbsp;
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="choose-your-launch" icon={<SelectOutlined />}>
-          <AuthLink href='/desk/choose-your-launch' {...props}>
-            <a>
-              Choose your launch
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="profile" icon={<ProfileOutlined />}>
-          <AuthLink href='/desk/profile' {...props}>
-            <a>
-              Profile
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="account-preference" icon={<AccountBookOutlined />}>
-          <AuthLink href='/desk/account-preference' {...props}>
-            <a>
-              Account preference
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="assessment" icon={<SmileOutlined />}>
-          <AuthLink href='/desk/assessment' {...props}>
-            <a>
-              Assessment
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="contacts" icon={<ContactsOutlined />}>
-          <AuthLink href='/desk/contacts' {...props}>
-            <a>
-              Contacts
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="messages" icon={<CommentOutlined />}>
-          <AuthLink href='/desk/messages' {...props}>
-            <a>
-              Messages
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="project-setting" icon={<SettingOutlined />}>
-          <AuthLink href='/desk/project-setting' {...props}>
-            <a>
-              Project setting
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <Menu.Item key="modules" icon={<BuildOutlined />}>
-          <AuthLink href='/desk/modules' {...props}>
-            <a>
-              Modules
-            </a>
-          </AuthLink>
-        </Menu.Item>
-        <SubMenu
-          key="my-product"
-          icon={<GiftOutlined />}
-          title={
-            <AuthLink href='/desk/my-product' {...props}>
-              <a>
-                My Product
-                <Badge
-                  count={120}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
-          }
-        >
-          <SubMenu
-            key="product1"
-            icon={<TeamOutlined />}
-            title={
-              <AuthLink href='/desk/my-product/product1' {...props}>
-                <a>
-                  Product1
-                  <Badge
-                    count={120}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            }
-          >
-            <Menu.Item key="product-detail">
-              <AuthLink href='/desk/my-product/product1/detail' {...props}>
-                <a>
-                  Product Detail
-                  <Badge
-                    count={23}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            </Menu.Item>
-            <Menu.Item key="team-setting">
-              <AuthLink href='/desk/my-product/product1/team-setting' {...props}>
-                <a>
-                  Team &amp; Setttings
-                  <Badge
-                    count={23}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            </Menu.Item>
-            <Menu.Item key="workspace">
-              <AuthLink href='/desk/my-product/product1/workspace' {...props}>
-                <a>
-                  Workspace
-                  <Badge
-                    count={23}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            </Menu.Item>
-          </SubMenu>
-        </SubMenu>
-        <SubMenu key="my-expertise"
-          icon={<GoldOutlined />}
-          title={
-            <AuthLink href='/desk/my-expertise' {...props}>
-              <a>
-                My Expertise
-                <Badge
-                  count={120}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
-          }
-        >
-          <Menu.Item key="expertise1">
-            <AuthLink href='/desk/my-expertise/expertise1' {...props}>
-              <a>
-                Expertise1
-                <Badge
-                  count={23}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
-          </Menu.Item>
-        </SubMenu>
         <SubMenu key="community"
           icon={<TeamOutlined />}
           title={
@@ -315,7 +154,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               <a>
                 Home&nbsp;&nbsp;
                 <Badge
-                  count={23}
+                  count={2}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 />
@@ -327,7 +166,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               <a>
                 Discover&nbsp;&nbsp;
                 <Badge
-                  count={23}
+                  count={3}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 />
@@ -339,7 +178,168 @@ export const DeskSidebar = ({ active, ...props }) => {
               <a>
                 Members&nbsp;&nbsp;
                 <Badge
-                  count={80}
+                  count={2}
+                  size='small'
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </a>
+            </AuthLink>
+          </Menu.Item>
+        </SubMenu>
+        <Menu.Item key="activities" icon={<StarOutlined />}>
+          <AuthLink href='/desk/activities' {...props}>
+            <a>
+              Activities&nbsp;&nbsp;
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="choose-your-launch" icon={<SelectOutlined />}>
+          <AuthLink href='/desk/choose-your-launch' {...props}>
+            <a>
+              Choose your launch
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="profile" icon={<ProfileOutlined />}>
+          <AuthLink href='/desk/profile' {...props}>
+            <a>
+              Profile
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="account-preference" icon={<AccountBookOutlined />}>
+          <AuthLink href='/desk/account-preference' {...props}>
+            <a>
+              Account preference
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="assessment" icon={<SmileOutlined />}>
+          <AuthLink href='/desk/assessment' {...props}>
+            <a>
+              Assessment
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="contacts" icon={<ContactsOutlined />}>
+          <AuthLink href='/desk/contacts' {...props}>
+            <a>
+              Contacts
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="messages" icon={<CommentOutlined />}>
+          <AuthLink href='/desk/messages' {...props}>
+            <a>
+              Messages
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="project-setting" icon={<SettingOutlined />}>
+          <AuthLink href='/desk/project-setting' {...props}>
+            <a>
+              Project setting
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <Menu.Item key="modules" icon={<BuildOutlined />}>
+          <AuthLink href='/desk/modules' {...props}>
+            <a>
+              Modules
+            </a>
+          </AuthLink>
+        </Menu.Item>
+        <SubMenu
+          key="my-product"
+          icon={<GiftOutlined />}
+          title={
+            <AuthLink href='/desk/my-product' {...props}>
+              <a>
+                My Product
+                <Badge
+                  count={1}
+                  size='small'
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </a>
+            </AuthLink>
+          }
+        >
+          <SubMenu
+            key="product1"
+            icon={<TeamOutlined />}
+            title={
+              <AuthLink href='/desk/my-product/product1' {...props}>
+                <a>
+                  Product1
+                  <Badge
+                    count={1}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            }
+          >
+            <Menu.Item key="product-detail">
+              <AuthLink href='/desk/my-product/product1/detail' {...props}>
+                <a>
+                  Product Detail
+                  <Badge
+                    count={0}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            </Menu.Item>
+            <Menu.Item key="team-setting">
+              <AuthLink href='/desk/my-product/product1/team-setting' {...props}>
+                <a>
+                  Team &amp; Setttings
+                  <Badge
+                    count={0}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            </Menu.Item>
+            <Menu.Item key="workspace">
+              <AuthLink href='/desk/my-product/product1/workspace' {...props}>
+                <a>
+                  Workspace
+                  <Badge
+                    count={0}
+                    size='small'
+                    style={{ backgroundColor: '#52c41a' }}
+                  />
+                </a>
+              </AuthLink>
+            </Menu.Item>
+          </SubMenu>
+        </SubMenu>
+        <SubMenu key="my-expertise"
+          icon={<GoldOutlined />}
+          title={
+            <AuthLink href='/desk/my-expertise' {...props}>
+              <a>
+                My Expertise
+                <Badge
+                  count={3}
+                  size='small'
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </a>
+            </AuthLink>
+          }
+        >
+          <Menu.Item key="expertise1">
+            <AuthLink href='/desk/my-expertise/expertise1' {...props}>
+              <a>
+                Expertise1
+                <Badge
+                  count={3}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 />

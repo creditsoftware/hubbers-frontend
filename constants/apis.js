@@ -33,7 +33,7 @@ export const API = {
   RESET_PASSWORD_API: process.env.API_V1 + 'auth/user/reset-password', //post
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
-  COMMUNITY_DETAIL_API: process.env.API_V1 + 'community/detail', // /:id
+  COMMUNITY_DETAIL_API: process.env.API_V1 + 'community', // /:id
   JOININ_COMMUNITY_API: process.env.API_V1 + 'community/member/join',//post /:userId
   SIMPLE_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all', //get /:communityId
   ALL_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all/detail', //get /:communityId
