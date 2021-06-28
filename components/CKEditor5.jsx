@@ -112,6 +112,9 @@ export const CKEditor5 = (props) => {
           table: {
             customClass: ['ui', 'table', 'celled'],
           },
+          mediaEmbed: {
+            previewsInData: true
+          },
           image: {
             customClass: ['ui', 'fluid', 'image'],
           },
