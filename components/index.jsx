@@ -36,6 +36,7 @@ export {
   EditEventDrawer,
   EditPostDrawer,
   EditTopicDrawer,
+  EditGroupDrawer,
   HomeBody,
   SwitchCommunity,
   TopPostSwiper,

@@ -73,7 +73,7 @@ export const EditTopicDrawer = ({ visible, onHide }) => {
           margin: '-24px -24px 24px -24px'
         }}
         extra={
-          <Form.Item>
+          <Form.Item style={{marginBottom:0}}>
             <Button htmlType='submit' type='default' shape='round'>
               Save
             </Button>

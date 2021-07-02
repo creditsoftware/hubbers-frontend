@@ -14,7 +14,6 @@ const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [community, setCommunity] = React.useState(null);
   React.useEffect(() => {
-    console.log(props);
     setCommunity(props.data?.data);
   }, [router]);
   return (
@@ -34,7 +33,7 @@ const Home = ({ ...props }) => {
           </h1>
           <div className='text-right'>
             <CommunityManageBtn />
-            <CreateNewBtn />
+            <CreateNewBtn auth={{ ...data }} />
           </div>
           <div className='homepage-action-bar'>
             <HomeFilter />

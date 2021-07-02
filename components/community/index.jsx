@@ -16,6 +16,7 @@ export { DiscoverTopicTile } from './DiscoverTopicTile';
 export { EditEventDrawer } from './EditEventDrawer';
 export { EditPostDrawer } from './EditPostDrawer';
 export { EditTopicDrawer } from './EditTopicDrawer';
+export { EditGroupDrawer } from './EditGroupDrawer';
 export { HomeBody } from './HomeBody';
 export { SwitchCommunity } from './SwitchCommunity';
 export { TopicSwiper } from './TopicSwiper';

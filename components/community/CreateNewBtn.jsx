@@ -4,13 +4,15 @@ import { PlusOutlined } from '@ant-design/icons';
 import { EditPostDrawer } from './EditPostDrawer';
 import { EditTopicDrawer } from './EditTopicDrawer';
 import { EditEventDrawer } from './EditEventDrawer';
+import { EditGroupDrawer } from './EditGroupDrawer';
 
-export const CreateNewBtn = () => {
+export const CreateNewBtn = ({...props}) => {
   const [visible, setVisible] = React.useState({
     popover: false,
     postEditor: false,
     articleEditor: false,
     eventEditor: false,
+    groupEditor: false,
     topicEditor: false
   });
   return <React.Fragment>
@@ -36,7 +38,7 @@ export const CreateNewBtn = () => {
             <Menu.Item key='event' onClick={() => setVisible({ ...visible, eventEditor: !visible.eventEditor, popover: !visible.popover })}>
               Event
             </Menu.Item>
-            <Menu.Item key='group' onClick={() =>{}}>
+            <Menu.Item key='group' onClick={() => setVisible({ ...visible, groupEditor: !visible.groupEditor, popover: !visible.popover })}>
               Group
             </Menu.Item>
           </Menu>
@@ -44,6 +46,7 @@ export const CreateNewBtn = () => {
           <EditPostDrawer article visible={visible.articleEditor} onHide={() => setVisible({ ...visible, articleEditor: !visible.articleEditor })} />
           <EditTopicDrawer visible={visible.topicEditor} onHide={() => setVisible({ ...visible, topicEditor: !visible.topicEditor })} />
           <EditEventDrawer visible={visible.eventEditor} onHide={() => setVisible({ ...visible, eventEditor: !visible.eventEditor })} />
+          <EditGroupDrawer visible={visible.groupEditor} onHide={() => setVisible({ ...visible, groupEditor: !visible.groupEditor })} {...props} />
         </React.Fragment>
       }
       trigger='click'

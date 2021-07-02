@@ -15,7 +15,7 @@ export default withSession( async (req, res) => {
   try{
     httpApiServer(`${API.SIMPLE_TOPIC_LIST_API}/${req.query.communityId}`, REQUEST_TYPE.GET, null, ctx).then((response) => {
       res.status(200).json(response.data);
-    }).catch(async(err) => {
+    }).catch(async (err) => {
       if(err.response && err.response.status === 401) {
         await req.session.destroy();
         res.status(401).json({err:err.response});

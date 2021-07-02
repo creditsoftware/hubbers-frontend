@@ -81,7 +81,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             <div>
               Community&nbsp;&nbsp;
               <Badge
-                count={120}
+                count={7}
                 size='small'
                 style={{ backgroundColor: '#52c41a' }}
               />

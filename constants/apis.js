@@ -55,6 +55,8 @@ export const API = {
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
   LINKEDIN_LOGIN_REDIRECT_API: process.env.API_V1 + 'auth/user/linkedin',
   SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso',
+  GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/group-privacy-option', //get
+  CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post
   //socket stream endpoint
   SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1
 };
