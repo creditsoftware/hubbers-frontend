@@ -40,8 +40,10 @@
     "react-highlight-words": "^0.17.0",
     "react-intl": "^5.17.4",
     "react-slick": "^0.28.1",
+    "react-tag-input": "^6.7.1",
     "sass": "^1.32.12",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^4.1.2",
     "socket.io-client": "^4.1.2",
     "swiper": "^6.5.9",
     "swr": "^0.5.6"

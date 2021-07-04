@@ -41,7 +41,8 @@ module.exports = withFonts({
       'fiverr-res.cloudinary.com',
       'images.pexels.com',
       'ui-avatars.com',
-      'blog.hubbers.io'
+      'blog.hubbers.io',
+      'flagcdn.com'
     ],
   },
   api: {
