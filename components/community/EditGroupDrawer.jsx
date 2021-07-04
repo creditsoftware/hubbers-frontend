@@ -24,7 +24,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
     fetchJson(`${API.GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
     socket.on('created-community-post', (d) => {
       console.log(d);
-    })
+    });
   }, []);
   const onFinish = (value) => {
     let data;

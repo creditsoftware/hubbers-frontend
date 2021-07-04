@@ -38,12 +38,6 @@ const Signin = ({ ...props }) => {
   const tailLayout = {
     wrapperCol: { offset: size.width > 575 ? 8 : 0, span: 16 },
   };
-  React.useEffect(async () => {
-    const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
-    if (response.isLoggedIn) {
-      router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
-    }
-  }, [router]);
   const onFinish = async (values) => {
     setBtnLoading(true);
     try {
