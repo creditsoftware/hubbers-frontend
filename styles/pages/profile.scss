@@ -1,0 +1,39 @@
+.main-profile{
+    .profile-item{
+        &>div:nth-child(1){
+            width: 100%;
+        }
+        &>div:nth-child(2){
+            width: 100%;
+            &>.ant-space-horizontal{
+                margin-bottom: 0!important;
+            }
+        }
+    }
+}
+@media(min-width: 575px){
+    .main-profile{
+        padding: 0 24px 0 42px;
+        .profile-item{
+            &>div:nth-child(1){
+                width: 124px;
+            }
+            &>div:nth-child(2){
+                width: calc(100% - 124px);
+            }
+        }
+    }
+}
+.active-profile{
+    border-radius: 20px;
+    border-bottom-left-radius: floor($number: 0);
+    border-bottom-right-radius: floor($number: 0);
+    background-color: white;
+}
+.profile-input{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0 24px;
+    font-weight: bold;
+}
