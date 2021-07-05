@@ -10,6 +10,7 @@ export const LinkedinLogin = () => {
   }, []);
   const receiveToken = (response) => {
     // if (response.data.type === 'linkedin') {
+    console.log('response');
     console.log(response);
     // }
   };
