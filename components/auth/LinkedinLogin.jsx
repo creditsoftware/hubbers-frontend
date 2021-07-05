@@ -1,5 +1,6 @@
 import { LinkedinOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import axios from 'axios';
 import React from 'react';
 import { API } from '../../constants';
 import { openPopupCenter } from '../../utils/window';
@@ -8,11 +9,17 @@ export const LinkedinLogin = () => {
   React.useEffect(() => {
     window.addEventListener('message', receiveToken);
   }, []);
-  const receiveToken = (response) => {
-    // if (response.data.type === 'linkedin') {
-    console.log('response');
-    console.log(response);
-    // }
+  const receiveToken = async (response) => {
+    if (response.data.type === 'linkedin') {
+      console.log('response');
+      const token = response.data.data;
+      const response = await axios.post(`${API.REFRESH_API}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response);
+    }
   };
   const handleClick = () => {
     openPopupCenter(`
