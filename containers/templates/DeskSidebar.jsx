@@ -17,16 +17,17 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { AuthLink } from '../../components';
-// import { fetchJson } from '../../utils/fetchJson';
-// import { API } from '../../constants';
+import { fetchJson } from '../../utils/fetchJson';
+import { API } from '../../constants';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 export const DeskSidebar = ({ active, ...props }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = React.useState(false);
   const [communityId, setCommunityId] = React.useState(null);
-  // const [communityList, setCommunityList] = React.useState([]);
+  const [communityList, setCommunityList] = React.useState([]);
   const [activeKey, setActiveKey] = React.useState([]);
+  const [openKeys, setOpenKeys] = React.useState([]);
   const onCollapse = c => {
     setCollapsed(c);
   };
@@ -40,30 +41,34 @@ export const DeskSidebar = ({ active, ...props }) => {
         }
       }
     }
-    // fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
-    //   .then((response) => {
-    //     setCommunityList(response.data.data);
-    //     if (response.data && response.data.data?.length > 0) {
-    //       if (!router.query.community) {
-    //         router.push({ query: { ...router.query, community: response.data?.data[0].id } });
-    //       }
-    //     } else {
-    //       router.push({ query: { community: 'join' } });
-    //     }
-    //   })
-    //   .catch(() => {
-    //     setCommunityList([]);
-    //   });
+    fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
+      .then((response) => {
+        setCommunityList(response.data.data);
+        if (response.data && response.data.data?.length > 0) {
+          if (!router.query.community) {
+            router.push({ query: { ...router.query, community: response.data?.data[0].id } });
+          }
+        } else {
+          router.push({ query: { community: 'join' } });
+        }
+      })
+      .catch(() => {
+        setCommunityList([]);
+      });
     window.addEventListener('resize', () => {
       onCollapse(window.innerWidth < 1024);
     });
     onCollapse(window.innerWidth < 1024);
   }, [router]);
+  useEffect(() => {
+    setOpenKeys([...active.open, `community-${communityId}`]);
+  }, [communityId, active]);
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className='desk-sider' width={300}>
       <Menu
         defaultSelectedKeys={[...active.active, ...activeKey]}
         defaultOpenKeys={[...active.open, `community-${communityId}`]}
+        openKeys={[...openKeys]}
         mode="inline"
       >
         <Menu.Item key="dashboard" icon={<PieChartOutlined />}>
@@ -90,7 +95,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             // </AuthLink>
           }
         >
-          {/* {
+          {
             communityList &&
             communityList.length > 0 &&
             communityList.map((community) => {
@@ -148,8 +153,8 @@ export const DeskSidebar = ({ active, ...props }) => {
                 </Menu.Item>
               </SubMenu>;
             })
-          } */}
-          <Menu.Item key="home">
+          }
+          {/* <Menu.Item key="home">
             <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
               <a>
                 Home&nbsp;&nbsp;
@@ -184,7 +189,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                 />
               </a>
             </AuthLink>
-          </Menu.Item>
+          </Menu.Item> */}
         </SubMenu>
         <Menu.Item key="activities" icon={<StarOutlined />}>
           <AuthLink href='/desk/activities' {...props}>
@@ -255,7 +260,7 @@ export const DeskSidebar = ({ active, ...props }) => {
           title={
             <AuthLink href='/desk/my-product' {...props}>
               <a>
-                My Product
+                My Product&nbsp;&nbsp;
                 <Badge
                   count={1}
                   size='small'
@@ -271,7 +276,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             title={
               <AuthLink href='/desk/my-product/product1' {...props}>
                 <a>
-                  Product1
+                  Product1&nbsp;&nbsp;
                   <Badge
                     count={1}
                     size='small'
@@ -284,7 +289,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             <Menu.Item key="product-detail">
               <AuthLink href='/desk/my-product/product1/detail' {...props}>
                 <a>
-                  Product Detail
+                  Product Detail&nbsp;&nbsp;
                   <Badge
                     count={0}
                     size='small'
@@ -296,7 +301,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             <Menu.Item key="team-setting">
               <AuthLink href='/desk/my-product/product1/team-setting' {...props}>
                 <a>
-                  Team &amp; Setttings
+                  Team &amp; Setttings&nbsp;&nbsp;
                   <Badge
                     count={0}
                     size='small'
@@ -308,7 +313,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             <Menu.Item key="workspace">
               <AuthLink href='/desk/my-product/product1/workspace' {...props}>
                 <a>
-                  Workspace
+                  Workspace&nbsp;&nbsp;
                   <Badge
                     count={0}
                     size='small'
@@ -324,7 +329,7 @@ export const DeskSidebar = ({ active, ...props }) => {
           title={
             <AuthLink href='/desk/my-expertise' {...props}>
               <a>
-                My Expertise
+                My Expertise&nbsp;&nbsp;
                 <Badge
                   count={3}
                   size='small'
@@ -337,7 +342,7 @@ export const DeskSidebar = ({ active, ...props }) => {
           <Menu.Item key="expertise1">
             <AuthLink href='/desk/my-expertise/expertise1' {...props}>
               <a>
-                Expertise1
+                Expertise1&nbsp;&nbsp;
                 <Badge
                   count={3}
                   size='small'

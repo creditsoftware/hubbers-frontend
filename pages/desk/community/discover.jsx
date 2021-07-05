@@ -9,7 +9,7 @@ import {
 } from '../../../components';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
-import { API } from '../../../constants/index';
+import { API, primaryColor } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
@@ -50,7 +50,7 @@ const Discover = ({ ...props }) => {
                 memberList &&
                 memberList.data &&
                 memberList.data.map((e) => {
-                  return <Tooltip key={e.id} title={`${e.user?.firstname && e.user?.firstname} ${e.user?.lastname && e.user?.lastname}${!e.user?.lastname && !e.user?.lastname && e.user?.email}`}>
+                  return <Tooltip color={primaryColor} key={e.id} title={`${e.user?.firstname && e.user?.firstname} ${e.user?.lastname && e.user?.lastname}${!e.user?.lastname && !e.user?.lastname && e.user?.email}`}>
                     <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'}/>} />
                   </Tooltip>;
                 })
