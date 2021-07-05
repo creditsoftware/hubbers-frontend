@@ -22,9 +22,9 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
   const [form] = Form.useForm();
   React.useEffect(() => {
     fetchJson(`${API.GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
-    socket.on('created-community-post', (d) => {
-      console.log(d);
-    });
+    // socket.on('created-community-post', (d) => {
+    //   console.log(d);
+    // });
   }, []);
   const onFinish = (value) => {
     let data;
@@ -39,7 +39,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }).then((res) => {
-      socket.emit('create-community-post', { ...data });
+      // socket.emit('create-community-post', { ...data });
       openNotificationWithIcon('success', 'Success', res.message);
     }).catch(() => {
       openNotificationWithIcon('error', 'Error', 'Failed to create a group!');
