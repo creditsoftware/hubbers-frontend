@@ -12,4 +12,4 @@ export { getRandomInt } from './randomNumber';
 export { slugify } from './string';
 export { openPopupCenter } from './window';
 export { withSession } from './withSession';
-export { socket } from './socketio';
+// export { socket } from './socketio';
