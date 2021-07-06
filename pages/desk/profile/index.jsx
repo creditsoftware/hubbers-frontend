@@ -13,13 +13,13 @@ const { Option } = Select;
 
 const Profile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const product = ["Furniture","Clothing and apparel"];
-  const innovation = ["Innovation1", "Innovation2", "Innovation3"];
-  const tech = ["Tech1", "Tech2", "Tech3"];
+  const product = ['Furniture', 'Clothing and apparel'];
+  const innovation = ['Innovation1', 'Innovation2', 'Innovation3'];
+  const tech = ['Tech1', 'Tech2', 'Tech3'];
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
-        <MainProfile /> 
+        <MainProfile />
         <Container className="mt-4">
           <React.Fragment>
             <div>
@@ -43,7 +43,7 @@ const Profile = ({ ...props }) => {
               <div className="max-w-50 m-auto">
                 <p className="fs-1 pb-3">
                   Let's the community know a little more about you.
-                  <br/>
+                  <br />
                   Let's start with your profile picture. Click on the picture above and upload your best shot of you.
                 </p>
                 <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
@@ -111,11 +111,11 @@ const Profile = ({ ...props }) => {
                   <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                     <label style={{ whiteSpace: 'nowrap' }}>Type of innovation that I like:</label>
                     <Select mode="tags" bordered={false} className="profile-input">
-                    {
-                      innovation.map((item, index) => {
-                        return <Option key={index}>{item}</Option>;
-                      })
-                    }
+                      {
+                        innovation.map((item, index) => {
+                          return <Option key={index}>{item}</Option>;
+                        })
+                      }
                     </Select>
                   </Col>
                 </Row>
@@ -123,11 +123,11 @@ const Profile = ({ ...props }) => {
                   <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                     <label style={{ whiteSpace: 'nowrap' }}>Tech I follow:</label>
                     <Select mode="tags" bordered={false} className="profile-input">
-                    {
-                      tech.map((item, index) => {
-                        return <Option key={index}>{item}</Option>;
-                      })
-                    }
+                      {
+                        tech.map((item, index) => {
+                          return <Option key={index}>{item}</Option>;
+                        })
+                      }
                     </Select>
                   </Col>
                 </Row>
