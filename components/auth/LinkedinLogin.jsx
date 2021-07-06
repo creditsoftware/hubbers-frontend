@@ -12,13 +12,14 @@ export const LinkedinLogin = () => {
   const receiveToken = async (response) => {
     if (response.data.type === 'linkedin') {
       console.log('response');
+      console.log(response);
       const token = response.data.data;
-      const response = await axios.post(`${API.REFRESH_API}`, null, {
+      const refreshResponse = await axios.post(`${API.REFRESH_API}`, null, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response);
+      console.log(refreshResponse);
     }
   };
   const handleClick = () => {
