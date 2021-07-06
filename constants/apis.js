@@ -1,6 +1,7 @@
 export const API = {
   //LOCAL APIS : TO SERVER-SIDE
   LOCAL_SIGNIN_API: process.env.LOCAL_API_V1 + '/api/auth/signin',
+  LOCAL_REFRESH_API: process.env.LOCAL_API_V1 + '/api/auth/refresh',
   LOCAL_SIGNUP_API: process.env.LOCAL_API_V1 + '/api/auth/signup',
   LOCAL_SIGNOUT_API: process.env.LOCAL_API_V1 + '/api/auth/signout',
   GET_USER_FROM_SESSIOM_API: process.env.LOCAL_API_V1 + '/api/auth/user',

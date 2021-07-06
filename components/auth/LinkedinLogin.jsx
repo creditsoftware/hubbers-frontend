@@ -14,12 +14,7 @@ export const LinkedinLogin = () => {
       console.log('response');
       console.log(response);
       const token = response.data.data;
-      const refreshResponse = await axios.post(`${API.REFRESH_API}`, null, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.log(refreshResponse);
+      await axios.post(`${API.LOCAL_REFRESH_API}`, { ...token });
     }
   };
   const handleClick = () => {
