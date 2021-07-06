@@ -15,19 +15,19 @@ export default withSession(async (req, res) => {
       }
     });
     console.log(response.data);
-    if (response.data ?.success) {
-      req.session.set('refreshToken', response.data ?.data.refreshToken);
-      req.session.set('accessToken', response.data ?.data.accessToken);
-      req.session.set('user', response.data ?.data.user);
+    if (response.data?.success) {
+      req.session.set('refreshToken', response.data?.data.refreshToken);
+      req.session.set('accessToken', response.data?.data.accessToken);
+      req.session.set('user', response.data?.data.user);
       await req.session.save();
-      res.status(200).json(response.data ?.data.user);
+      res.status(200).json(response.data?.data.user);
     }
   } catch (err) {
     console.log(err);
     const {
       response: fetchResponse
     } = err;
-    res.status(fetchResponse ?.status || 500).json(err.response ?.data || {
+    res.status(fetchResponse?.status || 500).json(err.response?.data || {
       message: 'Failed to signin!'
     });
   }
