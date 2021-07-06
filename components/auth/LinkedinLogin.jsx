@@ -11,10 +11,8 @@ export const LinkedinLogin = () => {
   }, []);
   const receiveToken = async (response) => {
     if (response.data.type === 'linkedin') {
-      console.log('response');
-      console.log(response);
       const token = response.data.data;
-      await axios.post(`${API.LOCAL_REFRESH_API}`, { ...token });
+      await axios.post(`${API.LOCAL_REFRESH_API}`, JSON.stringify(token));
     }
   };
   const handleClick = () => {
