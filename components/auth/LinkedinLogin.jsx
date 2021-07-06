@@ -1,9 +1,9 @@
 import { LinkedinOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import axios from 'axios';
 import React from 'react';
 import { API } from '../../constants';
-import { openPopupCenter } from '../../utils/window';
+import { REQUEST_TYPE } from '../../constants/requestType';
+import { openPopupCenter, fetchJson } from '../../utils';
 
 export const LinkedinLogin = () => {
   React.useEffect(() => {
@@ -12,7 +12,11 @@ export const LinkedinLogin = () => {
   const receiveToken = async (response) => {
     if (response.data.type === 'linkedin') {
       const token = response.data.data;
-      await axios.post(`${API.LOCAL_REFRESH_API}`, JSON.stringify(token));
+      fetchJson(`${API.LOCAL_REFRESH_API}`, {
+        method: REQUEST_TYPE.POST,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(token),
+      });
     }
   };
   const handleClick = () => {
