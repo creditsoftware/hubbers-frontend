@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTagInput from 'next-js-suggest-input';
 import { AvatarTextarea } from '../AvatarTextarea';
 import { denisAvatar } from '../../constants/etc';
 import {
@@ -18,10 +17,9 @@ import { REQUEST_TYPE } from '../../constants/requestType';
 import { defaultMsgOfCommunityMemberInvitation } from '../../constants/defaultMsgOfCommunityMemberInvitation';
 import { API } from '../../constants';
 import { useForm } from 'antd/lib/form/Form';
+import { UserSelector } from './UserSelector';
 const { Option } = Select;
 export const InvitePane = () => {
-  const [tags, setTags] = React.useState([]);
-  const suggestions = [];
   const router = useRouter();
   const [auth, setAuth] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
@@ -66,16 +64,7 @@ export const InvitePane = () => {
         name='to'
         rules={[{ required: true, message: 'Please input emails!' }]}
       >
-        <ReactTagInput
-          tags={tags}
-          placeholder="Enter emails"
-          maxTags={100}
-          editable={true}
-          readOnly={false}
-          removeOnBackspace={true}
-          suggestions={suggestions}
-          onChange={(newTags) => setTags(newTags)}
-        />
+        <UserSelector />
       </Form.Item>
       <Form.Item
         name='message'
