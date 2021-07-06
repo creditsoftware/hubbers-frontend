@@ -42,6 +42,7 @@ module.exports = withFonts({
       'images.pexels.com',
       'ui-avatars.com',
       'blog.hubbers.io',
+      'media.licdn.com',
       'flagcdn.com'
     ],
   },

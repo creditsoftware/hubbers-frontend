@@ -60,6 +60,13 @@ export const DeskSidebar = ({ active, ...props }) => {
     });
     onCollapse(window.innerWidth < 1024);
   }, [router]);
+  const onChangeOpenKeys = (k) => {
+    if(openKeys.filter((key) => key === k).length) {
+      setOpenKeys([...openKeys.filter((key) => key !== k)]);
+    } else {
+      setOpenKeys([...openKeys, k]);
+    }
+  };
   useEffect(() => {
     setOpenKeys([...active.open, `community-${communityId}`]);
   }, [communityId, active]);
@@ -80,6 +87,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         </Menu.Item>
         <SubMenu key="community"
           icon={<TeamOutlined />}
+          onTitleClick={()=>onChangeOpenKeys('community')}
           title={
             // <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
             //   <a>
@@ -102,6 +110,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               return <SubMenu
                 key={`community-${community.id}`}
                 icon={<TeamOutlined />}
+                onTitleClick={()=>onChangeOpenKeys(`community-${community.id}`)}
                 title={
                   <AuthLink href={`/desk/community/home?community=${community.id}`} {...props}>
                     <a>
@@ -257,6 +266,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         <SubMenu
           key="my-product"
           icon={<GiftOutlined />}
+          onTitleClick={()=>onChangeOpenKeys('my-product')}
           title={
             <AuthLink href='/desk/my-product' {...props}>
               <a>
@@ -272,6 +282,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         >
           <SubMenu
             key="product1"
+            onTitleClick={()=>onChangeOpenKeys('product1')}
             icon={<TeamOutlined />}
             title={
               <AuthLink href='/desk/my-product/product1' {...props}>
@@ -326,6 +337,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         </SubMenu>
         <SubMenu key="my-expertise"
           icon={<GoldOutlined />}
+          onTitleClick={()=>onChangeOpenKeys('my-expertise')}
           title={
             <AuthLink href='/desk/my-expertise' {...props}>
               <a>
