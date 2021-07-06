@@ -9,7 +9,7 @@ import {
 export default withSession(async (req, res) => {
   try {
     const data = await req.body;
-    console.log(data.token);
+    console.log(data);
     const response = await axios.post(`${API.REFRESH_API}`, null, {headers:`Bearer ${data.token}`});
     if(response.data?.success){
       req.session.set('refreshToken',response.data?.res.refreshToken);
