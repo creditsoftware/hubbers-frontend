@@ -2,22 +2,25 @@
     height: calc(100vh - 65px);
     min-height: calc(100vh - 65px);
     max-height: calc(100vh - 65px);
-    overflow: auto;
+    // overflow: auto;
     &.ant-layout-sider{
         background-color: white;
     }
-    &::-webkit-scrollbar{
-        display: none;
+    .ant-layout-sider-zero-width-trigger {
+        background-color: $primary-color;
     }
-    &:hover{
-        &::-webkit-scrollbar{
-            width: 4px;
-            display: block;
-        }
-        &::-webkit-scrollbar-thumb{
-            background-color: $secondary-background-color;
-        }
-    }
+    // &::-webkit-scrollbar{
+    //     display: none;
+    // }
+    // &:hover{
+    //     &::-webkit-scrollbar{
+    //         width: 4px;
+    //         display: block;
+    //     }
+    //     &::-webkit-scrollbar-thumb{
+    //         background-color: $secondary-background-color;
+    //     }
+    // }
     .ant-layout-sider-children{
         background-color: $secondary-background-color;
     }

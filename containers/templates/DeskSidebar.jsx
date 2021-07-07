@@ -71,12 +71,16 @@ export const DeskSidebar = ({ active, ...props }) => {
     setOpenKeys([...active.open, `community-${communityId}`]);
   }, [communityId, active]);
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className='desk-sider' width={300}>
+    <Sider collapsible collapsedWidth={0} collapsed={collapsed} onCollapse={onCollapse} className='desk-sider' width={300}>
       <Menu
         defaultSelectedKeys={[...active.active, ...activeKey]}
         defaultOpenKeys={[...active.open, `community-${communityId}`]}
-        openKeys={[...openKeys]}
+        openKeys={collapsed ? [] : [...openKeys]}
         mode="inline"
+        style={{
+          height:'100%',
+          overflowX:'hidden'
+        }}
       >
         <Menu.Item key="dashboard" icon={<PieChartOutlined />}>
           <AuthLink href='/desk/dashboard' {...props}>
@@ -365,7 +369,7 @@ export const DeskSidebar = ({ active, ...props }) => {
           </Menu.Item>
         </SubMenu>
       </Menu>
-      <div style={{ height: '4rem' }}></div>
+      {/* <div style={{ height: '4rem' }}></div> */}
     </Sider>
   );
 };
