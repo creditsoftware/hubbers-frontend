@@ -49,7 +49,7 @@ export const SwitchCommunity = () => {
         <Empty />
     }
     placement="bottomRight" arrow trigger={['click']}>
-    <Button>
+    <Button type='text'>
       {
         communityList &&
         communityList.length > 0 &&

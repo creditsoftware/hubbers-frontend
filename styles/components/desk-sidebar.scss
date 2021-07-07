@@ -1,116 +1,154 @@
-.desk-sider{
+.desk-sider {
     height: calc(100vh - 65px);
     min-height: calc(100vh - 65px);
     max-height: calc(100vh - 65px);
-    // overflow: auto;
-    &.ant-layout-sider{
+
+    &.ant-layout-sider {
         background-color: white;
     }
+
     .ant-layout-sider-zero-width-trigger {
         background-color: $primary-color;
+        border-radius: 1rem;
+        right: -.75rem;
+        top: 1rem;
+        width: 1.5rem;
     }
-    // &::-webkit-scrollbar{
-    //     display: none;
-    // }
-    // &:hover{
-    //     &::-webkit-scrollbar{
-    //         width: 4px;
-    //         display: block;
-    //     }
-    //     &::-webkit-scrollbar-thumb{
-    //         background-color: $secondary-background-color;
-    //     }
-    // }
-    .ant-layout-sider-children{
+
+    .ant-layout-sider-children {
         background-color: $secondary-background-color;
     }
-    .ant-layout-sider-trigger{
+
+    .ant-layout-sider-trigger {
         background-color: $fourth-color;
         text-align: right;
         padding-right: 1rem;
     }
-    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
         background-color: $fifth-color;
     }
-    .ant-menu-item{
-        &.ant-menu-item-selected{
+
+    ul {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &:hover {
+            &::-webkit-scrollbar {
+                width: 4px;
+                display: block;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: $secondary-background-color;
+            }
+        }
+    }
+
+    .ant-menu-item {
+        &.ant-menu-item-selected {
             color: $fourth-color;
             border-right: 3px solid $fourth-color;
         }
-        &.ant-menu-item-active, &:hover{
+
+        &.ant-menu-item-active,
+        &:hover {
             color: $fourth-color;
         }
-        &:active{
+
+        &:active {
             background-color: $fifth-color;
         }
     }
-    .ant-menu-submenu{
-        &:hover{
-            &>div{
-                i, i::after, i::before{
+
+    .ant-menu-submenu {
+        &:hover {
+            &>div {
+
+                i,
+                i::after,
+                i::before {
                     color: $fourth-color;
                 }
             }
         }
-        &.ant-menu-submenu-active{
-            .ant-menu-submenu-title{
+
+        &.ant-menu-submenu-active {
+            .ant-menu-submenu-title {
                 color: $fourth-color;
             }
         }
-        .ant-menu-submenu-title:active{
+
+        .ant-menu-submenu-title:active {
             background-color: $fifth-color;
         }
-        &.ant-menu-submenu-selected{
+
+        &.ant-menu-submenu-selected {
             color: $fourth-color;
         }
     }
-    .ant-menu-vertical .ant-menu-item::after, 
-    .ant-menu-vertical-left .ant-menu-item::after, 
-    .ant-menu-vertical-right .ant-menu-item::after, 
-    .ant-menu-inline .ant-menu-item::after{
+
+    .ant-menu-vertical .ant-menu-item::after,
+    .ant-menu-vertical-left .ant-menu-item::after,
+    .ant-menu-vertical-right .ant-menu-item::after,
+    .ant-menu-inline .ant-menu-item::after {
         border: none;
     }
 }
-.ant-menu-submenu-popup{
-    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+
+.ant-menu-submenu-popup {
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
         background-color: $fifth-color;
     }
-    .ant-menu-item{
-        &.ant-menu-item-selected{
+
+    .ant-menu-item {
+        &.ant-menu-item-selected {
             color: $fourth-color;
             border-right: 3px solid $fourth-color;
         }
-        &.ant-menu-item-active, &:hover{
+
+        &.ant-menu-item-active,
+        &:hover {
             color: $fourth-color;
         }
-        &:active{
+
+        &:active {
             background-color: $fifth-color;
         }
     }
-    .ant-menu-submenu{
-        &:hover{
-            &>div{
-                i, i::after, i::before{
+
+    .ant-menu-submenu {
+        &:hover {
+            &>div {
+
+                i,
+                i::after,
+                i::before {
                     color: $fourth-color;
                 }
             }
         }
-        &.ant-menu-submenu-active{
-            .ant-menu-submenu-title{
+
+        &.ant-menu-submenu-active {
+            .ant-menu-submenu-title {
                 color: $fourth-color;
             }
         }
-        .ant-menu-submenu-title:active{
+
+        .ant-menu-submenu-title:active {
             background-color: $fifth-color;
         }
-        &.ant-menu-submenu-selected{
-                color: $fourth-color;
+
+        &.ant-menu-submenu-selected {
+            color: $fourth-color;
         }
     }
-    .ant-menu-vertical .ant-menu-item::after, 
-    .ant-menu-vertical-left .ant-menu-item::after, 
-    .ant-menu-vertical-right .ant-menu-item::after, 
-    .ant-menu-inline .ant-menu-item::after{
+
+    .ant-menu-vertical .ant-menu-item::after,
+    .ant-menu-vertical-left .ant-menu-item::after,
+    .ant-menu-vertical-right .ant-menu-item::after,
+    .ant-menu-inline .ant-menu-item::after {
         border: none;
     }
 }
