@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
-import { DatePicker, Select, Space, Row, Col } from 'antd';
+import { DatePicker, Select, Space, Image, Row, Col } from 'antd';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
@@ -140,6 +140,15 @@ const Profile = ({ ...props }) => {
                     <Option value="mobile">Mobile Development</Option>
                   </Select>
                 </Row>
+                <p>Now let´s go for a bitt of social media, sharing is caring.</p>
+                <p>Share your Id or Link your account</p>
+                <Space size={24} className="py-4">
+                  <img width="42" height="42" src="/images/social/linkedin.png" />
+                  <img width="42" height="42" src="/images/social/facebook.png" />
+                  <img width="42" height="42" src="/images/social/instagram.png" />
+                  <img width="42" height="42" src="/images/social/twitter.png" />
+                </Space>
+                <p>If you want your coomunity to know all about you, feel free to share your past jobs and education.<br/>(best for experts as employers like to know more about you)</p>
               </div>
             </div>
           </React.Fragment>
