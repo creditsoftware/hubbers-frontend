@@ -18,11 +18,11 @@ const Discover = ({ ...props }) => {
   const router = useRouter();
   const [memberList, setMemberList] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  React.useEffect(()=>{
-    if(router.query.community) {
-      fetch(`${API.GET_MEMBER_LIST_API}/${router.query.community}`).then( async (response)=>setMemberList( await response.json()));
+  React.useEffect(() => {
+    if (router.query.community) {
+      fetch(`${API.GET_MEMBER_LIST_API}/${router.query.community}`).then(async (response) => setMemberList(await response.json()));
     }
-  },[router]);
+  }, [router]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -50,8 +50,12 @@ const Discover = ({ ...props }) => {
                 memberList &&
                 memberList.data &&
                 memberList.data.map((e) => {
-                  return <Tooltip color={primaryColor} key={e.id} title={`${e.user?.firstname && e.user?.firstname} ${e.user?.lastname && e.user?.lastname}${!e.user?.lastname && !e.user?.lastname && e.user?.email}`}>
-                    <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'}/>} />
+                  return <Tooltip
+                    color={primaryColor}
+                    placement='bottom'
+                    key={e.id}
+                    title={`${e.user?.firstname && e.user?.firstname} ${e.user?.lastname && e.user?.lastname}${!e.user?.firstname && !e.user?.lastname && e.user?.email}`}>
+                    <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'} />} />
                   </Tooltip>;
                 })
               }
