@@ -5,7 +5,7 @@ module.exports = {
     'node': true
   },
   'extends': [
-    'next',
+    // 'next',
     'eslint:recommended',
     'plugin:react/recommended'
   ],
