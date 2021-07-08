@@ -170,6 +170,42 @@ export const DeskSidebar = ({ active, ...props }) => {
                     </a>
                   </AuthLink>
                 </Menu.Item>
+                <Menu.Item key={`events-${community.id}`}>
+                  <AuthLink href={`/desk/community/events?community=${community.id}`} {...props}>
+                    <a>
+                      Events&nbsp;&nbsp;
+                      <Badge
+                        // count={80}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+                <Menu.Item key={`topics-${community.id}`}>
+                  <AuthLink href={`/desk/community/topics?community=${community.id}`} {...props}>
+                    <a>
+                      Topics&nbsp;&nbsp;
+                      <Badge
+                        // count={80}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+                <Menu.Item key={`groups-${community.id}`}>
+                  <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
+                    <a>
+                      Groups&nbsp;&nbsp;
+                      <Badge
+                        // count={80}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
               </SubMenu>;
             })
           }
@@ -184,8 +220,8 @@ export const DeskSidebar = ({ active, ...props }) => {
                 />
               </a>
             </AuthLink>
-          </Menu.Item>
-          <Menu.Item key="discover">
+          </Menu.Item>            
+          <Menu.Item key="discover">            
             <AuthLink href={`/desk/community/discover${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
               <a>
                 Discover&nbsp;&nbsp;
