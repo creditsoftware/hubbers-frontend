@@ -14,13 +14,20 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { useRouter } from 'next/router';
+import { fetchJson } from '../../../utils';
 const Discover = ({ ...props }) => {
   const router = useRouter();
   const [memberList, setMemberList] = React.useState(null);
+  const [community, setCommunity] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   React.useEffect(() => {
     if (router.query.community) {
       fetch(`${API.GET_MEMBER_LIST_API}/${router.query.community}`).then(async (response) => setMemberList(await response.json()));
+      fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`).then((response) => {
+        if (response.data && response.data.data?.length > 0) {
+          setCommunity(response.data.data.filter((f) => Number(f.id) === Number(router.query.community)) && response.data.data.filter((f) => Number(f.id) === Number(router.query.community))[0]);
+        }
+      });
     }
   }, [router]);
   return (
@@ -30,6 +37,7 @@ const Discover = ({ ...props }) => {
         <div className='max-w-80 m-auto px-3 pt-5'>
           <h1 className="fw-6 fs-5">
             Discover
+            {/* in {community?.name} */}
             <span style={{ float: 'right' }}>
               <SwitchCommunity />
             </span>

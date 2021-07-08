@@ -103,18 +103,14 @@ export const DeskSidebar = ({ active, ...props }) => {
             }
           }}
           title={
-            // <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
-            //   <a>
             <div>
               Community&nbsp;&nbsp;
               <Badge
-                count={7}
+                // count={7}
                 size='small'
                 style={{ backgroundColor: '#52c41a' }}
               />
             </div>
-            //   </a>
-            // </AuthLink>
           }
         >
           {
@@ -130,7 +126,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                     <a>
                       {community.name}&nbsp;&nbsp;
                       <Badge
-                        count={120}
+                        // count={120}
                         size='small'
                         style={{ backgroundColor: '#52c41a' }}
                       />
@@ -143,7 +139,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                     <a>
                       Home&nbsp;&nbsp;
                       <Badge
-                        count={23}
+                        // count={23}
                         size='small'
                         style={{ backgroundColor: '#52c41a' }}
                       />
@@ -155,7 +151,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                     <a>
                       Discover&nbsp;&nbsp;
                       <Badge
-                        count={23}
+                        // count={23}
                         size='small'
                         style={{ backgroundColor: '#52c41a' }}
                       />
@@ -167,7 +163,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                     <a>
                       Members&nbsp;&nbsp;
                       <Badge
-                        count={80}
+                        // count={80}
                         size='small'
                         style={{ backgroundColor: '#52c41a' }}
                       />
@@ -286,7 +282,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               <a>
                 My Product&nbsp;&nbsp;
                 <Badge
-                  count={1}
+                  // count={1}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 />
@@ -303,7 +299,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                 <a>
                   Product1&nbsp;&nbsp;
                   <Badge
-                    count={1}
+                    // count={1}
                     size='small'
                     style={{ backgroundColor: '#52c41a' }}
                   />
@@ -316,7 +312,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                 <a>
                   Product Detail&nbsp;&nbsp;
                   <Badge
-                    count={0}
+                    // count={0}
                     size='small'
                     style={{ backgroundColor: '#52c41a' }}
                   />
@@ -328,7 +324,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                 <a>
                   Team &amp; Setttings&nbsp;&nbsp;
                   <Badge
-                    count={0}
+                    // count={0}
                     size='small'
                     style={{ backgroundColor: '#52c41a' }}
                   />
@@ -340,7 +336,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                 <a>
                   Workspace&nbsp;&nbsp;
                   <Badge
-                    count={0}
+                    // count={0}
                     size='small'
                     style={{ backgroundColor: '#52c41a' }}
                   />
@@ -357,7 +353,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               <a>
                 My Expertise&nbsp;&nbsp;
                 <Badge
-                  count={3}
+                  // count={3}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 />
@@ -370,7 +366,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               <a>
                 Expertise1&nbsp;&nbsp;
                 <Badge
-                  count={3}
+                  // count={3}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 />

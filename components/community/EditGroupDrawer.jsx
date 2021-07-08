@@ -6,7 +6,7 @@ import { Container } from '../Container';
 import { useWindowSize } from '../../hooks';
 import { MemberInvitationBtn } from './MemberInvitationBtn';
 import { API } from '../../constants';
-import { openNotificationWithIcon, fetchJson, socket } from '../../utils';
+import { openNotificationWithIcon, fetchJson, socket, slugify } from '../../utils';
 import { REQUEST_TYPE } from '../../constants/requestType';
 import { useRouter } from 'next/router';
 import { defaultAvatar } from '../../constants/etc';
@@ -36,7 +36,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
     fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}`, {
       method: REQUEST_TYPE.POST,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, slug: slugify(data.name) }),
     }).then((res) => {
       socket.emit('create-community-post', { ...data });
       openNotificationWithIcon('success', 'Success', res.message);
@@ -98,7 +98,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
           <p className='mb-1 fw-6 fc-black fs-3'>The Big stuff</p>
           <p className='mb-1 fw-6 fc-grey fs-1'>Adjust basic information about your Group here.</p>
           <Form.Item
-            name='title'
+            name='name'
             rules={[
               {
                 required: true,
