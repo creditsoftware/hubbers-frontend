@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import { denisAvatar } from '../constants/etc';
+import { defaultAvatar } from '../constants/etc';
 import { PlusOutlined } from '@ant-design/icons';
 export const HubbersTeamMemberTile = ({ end = false }) => {
   return <div className='hubbers-team-member-tile'>
@@ -8,7 +8,7 @@ export const HubbersTeamMemberTile = ({ end = false }) => {
       !end ?
         <React.Fragment>
           <div>
-            <Image width={200} height={200} src={denisAvatar} />
+            <Image width={200} height={200} src={defaultAvatar} />
           </div>
           <p className='text-center fw-5'>Benjamin Vignon</p>
           <p className='text-center'>France</p>

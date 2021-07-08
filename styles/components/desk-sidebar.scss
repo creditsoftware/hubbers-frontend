@@ -8,11 +8,17 @@
     }
 
     .ant-layout-sider-zero-width-trigger {
-        background-color: $primary-color;
+        background-color: $secondary-background-color;
+        color: $primary-color;
         border-radius: 1rem;
         right: -.75rem;
-        top: 1rem;
+        top: unset;
+        bottom: .3rem;
         width: 1.5rem;
+        &:hover {
+            background-color: $primary-color;
+            color: white;
+        }
     }
 
     .ant-layout-sider-children {

@@ -44,12 +44,16 @@ export const DeskSidebar = ({ active, ...props }) => {
     fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
       .then((response) => {
         setCommunityList(response.data.data);
-        if (response.data && response.data.data?.length > 0) {
-          if (!router.query.community) {
-            router.push({ query: { ...router.query, community: response.data?.data[0].id } });
+        if(router.pathname.indexOf('community') > 0) {
+          if (response.data && response.data.data?.length > 0) {
+            if (!router.query.community) {
+              router.push({ query: { ...router.query, community: response.data?.data[0].id } });
+            }
+          } else {
+            if (router.query.community !== 'join') {
+              router.push({ query: { community: 'join' } });
+            }
           }
-        } else {
-          router.push({ query: { community: 'join' } });
         }
       })
       .catch(() => {
@@ -61,7 +65,7 @@ export const DeskSidebar = ({ active, ...props }) => {
     onCollapse(window.innerWidth < 1024);
   }, [router]);
   const onChangeOpenKeys = (k) => {
-    if(openKeys.filter((key) => key === k).length) {
+    if (openKeys.filter((key) => key === k).length) {
       setOpenKeys([...openKeys.filter((key) => key !== k)]);
     } else {
       setOpenKeys([...openKeys, k]);
@@ -78,8 +82,8 @@ export const DeskSidebar = ({ active, ...props }) => {
         openKeys={collapsed ? [] : [...openKeys]}
         mode="inline"
         style={{
-          height:'100%',
-          overflowX:'hidden'
+          height: '100%',
+          overflowX: 'hidden'
         }}
       >
         <Menu.Item key="dashboard" icon={<PieChartOutlined />}>
@@ -91,7 +95,13 @@ export const DeskSidebar = ({ active, ...props }) => {
         </Menu.Item>
         <SubMenu key="community"
           icon={<TeamOutlined />}
-          onTitleClick={()=>onChangeOpenKeys('community')}
+          onTitleClick={() => {
+            onChangeOpenKeys('community');
+            if (communityList &&
+              communityList.length === 0) {
+              router.push('/desk/community/join');
+            }
+          }}
           title={
             // <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
             //   <a>
@@ -114,7 +124,7 @@ export const DeskSidebar = ({ active, ...props }) => {
               return <SubMenu
                 key={`community-${community.id}`}
                 icon={<TeamOutlined />}
-                onTitleClick={()=>onChangeOpenKeys(`community-${community.id}`)}
+                onTitleClick={() => onChangeOpenKeys(`community-${community.id}`)}
                 title={
                   <AuthLink href={`/desk/community/home?community=${community.id}`} {...props}>
                     <a>
@@ -270,7 +280,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         <SubMenu
           key="my-product"
           icon={<GiftOutlined />}
-          onTitleClick={()=>onChangeOpenKeys('my-product')}
+          onTitleClick={() => onChangeOpenKeys('my-product')}
           title={
             <AuthLink href='/desk/my-product' {...props}>
               <a>
@@ -286,7 +296,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         >
           <SubMenu
             key="product1"
-            onTitleClick={()=>onChangeOpenKeys('product1')}
+            onTitleClick={() => onChangeOpenKeys('product1')}
             icon={<TeamOutlined />}
             title={
               <AuthLink href='/desk/my-product/product1' {...props}>
@@ -341,7 +351,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         </SubMenu>
         <SubMenu key="my-expertise"
           icon={<GoldOutlined />}
-          onTitleClick={()=>onChangeOpenKeys('my-expertise')}
+          onTitleClick={() => onChangeOpenKeys('my-expertise')}
           title={
             <AuthLink href='/desk/my-expertise' {...props}>
               <a>

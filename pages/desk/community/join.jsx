@@ -15,7 +15,6 @@ const JoinInCommunity = ({ ...props }) => {
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   React.useEffect(async () => {
-    console.log(data);
     const communities = await (await fetch(`${API.GET_COMMUNITY_LIST_API}`)).json();
     setCommunitylist(communities.data);
   }, []);

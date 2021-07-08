@@ -9,7 +9,7 @@ import { API } from '../../constants';
 import { openNotificationWithIcon, fetchJson, socket } from '../../utils';
 import { REQUEST_TYPE } from '../../constants/requestType';
 import { useRouter } from 'next/router';
-import { avatar } from '../../constants/etc';
+import { defaultAvatar } from '../../constants/etc';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -50,7 +50,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
       <Row className='px-3 py-2'>
         <Col lg={14} md={14} sm={14}>
           <Row className='f-align-center'>
-            <Avatar size={50} icon={<Image width={100} height={100} src={props.auth?.avatar ?? avatar} />} />
+            <Avatar size={50} icon={<Image width={100} height={100} src={props.auth?.avatar ?? defaultAvatar} />} />
             <div className='ml-4'>
               <p className='mb-1 fw-6 fc-primary'>Hubbers</p>
               <p className='mb-1 fw-6 fc-3 fs-3'>Network Setting</p>

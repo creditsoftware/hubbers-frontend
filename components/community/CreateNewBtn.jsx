@@ -42,8 +42,8 @@ export const CreateNewBtn = ({...props}) => {
               Group
             </Menu.Item>
           </Menu>
-          <EditPostDrawer visible={visible.postEditor} onHide={() => setVisible({ ...visible, postEditor: !visible.postEditor })} />
-          <EditPostDrawer article visible={visible.articleEditor} onHide={() => setVisible({ ...visible, articleEditor: !visible.articleEditor })} />
+          <EditPostDrawer {...props} visible={visible.postEditor} onHide={() => setVisible({ ...visible, postEditor: !visible.postEditor })} />
+          <EditPostDrawer {...props} article visible={visible.articleEditor} onHide={() => setVisible({ ...visible, articleEditor: !visible.articleEditor })} />
           <EditTopicDrawer visible={visible.topicEditor} onHide={() => setVisible({ ...visible, topicEditor: !visible.topicEditor })} />
           <EditEventDrawer visible={visible.eventEditor} onHide={() => setVisible({ ...visible, eventEditor: !visible.eventEditor })} />
           <EditGroupDrawer visible={visible.groupEditor} onHide={() => setVisible({ ...visible, groupEditor: !visible.groupEditor })} {...props} />

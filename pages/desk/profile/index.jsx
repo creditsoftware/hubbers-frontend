@@ -7,8 +7,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
-import { DatePicker, Select, Space, Image, Row, Col } from 'antd';
-const { RangePicker } = DatePicker;
+import { DatePicker, Select, Space, Row, Col } from 'antd';
 const { Option } = Select;
 
 const Profile = ({ ...props }) => {
@@ -42,9 +41,9 @@ const Profile = ({ ...props }) => {
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 pb-3">
-                  Let's the community know a little more about you.
+                  Let&apos;s the community know a little more about you.
                   <br />
-                  Let's start with your profile picture. Click on the picture above and upload your best shot of you.
+                  Let&apos;s start with your profile picture. Click on the picture above and upload your best shot of you.
                 </p>
                 <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                   <Col sm={12} xs={24} className="d-flex py-2 f-align-center">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AvatarTextarea } from '../AvatarTextarea';
-import { denisAvatar } from '../../constants/etc';
+import { defaultAvatar } from '../../constants/etc';
 import {
   Button,
   Card,
@@ -71,7 +71,7 @@ export const InvitePane = () => {
         rules={[{ required: true, message: 'Please input description!' }]}
       >
         <AvatarTextarea
-          avatar={denisAvatar}
+          avatar={defaultAvatar}
           placeholder={`${defaultMsgOfCommunityMemberInvitation}\n${auth && auth.firstname ? auth.firstname : ''} ${auth && auth.lastname ? auth.lastname : ''}`}
           value={msg}
           onChange={(e) => setMsg(e.target.value)}

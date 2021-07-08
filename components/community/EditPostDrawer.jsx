@@ -1,5 +1,5 @@
 import React from 'react';
-import { denisAvatar } from '../../constants/etc';
+import { defaultAvatar } from '../../constants/etc';
 import { ArrowsAltOutlined } from '@ant-design/icons';
 import { Button, Drawer, Space, Row, Col, Avatar, Input, Select } from 'antd';
 import Image from 'next/image';
@@ -13,7 +13,7 @@ import { mutate } from 'swr';
 const { TextArea } = Input;
 const { Option } = Select;
 
-export const EditPostDrawer = ({ visible, onHide, article }) => {
+export const EditPostDrawer = ({ visible, onHide, article, ...props }) => {
   const [fullWidth, setFullWidth] = React.useState(false);
   const size = useWindowSize();
   const [editableContent, setEditableContent] = React.useState(false);
@@ -21,6 +21,7 @@ export const EditPostDrawer = ({ visible, onHide, article }) => {
   const [post, setPost] = React.useState({});
   const router = useRouter();
   React.useEffect(() => {
+    console.log(props);
     if (router.query.community && router.query.community !== 'join') {
       let p = {
         ...post, communityId: Number(router.query.community)
@@ -96,7 +97,7 @@ export const EditPostDrawer = ({ visible, onHide, article }) => {
             <Image
               width={500}
               height={500}
-              src={denisAvatar}
+              src={defaultAvatar}
             />
           }
         />

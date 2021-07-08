@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
-import { avatar } from '../../constants/etc';
+import { defaultAvatar } from '../../constants/etc';
 export const RightMenu = ({ menuType, ...props }) => {
   const { auth } = props;
   const router = useRouter();
@@ -92,7 +92,7 @@ export const RightMenu = ({ menuType, ...props }) => {
       {
         auth &&
         <React.Fragment>
-          <Avatar size='large' src={<Image src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : avatar : ''} />} />
+          <Avatar size='large' src={<Image src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : defaultAvatar : ''} />} />
           <Link href='/desk/profile'>
             <a className='ml-2 primary-link'>
               {
@@ -213,7 +213,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                 content={userContent}
                 trigger="click"
               >
-                <Avatar size="large" src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : avatar : ''} />
+                <Avatar size="large" src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : defaultAvatar : ''} />
               </Popover>
             </Menu.Item>
           </React.Fragment>
