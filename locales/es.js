@@ -3,13 +3,14 @@ export const es = {
   'Hubbers Tools':'Herramientas Hubbers',
   'Membership':'Afiliación',
   'Community':'Comunidad',
+  'Event':'Evento',
   'Blog':'Blog',
   'Product launcher':'Lanzador de productos',
   'Marketplace':'Mercado',
   'Product Competition':'Competencia de productos',
   'Product Development Tools':'Herramientas de desarrollo de productos',
-  'Sign in':'Registrarse',
-  'Register':'Registrarse',
+  'Sign in':'Iniciar sesión',
+  'Register':'Inscribirse',
   //footer
   'Creators':'Creators',
   'Are you a creator?':'Are you a creator?',
@@ -30,5 +31,7 @@ export const es = {
   'Grab a share':'Grab a share',
   'Get our app':'Get our app',
   'Privacy Policy':'Privacy Policy',
-  'Terms of Service':'Terms of Service'
+  'Terms of Service':'Terms of Service',
+  //home page
+  'You have an innovative product ready to be launched?':'¿Tiene un producto innovador listo para ser lanzado?'
 };

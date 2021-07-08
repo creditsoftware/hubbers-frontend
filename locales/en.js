@@ -3,6 +3,7 @@ export const en = {
   'Hubbers Tools':'Hubbers Tools',
   'Membership':'Membership',
   'Community':'Community',
+  'Event':'Event',
   'Blog':'Blog',
   'Product launcher':'Product launcher',
   'Marketplace':'Marketplace',
@@ -30,5 +31,7 @@ export const en = {
   'Grab a share':'Grab a share',
   'Get our app':'Get our app',
   'Privacy Policy':'Privacy Policy',
-  'Terms of Service':'Terms of Service'
+  'Terms of Service':'Terms of Service',
+  //home page
+  'You have an innovative product ready to be launched?':'You have an innovative product ready to be launched?'
 };

@@ -3,6 +3,7 @@ export const fr = {
   'Hubbers Tools':'Outils Hubbers',
   'Membership':'Adhésion',
   'Community':'Communauté',
+  'Event':'Événement',
   'Blog':'Blog',
   'Product launcher':'Lanceur de produits',
   'Marketplace':'Marketplace',
@@ -30,5 +31,7 @@ export const fr = {
   'Grab a share':'-',
   'Get our app':'-',
   'Privacy Policy':'-',
-  'Terms of Service':'-'
+  'Terms of Service':'-',
+  //home page
+  'You have an innovative product ready to be launched?':'Vous avez un produit innovant prêt à être lancé ?'
 };

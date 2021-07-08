@@ -12,11 +12,11 @@ export const Language = () => {
     },
     {
       shortName:'fr',
-      fullName:'French'
+      fullName:'Français'
     },
     {
       shortName:'es',
-      fullName:'Spanish'
+      fullName:'Español'
     }
   ];
   const menu = (

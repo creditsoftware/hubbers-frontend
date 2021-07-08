@@ -51,4 +51,15 @@ module.exports = withFonts({
       sizeLimit: '1mb',
     },
   },
+  eslint: {
+    dirs: [
+      'pages',
+      'components',
+      'constants',
+      'containers',
+      'hooks',
+      'locales',
+      'utils',
+    ],
+  },
 });
