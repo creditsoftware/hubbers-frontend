@@ -5,7 +5,7 @@ module.exports = {
     'node': true
   },
   'extends': [
-    // 'next',
+    'next',
     'eslint:recommended',
     'plugin:react/recommended'
   ],
@@ -62,6 +62,7 @@ module.exports = {
     'semi': [
       'error',
       'always'
-    ]
+    ],
+    'linebreak-style':0
   }
 };

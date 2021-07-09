@@ -21,6 +21,7 @@ const Discover = ({ ...props }) => {
   const [community, setCommunity] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   React.useEffect(() => {
+    console.log(community);
     if (router.query.community) {
       fetch(`${API.GET_MEMBER_LIST_API}/${router.query.community}`).then(async (response) => setMemberList(await response.json()));
       fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`).then((response) => {
