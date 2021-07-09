@@ -6,15 +6,15 @@ import {
 } from '../../../constants';
 
 async function refreshAccessToken(token) {
-  console.log('refresh');
-  console.log(token);
+  // console.log('refresh');
+  // console.log(token);
   try {
     const response = await axios.post(`${API.REFRESH_API}`, null, {
       headers: {
         Authorization: `Bearer ${token.refreshToken}`
       }
     });
-    console.log(response.data);
+    // console.log(response.data);
     if (!response.data) {
       throw refreshedTokens;
     }
@@ -41,6 +41,7 @@ const providers = [
   Providers.Credentials({
     name: 'Credentials',
     authorize: async (credentials) => {
+      console.log(credentials);
       try {
         const response = await axios.post(`${API.SIGNIN_API}`, {
           email: credentials.email,
@@ -53,6 +54,7 @@ const providers = [
           };
         }
       } catch (e) {
+        console.log(e);
         const errorMessage = e.response.data.message;
         // Redirecting to the login page with error messsage in the URL
         throw new Error(errorMessage + '&email=' + credentials.email);
@@ -64,9 +66,9 @@ const providers = [
 
 const callbacks = {
   async jwt(token, user) {
-    console.log('jwt');
-    console.log(user);
-    console.log(token);
+    // console.log('jwt');
+    // console.log(user);
+    // console.log(token);
     if (user && user.data) {
       token.accessToken = user.data.accessToken;
       token.refreshToken = user.data.refreshToken;
@@ -79,10 +81,14 @@ const callbacks = {
     return refreshAccessToken(token);
   },
 
+  async redirect(url) {
+    return url;
+  },
+
   async session(session, token) {
-    console.log('session');
-    console.log(session);
-    console.log(token);
+    // console.log('session');
+    // console.log(session);
+    // console.log(token);
     session.accessToken = token.accessToken;
     return session;
   }
