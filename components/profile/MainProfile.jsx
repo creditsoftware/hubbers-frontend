@@ -27,16 +27,16 @@ export const MainProfile = () => {
                 </Space>
                 <br/>
                 <Space wrap className="fjc-center">
-                  <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                  <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                     Design
                   </div>
-                  <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                  <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                     3D
                   </div>
-                  <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                  <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                     UX design
                   </div>
-                  <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                  <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                     Prototyping
                   </div>
                 </Space>
@@ -91,13 +91,13 @@ export const MainProfile = () => {
                 <div><p className="mb-0">Members of:</p></div>
                 <div>
                   <Space wrap>
-                    <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                    <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                       Shanghai
                     </div>
-                    <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                    <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                       Lisbon
                     </div>
-                    <div style={{ borderRadius: '20px', border: '1px solid cyan', padding: '2px 8px' }}>
+                    <div style={{ borderRadius: '20px', border: '2px solid green', padding: '2px 8px' }}>
                       Add/Remove
                     </div>
                   </Space>
