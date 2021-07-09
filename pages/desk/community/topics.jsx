@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
@@ -11,9 +11,21 @@ import { API } from '../../../constants/apis';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
+import { fetchJson } from '../../../utils';
+import { TopicListItem } from '../../../components/community';
 const Topics = (props) => {
   const router = useRouter();
+  const [topicList, setTopicList] = React.useState([]);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
+  const getTopics = React.useCallback(async () => {
+    const result = await fetchJson(`${API.ALL_TOPIC_LIST_API}/${router.query.community}`);
+    setTopicList(result.data);
+  }, [router]);
+  React.useEffect(() => {
+    if (router.query.community) {
+      getTopics();
+    }
+  }, [router, getTopics]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -26,12 +38,20 @@ const Topics = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
+                  <Button type='hbs-primary'>Manage</Button>
+                  <Button type='hbs-primary'>+</Button>
                   <SwitchCommunity />
                 </Space>
               </Col>
             </Row>
             <div>
-            
+              {
+                topicList &&
+                topicList.length > 0 &&
+                topicList.map((t) => {
+                  return <TopicListItem key={t.id} {...t} />;
+                })
+              }
             </div>
           </div>
         </React.Fragment>

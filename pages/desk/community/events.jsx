@@ -1,9 +1,7 @@
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  MemberInvitationBtn,
-  // MemberFilter,
   SwitchCommunity,
 } from '../../../components';
 import { Space } from 'antd';
@@ -20,7 +18,7 @@ const Events = (props) => {
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: ['members'], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Events' activeSide={{ active: ['members'], open: ['community'] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -29,13 +27,19 @@ const Events = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <MemberInvitationBtn />
+                  <Button type='hbs-primary'>Manage</Button>
+                  <Button type='hbs-primary'>+</Button>
                   <SwitchCommunity />
                 </Space>
               </Col>
             </Row>
+            <Space>
+              <Button type='hbs-primary'>Upcoming</Button>
+              <Button type='hbs-outline-primary'>Nearby</Button>
+              <Button type='hbs-outline-primary'>Past</Button>
+              <Button type='hbs-outline-primary'>Yours</Button>
+            </Space>
             <div>
-             
             </div>
           </div>
         </React.Fragment>

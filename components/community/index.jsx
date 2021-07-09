@@ -9,17 +9,9 @@ export { PostTile } from './PostTile';
 export { HomeFilter } from './HomeFilter';
 export { HomeSorter } from './HomeSorter';
 export { CommunityManageBtn } from './CommunityManageBtn';
-export { CommunityMembersTable } from './CommunityMembersTable';
 export { CreateNewBtn } from './CreateNewBtn';
-export { DiscoverPostTile } from './DiscoverPostTile';
-export { DiscoverTopicTile } from './DiscoverTopicTile';
-export { EditEventDrawer } from './EditEventDrawer';
-export { EditPostDrawer } from './EditPostDrawer';
-export { EditTopicDrawer } from './EditTopicDrawer';
-export { EditGroupDrawer } from './EditGroupDrawer';
 export { HomeBody } from './HomeBody';
 export { SwitchCommunity } from './SwitchCommunity';
-export { TopicSwiper } from './TopicSwiper';
 export { TopPostSwiper } from './TopPostsSwiper';
 export { PostTileBody } from './PostTileBody';
 export { PostTileChild } from './PostTileChild';
@@ -31,3 +23,17 @@ export { Userdata } from './Userdata';
 export { GlobalBlogSlider } from './GlobalBlogSlider';
 export { GlobalEventSlider } from './GlobalEventSlider';
 export { CommunityProgress } from './CommunityProgress';
+
+export {
+  TopicListItem,
+  TopicSwiper,
+  DiscoverTopicTile,
+  EditTopicDrawer
+} from './topic';
+export { EditEventDrawer } from './events';
+export { CommunityMembersTable } from './member';
+export {
+  DiscoverPostTile,
+  EditPostDrawer
+} from './post';
+export { EditGroupDrawer } from './group';

@@ -170,42 +170,54 @@ export const DeskSidebar = ({ active, ...props }) => {
                     </a>
                   </AuthLink>
                 </Menu.Item>
-                <Menu.Item key={`events-${community.id}`}>
-                  <AuthLink href={`/desk/community/events?community=${community.id}`} {...props}>
-                    <a>
-                      Events&nbsp;&nbsp;
-                      <Badge
-                        // count={80}
-                        size='small'
-                        style={{ backgroundColor: '#52c41a' }}
-                      />
-                    </a>
-                  </AuthLink>
-                </Menu.Item>
-                <Menu.Item key={`topics-${community.id}`}>
-                  <AuthLink href={`/desk/community/topics?community=${community.id}`} {...props}>
-                    <a>
-                      Topics&nbsp;&nbsp;
-                      <Badge
-                        // count={80}
-                        size='small'
-                        style={{ backgroundColor: '#52c41a' }}
-                      />
-                    </a>
-                  </AuthLink>
-                </Menu.Item>
-                <Menu.Item key={`groups-${community.id}`}>
-                  <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
-                    <a>
-                      Groups&nbsp;&nbsp;
-                      <Badge
-                        // count={80}
-                        size='small'
-                        style={{ backgroundColor: '#52c41a' }}
-                      />
-                    </a>
-                  </AuthLink>
-                </Menu.Item>
+                {
+                  community.events &&
+                  community.events.length > 0 &&
+                  <Menu.Item key={`events-${community.id}`}>
+                    <AuthLink href={`/desk/community/events?community=${community.id}`} {...props}>
+                      <a>
+                        Events&nbsp;&nbsp;
+                        <Badge
+                          // count={80}
+                          size='small'
+                          style={{ backgroundColor: '#52c41a' }}
+                        />
+                      </a>
+                    </AuthLink>
+                  </Menu.Item>
+                }
+                {
+                  community.topics &&
+                  community.topics.length > 0 &&
+                  <Menu.Item key={`topics-${community.id}`}>
+                    <AuthLink href={`/desk/community/topics?community=${community.id}`} {...props}>
+                      <a>
+                        Topics&nbsp;&nbsp;
+                        <Badge
+                          // count={80}
+                          size='small'
+                          style={{ backgroundColor: '#52c41a' }}
+                        />
+                      </a>
+                    </AuthLink>
+                  </Menu.Item>
+                }
+                {
+                  community.groups &&
+                  community.groups.length > 0 &&
+                  <Menu.Item key={`groups-${community.id}`}>
+                    <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
+                      <a>
+                        Groups&nbsp;&nbsp;
+                        <Badge
+                          // count={80}
+                          size='small'
+                          style={{ backgroundColor: '#52c41a' }}
+                        />
+                      </a>
+                    </AuthLink>
+                  </Menu.Item>
+                }
               </SubMenu>;
             })
           }

@@ -3,9 +3,9 @@ import { Table, Input, Button, Space, Avatar } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import Image from 'next/image';
-import { fetchJson } from '../../utils/fetchJson';
+import { fetchJson } from '../../../utils/fetchJson';
 // import { mutate } from 'swr';
-import { API } from '../../constants';
+import { API } from '../../../constants';
 import { useRouter } from 'next/router';
 
 export const CommunityMembersTable = () => {

@@ -1,0 +1,1 @@
+export { CommunityMembersTable } from './CommunityMembersTable';

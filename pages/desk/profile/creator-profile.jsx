@@ -15,25 +15,25 @@ const { Option } = Select;
 const CreatorProfile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [valueNew, setValueNew] = useState(true);
-  const [valuePeriod, setValuePeriod] = useState("now");
+  const [valuePeriod, setValuePeriod] = useState('now');
   const [valueTeam, setValueTeam] = useState(true);
   const [valueExpertise, setValueExpertise] = useState([]);
-  const [valueProduct, setValueProduct] = useState("not");
+  const [valueProduct, setValueProduct] = useState('not');
   const onChangeNew = (e) => {
     setValueNew(e.target.value);
-  }
+  };
   const onChangePeriod = (e) => {
     setValuePeriod(e.target.value);
-  }
+  };
   const onChangeTeam = (e) => {
     setValueTeam(e.target.value);
-  }
+  };
   const onChangeExpertise = (e) => {
     setValueExpertise(e);
-  }
+  };
   const onChangeProduct = (e) => {
     setValueProduct(e);
-  }
+  };
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>

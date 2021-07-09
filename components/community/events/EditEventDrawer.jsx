@@ -15,8 +15,8 @@ import {
   Form
 } from 'antd';
 import { ArrowsAltOutlined } from '@ant-design/icons';
-import { Container } from '../Container';
-import { useWindowSize } from '../../hooks';
+import { Container } from '../../Container';
+import { useWindowSize } from '../../../hooks';
 import {
   EventRepeatPeriod,
   timezoneList,
@@ -24,9 +24,9 @@ import {
   EventRepeatPeriodCustomUnit,
   WeekDays,
   API
-} from '../../constants';
-import { UploadImage } from '../UploadImage';
-import { fetchJson, openNotificationWithIcon, slugify } from '../../utils';
+} from '../../../constants';
+import { UploadImage } from '../../UploadImage';
+import { fetchJson, openNotificationWithIcon, slugify } from '../../../utils';
 import { useRouter } from 'next/router';
 const { Option } = Select;
 const { TextArea } = Input;

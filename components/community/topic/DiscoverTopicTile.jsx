@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Space, Tooltip } from 'antd';
 import Image from 'next/image';
-import { topic1Image } from '../../constants/etc';
-import { fetchJson } from '../../utils/fetchJson';
-import { API, primaryColor } from '../../constants';
-import { getUser } from '../../utils/getUser';
-import { contentfulLoaderForNextImg } from '../../utils/contentFullLoader';
+import { topic1Image } from '../../../constants/etc';
+import { fetchJson } from '../../../utils/fetchJson';
+import { API, primaryColor } from '../../../constants';
+import { getUser } from '../../../utils/getUser';
+import { contentfulLoaderForNextImg } from '../../../utils/contentFullLoader';
 
 export const DiscoverTopicTile = ({ data }) => {
   const [user, setUser] = React.useState(null);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useWindowSize } from '../../hooks';
+import { useWindowSize } from '../../../hooks';
 import { useRouter } from 'next/router';
-import { fetchJson } from '../../utils/fetchJson';
-import { API } from '../../constants';
+import { fetchJson } from '../../../utils/fetchJson';
+import { API } from '../../../constants';
 import { DiscoverTopicTile } from './DiscoverTopicTile';
 export const TopicSwiper = () => {
   const size = useWindowSize();
