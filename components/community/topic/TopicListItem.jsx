@@ -33,7 +33,7 @@ export const TopicListItem = ({ ...props }) => {
     }
   };
   return (
-    <Link href={`/desk/community/topic/${props.id}?community=${router.query.community}`}>
+    <Link href={`/desk/community/topic?community=${router.query.community}&topic=${props.id}`}>
       <a className='community-child-list-item'>
         <Row style={{ borderLeft: `8px solid ${data.color ? data.color : primaryColor}`, borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px' }}>
           <Col flex="180px">
@@ -57,7 +57,7 @@ export const TopicListItem = ({ ...props }) => {
             </p>
             <div className='text-right'>
               <Space>
-                <Button loading={loadingToFollow} type='hbs-outline-primary' onClick={followTopic}>{data.follow && data.follow.filter((f) => f.userId === data.auth?.id).length > 0 ? 'Following' : 'Follow'}</Button>
+                <Button shape='round' loading={loadingToFollow} type='hbs-outline-primary' onClick={followTopic}>{data.follow && data.follow.filter((f) => f.userId === data.auth?.id).length > 0 ? 'Following' : 'Follow'}</Button>
                 <TopicContextMenu {...data} />
               </Space>
             </div>

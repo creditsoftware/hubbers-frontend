@@ -8,3 +8,4 @@ export { PostTileCtrlMenu } from './PostTileCtrlMenu';
 export { PostTileHeader } from './PostTileHeader';
 export { ReplyPostTile } from './ReplyPostTile';
 export { TopPostSwiper } from './TopPostsSwiper';
+export { PostContextMenu } from './PostContextMenu';

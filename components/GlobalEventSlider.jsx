@@ -39,7 +39,7 @@ export const GlobalEventSlider = () => {
         {
           events.map((item, index) => {
             return <a key={index} className="text-center" href={item.url}>
-              <Image width="320" height="180" src={item.image} />
+              <Image width="320" height="180" src={item.image} alt='' />
               <h3>{item.date}</h3>
               <p>{item.content}</p>
             </a>;

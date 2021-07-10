@@ -6,6 +6,7 @@ import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
 import { defaultAvatar } from '../../constants/etc';
+// import NImage from 'next/image';
 export const RightMenu = ({ menuType, ...props }) => {
   const { auth } = props;
   const router = useRouter();
@@ -92,7 +93,7 @@ export const RightMenu = ({ menuType, ...props }) => {
       {
         auth &&
         <React.Fragment>
-          <Avatar size='large' src={<Image src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : defaultAvatar : ''} />} />
+          <Avatar size='large' src={<Image src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : defaultAvatar : ''} alt='' />} />
           <Link href='/desk/profile'>
             <a className='ml-2 primary-link'>
               {
@@ -187,6 +188,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                   style={{ backgroundColor: '#52c41a' }}
                 >
                   <img src="/images/icons/message.png" />
+                  {/* <NImage width='35' height='30' src='/images/icons/message.png' alt='' /> */}
                 </Badge>
               </Popover>
             </Menu.Item>
@@ -202,7 +204,8 @@ export const RightMenu = ({ menuType, ...props }) => {
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
-                  <img src="/images/icons/notification.png" />
+                  <img src="/images/icons/notification.png" alt='' />
+                  {/* <NImage width='30' height='35' src='/images/icons/notification.png' alt='' /> */}
                 </Badge>
               </Popover>
             </Menu.Item>

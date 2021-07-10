@@ -1,10 +1,11 @@
 import { Badge, Button, Col, Row, Space } from 'antd';
 import React from 'react';
 import { primaryColor } from '../../../constants';
-import { AlignLeftOutlined } from '@ant-design/icons';
+import { AlignLeftOutlined, HeartOutlined, MessageOutlined } from '@ant-design/icons';
 import Avatar from 'antd/lib/avatar/avatar';
 import { defaultAvatar } from '../../../constants/etc';
-// import { EventContextMenu } from '../events';
+import { PostContextMenu } from '../post';
+import { EventContextMenu } from '../events';
 
 export const ListItemTile = ({ type='event', ...props }) => {
   console.log(props);
@@ -32,8 +33,20 @@ export const ListItemTile = ({ type='event', ...props }) => {
               {
                 type === 'event' &&
                 <Space>
-                  <Button type='hbs-outline-primary'>View Event</Button>
-                  {/* <EventContextMenu /> */}
+                  <Button shape='round' type='hbs-outline-primary'>View Event</Button>
+                  <EventContextMenu />
+                </Space>
+              }
+              {
+                type === 'post' &&
+                <Space>
+                  <Button type='text'>
+                    <HeartOutlined />
+                  </Button>
+                  <Button type='text'>
+                    <MessageOutlined />
+                  </Button>
+                  <PostContextMenu />
                 </Space>
               }
             </Col>

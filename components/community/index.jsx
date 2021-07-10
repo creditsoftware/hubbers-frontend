@@ -7,7 +7,6 @@ export {
   CommunityManageBtn,
   CommunityProgress,
   CreateNewBtn,
-  CustomSlider1,
   SwitchCommunity
 } from './global';
 export {
@@ -40,7 +39,8 @@ export {
   PostTileBody,
   PostTile,
   TopPostSwiper,
-  ReplyPostTile
+  ReplyPostTile,
+  PostContextMenu
 } from './post';
 export {
   TopicListItem,

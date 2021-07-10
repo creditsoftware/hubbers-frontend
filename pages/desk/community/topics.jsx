@@ -38,8 +38,8 @@ const Topics = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <Button type='hbs-primary'>Manage</Button>
-                  <Button type='hbs-primary'>+</Button>
+                  <Button shape='round' type='hbs-primary'>Manage</Button>
+                  <Button shape='circle' type='hbs-primary'>+</Button>
                   <SwitchCommunity />
                 </Space>
               </Col>

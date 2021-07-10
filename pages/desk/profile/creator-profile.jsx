@@ -7,9 +7,8 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
-import { DatePicker, Select, Radio, Space, Image, Checkbox, Avatar, Row, Col, Button } from 'antd';
+import { Select, Radio, Checkbox, Row, Col } from 'antd';
 import { useState } from 'react';
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 const CreatorProfile = ({ ...props }) => {
@@ -31,6 +30,7 @@ const CreatorProfile = ({ ...props }) => {
   const onChangeExpertise = (e) => {
     setValueExpertise(e);
   };
+  console.log(valueExpertise);
   const onChangeProduct = (e) => {
     setValueProduct(e);
   };
@@ -60,7 +60,7 @@ const CreatorProfile = ({ ...props }) => {
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 fw-6 mt-2 mb-0">Creating, innovating, inventing new products is what Hubbers community is about.</p>
-                <p className="fs-1 fw-6 mb-4">Let's see how Hubbers tools and community is going to help your product launch.</p>
+                <p className="fs-1 fw-6 mb-4">Let&apos;s see how Hubbers tools and community is going to help your product launch.</p>
                 <p className="fs-1 fw-6 mb-4">Are you thinking to launch or are you in the process of launching a new product?</p>
                 <Radio.Group onChange={onChangeNew} value={valueNew}>
                   <Radio value={true}>Yes</Radio>
@@ -69,7 +69,7 @@ const CreatorProfile = ({ ...props }) => {
                 <Row style={{  margin: '24px 0' }}>
                   <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                     <label style={{ whiteSpace: 'nowrap' }}>How long have you started?</label>
-                    <Select bordered={false} className="profile-input" className="profile-input" style={{ width: '150px', borderBottom: '1px solid black', padding: '0', margin: '0 12px'}}>
+                    <Select bordered={false} className="profile-input profile-input" style={{ width: '150px', borderBottom: '1px solid black', padding: '0', margin: '0 12px'}}>
                       <Option value="1">1 month</Option>
                       <Option value="2">2 months</Option>
                       <Option value="3">3 months</Option>
@@ -149,7 +149,7 @@ const CreatorProfile = ({ ...props }) => {
                     </Col>
                   </Row>
                 </Checkbox.Group>
-                <p className="mt-5 py-3">Let's talk about your creative past experiences? Have you ever built a product?</p>
+                <p className="mt-5 py-3">Let&apos;s talk about your creative past experiences? Have you ever built a product?</p>
                 <Radio.Group onChange={onChangeProduct} value={valueProduct}>
                   <Radio value="not">Not yet</Radio>
                   <Radio value="yes">Yes once</Radio>

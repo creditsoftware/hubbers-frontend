@@ -5,8 +5,10 @@ import { EditPostDrawer } from '../post/EditPostDrawer';
 import { EditTopicDrawer } from '../topic/EditTopicDrawer';
 import { EditEventDrawer } from '../events/EditEventDrawer';
 import { EditGroupDrawer } from '../group/EditGroupDrawer';
+import { useRouter } from 'next/router';
 
 export const CreateNewBtn = ({...props}) => {
+  const router = useRouter();
   const [visible, setVisible] = React.useState({
     popover: false,
     postEditor: false,
@@ -32,15 +34,21 @@ export const CreateNewBtn = ({...props}) => {
             <Menu.Item key='article' onClick={() => setVisible({ ...visible, articleEditor: !visible.articleEditor, popover: !visible.popover })}>
               Article
             </Menu.Item>
-            <Menu.Item key='topic' onClick={() => setVisible({ ...visible, topicEditor: !visible.topicEditor, popover: !visible.popover })}>
-              Topic
-            </Menu.Item>
+            {
+              !router.query.topic &&
+              <Menu.Item key='topic' onClick={() => setVisible({ ...visible, topicEditor: !visible.topicEditor, popover: !visible.popover })}>
+                Topic
+              </Menu.Item>
+            }
             <Menu.Item key='event' onClick={() => setVisible({ ...visible, eventEditor: !visible.eventEditor, popover: !visible.popover })}>
               Event
             </Menu.Item>
-            <Menu.Item key='group' onClick={() => setVisible({ ...visible, groupEditor: !visible.groupEditor, popover: !visible.popover })}>
-              Group
-            </Menu.Item>
+            {
+              !router.query.topic &&
+              <Menu.Item key='group' onClick={() => setVisible({ ...visible, groupEditor: !visible.groupEditor, popover: !visible.popover })}>
+                Group
+              </Menu.Item>
+            }
           </Menu>
           <EditPostDrawer {...props} visible={visible.postEditor} onHide={() => setVisible({ ...visible, postEditor: !visible.postEditor })} />
           <EditPostDrawer {...props} article visible={visible.articleEditor} onHide={() => setVisible({ ...visible, articleEditor: !visible.articleEditor })} />
@@ -53,7 +61,7 @@ export const CreateNewBtn = ({...props}) => {
       onVisibleChange={() => setVisible({ ...visible, popover: !visible.popover })}
       visible={visible.popover}
     >
-      <Button type='hbs-primary' className='ml-2' shape='circle' onClick={() => { }}>
+      <Button type='hbs-primary' shape='circle' className='ml-2' onClick={() => { }}>
         <PlusOutlined />
       </Button>
     </Popover>
