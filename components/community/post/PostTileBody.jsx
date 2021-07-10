@@ -2,9 +2,9 @@ import React from 'react';
 import { Button, Space } from 'antd';
 import { PostTileContent } from './PostTileContent';
 import { PostTileHeader } from './PostTileHeader';
-import { REQUEST_TYPE } from '../../constants/requestType';
-import { API } from '../../constants';
-import { httpRequestLocal, openNotificationWithIcon } from '../../utils';
+import { REQUEST_TYPE } from '../../../constants/requestType';
+import { API } from '../../../constants';
+import { httpRequestLocal, openNotificationWithIcon } from '../../../utils';
 import {
   HeartOutlined,
   MessageOutlined

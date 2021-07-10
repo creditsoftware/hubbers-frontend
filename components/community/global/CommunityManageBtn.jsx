@@ -1,6 +1,6 @@
 import { Button, Col, Drawer, Row } from 'antd';
 import React from 'react';
-import { MemberInvitationBtn } from './MemberInvitationBtn';
+import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
 export const CommunityManageBtn = () => {
   const [visible, setVisible] = React.useState(false);
   return <React.Fragment>

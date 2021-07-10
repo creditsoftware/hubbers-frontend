@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { PostTile } from './PostTile';
-import { fetchJson } from '../../utils/fetchJson';
-import { API } from '../../constants';
+import { PostTile } from '../post/PostTile';
+import { fetchJson } from '../../../utils/fetchJson';
+import { API } from '../../../constants';
 import useSWR from 'swr';
 
 export const HomeBody = () => {

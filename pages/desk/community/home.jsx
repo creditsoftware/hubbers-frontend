@@ -35,7 +35,7 @@ const Home = ({ ...props }) => {
             <CommunityManageBtn />
             <CreateNewBtn auth={{ ...data }} />
           </div>
-          <div className='homepage-action-bar'>
+          <div>
             <HomeFilter />
             <HomeSorter className='ml-2' />
           </div>

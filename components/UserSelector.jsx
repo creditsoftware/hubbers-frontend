@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from 'antd';
-import { fetchJson } from '../../utils';
-import { API } from '../../constants';
+import { fetchJson } from '../utils';
+import { API } from '../constants';
 
 const { Option } = Select;
 

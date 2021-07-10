@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Popover, Menu } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { EditPostDrawer } from './post/EditPostDrawer';
-import { EditTopicDrawer } from './topic/EditTopicDrawer';
-import { EditEventDrawer } from './events/EditEventDrawer';
-import { EditGroupDrawer } from './group/EditGroupDrawer';
+import { EditPostDrawer } from '../post/EditPostDrawer';
+import { EditTopicDrawer } from '../topic/EditTopicDrawer';
+import { EditEventDrawer } from '../events/EditEventDrawer';
+import { EditGroupDrawer } from '../group/EditGroupDrawer';
 
 export const CreateNewBtn = ({...props}) => {
   const [visible, setVisible] = React.useState({

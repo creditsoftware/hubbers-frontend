@@ -1,7 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { DiscoverPostTile } from './post/DiscoverPostTile';
-import { useWindowSize } from '../../hooks';
+import { DiscoverPostTile } from './DiscoverPostTile';
+import { useWindowSize } from '../../../hooks';
 export const TopPostSwiper = () => {
   const size = useWindowSize();
   return <Swiper

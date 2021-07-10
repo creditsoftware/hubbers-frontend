@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import React from 'react';
-import { CKEditor5 } from '../CKEditor5';
+import { CKEditor5 } from '../../CKEditor5';
 export const PostTileContent = ({ ...props }) => {
   return (
     props.editable

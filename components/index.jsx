@@ -47,10 +47,7 @@ export {
   PostTileCtrlMenu,
   PostTileHeader,
   ReplyPostTile,
-  GlobalBlogSlider,
-  Userdata,
   CommunityProgress,
-  GlobalEventSlider
 } from './community';
 export * as JobBoard from './job-board';
 export {
@@ -86,3 +83,7 @@ export {
 export {
   LinkedinLogin
 } from './auth';
+export { GlobalEventSlider } from './GlobalEventSlider';
+export { GlobalBlogSlider } from './GlobalBlogSlider';
+export { UserSelector } from './UserSelector';
+export { Userdata } from './Userdata';

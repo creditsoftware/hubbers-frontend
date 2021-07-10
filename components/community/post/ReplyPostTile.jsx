@@ -6,12 +6,12 @@ import {
   Input,
   Space
 } from 'antd';
-import { httpRequestLocal, openNotificationWithIcon } from '../../utils';
-import { REQUEST_TYPE } from '../../constants/requestType';
-import { API } from '../../constants';
+import { httpRequestLocal, openNotificationWithIcon } from '../../../utils';
+import { REQUEST_TYPE } from '../../../constants/requestType';
+import { API } from '../../../constants';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { CKEditor5 } from '../CKEditor5';
+import { CKEditor5 } from '../../CKEditor5';
 import { mutate } from 'swr';
 export const ReplyPostTile = ({ ...props }) => {
   const [editableReply, setEditableReply] = React.useState(false);

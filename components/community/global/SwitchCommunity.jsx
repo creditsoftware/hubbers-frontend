@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, Dropdown, Button, Empty } from 'antd';
 import { useRouter } from 'next/router';
-import { fetchJson } from '../../utils/fetchJson';
-import { API } from '../../constants';
+import { fetchJson } from '../../../utils/fetchJson';
+import { API } from '../../../constants';
 
 export const SwitchCommunity = () => {
   const router = useRouter();

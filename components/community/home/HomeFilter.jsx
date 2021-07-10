@@ -54,7 +54,7 @@ export const HomeFilter = ({className}) => {
     } else {
       setCn('home-filter-btn');
     }
-  },[]);
+  },[className]);
   return <React.Fragment>
     <Select className={cn} {...selectProps} />
   </React.Fragment>;

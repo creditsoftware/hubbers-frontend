@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import React from 'react';
-import { CommunityMembersTable } from './member/CommunityMembersTable';
+import { CommunityMembersTable } from '../member/CommunityMembersTable';
 export const RequestToJoinPane = () => {
   return <React.Fragment>
     <h1 className="fw-6 fs-4 text-center">

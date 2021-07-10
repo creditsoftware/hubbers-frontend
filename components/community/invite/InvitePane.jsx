@@ -1,6 +1,6 @@
 import React from 'react';
-import { AvatarTextarea } from '../AvatarTextarea';
-import { defaultAvatar } from '../../constants/etc';
+import { AvatarTextarea } from '../../AvatarTextarea';
+import { defaultAvatar } from '../../../constants/etc';
 import {
   Button,
   Card,
@@ -12,12 +12,12 @@ import {
 } from 'antd';
 // import { LinkCopy } from '../LinkCopy';
 import { useRouter } from 'next/router';
-import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../utils';
-import { REQUEST_TYPE } from '../../constants/requestType';
-import { defaultMsgOfCommunityMemberInvitation } from '../../constants/defaultMsgOfCommunityMemberInvitation';
-import { API } from '../../constants';
+import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../utils';
+import { REQUEST_TYPE } from '../../../constants/requestType';
+import { defaultMsgOfCommunityMemberInvitation } from '../../../constants/defaultMsgOfCommunityMemberInvitation';
+import { API } from '../../../constants';
 import { useForm } from 'antd/lib/form/Form';
-import { UserSelector } from './UserSelector';
+import { UserSelector } from '../../UserSelector';
 const { Option } = Select;
 export const InvitePane = () => {
   const router = useRouter();

@@ -2,30 +2,22 @@ import { Button, Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
+  // HomeFilter,
+  // HomeSorter,
   SwitchCommunity,
-} from '../../../components';
+} from '../../../../components';
 import { Space } from 'antd';
-import { DeskPageHoc } from '../../../containers';
-import { withSession } from '../../../utils/withSession';
-import { API } from '../../../constants/apis';
+import { DeskPageHoc } from '../../../../containers';
+import { withSession } from '../../../../utils/withSession';
+import { API } from '../../../../constants/apis';
 import useSWR from 'swr';
-import { fetcher } from '../../../utils/fetcher';
-import JoinInCommunity from './join';
-import { fetchJson } from '../../../utils';
-import { TopicListItem } from '../../../components/community';
-const Topics = (props) => {
+import { fetcher } from '../../../../utils/fetcher';
+import JoinInCommunity from '../join';
+import { fetchJson } from '../../../../utils';
+import { ListItemTile } from '../../../../components/community/global/ListItemTile';
+const TopicDetail = (props) => {
   const router = useRouter();
-  const [topicList, setTopicList] = React.useState([]);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const getTopics = React.useCallback(async () => {
-    const result = await fetchJson(`${API.ALL_TOPIC_LIST_API}/${router.query.community}`);
-    setTopicList(result.data);
-  }, [router]);
-  React.useEffect(() => {
-    if (router.query.community) {
-      getTopics();
-    }
-  }, [router, getTopics]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -34,7 +26,9 @@ const Topics = (props) => {
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
               <Col span={12}>
-                <h1 className='fw-6 fs-5'>Topics</h1>
+                <span className='text-upper'>topic</span>
+                <h1 className='fw-6 fs-5'>{props.data?.name}</h1>
+                <p>{props.data?.description}</p>
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
@@ -44,13 +38,12 @@ const Topics = (props) => {
                 </Space>
               </Col>
             </Row>
-            {
-              topicList &&
-              topicList.length > 0 &&
-              topicList.map((t) => {
-                return <TopicListItem key={t.id} {...t} auth={{...data}} />;
-              })
-            }
+            {/* <div>
+              <HomeFilter />
+              <HomeSorter className='ml-2' />
+            </div> */}
+            <ListItemTile />
+            <ListItemTile />
           </div>
         </React.Fragment>
       </DeskPageHoc>
@@ -58,12 +51,16 @@ const Topics = (props) => {
 };
 
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
+  let detail = null;
+  if(query.id) {
+    detail = await fetchJson(`${API.GET_TOPIC_DETAIL_API}/${query.id}`);
+  }
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user } } };
   }
-  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: detail ? {...detail.data} : null, error: null, auth: { isLoggedIn: true, ...user } } };
 });
-export default Topics;
+export default TopicDetail;

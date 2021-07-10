@@ -4,7 +4,7 @@ import { ArrowsAltOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { Container } from '../../Container';
 import { useWindowSize } from '../../../hooks';
-import { MemberInvitationBtn } from '../MemberInvitationBtn';
+import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
 import { API } from '../../../constants';
 import { openNotificationWithIcon, fetchJson, socket, slugify } from '../../../utils';
 import { REQUEST_TYPE } from '../../../constants/requestType';

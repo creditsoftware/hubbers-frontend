@@ -1,5 +1,5 @@
 import React from 'react';
-import { CommunityMembersTable } from './member/CommunityMembersTable';
+import { CommunityMembersTable } from '../member/CommunityMembersTable';
 // import { InviteStatusPane } from './InviteStatusPane';
 export const SentInvitePane = () => {
   return <React.Fragment>
