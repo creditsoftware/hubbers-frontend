@@ -8,7 +8,7 @@ import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { PlusOutlined } from '@ant-design/icons';
 import { Container } from '../../../components/Container';
-import { Input, Select, Radio, Space, Image, Checkbox, Avatar, Row, Col, Button } from 'antd';
+import { Input, Select, Radio, Checkbox, Row, Col, Button } from 'antd';
 import { useState } from 'react';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -18,24 +18,24 @@ const ExpertProfile = ({ ...props }) => {
   const design = ['Logo', 'UX', 'Industrial design'];
   const manufacturing = ['Product followup', 'Industrializaion'];
   const [valueExpert, setValueExpert] = useState([]);
-  const [valueAvail, setValueAvail] = useState("full");
+  const [valueAvail, setValueAvail] = useState('full');
   const [valueHBB, setValueHBB] = useState(true);
   const [addState, setAddState] = useState(false);
   const addStateChange = () => {
     setAddState(true);
-  }
+  };
   const cancelState = () =>{
     setAddState(false);
-  }
+  };
   const onChangeExpert = (e) => {
     setValueExpert(e);
-  }
+  };
   const onChangeAvail = (e) =>{
     setValueAvail(e.target.value);
-  }
+  };
   const onChangeHBB = (e) =>{
     setValueHBB(e.target.value);
-  }
+  };
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>

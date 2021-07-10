@@ -8,46 +8,40 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
-import { Input, Select, Radio, Slider, InputNumber, Space, Image, Checkbox, Avatar, Row, Col, Button } from 'antd';
+import { Input, Select, Radio, Slider, InputNumber, Row, Col, Button } from 'antd';
 import { useState } from 'react';
 const { Option } = Select;
 const { TextArea } = Input;
 
 const InvestorProfile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const design = ['Logo', 'UX', 'Industrial design'];
-  const manufacturing = ['Product followup', 'Industrializaion'];
-  const [valuePeriod, setValuePeriod] = useState("now");
-  const [valueTeam, setValueTeam] = useState(true);
-  const [valueExpert, setValueExpert] = useState([]);
-  const [valueProduct, setValueProduct] = useState("not");
-  const [valueCategory, setValueCategory] = useState("product");
+  const [valueCategory, setValueCategory] = useState('product');
   const [valueConsider, setValueConsider] = useState(false);
   const [valueAmount, setValueAmount] = useState(50);
-  const [valueCountry, setValueCountry] = useState("all");
+  const [valueCountry, setValueCountry] = useState('all');
   const [valueProject, setValueProject] = useState(true);
   const [addState, setAddState] = useState(false);
   const addStateChange = () => {
     setAddState(true);
-  }
+  };
   const cancelState = () =>{
     setAddState(false);
-  }
+  };
   const onChangeCategory = (e) =>{
     setValueCategory(e.target.value);
-  }
+  };
   const onChangeConsider = (e) =>{
     setValueConsider(e.target.value);
-  }
+  };
   const onChangeAmount = (e) =>{
     setValueAmount(e);
-  }
+  };
   const onChangeCountry = (e) => {
     setValueCountry(e.target.value);
-  }
+  };
   const onChangeProject = (e) => {
     setValueProject(e.target.value);
-  }
+  };
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>

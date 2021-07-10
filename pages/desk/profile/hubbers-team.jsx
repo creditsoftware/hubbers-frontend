@@ -7,46 +7,18 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
-import { Input, Select, Radio, Space, Checkbox, Avatar, Row, Col, Button } from 'antd';
-import { useState } from 'react';
+import { Input, Avatar, Row, Col, Button } from 'antd';
 import Image from 'next/image';
-const { Option } = Select;
 const {TextArea} = Input;
 
 const HubbersTeam = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const design = ['Logo', 'UX', 'Industrial design'];
-  const manufacturing = ['Product followup', 'Industrializaion'];
-  const [valuePeriod, setValuePeriod] = useState("now");
-  const [valueTeam, setValueTeam] = useState(true);
-  const [valueExpert, setValueExpert] = useState([]);
-  const [valueProduct, setValueProduct] = useState("not");
-  const [valueAvail, setValueAvail] = useState("full");
-  const [valueHBB, setValueHBB] = useState(true);
   const person = {
     name: 'Denis Kravchenko',
     country: 'Russian Federation',
     title: '24/7 CTO',
     description: ''
-  }
-  const onChangePeriod = (e) => {
-    setValuePeriod(e.target.value);
-  }
-  const onChangeTeam = (e) => {
-    setValueTeam(e.target.value);
-  }
-  const onChangeExpert = (e) => {
-    setValueExpert(e);
-  }
-  const onChangeProduct = (e) => {
-    setValueProduct(e);
-  }
-  const onChangeAvail = (e) =>{
-    setValueAvail(e.target.value);
-  }
-  const onChangeHBB = (e) =>{
-    setValueHBB(e.target.value);
-  }
+  };
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>

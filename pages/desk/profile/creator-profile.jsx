@@ -8,7 +8,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
-import { DatePicker, Select, Radio, Input, Image, Checkbox, Avatar, Row, Col, Button } from 'antd';
+import { Select, Radio, Input, Checkbox, Row, Col, Button } from 'antd';
 import { useState } from 'react';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -19,14 +19,14 @@ const CreatorProfile = ({ ...props }) => {
   const [valuePeriod, setValuePeriod] = useState('now');
   const [valueTeam, setValueTeam] = useState(true);
   const [valueExpertise, setValueExpertise] = useState([]);
-  const [valueProduct, setValueProduct] = useState("not");
+  const [valueProduct, setValueProduct] = useState('not');
   const [addState, setAddState] = useState(false);
   const addStateChange = () => {
     setAddState(true);
-  }
+  };
   const cancelState = () =>{
     setAddState(false);
-  }
+  };
   const onChangeNew = (e) => {
     setValueNew(e.target.value);
   };
