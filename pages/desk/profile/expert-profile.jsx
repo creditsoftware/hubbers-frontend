@@ -4,22 +4,22 @@ import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
 import useSWR from 'swr';
-import { PlusOutlined } from '@ant-design/icons';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
+import { PlusOutlined } from '@ant-design/icons';
 import { Container } from '../../../components/Container';
-import { DatePicker, Select, Radio, Input, Image, Checkbox, Avatar, Row, Col, Button } from 'antd';
+import { Input, Select, Radio, Space, Image, Checkbox, Avatar, Row, Col, Button } from 'antd';
 import { useState } from 'react';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const CreatorProfile = ({ ...props }) => {
+const ExpertProfile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const [valueNew, setValueNew] = useState(true);
-  const [valuePeriod, setValuePeriod] = useState('now');
-  const [valueTeam, setValueTeam] = useState(true);
-  const [valueExpertise, setValueExpertise] = useState([]);
-  const [valueProduct, setValueProduct] = useState("not");
+  const design = ['Logo', 'UX', 'Industrial design'];
+  const manufacturing = ['Product followup', 'Industrializaion'];
+  const [valueExpert, setValueExpert] = useState([]);
+  const [valueAvail, setValueAvail] = useState("full");
+  const [valueHBB, setValueHBB] = useState(true);
   const [addState, setAddState] = useState(false);
   const addStateChange = () => {
     setAddState(true);
@@ -27,22 +27,15 @@ const CreatorProfile = ({ ...props }) => {
   const cancelState = () =>{
     setAddState(false);
   }
-  const onChangeNew = (e) => {
-    setValueNew(e.target.value);
-  };
-  const onChangePeriod = (e) => {
-    setValuePeriod(e.target.value);
-  };
-  const onChangeTeam = (e) => {
-    setValueTeam(e.target.value);
-  };
-  const onChangeExpertise = (e) => {
-    setValueExpertise(e);
-  };
-  console.log(valueExpertise);
-  const onChangeProduct = (e) => {
-    setValueProduct(e);
-  };
+  const onChangeExpert = (e) => {
+    setValueExpert(e);
+  }
+  const onChangeAvail = (e) =>{
+    setValueAvail(e.target.value);
+  }
+  const onChangeHBB = (e) =>{
+    setValueHBB(e.target.value);
+  }
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
@@ -54,10 +47,10 @@ const CreatorProfile = ({ ...props }) => {
                 <a style={{ display: 'inline-block' }} className="p-3">General Profile</a>
               </Link>
               <Link href="/desk/profile/creator-profile">
-                <a style={{ display: 'inline-block' }} className="p-3 active-profile">Creator Profile</a>
+                <a style={{ display: 'inline-block' }} className="p-3">Creator Profile</a>
               </Link>
               <Link href="/desk/profile/expert-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Expert</a>
+                <a style={{ display: 'inline-block' }} className="p-3 active-profile">Expert</a>
               </Link>
               <Link href="/desk/profile/investor-profile">
                 <a style={{ display: 'inline-block' }} className="p-3">Investor</a>
@@ -68,45 +61,10 @@ const CreatorProfile = ({ ...props }) => {
             </div>
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
-                <p className="fs-1 fw-6 mt-2 mb-0">Creating, innovating, inventing new products is what Hubbers community is about.</p>
-                <p className="fs-1 fw-6 mb-4">Let&apos;s see how Hubbers tools and community is going to help your product launch.</p>
-                <p className="fs-1 fw-6 mb-4">Are you thinking to launch or are you in the process of launching a new product?</p>
-                <Radio.Group onChange={onChangeNew} value={valueNew}>
-                  <Radio value={true}>Yes</Radio>
-                  <Radio value={false}>No</Radio>
-                </Radio.Group>
-                <Row style={{  margin: '24px 0' }}>
-                  <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
-                    <label style={{ whiteSpace: 'nowrap' }}>How long have you started?</label>
-                    <Select bordered={false} className="profile-input profile-input" style={{ width: '150px', borderBottom: '1px solid black', padding: '0', margin: '0 12px'}}>
-                      <Option value="1">1 month</Option>
-                      <Option value="2">2 months</Option>
-                      <Option value="3">3 months</Option>
-                      <Option value="4">4 months</Option>
-                    </Select>
-                  </Col>
-                </Row>
-                <p className="mt-5 py-3">If you are about to launch, when do you see the launch of product?</p>
-                <Radio.Group onChange={onChangePeriod} value={valuePeriod}>
-                  <Radio value="now">Now</Radio>
-                  <Radio value="1~3">in 1~3 months</Radio>
-                  <Radio value="6">after 6 months</Radio>
-                  <Radio value="still">still thinking</Radio>
-                </Radio.Group>
-                <p className="mt-5 py-3">Do you have a co-founder/ team working with you?</p>
-                <Radio.Group onChange={onChangeTeam} value={valueTeam}>
-                  <Radio value={true}>Yes</Radio>
-                  <Radio value={false}>No</Radio>
-                </Radio.Group>
-                <Row style={{ margin: '24px 0' }}>
-                  <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
-                    <label style={{ whiteSpace: 'nowrap' }}>We are</label>
-                    <input type="text" name="working-person" className="profile-input" style={{ width: '100px', borderBottom: '1px solid black', padding: '0', margin: '0 12px'}} />
-                    <label style={{ whiteSpace: 'nowrap' }}>persons working on our great project.</label>
-                  </Col>
-                </Row>
-                <p>Which expertise are you looking outside of your team to accelerate your launch?</p>
-                <Checkbox.Group style={{ width: '100%' }} onChange={onChangeExpertise} value={valueExpertise}>
+                <p className="fs-2 fw-6 mt-2 mb-4">Write your expert bio.</p>
+                <p className="fs-1 mb-4">A good expert bio should give details on your experience, examples of post jobs, what you customers like in you, you, story. More you give, more you get a change to get hired.</p>
+                <p className="fs-1 mb-4">Choose categories where you can bring your expertise.</p>
+                <Checkbox.Group style={{ width: '100%' }} onChange={onChangeExpert} value={valueExpert}>
                   <Row className="profile-expertise">
                     <Col lg={6} sm={12} xs={12}>
                       <Checkbox value="brainstormin">
@@ -156,6 +114,30 @@ const CreatorProfile = ({ ...props }) => {
                         Communication
                       </Checkbox>
                     </Col>
+                    {/* <Col lg={6} sm={12} xs={12}>
+                      <Checkbox value="crowd-funding">
+                        <img src="/images/expertise/crowd-funding.png" />
+                        Crowd-funding
+                      </Checkbox>
+                    </Col>
+                    <Col lg={6} sm={12} xs={12}>
+                      <Checkbox value="purchasing">
+                        <img src="/images/expertise/purchasing.png" />
+                        Purchasing
+                      </Checkbox>
+                    </Col>
+                    <Col lg={6} sm={12} xs={12}>
+                      <Checkbox value="logistic">
+                        <img src="/images/expertise/logistic.png" />
+                        Logistic
+                      </Checkbox>
+                    </Col>
+                    <Col lg={6} sm={12} xs={12}>
+                      <Checkbox value="fundraising">
+                        <img src="/images/expertise/fundraising.png" />
+                        Fundraising
+                      </Checkbox>
+                    </Col> */}
                     <Col lg={6} sm={12} xs={12}>
                       <Checkbox value="manufacturing">
                         <img src="/images/expertise/manufacturing.png" />
@@ -182,14 +164,55 @@ const CreatorProfile = ({ ...props }) => {
                     </Col>
                   </Row>
                 </Checkbox.Group>
-                <p className="mt-5 py-3">Let&apos;s talk about your creative past experiences? Have you ever built a product?</p>
-                <Radio.Group onChange={onChangeProduct} value={valueProduct}>
-                  <Radio value="not">Not yet</Radio>
-                  <Radio value="yes">Yes once</Radio>
-                  <Radio value="serial">I am a serial inventors/innovator/creators</Radio>
+                <p className="fs-2 fw-6 mt-5 mb-3">
+                  Choose skills that match your expertise.
+                </p>
+                <label>
+                  Design
+                </label>
+                <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
+                  <Select mode="tags" bordered={false} style={{ width: '100%' }}>
+                    {
+                      design.map((item, index) => {
+                        return <Option key={index}>{item}</Option>;
+                      })
+                    }
+                  </Select>
+                </Row>
+                <label>
+                  Manufacturing
+                </label>
+                <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
+                  <Select mode="tags" bordered={false} style={{ width: '100%' }}>
+                    {
+                      manufacturing.map((item, index) => {
+                        return <Option key={index}>{item}</Option>;
+                      })
+                    }
+                  </Select>
+                </Row>
+                <p className="fs-2 fw-6 mt-5 mb-3">
+                  Choose the rate per hour your are ready to work for:
+                </p>
+                <Row style={{ marginBottom: '24px' }}>
+                  $<Input bordered={false} style={{ width: '50px', paddingTop: '0', borderBottom: '1px solid black' }} /> / Hour
+                </Row>
+                <p className="mt-5 py-3">Choose your time availability:</p>
+                <Radio.Group onChange={onChangeAvail} value={valueAvail}>
+                  <Radio value="full">Full Time</Radio>
+                  <Radio value="part">Part time hours</Radio>
                 </Radio.Group>
-                <p className="mt-5 py-3">That is great. Share with Hubbers what you have created. Create your portfolio.</p>
-                <Row className="py-5">
+                <p className="mt-5 py-3">Will you consider to put your expertise to earn HBB for you and your community.</p>
+                <Row>
+                  <Radio.Group onChange={onChangeHBB} value={valueHBB}>
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                  <div>
+                    Hours per week:<Input bordered={false} style={{ width: '50px', paddingTop: '0', borderBottom: '1px solid black' }} /> / Week
+                  </div>
+                </Row>
+                <Row className="mt-3 py-5">
                   <button className="add-portfolio" onClick={addStateChange}>
                     <PlusOutlined />
                   </button>
@@ -239,4 +262,4 @@ export const getServerSideProps = withSession(async (ctx) => {
     return { props: { auth: { isLoggedIn: false } } };
   }
 });
-export default CreatorProfile;
+export default ExpertProfile;
