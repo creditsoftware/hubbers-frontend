@@ -23,9 +23,6 @@ const Members = (props) => {
   const [auth, setAuth] = React.useState(null);
   const [members, setMembers] = React.useState(null);
   useEffect(() => {
-    if (props.error === 'Unautherized you') {
-      router.push('/auth/signin');
-    }
     if (props.data && props.data.success) {
       setMembers(props.data.data);
       setAuth(props.data.auth);
@@ -33,7 +30,7 @@ const Members = (props) => {
     // if (router.query.filter) {
     //   setFilterValue(router.query.filter);
     // }
-  }, [router]);
+  }, []);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />

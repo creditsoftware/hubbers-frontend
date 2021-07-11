@@ -1,61 +1,71 @@
-.main-header{
-    background-color: white!important;
+.main-header {
+    background-color: white !important;
     position: fixed;
     z-index: 100;
     width: 100%;
-    //
-    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after{
-        border: none!important;
+
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-active::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected::after,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected::after {
+        border: transparent !important;
     }
-    //
-    a.logo{
+
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu {
+        padding: 0;
+        margin: 0 20px;
+    }
+
+    a.logo {
         width: 7rem;
         float: left;
-        img{
+
+        img {
             width: 100%;
         }
     }
-    ul.ant-menu{
+
+    ul.ant-menu {
         border-bottom: none;
     }
-    .menu-content{
+
+    .menu-content {
         height: 100%;
-        .left-menu{
+
+        .left-menu {
             min-width: 27rem;
         }
-        .right-menu{
+
+        .right-menu {
             min-width: 16rem;
             text-align: right;
         }
     }
-    .left-menu{
+
+    .left-menu {
         float: left;
-        li.ant-menu-item{
-            padding: 0;
-            margin-left: 1rem;
-            margin-right: 1rem;
-        }
     }
-    .right-menu{
+
+    .right-menu {
         float: right;
-        li.ant-menu-item{
-            padding: 0;
-            margin-left: .5rem;
-            margin-right: .5rem;
-            &.disable:hover, &.ant-menu-item-selected.disable{
-                border-bottom: 2px solid transparent;
-            }
-        }
     }
-    .bars-menu-wrapper{
+
+    .bars-menu-wrapper {
         height: 100%;
         float: right;
         display: flex;
         align-items: center;
     }
-    .bars-menu{
+
+    .bars-menu {
         display: none;
     }
+
     .bars-btn {
         display: block;
         width: 20px;
@@ -63,7 +73,7 @@
         background: $primary-color;
         position: relative;
     }
-      
+
     .bars-btn:after,
     .bars-btn:before {
         content: attr(x);
@@ -74,34 +84,40 @@
         height: 2px;
         background: $primary-color;
     }
-      
+
     .bars-btn:after {
         top: auto;
         bottom: -6px;
     }
+
     .ant-menu-submenu.ant-menu-submenu-active,
-    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover, 
-    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
     .ant-menu-item.ant-menu-item-selected,
-    .ant-menu-submenu.ant-menu-submenu-selected{
+    .ant-menu-submenu.ant-menu-submenu-selected {
         color: $primary-color;
         border-bottom: 2px solid $primary-color;
-        a{
+
+        a {
             color: $primary-color;
         }
     }
-    .ant-menu-item:hover{
-        .ant-space-item{
+
+    .ant-menu-item:hover {
+        .ant-space-item {
             color: $primary-color;
         }
     }
-    .ant-menu-submenu-title:hover{
+
+    .ant-menu-submenu-title:hover {
         color: $primary-color;
     }
+
     @media (max-width: 991px) {
-        .bars-menu{
+        .bars-menu {
             display: inline-block;
         }
+
         .left-menu,
         .right-menu {
             display: none;
