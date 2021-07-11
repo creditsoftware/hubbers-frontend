@@ -17,36 +17,36 @@ export const RightMenu = ({ menuType, ...props }) => {
     }
   };
   const notifications = [
-    {
-      type: 'Community',
-      content: 'Denis has Joined in Shang hai community!'
-    },
-    {
-      type: 'Project',
-      content: 'Denis has created new project!'
-    },
-    {
-      type: 'Job',
-      content: 'Denis has published new job!'
-    },
-    {
-      type: 'Community',
-      content: 'Denis have Joined in Shang hai community.'
-    }
+    // {
+    //   type: 'Community',
+    //   content: 'Denis has Joined in Shang hai community!'
+    // },
+    // {
+    //   type: 'Project',
+    //   content: 'Denis has created new project!'
+    // },
+    // {
+    //   type: 'Job',
+    //   content: 'Denis has published new job!'
+    // },
+    // {
+    //   type: 'Community',
+    //   content: 'Denis have Joined in Shang hai community.'
+    // }
   ];
   const messages = [
-    {
-      title: 'Denis Kravchenko'
-    },
-    {
-      title: 'Denis Kravchenko'
-    },
-    {
-      title: 'Denis Kravchenko'
-    },
-    {
-      title: 'Denis Kravchenko'
-    },
+    // {
+    //   title: 'Denis Kravchenko'
+    // },
+    // {
+    //   title: 'Denis Kravchenko'
+    // },
+    // {
+    //   title: 'Denis Kravchenko'
+    // },
+    // {
+    //   title: 'Denis Kravchenko'
+    // },
   ];
   const msgTitle = <span>New Messages</span>;
   const msgContent = (
@@ -183,7 +183,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                 trigger="click"
               >
                 <Badge
-                  count={4}
+                  count={0}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
@@ -200,7 +200,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                 trigger="click"
               >
                 <Badge
-                  count={4}
+                  count={0}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
