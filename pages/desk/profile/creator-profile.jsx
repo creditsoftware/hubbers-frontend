@@ -21,11 +21,41 @@ const CreatorProfile = ({ ...props }) => {
   const [valueExpertise, setValueExpertise] = useState([]);
   const [valueProduct, setValueProduct] = useState('not');
   const [addState, setAddState] = useState(false);
+  const [portfolioTitle, setPortfolioTitle] = useState("");
+  const [portfolioDescription, setPortfolioDescription] = useState("");
+  const [portfolios, setPortfolios] = useState([{
+    image: '/images/accelerator_image.png',
+    title: 'test',
+    description: 'testestestestestestestestest'
+  }]);
+  const addEvent = () => {
+    let data = portfolios;
+    data.push({
+      image: '',
+      title: portfolioTitle,
+      description: portfolioDescription
+    });
+    setPortfolios(data);
+    setAddState(false);
+  };
+  const delEvent = (index) =>{
+    let data = [...portfolios];
+    data.splice(index,1);
+    setPortfolios(data);
+  }
+  const titleChange = (e) => {
+    setPortfolioTitle(e.target.value);
+  }
+  const descriptionChange = (e) => {
+    setPortfolioDescription(e.target.value);
+  }
   const addStateChange = () => {
     setAddState(true);
   };
   const cancelState = () =>{
     setAddState(false);
+    setPortfolioTitle("");
+    setPortfolioDescription("");
   };
   const onChangeNew = (e) => {
     setValueNew(e.target.value);
@@ -39,7 +69,6 @@ const CreatorProfile = ({ ...props }) => {
   const onChangeExpertise = (e) => {
     setValueExpertise(e);
   };
-  console.log(valueExpertise);
   const onChangeProduct = (e) => {
     setValueProduct(e);
   };
@@ -190,9 +219,26 @@ const CreatorProfile = ({ ...props }) => {
                 </Radio.Group>
                 <p className="mt-5 py-3">That is great. Share with Hubbers what you have created. Create your portfolio.</p>
                 <Row className="py-5">
-                  <button className="add-portfolio" onClick={addStateChange}>
-                    <PlusOutlined />
-                  </button>
+                  {
+                    portfolios.map((item, index) => {
+                      return <div key={index} className="text-center px-2">
+                        <div className="portfolio-image">
+                          <button onClick={()=>{delEvent(index)}} className="del">x</button>
+                          {
+                            item.image?
+                              <img width="100%" height="100%" src={item.image} />
+                            : <p className="text-center pt-5">No Image</p>
+                          }
+                        </div>
+                        <p className="pt-2">{item.title}</p>
+                      </div>;
+                    })
+                  }
+                  <div className="text-center px-2">
+                    <button className="add-portfolio" onClick={addStateChange}>
+                      <PlusOutlined />
+                    </button>
+                  </div>
                 </Row>
                 {addState ? (
                   <Row>
@@ -206,20 +252,29 @@ const CreatorProfile = ({ ...props }) => {
                       <Row className="mt-4 px-5">
                         <Col span={24}>
                           <label>Title</label>
-                          <input type="text" name="title" className="profile-input p-2 mt-1" style={{ borderBottom: '1px solid black', marginBottom: '24px' }} />
+                          <input
+                            type="text"
+                            className="profile-input p-2 mt-1"
+                            style={{ borderBottom: '1px solid black', marginBottom: '24px' }}
+                            onChange={titleChange}
+                          />
                         </Col>
                       </Row>
                       <Row className="mt-4 px-5">
                         <Col span={24}>
                           <label>Description</label>
-                          <TextArea name="description" className="profile-input mt-3 p-2" style={{ borderBottom: '1px solid black', marginBottom: '24px' }} />
+                          <TextArea
+                            className="profile-input mt-3 p-2"
+                            style={{ borderBottom: '1px solid black', marginBottom: '24px' }}
+                            onChange={descriptionChange}
+                          />
                         </Col>
                       </Row>
                       <Row className="fjc-center">
                         <Button type="hbs-outline-danger" size="large" shape="round" onClick={cancelState}>Cancel</Button>
-                        <Button type="hbs-primary" size="large" shape="round" className="ml-3">Add</Button>
+                        <Button type="hbs-primary" size="large" shape="round" className="ml-3" onClick={addEvent}>Add</Button>
                       </Row>
-                    </Col>                    
+                    </Col>
                   </Row>
                 ) : null}
               </div>
