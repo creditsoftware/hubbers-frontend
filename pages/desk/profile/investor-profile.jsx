@@ -38,6 +38,11 @@ const InvestorProfile = ({ ...props }) => {
     setPortfolios(data);
     setAddState(false);
   };
+  const delEvent = (index) =>{
+    let data = [...portfolios];
+    data.splice(index,1);
+    setPortfolios(data);
+  }
   const titleChange = (e) => {
     setPortfolioTitle(e.target.value);
   }
@@ -154,7 +159,7 @@ const InvestorProfile = ({ ...props }) => {
                     portfolios.map((item, index) => {
                       return <div key={index} className="text-center px-2">
                         <div className="portfolio-image">
-                          <button className="del">x</button>
+                        <button onClick={()=>{delEvent(index)}} className="del">x</button>
                           {
                             item.image?
                               <img width="100%" height="100%" src={item.image} />
