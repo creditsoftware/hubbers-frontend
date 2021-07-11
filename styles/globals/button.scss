@@ -34,6 +34,18 @@
         border-color: $primary-color;
     }
 }
+.ant-btn.ant-btn-hbs-outline-danger, .ant-btn.ant-btn-hbs-outline-danger:focus {
+    color: $danger-color;
+    border-color: $danger-color;
+    background-color: white;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    &:hover, &:active {
+        color: white;
+        background-color: $danger-color;
+        border-color: $danger-color;
+    }
+}
 .ant-btn.ant-btn-hbs-dashed{
     border: 1px dashed #d9d9d9;
     &:hover, &:active, &:focus{
