@@ -17,10 +17,10 @@ export const HubbersTeamMemberTile = ({ data, end = false }) => {
           {
             !data.isTerminated ?
               <div title={data.description}>{data.description}</div>
-            : null
+              : null
           }
         </div>
-      :
+        :
         <div className='hubbers-team-member-tile'>
           <div className='join-us-job-board'>
             <PlusOutlined />

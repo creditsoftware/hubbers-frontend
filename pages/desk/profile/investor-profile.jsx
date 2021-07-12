@@ -21,8 +21,8 @@ const InvestorProfile = ({ ...props }) => {
   const [valueCountry, setValueCountry] = useState('all');
   const [valueProject, setValueProject] = useState(true);
   const [addState, setAddState] = useState(false);
-  const [portfolioTitle, setPortfolioTitle] = useState("");
-  const [portfolioDescription, setPortfolioDescription] = useState("");
+  const [portfolioTitle, setPortfolioTitle] = useState('');
+  const [portfolioDescription, setPortfolioDescription] = useState('');
   const [portfolios, setPortfolios] = useState([{
     image: '/images/accelerator_image.png',
     title: 'test',
@@ -42,13 +42,13 @@ const InvestorProfile = ({ ...props }) => {
     let data = [...portfolios];
     data.splice(index,1);
     setPortfolios(data);
-  }
+  };
   const titleChange = (e) => {
     setPortfolioTitle(e.target.value);
-  }
+  };
   const descriptionChange = (e) => {
     setPortfolioDescription(e.target.value);
-  }
+  };
   const addStateChange = () => {
     setAddState(true);
   };
@@ -159,11 +159,11 @@ const InvestorProfile = ({ ...props }) => {
                     portfolios.map((item, index) => {
                       return <div key={index} className="text-center px-2">
                         <div className="portfolio-image">
-                        <button onClick={()=>{delEvent(index)}} className="del">x</button>
+                          <button onClick={()=>{delEvent(index);}} className="del">x</button>
                           {
                             item.image?
                               <img width="100%" height="100%" src={item.image} />
-                            : <p className="text-center pt-5">No Image</p>
+                              : <p className="text-center pt-5">No Image</p>
                           }
                         </div>
                         <p className="pt-2">{item.title}</p>
