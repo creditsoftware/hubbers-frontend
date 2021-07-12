@@ -209,7 +209,7 @@ export const DeskSidebar = ({ active, ...props }) => {
                   <SubMenu
                     key={`community-${community.id}-group`}
                     icon={<TeamOutlined />}
-                    onTitleClick={() => onChangeOpenKeys(`community-${community.id}-groups`)}
+                    onTitleClick={() => onChangeOpenKeys(`community-${community.id}-group`)}
                     title={
                       <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
                         <a>
@@ -312,42 +312,6 @@ export const DeskSidebar = ({ active, ...props }) => {
               </SubMenu>;
             })
           }
-          {/* <Menu.Item key="home">
-            <AuthLink href={`/desk/community/home${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
-              <a>
-                Home&nbsp;&nbsp;
-                <Badge
-                  count={2}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
-          </Menu.Item>            
-          <Menu.Item key="discover">            
-            <AuthLink href={`/desk/community/discover${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
-              <a>
-                Discover&nbsp;&nbsp;
-                <Badge
-                  count={3}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
-          </Menu.Item>
-          <Menu.Item key="members">
-            <AuthLink href={`/desk/community/members${router.query.community ? '?community=' + router.query.community : ''}`} {...props}>
-              <a>
-                Members&nbsp;&nbsp;
-                <Badge
-                  count={2}
-                  size='small'
-                  style={{ backgroundColor: '#52c41a' }}
-                />
-              </a>
-            </AuthLink>
-          </Menu.Item> */}
         </SubMenu>
         <Menu.Item key="activities" icon={<StarOutlined />}>
           <AuthLink href='/desk/activities' {...props}>
