@@ -67,6 +67,13 @@ export {
   TalkAbout,
   Talent
 } from './event';
+export {
+  GeneralDetails,
+  CriteriaDetails,
+  ContestantsDetails,
+  ContestRulesDetails,
+  AwardJudgesDetails
+} from './contests-details';
 export * as Membership from './membership';
 export {
   MembershipApplyButton,
