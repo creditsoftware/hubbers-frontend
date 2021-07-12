@@ -3,7 +3,6 @@ import { Button, Divider, Menu, Popover, Radio } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
 const { SubMenu } = Menu;
 export const PostContextMenu = (props) => {
-  console.log(props);
   return <Popover
     placement='bottomRight'
     content={
@@ -68,7 +67,7 @@ export const PostContextMenu = (props) => {
     }
     trigger='click'
   >
-    <Button type='text'>
+    <Button type='text' {...props}>
       <MoreOutlined />
     </Button>
   </Popover>;

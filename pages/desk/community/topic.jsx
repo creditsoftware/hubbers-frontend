@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
@@ -6,6 +6,7 @@ import {
   // HomeFilter,
   // HomeSorter,
   SwitchCommunity,
+  TopicManageBtn,
 } from '../../../components';
 import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
@@ -18,11 +19,21 @@ import { fetchJson } from '../../../utils';
 import { ListItemTile } from '../../../components/community/global/ListItemTile';
 const TopicDetail = (props) => {
   const router = useRouter();
+  const [topicData, setTopicData] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
+  const getTopicDetail = React.useCallback(async () => {
+    const result = await fetchJson(`${API.GET_TOPIC_DETAIL_API}/${router.query.topic}`);
+    setTopicData(result.data);
+  }, [router]);
+  React.useEffect(() => {
+    if (router.query.community) {
+      getTopicDetail();
+    }
+  }, [router, getTopicDetail]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [`topics-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title={`Topic ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`topics-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -33,7 +44,7 @@ const TopicDetail = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <Button type='hbs-primary' shape='round'>Manage</Button>
+                  <TopicManageBtn />
                   {/* <Button type='hbs-primary'>+</Button> */}
                   <CreateNewBtn />
                   <SwitchCommunity />
@@ -44,8 +55,13 @@ const TopicDetail = (props) => {
               <HomeFilter />
               <HomeSorter className='ml-2' />
             </div> */}
-            <ListItemTile type='event' />
-            <ListItemTile type='post' />
+            {
+              topicData &&
+              topicData.posts &&
+              topicData.posts.map((p) => {
+                return <ListItemTile type='post' auth={{...data}} data={{...p}} key={p.id} />;
+              })
+            }
           </div>
         </React.Fragment>
       </DeskPageHoc>
@@ -55,7 +71,7 @@ const TopicDetail = (props) => {
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
   let detail = null;
-  if(query.topic) {
+  if (query.topic) {
     detail = await fetchJson(`${API.GET_TOPIC_DETAIL_API}/${query.topic}`);
   }
   const user = await req.session.get('user');
@@ -63,6 +79,6 @@ export const getServerSideProps = withSession(async (ctx) => {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user } } };
   }
-  return { props: { data: detail ? {...detail.data} : null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: detail ? { ...detail.data } : null, error: null, auth: { isLoggedIn: true, ...user } } };
 });
 export default TopicDetail;

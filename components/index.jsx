@@ -47,7 +47,11 @@ export {
   PostTileHeader,
   ReplyPostTile,
   CommunityProgress,
-  PostContextMenu
+  PostContextMenu,
+  TopicManageBtn,
+  GroupListItem,
+  GroupContextMenu,
+  GroupManageBtn
 } from './community';
 export * as JobBoard from './job-board';
 export {

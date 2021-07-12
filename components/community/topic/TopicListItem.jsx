@@ -17,7 +17,8 @@ export const TopicListItem = ({ ...props }) => {
   React.useEffect(() => {
     setW(size.width);
   }, [size]);
-  const followTopic = () => {
+  const followTopic = (e) => {
+    e.preventDefault();
     setLoadingToFollow(true);
     if (props.auth) {
       fetchJson(`${API.FOLLOW_TOPIC_API}/${props.id}/${props.auth.id}`).then((res) => {

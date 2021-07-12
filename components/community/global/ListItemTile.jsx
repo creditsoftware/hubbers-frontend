@@ -4,55 +4,77 @@ import { primaryColor } from '../../../constants';
 import { AlignLeftOutlined, HeartOutlined, MessageOutlined } from '@ant-design/icons';
 import Avatar from 'antd/lib/avatar/avatar';
 import { defaultAvatar } from '../../../constants/etc';
-import { PostContextMenu } from '../post';
+import { PostContextMenu, PostDrawer } from '../post';
 import { EventContextMenu } from '../events';
 
-export const ListItemTile = ({ type='event', ...props }) => {
-  console.log(props);
-  return <div className='community-child-list-item'>
-    <Row style={{ backgroundColor: 'white', marginBottom: '2rem', borderRadius:'1rem' }}>
-      <Col flex='150px'>
-        <div style={{ width: '150px', height: '150px', margin: 'auto', backgroundColor: primaryColor, borderRadius: '1rem' }}>
-          <AlignLeftOutlined style={{fontSize:'3rem', margin:'3rem', color:'white'}} />
-        </div>
-      </Col>
-      <Col flex='auto' className='px-3 py-2'>
-        <div style={{minHeight:'6rem'}}>Just checking in guys! </div>
-        <div>
-          <Row>
-            <Col flex='300px'>
-              <Space>
-                <Avatar src={defaultAvatar} size='small' />
-                <div>Denis Kravchenko</div>
-                <Badge status="default" text="Posted 1d ago" />
-                {/* <Badge status="success" text="Posted 1d ago" /> */}
-              </Space>
-            </Col>
-            <Col flex='auto'></Col>
-            <Col flex='150px'>
-              {
-                type === 'event' &&
+export const ListItemTile = ({ type = 'event', ...props }) => {
+  const [visible, setVisible] = React.useState({
+    post: false,
+    event: false
+  });
+  const onChangeVisible = () => {
+    switch (type) {
+      case 'post':
+        setVisible({ ...visible, post: !visible.post });
+        break;
+      case 'event':
+        setVisible({ ...visible, event: !visible.event });
+        break;
+      default:
+        break;
+    }
+  };
+  return <React.Fragment>
+    <div className='community-child-list-item cursor-pointer' onClick={onChangeVisible}>
+      <Row style={{ backgroundColor: 'white', marginBottom: '2rem', borderRadius: '1rem' }}>
+        <Col flex='150px'>
+          <div style={{ width: '150px', height: '150px', margin: 'auto', backgroundColor: primaryColor, borderRadius: '1rem' }}>
+            <AlignLeftOutlined style={{ fontSize: '3rem', margin: '3rem', color: 'white' }} />
+          </div>
+        </Col>
+        <Col flex='auto' className='px-3 py-2'>
+          {/* <div style={{ minHeight: '6rem' }}>Just checking in guys! </div> */}
+          {
+            type === 'post' &&
+            <div className='ck-content' style={{height:'6rem', overflow:'hidden'}} dangerouslySetInnerHTML={{ __html: props.data?.content }}></div>
+          }
+          <div>
+            <Row>
+              <Col flex='300px'>
                 <Space>
-                  <Button shape='round' type='hbs-outline-primary'>View Event</Button>
-                  <EventContextMenu />
+                  <Avatar src={defaultAvatar} size='small' />
+                  <div>Denis Kravchenko</div>
+                  <Badge status="default" text="Posted 1d ago" />
+                  {/* <Badge status="success" text="Posted 1d ago" /> */}
                 </Space>
-              }
-              {
-                type === 'post' &&
-                <Space>
-                  <Button type='text'>
-                    <HeartOutlined />
-                  </Button>
-                  <Button type='text'>
-                    <MessageOutlined />
-                  </Button>
-                  <PostContextMenu />
-                </Space>
-              }
-            </Col>
-          </Row>
-        </div>
-      </Col>
-    </Row>
-  </div>;
+              </Col>
+              <Col flex='auto'></Col>
+              <Col flex='150px'>
+                {
+                  type === 'event' &&
+                  <Space>
+                    <Button shape='round' type='hbs-outline-primary'>View Event</Button>
+                    <EventContextMenu />
+                  </Space>
+                }
+                {
+                  type === 'post' &&
+                  <Space onClick={(e)=>e.stopPropagation()}>
+                    <Button type='text' onClick={(e)=>e.stopPropagation()}>
+                      <HeartOutlined />
+                    </Button>
+                    <Button type='text' onClick={(e)=>e.stopPropagation()}>
+                      <MessageOutlined />
+                    </Button>
+                    <PostContextMenu  onClick={(e)=>e.stopPropagation()} />
+                  </Space>
+                }
+              </Col>
+            </Row>
+          </div>
+        </Col>
+      </Row>
+    </div>
+    <PostDrawer visible={visible.post} editable={false} onHide={onChangeVisible} content={{...props.data}} {...props} />
+  </React.Fragment>;
 };

@@ -9,3 +9,4 @@ export { PostTileHeader } from './PostTileHeader';
 export { ReplyPostTile } from './ReplyPostTile';
 export { TopPostSwiper } from './TopPostsSwiper';
 export { PostContextMenu } from './PostContextMenu';
+export { PostDrawer } from './PostDrawer';

@@ -2,7 +2,6 @@ import { Button, Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  GroupListItem,
   GroupManageBtn,
   SwitchCommunity,
 } from '../../../components';
@@ -16,26 +15,28 @@ import JoinInCommunity from './join';
 import { fetchJson } from '../../../utils';
 const Groups = (props) => {
   const router = useRouter();
-  const [groups, setGroups] = React.useState(null);
+  const [group, setGroup] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const getGroups = React.useCallback(async () => {
-    const result = await fetchJson(`${API.GET_COMMUNITY_GROUP_LIST_API}/${router.query.community}`);
-    setGroups(result.data);
+  const getGroup = React.useCallback(async () => {
+    const result = await fetchJson(`${API.GET_COMMUNITY_GROUP_DETAIL_API}/${router.query.group}`);
+    setGroup(result.data);
   }, [router]);
   React.useEffect(() => {
     if (router.query.community) {
-      getGroups();
+      getGroup();
     }
-  }, [router, getGroups]);
+  }, [router, getGroup]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [ `community-${router.query.community}-group`], open: ['community', `community-${router.query.community}-group`] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Members' activeSide={{ active: [`community-${router.query.community}-group-${router.query.group}`], open: ['community',  `community-${router.query.community}-group`, `community-${router.query.community}-group-${router.query.group}`] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
               <Col span={12}>
-                <h1 className='fw-6 fs-5'>Groups</h1>
+                <span className='text-upper'>group</span>
+                <h1 className='fw-6 fs-5 m-0'>{group && group.name}</h1>
+                <p>{group && group.tagLine}</p>
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
@@ -46,12 +47,9 @@ const Groups = (props) => {
               </Col>
             </Row>
             <div>
-              {
-                groups &&
-                groups.map((g) => {
-                  return <GroupListItem key={g.id} {...g} />;
-                })
-              }
+              <p className="text-center mt-5">
+                This Group is just getting started!
+              </p>
             </div>
           </div>
         </React.Fragment>
