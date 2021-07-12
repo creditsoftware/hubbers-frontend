@@ -1,17 +1,33 @@
 import { Col, Row } from 'antd';
 import React from 'react';
-import { useWindowSize } from '../../hooks';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
 import { Container, HubbersTeamMemberTile } from '../../components';
 import { MainPageHoc } from '../../containers';
 import Link from 'next/link';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
 import useSWR from 'swr';
+import { fetchJson } from '../../utils';
 import { fetcher } from '../../utils/fetcher';
-const Marketplace = ({ ...props }) => {
+const HubbersTeam = ({ ...props }) => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+  const [current, setCurrent] = React.useState([]);
+  const [terminated, setTerminated] = React.useState([]);
+
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const size = useWindowSize();
+  React.useEffect(()=>{
+    fetchJson(`${API.GET_HUBBERS_TEAM_LIST_API}`).then((response) => {
+      setCurrent(response.data.filter((item) => item.isTerminated === false));
+      setTerminated(response.data.filter((item) => item.isTerminated === true));
+    });
+  }, []);
   return (
     <MainPageHoc title='Who We Are' auth={{ ...data }}>
       <Container>
@@ -20,24 +36,13 @@ const Marketplace = ({ ...props }) => {
             We are making Hubbers: working, mentoring, volunteering for the community
           </h1>
           <Row>
-            <Col lg={6} className='p-3'>
-              <HubbersTeamMemberTile />
-            </Col>
-            <Col lg={6} className='p-3'>
-              <HubbersTeamMemberTile />
-            </Col>
-            <Col lg={6} className='p-3'>
-              <HubbersTeamMemberTile />
-            </Col>
-            <Col lg={6} className='p-3'>
-              <HubbersTeamMemberTile />
-            </Col>
-            <Col lg={6} className='p-3'>
-              <HubbersTeamMemberTile />
-            </Col>
-            <Col lg={6} className='p-3'>
-              <HubbersTeamMemberTile />
-            </Col>
+            {
+              current.map((item, index) => {
+                return <Col lg={6} className='p-3' key={index}>
+                  <HubbersTeamMemberTile data={item} />
+                </Col>;
+              })
+            }
             <Col lg={6} className='p-3'>
               <Link href='/hubbers/hubbers-job-board'>
                 <a>
@@ -49,44 +54,13 @@ const Marketplace = ({ ...props }) => {
           <div className="text-center fs-2 my-5">
             They were here! HOMMAGE to the ones that have contributed and participated to the success of Hubbers.
           </div>
-          <Swiper
-            spaceBetween={20}
-            slidesPerView={
-              size.width > 1024 ? 6 : size.width > 768 ? 4 : size.width > 576 ? 2 : 1
+          <Slider {...settings}>
+            {
+              terminated.map((item, index) => {
+                return <HubbersTeamMemberTile key={index} data={item} /> ;
+              })
             }
-            pagination={{ clickable: true }}
-            autoplay={{
-              delay: 100,
-              disableOnInteraction: false
-            }}
-            loop
-            className='mb-5'
-          >
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-            <SwiperSlide>
-              <HubbersTeamMemberTile />
-            </SwiperSlide>
-          </Swiper>
+          </Slider>
         </React.Fragment>
       </Container>
     </MainPageHoc>
@@ -95,10 +69,11 @@ const Marketplace = ({ ...props }) => {
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
   const user = await req.session.get('user');
+  const hubbersTeamMemberList = {};
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, list: hubbersTeamMemberList } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, list: hubbersTeamMemberList } };
   }
 });
-export default Marketplace;
+export default HubbersTeam;

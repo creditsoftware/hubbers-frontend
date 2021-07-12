@@ -4,7 +4,7 @@
     max-width: 16rem;
     margin: auto;
     cursor: pointer;
-    min-height: 28rem;
+    min-height: 30rem;
     border-radius: 1rem;
     padding: 1rem;
     font-size: 1rem;
@@ -21,13 +21,18 @@
             border-radius: 1rem;
         }
     }
+    &>p:nth-child(4){
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
     &>div:last-child{
         text-align: center;
         overflow: hidden;
+        word-break: break-all;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        height: auto;
     }
     .join-us-job-board{
         margin: 4rem 0;
@@ -39,4 +44,7 @@
             transform: translate(0,100%);
         }
     }
+}
+.terminated-tile{
+    min-height: 20rem;
 }

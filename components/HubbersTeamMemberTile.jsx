@@ -1,31 +1,34 @@
 import Image from 'next/image';
 import React from 'react';
-import { defaultAvatar } from '../constants/etc';
 import { PlusOutlined } from '@ant-design/icons';
-export const HubbersTeamMemberTile = ({ end = false }) => {
-  return <div className='hubbers-team-member-tile'>
+export const HubbersTeamMemberTile = ({ data, end = false }) => {
+  return <React.Fragment>
     {
       !end ?
-        <React.Fragment>
+        <div className={ data.isTerminated ? 'hubbers-team-member-tile terminated-tile' : 'hubbers-team-member-tile'}>
           <div>
-            <Image width={200} height={200} src={defaultAvatar} />
+            <Image width={200} height={200} src={data.user.avatar} />
           </div>
-          <p className='text-center fw-5'>Benjamin Vignon</p>
-          <p className='text-center'>France</p>
-          <p className='text-center'>Hubbers architect [& CEO]</p>
-          <div>
-            Full-stack developer on large scale projects, I am here to make sure with my team that we are building the best tools for Hubbers community.
-          </div>
-        </React.Fragment>
-        :
-        <React.Fragment>
+          <p className='text-center fw-5 pt-4'>
+            {`${data.user.firstname ? data.user.firstname : ''} ${data.user.lastname ? data.user.lastname : ''}`}
+          </p>
+          <p className='text-center'>{data.user.detail.location.country}</p>
+          <p className='text-center' title={data.title}>{data.title}</p>
+          {
+            !data.isTerminated ?
+              <div title={data.description}>{data.description}</div>
+            : null
+          }
+        </div>
+      :
+        <div className='hubbers-team-member-tile'>
           <div className='join-us-job-board'>
             <PlusOutlined />
           </div>
           <p className="text-center fc-primary">
             You think you should be here <b>JOIN US</b>
           </p>
-        </React.Fragment>
+        </div>
     }
-  </div>;
+  </React.Fragment>;
 };
