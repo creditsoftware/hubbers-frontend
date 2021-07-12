@@ -64,6 +64,7 @@ const HubbersTeam = ({ ...props }) => {
           </h1>
           <Row>
             {
+              current &&
               current.map((item, index) => {
                 return <Col lg={6} className='p-3' key={index}>
                   <HubbersTeamMemberTile data={item} />
@@ -81,13 +82,18 @@ const HubbersTeam = ({ ...props }) => {
           <div className="text-center fs-2 my-5">
             They were here! HOMMAGE to the ones that have contributed and participated to the success of Hubbers.
           </div>
-          <Slider {...settings}>
+          <Slider {...settings} className='mb-5'>
             {
+              terminated &&
               terminated.map((item, index) => {
                 return <HubbersTeamMemberTile key={index} data={item} /> ;
               })
             }
           </Slider>
+          {
+            !terminated.length &&
+            <div className="text-center my-5 pb-5">There is no anyone</div>
+          }
         </React.Fragment>
       </Container>
     </MainPageHoc>
