@@ -63,6 +63,7 @@
     border-radius: 50%;
 }
 .add-portfolio{
+    cursor: pointer;
     background-color: white;
     border-radius: 10px;
     width: 124px;
@@ -72,5 +73,30 @@
     font-size: 20px;
     p{
         font-size: 12px;
+    }
+}
+.portfolio-image{
+    position: relative;
+    padding: 4px;
+    border-radius: 10px;
+    width: 124px;
+    height: 124px;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    &:hover .del{
+        display: block;
+    }
+    .del{
+        cursor: pointer;
+        display: none;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+        border: none;
+        border-radius: 50%;
+        background-color: #333;
+        color: white;
     }
 }
