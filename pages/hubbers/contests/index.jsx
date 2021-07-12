@@ -1,33 +1,35 @@
 import React from 'react';
-import { MainPageHoc } from '../../containers';
-import { withSession } from '../../utils/withSession';
-import { API } from '../../constants/index';
+import { MainPageHoc } from '../../../containers';
+import { withSession } from '../../../utils/withSession';
+import { API } from '../../../constants/index';
 import useSWR from 'swr';
-import { fetcher } from '../../utils/fetcher';
-import { Container, MainBanner } from '../../components';
+import { fetcher } from '../../../utils/fetcher';
+import { Container, MainBanner } from '../../../components';
 import { Row, Col } from 'antd';
 import { EyeOutlined, HeartOutlined, ShareAltOutlined } from '@ant-design/icons';
 const ProductCompetition = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const products = [{
-    image: "https://hubbers-us.oss-us-west-1.aliyuncs.com/6V1GLLP2-.png",
-    title: "Scooter Delivery Case",
-    date: "Ended 92 days ago",
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/6V1GLLP2-.png',
+    title: 'Scooter Delivery Case',
+    date: 'Ended 92 days ago',
     contestants: 4,
     judges: 1,
     view: 181,
     like: 3,
-    share: 0
+    share: 0,
+    slug: 'asdfasd-asdf-asdf'
   }, {
-    image: "https://hubbers-us.oss-us-west-1.aliyuncs.com/SJgt5sJ8p.jpg",
-    title: "Travel Kit",
-    date: "Ended 20 days ago",
+    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/SJgt5sJ8p.jpg',
+    title: 'Travel Kit',
+    date: 'Ended 20 days ago',
     contestants: 30,
     judges: 12,
     view: 1938,
     like: 3,
-    share: 0
-  }]
+    share: 0,
+    slug: 'sadf-23-asdf-asdf'
+  }];
   return (
     <MainPageHoc title='Product Competition' auth={{ ...data }}>
       <div className="w-100 bg-white">
@@ -49,11 +51,11 @@ const ProductCompetition = ({ ...props }) => {
               {
                 products.map((item, index) => {
                   return <Col key={index} lg={12} xs={24} className="px-3">
-                    <div className="product-item">
+                    <a href={`contests/${item.slug}`} className="product-item">
                       <div className="product-img" style={{ backgroundImage: `url(${item.image})` }}></div>
                       <div className="product-content">
                         <h1 className="fw-6">{item.title}</h1>
-                        <p>{item.date}</p>
+                        <p className="fc-black">{item.date}</p>
                         <div className="green-text">
                           <label>{item.contestants}&nbsp;&nbsp;CONTESTANTS</label>
                           <label className="pl-4">{item.judges}&nbsp;&nbsp;JUDGES</label>
@@ -64,7 +66,7 @@ const ProductCompetition = ({ ...props }) => {
                           <label><ShareAltOutlined />&nbsp;&nbsp;{item.share}</label>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </Col>;
                 })
               }

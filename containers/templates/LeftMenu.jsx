@@ -28,7 +28,7 @@ export const LeftMenu = ({ menuType, ...props }) => {
           </Link>
         </Menu.Item>
         <Menu.Item key="/product-competition">
-          <Link href="/hubbers/product-competition">
+          <Link href="/hubbers/contests">
             <a>
               {f('Product Competition')}
             </a>
