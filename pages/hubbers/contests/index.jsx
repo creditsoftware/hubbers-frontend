@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { Container, MainBanner } from '../../../components';
 import { Row, Col } from 'antd';
-import { ContestTile } from '../../../components/contest/ContestTile';
+import { ContestTile } from '../../../components/';
 const ProductCompetition = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const contests = [{
