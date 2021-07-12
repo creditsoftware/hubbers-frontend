@@ -100,3 +100,6 @@ export { GlobalBlogSlider } from './GlobalBlogSlider';
 export { UserSelector } from './UserSelector';
 export { Userdata } from './Userdata';
 export { CustomSlider1 } from './CustomSlider1';
+export {
+  ContestTile
+} from './contest';

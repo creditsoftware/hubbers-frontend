@@ -1,0 +1,35 @@
+.contests-detail {
+    .details-header {
+        width: 100%;
+        padding: 32px 24px 12px 24px;
+        background-color: white;
+        border-bottom: 1px solid #bbb;
+
+        .details-time {
+            display: flex;
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    .details-nav {
+        width: 100%;
+        display: flex;
+        background-color: white;
+        padding-top: 20px;
+
+        .nav-item {
+            cursor: pointer;
+            padding: 12px 24px;
+            border-bottom: 2px solid white;
+        }
+
+        .nav-active {
+            color: green;
+            border-bottom: 2px solid green;
+        }
+    }
+}

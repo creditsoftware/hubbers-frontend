@@ -1,0 +1,33 @@
+.contest-tile {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    box-shadow: 0 0 10px rgb(0 0 0 / 15%);
+
+    &:hover {
+        box-shadow: 0 0 20px rgb(0 0 0 / 30%);
+    }
+
+    .contest-tile-img {
+        width: 100%;
+        position: relative;
+        padding-top: 56.25%;
+        background: #ebebeb center;
+        background-size: cover;
+    }
+
+    .contest-tile-content {
+        background-color: white;
+        padding: 24px;
+
+        .green-text {
+            color: yellowgreen;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+
+        .gray-text {
+            color: gray;
+        }
+    }
+}
