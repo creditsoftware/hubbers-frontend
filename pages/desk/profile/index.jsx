@@ -94,17 +94,19 @@ const Profile = ({ ...props }) => {
                 <p className="fs-1 py-3">
                   Ans as you know, Hubbers community is all about product creation, contributting to projects with your experience and resources. Share a bit about your passion
                 </p>
-                <label>
-                  Product categories I am fond it:
-                </label>
                 <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
-                  <Select mode="tags" bordered={false} style={{ width: '100%' }}>
-                    {
-                      product.map((item, index) => {
-                        return <Option key={index}>{item}</Option>;
-                      })
-                    }
-                  </Select>
+                  <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
+                    <label style={{ whiteSpace: 'nowrap' }}>
+                      Product categories I am fond it:
+                    </label>
+                    <Select mode="tags" bordered={false} style={{ width: '100%' }}>
+                      {
+                        product.map((item, index) => {
+                          return <Option key={index}>{item}</Option>;
+                        })
+                      }
+                    </Select>
+                  </Col>
                 </Row>
                 <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                   <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
@@ -147,12 +149,12 @@ const Profile = ({ ...props }) => {
                   <img width="42" height="42" src="/images/social/instagram.png" />
                   <img width="42" height="42" src="/images/social/twitter.png" />
                 </Space>
-                <p>If you want your coomunity to know all about you, feel free to share your past jobs and education.<br/>(best for experts as employers like to know more about you)</p>
+                <p>If you want your coomunity to know all about you, feel free to share your past jobs and education.<br />(best for experts as employers like to know more about you)</p>
                 <div className="mt-4">
                   <Row>
                     <Col span={24} className="d-flex py-3 f-align-center">
                       <p className="fs-2 fw-6 mb-0 mr-5">Your Past Jobs</p>
-                      <Avatar size={86}/>
+                      <Avatar size={86} />
                     </Col>
                   </Row>
                   <Row>
