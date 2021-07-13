@@ -8,11 +8,14 @@ const { Option } = Select;
 export const UserSelector = ({ ...props }) => {
   const [list, setList] = React.useState([]);
   const [userList, setUserList] = React.useState([]);
-  React.useEffect(async () => {
+  const getData = React.useCallback(async () => {
     const data = await fetchJson(`${API.GET_USER_LIST_API}`);
     setUserList([...data]);
     setList([...data]);
   }, []);
+  React.useEffect(() => {
+    getData();
+  }, [getData]);
   const onSearchUser = (v) => {
     const u = [...userList];
     if (v) {

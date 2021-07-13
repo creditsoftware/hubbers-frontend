@@ -31,7 +31,7 @@ export const DeskSidebar = ({ active, ...props }) => {
   const onCollapse = c => {
     setCollapsed(c);
   };
-  useEffect(async () => {
+  const getData = React.useCallback(async () => {
     if (router.query.community) {
       setCommunityId(router.query.community);
       if (router.pathname) {
@@ -64,6 +64,9 @@ export const DeskSidebar = ({ active, ...props }) => {
     });
     onCollapse(window.innerWidth < 1024);
   }, [router]);
+  useEffect(() => {
+    getData();
+  }, [router, getData]);
   const onChangeOpenKeys = (k) => {
     if (openKeys.filter((key) => key === k).length) {
       setOpenKeys([...openKeys.filter((key) => key !== k)]);

@@ -53,5 +53,7 @@ export {
   DiscoverTopicTile,
   EditTopicDrawer,
   TopicContextMenu,
-  TopicManageBtn
+  TopicManageBtn,
+  TopicDrawer,
+  CreateTopicBtn
 } from './topic';

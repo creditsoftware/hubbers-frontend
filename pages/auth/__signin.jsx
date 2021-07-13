@@ -34,6 +34,7 @@ const Signin = ({ ...props }) => {
   };
   React.useEffect(() => {
     console.log(session);
+    console.log(loading);
   }, [session]);
   const tailLayout = {
     wrapperCol: { offset: size.width > 575 ? 8 : 0, span: 16 },
@@ -78,7 +79,7 @@ const Signin = ({ ...props }) => {
               <Form.Item
                 label="Email"
                 name="email"
-                rules={[{ required: true, message: 'Please input your email!' }]}
+                rules={[{ required: true, type:'email', message: 'Please input your email!' }]}
               >
                 <Input size='large' prefix={<UserOutlined />} />
               </Form.Item>

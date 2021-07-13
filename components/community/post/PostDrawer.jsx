@@ -75,6 +75,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
+    title='Post'
     headerActions={
       editable || !content &&
       <Button type='hbs-primary' shape='round' className='mr-2' onClick={createPost}>Post</Button>

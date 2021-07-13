@@ -27,10 +27,10 @@ export const MainProfile = () => {
                   <Avatar size={124} src="https://hubbers-us.oss-us-west-1.aliyuncs.com/698p6_s0u.png" />
                 </div>
                 <Space size={15} className="py-4">
-                  <Image width={24} height={24} src="/images/social/linkedin.png" />
-                  <Image width={24} height={24} src="/images/social/facebook.png" />
-                  <Image width={24} height={24} src="/images/social/instagram.png" />
-                  <Image width={24} height={24} src="/images/social/twitter.png" />
+                  <Image width={24} height={24} src="/images/social/linkedin.png" alt='' />
+                  <Image width={24} height={24} src="/images/social/facebook.png" alt='' />
+                  <Image width={24} height={24} src="/images/social/instagram.png" alt='' />
+                  <Image width={24} height={24} src="/images/social/twitter.png" alt='' />
                 </Space>
                 <br />
                 <Space wrap className="fjc-center">

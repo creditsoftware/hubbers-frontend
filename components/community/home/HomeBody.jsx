@@ -28,7 +28,7 @@ export const HomeBody = () => {
       setData(d);
     }
   }, [d, err]);
-  React.useEffect(async () => {
+  const getData = React.useCallback(async () => {
     const user = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
     setAuthUser(user);
     if (router.query.community) {
@@ -38,6 +38,9 @@ export const HomeBody = () => {
         });
     }
   }, [router]);
+  React.useEffect(() => {
+    getData();
+  }, [router, getData]);
   return <React.Fragment>
     {
       data &&
