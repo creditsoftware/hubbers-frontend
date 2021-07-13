@@ -59,8 +59,8 @@ export const GeneralDetails = props => {
           </Row>
         </Col>
         <Col lg={12} xs={24} className="d-flex fjc-end">
-          <p className="pt-3 mb-0">CONTESTANTS&nbsp;&nbsp;<label style={{ color: 'green', fontWeight: 'bold' }}>{props.data.contestants.length}</label></p>
-          <p className="pt-3 pl-4 mb-0">JUDGES&nbsp;&nbsp;<label style={{ color: 'green', fontWeight: 'bold' }}>{props.data.judges.length}</label></p>
+          <p className="pt-3 mb-0">CONTESTANTS&nbsp;&nbsp;<label style={{ color: '#75ac2a', fontWeight: 'bold' }}>{props.data.contestants.length}</label></p>
+          <p className="pt-3 pl-4 mb-0">JUDGES&nbsp;&nbsp;<label style={{ color: '#75ac2a', fontWeight: 'bold' }}>{props.data.judges.length}</label></p>
         </Col>
       </Row>
       <Row style={{ paddingBottom: '20px' }}>

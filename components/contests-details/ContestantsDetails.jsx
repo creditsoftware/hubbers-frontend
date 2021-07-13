@@ -1,34 +1,88 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Table, Space } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 export const ContestantsDetails = props => {
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.id}
+      }
+      /* eslint-enable */
+    },
+    {
+      title: 'Rank',
+      dataIndex: 'rank',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.rank? record.rank : '-'}
+      }
+      /* eslint-enable */
+    },
+    {
+      dataIndex: 'avatar',
+      /* eslint-disable */
+      render: (_, record) => (
+        <Space>
+          <Avatar size={30} src={record.avatar}/>
+          {`${record.firstname ? record.firstname : ''} ${
+            record.lastname ? record.lastname : ''
+          }`}
+        </Space>
+      ),
+      /* eslint-enable */
+    },
+    {
+      title: 'DESIGN',
+      dataIndex: 'design',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.design? record.design : '-'}
+      }
+      /* eslint-enable */
+    },
+    {
+      title: 'FUNCTIONALITY',
+      dataIndex: 'functionality',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.functionality? record.functionality : '-'}
+      }
+      /* eslint-enable */
+    },
+    {
+      title: 'USABILITY',
+      dataIndex: 'usability',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.usability? record.usability : '-'}
+      }
+      /* eslint-enable */
+    },
+    {
+      title: 'MARKET POTENTIAL',
+      dataIndex: 'marketPotential',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.marketPotential? record.marketPotential : '-'}
+      }
+      /* eslint-enable */
+    },
+    {
+      title: 'AVERAGE',
+      dataIndex: 'average',
+      /* eslint-disable */
+      render: (_, record) => {
+        {record.average? record.average : '-'}
+      }
+      /* eslint-enable */
+    },
+  ];
   return (
     <React.Fragment>
-      <Row className="p-3" style={{ backgroundColor: 'rgb(255 252 247)' }}>
-        <Col className="text-center" span={2}>RANK</Col>
-        <Col span={7}></Col>
-        <Col className="text-center" span={2}>DESIGN</Col>
-        <Col className="text-center" span={3}>FUNCTIONALITY</Col>
-        <Col className="text-center" span={3}>USABILITY</Col>
-        <Col className="text-center" span={4}>MARKET POTENTIAL</Col>
-        <Col className="text-center" span={3}>AVERAGE</Col>
-      </Row>
-      {
-        props.data.contestants.map((item, index) => {
-          return <Row key={index} className="p-3 my-2 bg-white">
-            <Col className="d-flex fjc-center f-align-center" span={2}>-</Col>
-            <Col span={7} className="d-flex f-align-center">
-              <Avatar size={42} src={item.avatar} />
-              <p className="mb-0 px-4">{item.name}</p>
-            </Col>
-            <Col className="d-flex fjc-center f-align-center" span={2}>-</Col>
-            <Col className="d-flex fjc-center f-align-center" span={3}>-</Col>
-            <Col className="d-flex fjc-center f-align-center" span={3}>-</Col>
-            <Col className="d-flex fjc-center f-align-center" span={4}>-</Col>
-            <Col className="d-flex fjc-center f-align-center" span={3}>-</Col>
-          </Row>;
-        })
-      }
+      <Table rowKey='id' dataSource={props.data.contestants} columns={columns} />
     </React.Fragment>
   );
 };

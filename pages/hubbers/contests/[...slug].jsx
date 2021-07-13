@@ -35,8 +35,16 @@ const ContestsDetail = ({ ...props }) => {
       description : 'asdf ad fasd fasd fasdf asdf asdf'
     }],
     contestants: [{
+      id: '1',
       avatar: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
-      name: 'Benjamin Vignon'
+      firstname: 'Benjamin',
+      lastname: 'Vignon',
+      rank: '',
+      design: '',
+      functionality: '',
+      usability: '',
+      marketPotential: '',
+      average: ''
     }],
     judges: [{
       avatar: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
