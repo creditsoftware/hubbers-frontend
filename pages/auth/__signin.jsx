@@ -21,9 +21,10 @@ import { withSession, openNotificationWithIcon, fetcher } from '../../utils';
 import { useRouter } from 'next/router';
 import { LinkedinLogin } from '../../components';
 import useSWR from 'swr';
-import { signIn } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/client';
 const Signin = ({ ...props }) => {
   const size = useWindowSize();
+  const [session, loading] = useSession();
   const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [btnLoading, setBtnLoading] = React.useState(false);
@@ -31,6 +32,9 @@ const Signin = ({ ...props }) => {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
+  React.useEffect(() => {
+    console.log(session);
+  }, [session]);
   const tailLayout = {
     wrapperCol: { offset: size.width > 575 ? 8 : 0, span: 16 },
   };
@@ -40,7 +44,8 @@ const Signin = ({ ...props }) => {
       if(router.query.sig && router.query.sso) {
         signIn('credentials', { provider: 'sso', ...values, ...router.query });
       } else {
-        signIn('credentials', { provider: 'email', ...values, callbackUrl: !router.query.redirect ? '/desk/dashboard' : router.query.redirect });
+        // signIn('credentials', { provider: 'email', ...values, callbackUrl: !router.query.redirect ? '/desk/dashboard' : router.query.redirect });
+        signIn('credentials', { provider: 'email', ...values, callbackUrl: !router.query.redirect ? '#' : router.query.redirect });
       }
     } catch (error) {
       setBtnLoading(false);

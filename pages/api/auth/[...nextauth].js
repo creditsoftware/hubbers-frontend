@@ -6,7 +6,7 @@ import {
 } from '../../../constants';
 
 async function refreshAccessToken(token) {
-  // console.log('refresh');
+  console.log('refresh');
   // console.log(token);
   try {
     const response = await axios.post(`${API.REFRESH_API}`, null, {
