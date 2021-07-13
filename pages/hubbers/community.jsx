@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button, Space } from 'antd';
-import { Row, Col } from 'antd';
+// import { Row, Col } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Userdata, CommunityProgress, Container, GlobalEventSlider, GlobalBlogSlider } from '../../components';
 import Slider from 'react-slick';
@@ -169,7 +169,7 @@ const Community = ({ ...props }) => {
             </React.Fragment>
           </Container>
         </div>
-        <Container>
+        {/* <Container>
           <Row className="py-5">
             <Col lg={12} xs={24} className="pl-2">
               <h2 className="fs-5 fw-6">Latest activities</h2>
@@ -186,7 +186,7 @@ const Community = ({ ...props }) => {
               <p>Benjamin has submitted a new entry on the contest Scooter Delivery Case</p>
             </Col>
           </Row>
-        </Container>
+        </Container> */}
         <div className="bg-white">
           <Container>
             <GlobalBlogSlider />

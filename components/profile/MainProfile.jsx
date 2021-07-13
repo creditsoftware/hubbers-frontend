@@ -104,9 +104,9 @@ export const MainProfile = () => {
                     <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Lisbon
                     </div>
-                    <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
+                    {/* <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Add/Remove
-                    </div>
+                    </div> */}
                   </Space>
                 </div>
               </Row>
@@ -118,15 +118,15 @@ export const MainProfile = () => {
             <Col lg={2} xs={24} className="text-center">
               <Space wrap size={18} className="fjc-center py-3">
                 <div>
-                  <Image width={42} height={42} src="/images/creator.png" />
+                  <Image width={42} height={42} src="/images/creator.png" alt='' />
                   <p className="mb-0">Creator</p>
                 </div>
                 <div>
-                  <Image width={42} height={42} src="/images/expert.png" />
+                  <Image width={42} height={42} src="/images/expert.png" alt='' />
                   <p className="mb-0">Expert</p>
                 </div>
                 <div>
-                  <Image width={42} height={42} src="/images/Investor.png" />
+                  <Image width={42} height={42} src="/images/Investor.png" alt='' />
                   <p className="mb-0">Investor</p>
                 </div>
               </Space>
