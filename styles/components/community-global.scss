@@ -1,5 +1,8 @@
 .community-child-list-item {
     border-radius: 1rem;
+    &>div{
+        margin-bottom: 2rem;
+    }
     button {
         visibility: hidden;
     }

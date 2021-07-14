@@ -1,10 +1,15 @@
 import React from 'react';
-import { Button, Divider, Menu, Popover, Radio } from 'antd';
+import {
+  Button,
+  // Divider, 
+  Menu,
+  Popover,
+  Radio
+} from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
 import { TopicDrawer } from './TopicDrawer';
 const { SubMenu } = Menu;
 export const TopicContextMenu = (props) => {
-  console.log(props);
   const [visible, setVisible] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const [editable, setEditable] = React.useState(false);
@@ -22,10 +27,10 @@ export const TopicContextMenu = (props) => {
         <React.Fragment>
           <Radio.Group>
             <Menu>
-              <Menu.Item key='hide-topic'>
+              {/* <Menu.Item key='hide-topic'>
                 Hide Topic
-              </Menu.Item>
-              <Divider />
+              </Menu.Item> */}
+              {/* <Divider /> */}
               <Menu.ItemGroup key='manage' title='Manage'>
                 <SubMenu key='add-this-to' title='Add This To ...'>
                   <Menu.Item key='featured-topic'>

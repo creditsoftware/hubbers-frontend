@@ -42,6 +42,7 @@ export const API = {
   ALL_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all/detail', //get /:communityId
   ADD_TOPIC_API: process.env.API_V1 + 'community/topic/add', //get /:communityId
   GET_ALL_TOPIC_LIST_API: process.env.API_V1 + 'community/topic', //get
+  UPDATE_TOPIC_API: process.env.API_V1 + 'community/topic', //put /:topicId
   GET_TOPIC_DETAIL_API: process.env.API_V1 + 'community/topic', //get /:topicId
   FOLLOW_TOPIC_API: process.env.API_V1 + 'community/topic/follow', //get /:topicId/:userId
   CREATE_EVENT_API: process.env.API_V1 + 'community/event', //post

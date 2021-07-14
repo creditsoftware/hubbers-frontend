@@ -1,7 +1,14 @@
 import React from 'react';
 import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
-import { CommunityManageBtn, CreateNewBtn, HomeFilter, HomeSorter, SwitchCommunity, HomeBody } from '../../../components';
+import {
+  // CommunityManageBtn,
+  CreateNewBtn,
+  HomeFilter,
+  HomeSorter,
+  SwitchCommunity,
+  HomeBody
+} from '../../../components';
 import JoinInCommunity from './join';
 import { useRouter } from 'next/router';
 import { API } from '../../../constants/apis';
@@ -32,7 +39,7 @@ const Home = ({ ...props }) => {
             &nbsp;Community
           </h1>
           <div className='text-right'>
-            <CommunityManageBtn />
+            {/* <CommunityManageBtn /> */}
             <CreateNewBtn auth={{ ...data }} />
           </div>
           <div>

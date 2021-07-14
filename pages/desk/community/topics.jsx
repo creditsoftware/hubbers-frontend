@@ -21,6 +21,10 @@ const Topics = (props) => {
     const result = await fetchJson(`${API.ALL_TOPIC_LIST_API}/${router.query.community}`);
     setTopicList(result.data);
   }, [router]);
+  const refreshList = React.useCallback(async () => {
+    const result = await fetchJson(`${API.ALL_TOPIC_LIST_API}/${router.query.community}`);
+    setTopicList(result.data);
+  }, [router]);
   React.useEffect(() => {
     if (router.query.community) {
       getTopics();
@@ -39,7 +43,7 @@ const Topics = (props) => {
               <Col span={12} className='text-right'>
                 <Space>
                   <TopicManageBtn />
-                  <CreateTopicBtn auth={{ ...data }} />
+                  <CreateTopicBtn auth={{ ...data }} refreshList={refreshList} />
                   <SwitchCommunity />
                 </Space>
               </Col>
@@ -48,7 +52,7 @@ const Topics = (props) => {
               topicList &&
               topicList.length > 0 &&
               topicList.map((t) => {
-                return <TopicListItem key={t.id} {...t} auth={{...data}} />;
+                return <TopicListItem key={t.id} topic={{...t}} auth={{...data}} refreshList={refreshList} />;
               })
             }
           </div>
