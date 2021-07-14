@@ -89,7 +89,7 @@ const Signin = ({ ...props }) => {
               <Form.Item
                 label="Email"
                 name="email"
-                rules={[{ required: true, message: 'Please input your email!' }]}
+                rules={[{ required: true, type:'email', message: 'Please input your email!' }]}
               >
                 <Input size='large' prefix={<UserOutlined />} />
               </Form.Item>

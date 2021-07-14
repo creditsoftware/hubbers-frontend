@@ -51,7 +51,10 @@ export {
   TopicManageBtn,
   GroupListItem,
   GroupContextMenu,
-  GroupManageBtn
+  GroupManageBtn,
+  TopicDrawer,
+  CreateTopicBtn,
+  TopicListItem
 } from './community';
 export * as JobBoard from './job-board';
 export {

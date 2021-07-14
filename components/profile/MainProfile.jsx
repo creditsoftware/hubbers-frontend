@@ -1,6 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
-import { Row, Col, Avatar, Space, Button } from 'antd';
+import {
+  Row,
+  Col,
+  Avatar,
+  Space,
+  // Button
+} from 'antd';
 import { Container } from '../Container';
 import { primaryColor } from '../../constants';
 
@@ -11,7 +17,7 @@ export const MainProfile = () => {
         <h1 className="pt-5 fs-6 fw-6">Profile</h1>
         <div className="bg-white p-4" style={{ borderRadius: '20px' }}>
           <div className="d-flex fjc-space-between f-align-center">
-            <img width="36" height="24" src="https://flagcdn.com/h24/ru.png"  style={{ border: '1px solid gray'}} />
+            <img width="36" height="24" src="https://flagcdn.com/h24/ru.png" style={{ border: '1px solid gray' }} />
             <p className="fs-1 fw-6 mb-0">Liftime member</p>
           </div>
           <Row className="py-3">
@@ -21,12 +27,12 @@ export const MainProfile = () => {
                   <Avatar size={124} src="https://hubbers-us.oss-us-west-1.aliyuncs.com/698p6_s0u.png" />
                 </div>
                 <Space size={15} className="py-4">
-                  <Image width={24} height={24} src="/images/social/linkedin.png" />
-                  <Image width={24} height={24} src="/images/social/facebook.png" />
-                  <Image width={24} height={24} src="/images/social/instagram.png" />
-                  <Image width={24} height={24} src="/images/social/twitter.png" />
+                  <Image width={24} height={24} src="/images/social/linkedin.png" alt='' />
+                  <Image width={24} height={24} src="/images/social/facebook.png" alt='' />
+                  <Image width={24} height={24} src="/images/social/instagram.png" alt='' />
+                  <Image width={24} height={24} src="/images/social/twitter.png" alt='' />
                 </Space>
-                <br/>
+                <br />
                 <Space wrap className="fjc-center">
                   <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                     Design
@@ -42,8 +48,8 @@ export const MainProfile = () => {
                   </div>
                 </Space>
               </div>
-              <br/>
-              <br/>
+              <br />
+              <br />
             </Col>
             <Col lg={16} sm={24} className="main-profile">
               <Row className="profile-item mb-4">
@@ -98,9 +104,9 @@ export const MainProfile = () => {
                     <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Lisbon
                     </div>
-                    <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
+                    {/* <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Add/Remove
-                    </div>
+                    </div> */}
                   </Space>
                 </div>
               </Row>
@@ -112,23 +118,23 @@ export const MainProfile = () => {
             <Col lg={2} xs={24} className="text-center">
               <Space wrap size={18} className="fjc-center py-3">
                 <div>
-                  <Image width={42} height={42} src="/images/creator.png" />
+                  <Image width={42} height={42} src="/images/creator.png" alt='' />
                   <p className="mb-0">Creator</p>
                 </div>
                 <div>
-                  <Image width={42} height={42} src="/images/expert.png" />
+                  <Image width={42} height={42} src="/images/expert.png" alt='' />
                   <p className="mb-0">Expert</p>
                 </div>
                 <div>
-                  <Image width={42} height={42} src="/images/Investor.png" />
+                  <Image width={42} height={42} src="/images/Investor.png" alt='' />
                   <p className="mb-0">Investor</p>
                 </div>
               </Space>
             </Col>
           </Row>
-          <div className="w-100 text-center">
+          {/* <div className="w-100 text-center">
             <Button type="hbs-primary" shape="round">SEE HOW I LOOK FROM OTHERS</Button>
-          </div>
+          </div> */}
         </div>
       </React.Fragment>
     </Container>

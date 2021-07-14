@@ -14,6 +14,9 @@ export const SettingDrawer = ({
   title = 'Title',
   showExpand = true,
   showClose = true,
+  form,
+  submitBtn = false,
+  submitBtnLabel = 'Submit',
   ...props
 }) => {
   const [fullWidth, setFullWidth] = React.useState(false);
@@ -62,6 +65,14 @@ export const SettingDrawer = ({
       style={{
         margin: '-24px -24px 24px -24px'
       }}
+      extra={
+        form && submitBtn && 
+        <Button type='hbs-dashed' shape='round' onClick={()=>{
+          if(form.submit) {
+            form.submit();
+          }
+        }}>{submitBtnLabel}</Button>
+      }
     />
     <Container>
       <React.Fragment>

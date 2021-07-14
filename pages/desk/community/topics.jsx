@@ -12,7 +12,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { fetchJson } from '../../../utils';
-import { TopicListItem } from '../../../components/community';
+import { CreateTopicBtn, TopicListItem } from '../../../components';
 const Topics = (props) => {
   const router = useRouter();
   const [topicList, setTopicList] = React.useState([]);
@@ -39,7 +39,7 @@ const Topics = (props) => {
               <Col span={12} className='text-right'>
                 <Space>
                   <Button shape='round' type='hbs-primary'>Manage</Button>
-                  <Button shape='circle' type='hbs-primary'>+</Button>
+                  <CreateTopicBtn auth={{ ...data }} />
                   <SwitchCommunity />
                 </Space>
               </Col>

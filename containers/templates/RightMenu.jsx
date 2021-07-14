@@ -154,7 +154,7 @@ export const RightMenu = ({ menuType, ...props }) => {
         </a>
       </Link>
       <Divider className='my-1' />
-      <Link href='/account-preference'>
+      <Link href='/desk/account-preference'>
         <a className='primary-link'>
           Account Preference
         </a>

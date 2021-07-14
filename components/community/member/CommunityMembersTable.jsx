@@ -13,7 +13,7 @@ export const CommunityMembersTable = () => {
   const [searchedColumn, setSearchedColumn] = React.useState('');
   const router = useRouter();
   const [invitationData, setInvitationData] = React.useState(null);
-  React.useEffect(async () => {
+  const getData = React.useCallback(async () => {
     // mutate(`${API.GET_LOCAL_COMMUNITY_MEMBER_INVITE_API}`);
     let result = await fetchJson(`${API.GET_LOCAL_COMMUNITY_MEMBER_INVITE_API}?communityId=${router.query.community}`);
     if (result && result.success) {
@@ -27,7 +27,7 @@ export const CommunityMembersTable = () => {
             email: item?.toMember?.user?.email,
             invitedBy: <React.Fragment>
               <Space>
-                <Avatar src={<Image src={item?.fromMember?.user?.avatar} width={100} height={100} />} />
+                <Avatar src={<Image src={item?.fromMember?.user?.avatar} width={100} height={100} alt='' />} />
                 <span className="fw-6">{item?.fromMember?.user?.firstname + ' ' + item?.fromMember?.user?.lastname}</span>
               </Space>
             </React.Fragment>,
@@ -39,6 +39,9 @@ export const CommunityMembersTable = () => {
       setInvitationData(d);
     }
   }, []);
+  React.useEffect(() => {
+    getData();
+  }, [getData]);
   const getColumnSearchProps = (dataIndex) => ({
     // eslint-disable-next-line react/display-name
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {

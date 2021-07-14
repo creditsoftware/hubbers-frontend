@@ -14,10 +14,13 @@ const JoinInCommunity = ({ ...props }) => {
   const [communityList, setCommunitylist] = React.useState(null);
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  React.useEffect(async () => {
+  const getData = React.useCallback(async () => {
     const communities = await (await fetch(`${API.GET_COMMUNITY_LIST_API}`)).json();
     setCommunitylist(communities.data);
   }, []);
+  React.useEffect(() => {
+    getData();
+  }, [getData]);
   const selectCommunityEvnet = (e) => {
     // if(data.communityMember.length > 1) return;
     // if(data.communityMember.length + selectedCommunities.length > 1) return;
@@ -77,7 +80,7 @@ const JoinInCommunity = ({ ...props }) => {
                             .map((c) => {
                               return <CheckBtn
                                 key={c.id}
-                                disabled={data.communityMember?.filter((m)=>m.communityId === c.id).length > 0}
+                                disabled={data.communityMember?.filter((m) => m.communityId === c.id).length > 0}
                                 checked={selectedCommunities.filter((i) => i === Number(c.id)).length > 0}
                                 onChange={() => selectCommunityEvnet(Number(c.id))}
                                 label={c.name} />;
@@ -96,7 +99,7 @@ const JoinInCommunity = ({ ...props }) => {
             </Col>
             <Col lg={12} md={12} span={24}>
               <div className="text-center h-100">
-                <Image src='/images/community/join.png' width={400} height={300} />
+                <Image src='/images/community/join.png' width={400} height={300} alt='' />
                 <Button loading={loading} type='hbs-outline-primary' shape='round' size='large' disabled={selectedCommunities.length === 0} onClick={joinIn}>
                   Join
                 </Button>

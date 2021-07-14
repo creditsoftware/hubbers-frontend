@@ -75,7 +75,7 @@ const Signup = ({ ...props }) => {
               </Form.Item>
               <Form.Item
                 name="email"
-                rules={[{ required: true, message: 'Please input your email!' }]}
+                rules={[{ required: true, type:'email', message: 'Please input your email!' }]}
               >
                 <Input size='large' placeholder='Email' prefix={<UserOutlined />} />
               </Form.Item>

@@ -3,7 +3,7 @@ import { Image as Img, Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { API } from '../constants';
 
-export const UploadImage = ({ name, onChange, value }) => {
+export const UploadImage = ({ name, onChange, value, disabled=false }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [url, setUrl] = React.useState('');
   React.useEffect(()=>{
@@ -38,6 +38,7 @@ export const UploadImage = ({ name, onChange, value }) => {
         name={name ? name : 'image'}
         listType='picture-card'
         multiple={false}
+        disabled={disabled}
         showUploadList={false}
         action={API.UPLOAD_IMAGE_API}
         beforeUpload={beforeHandle}

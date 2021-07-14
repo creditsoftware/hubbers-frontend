@@ -25,7 +25,7 @@ export const InvitePane = () => {
   const [msg, setMsg] = React.useState(null);
   const [roles, setRoles] = React.useState(null);
   const [form] = useForm();
-  React.useEffect(async () => {
+  const getData = React.useCallback(async () => {
     const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
     setAuth(response);
     const rs = await fetchJson(`${API.LOCAL_GET_COMMUNITY_MEMBER_ROLES_API}`);
@@ -36,6 +36,9 @@ export const InvitePane = () => {
       setRoles([]);
     }
   }, [router]);
+  React.useEffect(() => {
+    getData();
+  }, [router, getData]);
   const invite = (values) => {
     let data = { ...values, communityId: router.query.community, from: auth && auth.communityMember.filter((member) => member.communityId === Number(router.query.community))[0].id };
     httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
