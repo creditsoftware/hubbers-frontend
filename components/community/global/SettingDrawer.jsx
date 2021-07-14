@@ -55,6 +55,7 @@ export const SettingDrawer = ({
     }
     closable={false}
     visible={visible}
+    onClick={(e)=>e.preventDefault()}
     onClose={onHide}
     key='1'
     width={fullWidth || size.width <= 1024 ? '100%' : 1024}

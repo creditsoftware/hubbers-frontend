@@ -8,6 +8,6 @@ export const CreateTopicBtn = ({...props}) => {
   };
   return <React.Fragment>
     <Button shape='circle' type='hbs-primary' onClick={toggleVisible}>+</Button>
-    <TopicDrawer visible={visible} onHide={toggleVisible} {...props} editable={false} />
+    <TopicDrawer visible={visible} onHide={toggleVisible} {...props} />
   </React.Fragment>;
 };

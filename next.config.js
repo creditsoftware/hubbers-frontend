@@ -43,7 +43,8 @@ module.exports = withFonts({
       'ui-avatars.com',
       'blog.hubbers.io',
       'media.licdn.com',
-      'flagcdn.com'
+      'flagcdn.com',
+      'legacy.hubbers.io'
     ],
   },
   api: {

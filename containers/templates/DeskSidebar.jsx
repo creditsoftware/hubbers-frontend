@@ -120,6 +120,7 @@ export const DeskSidebar = ({ active, ...props }) => {
             communityList &&
             communityList.length > 0 &&
             communityList.map((community) => {
+              console.log(community);
               return <SubMenu
                 key={`community-${community.id}`}
                 icon={<TeamOutlined />}

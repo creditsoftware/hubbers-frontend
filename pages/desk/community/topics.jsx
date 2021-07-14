@@ -1,8 +1,8 @@
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  SwitchCommunity,
+  SwitchCommunity, TopicManageBtn,
 } from '../../../components';
 import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
@@ -38,7 +38,7 @@ const Topics = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <Button shape='round' type='hbs-primary'>Manage</Button>
+                  <TopicManageBtn />
                   <CreateTopicBtn auth={{ ...data }} />
                   <SwitchCommunity />
                 </Space>

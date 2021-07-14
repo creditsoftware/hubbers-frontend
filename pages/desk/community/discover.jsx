@@ -63,7 +63,7 @@ const Discover = ({ ...props }) => {
                     color={primaryColor}
                     placement='bottom'
                     key={e.id}
-                    title={`${e.user?.firstname && e.user?.firstname} ${e.user?.lastname && e.user?.lastname}${!e.user?.firstname && !e.user?.lastname && e.user?.email}`}>
+                    title={`${e.user?.firstname ? e.user?.firstname : ''} ${e.user?.lastname ? e.user?.lastname : ''}${!e.user?.firstname && !e.user?.lastname ? e.user?.email : ''}`}>
                     <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'} />} />
                   </Tooltip>;
                 })

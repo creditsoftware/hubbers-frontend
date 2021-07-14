@@ -11,7 +11,7 @@ import { SettingDrawer } from '../global';
 const { Option } = Select;
 const { TextArea } = Input;
 
-export const TopicDrawer = ({ visible, onHide, editable = true, content, ...props }) => {
+export const TopicManageDrawer = ({ visible, onHide, editable = true, content, ...props }) => {
   const router = useRouter();
   const [form] = Form.useForm();
   React.useEffect(() => {
