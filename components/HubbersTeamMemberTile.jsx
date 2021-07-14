@@ -6,7 +6,7 @@ export const HubbersTeamMemberTile = ({ data, end = false }) => {
     {
       !end ?
         <div className={ data.isTerminated ? 'hubbers-team-member-tile terminated-tile' : 'hubbers-team-member-tile'}>
-          <div>
+          <div style={{minHeight:'10rem'}}>
             {/* <Image width={200} height={200} src={data.user.avatar} alt='' /> */}
             <img src={data.user.avatar} width='100%' alt=''/>
           </div>
