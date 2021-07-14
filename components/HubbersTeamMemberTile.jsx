@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 export const HubbersTeamMemberTile = ({ data, end = false }) => {
