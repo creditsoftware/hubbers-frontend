@@ -61,7 +61,7 @@ export const CreateNewBtn = ({...props}) => {
       onVisibleChange={() => setVisible({ ...visible, popover: !visible.popover })}
       visible={visible.popover}
     >
-      <Button type='hbs-primary' shape='circle' className='ml-2' onClick={() => { }}>
+      <Button type='hbs-primary' shape='circle' className='ml-2'>
         <PlusOutlined />
       </Button>
     </Popover>
