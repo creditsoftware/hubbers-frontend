@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Space } from 'antd';
 import { Container, HomepageMainBanner } from '../components';
 import Image from 'next/image';
 import React from 'react';
@@ -13,6 +13,12 @@ const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { formatMessage } = useIntl();
   const f = id => formatMessage({ id });
+  const [thumbUp, setThumbup] = React.useState([]);
+  // React.useEffect(()=>{
+  //   fetchJson(`${API.GET_THUMB_UP_HOME}`).then((response) => {
+  //     setThumbUp(response.data);
+  //   });
+  // }, []);
   return (
     <MainPageHoc title="Hubbers" auth={{ ...data }} >
       <React.Fragment>
@@ -221,7 +227,15 @@ const Home = ({ ...props }) => {
         </Container>
         <Container>
           <React.Fragment>
-            {/* thumb-up */}
+            <h1 className="fw-6 fs-6 mt-5 mb-2 text-center">
+              Thumb up!...
+            </h1>
+            <p className="fw-6 fs-2 mb-5 text-center">They just joined us.</p>
+            <Space wrap size={20}>
+              {
+
+              }
+            </Space>
           </React.Fragment>
         </Container>
         <Container>
