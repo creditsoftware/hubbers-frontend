@@ -80,27 +80,31 @@ const PutYourSkills = ({ ...props }) => {
             }
           </Row>
           <h1 className="text-center fw-6 fs-2 pt-5">There are 4 ways to get a gig/job in Hubbers expert market place.</h1>
-          <Space size={70} wrap align="center" className="d-flex fjc-center py-5 mb-1">
+          <Row className="py-5">
             {
               choiceTile.map((item, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="general-card d-flex fjc-space-between f-align-center bg-white"
-                    style={{
-                      minWidth: '500px',
-                      height: '230px',
-                      borderRadius: '24px',
-                      padding: '24px'
-                    }}
-                  >
-                    <p className="fw-6 fs-2 pr-3 mb-0 text-center" style={{ maxWidth: '280px' }}>{item.content}</p>
-                    <Image width={175} height={170} src={item.image} className="pb-3" />
-                  </div>
+                  <Col key={index} lg={12} xs={24} className="p-2">
+                    <Row
+                      className="general-card bg-white"
+                      style={{
+                        minHeight: '300px',
+                        borderRadius: '24px',
+                        padding: '24px'
+                      }}
+                    >
+                      <Col sm={16} xs={24} className="d-flex f-align-center">
+                        <p className="fw-6 fs-2 mb-0 text-center">{item.content}</p>
+                      </Col>
+                      <Col sm={8} xs={24} className="d-flex f-align-center fjc-center pt-3">
+                        <Image width={175} height={170} src={item.image} />
+                      </Col>
+                    </Row>
+                  </Col>
                 );
               })
             }
-          </Space>
+          </Row>
           <div className="max-w-50 m-auto text-center">
             <p className="fs-2 pt-5">Select the one you are more interested in and start working Want to have more details about how it works, know more here.</p>
             <p className="fs-2 pt-5">In order to provide our community with recognized experts, Hubbers implement a vetting system. Only experts that already got few reviews [or individual members] can apply for paid job.</p>
