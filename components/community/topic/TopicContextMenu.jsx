@@ -3,6 +3,7 @@ import {
   Button,
   // Divider, 
   Menu,
+  Popconfirm,
   Popover,
   Radio
 } from 'antd';
@@ -18,6 +19,11 @@ export const TopicContextMenu = (props) => {
   };
   const toggleShow = () => {
     setShow(!show);
+  };
+  const removeTopic = () => {
+    console.log(props);
+    toggleShow();
+
   };
   return <React.Fragment>
     <Popover
@@ -48,7 +54,9 @@ export const TopicContextMenu = (props) => {
                   Edit
                 </Menu.Item>
                 <Menu.Item key='delete-topic'>
-                  Delete
+                  <Popconfirm title='Are you sure?' okText='Yes' cancelText='No' onConfirm={removeTopic} onCancel={toggleShow}>
+                      Delete
+                  </Popconfirm>
                 </Menu.Item>
                 <Menu.Item key='manage-topic'>
                   Manage

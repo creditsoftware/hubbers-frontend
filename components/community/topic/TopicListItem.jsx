@@ -77,7 +77,7 @@ export const TopicListItem = ({ ...props }) => {
             <div className='text-right'>
               <Space>
                 <Button shape='round' loading={loadingToFollow} type='hbs-outline-primary' onClick={followTopic}>{data.follow && data.follow.filter((f) => f.userId === data.auth?.id).length > 0 ? 'Following' : 'Follow'}</Button>
-                <TopicContextMenu {...data} />
+                <TopicContextMenu refreshList={props.refreshList ? props.refreshList : null} {...data} />
               </Space>
             </div>
           </Col>

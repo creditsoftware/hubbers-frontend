@@ -4,7 +4,8 @@ import { Container } from '../../components';
 import { Footer } from 'antd/lib/layout/layout';
 import { InstagramOutlined, LinkedinOutlined, FacebookFilled, TwitterOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-export const MainFooter = ({ className, ...props }) => {
+import { BLOG_ENDPOINT, HELP_CENTER_ENDPOINT } from '../../constants/etc';
+export const MainFooter = ({ className }) => {
   let classname = 'main-footer';
   if (className) {
     classname = 'main-footer ' + className;
@@ -35,7 +36,7 @@ export const MainFooter = ({ className, ...props }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/">
+                <Link href="/auth/signup">
                   <a>
                     Sign up
                   </a>
@@ -63,7 +64,7 @@ export const MainFooter = ({ className, ...props }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/">
+                <Link href="/auth/signup">
                   <a>
                     Sign up
                   </a>
@@ -133,26 +134,22 @@ export const MainFooter = ({ className, ...props }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/">
-                  <a>
-                    Blog
-                  </a>
-                </Link>
+                <a href={`${BLOG_ENDPOINT}`}>
+                  Blog
+                </a>
               </div>
               <div>
-                <Link href="/">
-                  <a>
-                    Help center
-                  </a>
-                </Link>
+                <a href={`${HELP_CENTER_ENDPOINT}`}>
+                  Help center
+                </a>
               </div>
-              <div>
+              {/* <div>
                 <Link href={props.auth?.isLoggedIn ? '/hubbers/grab-a-share' : '/hubbers/request-investor-access'}>
                   <a>
                     Grab a share
                   </a>
                 </Link>
-              </div>
+              </div> */}
               <div>
                 <Link href="/hubbers/get-our-app">
                   <a>
