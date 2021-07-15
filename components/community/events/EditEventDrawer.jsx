@@ -68,7 +68,7 @@ export const EditEventDrawer = ({ visible, onHide }) => {
 
   React.useEffect(() => {
     //get community list
-    fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
+    (`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
       .then((response) => {
         setCommunityList(response.data.data);
       })

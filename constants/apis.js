@@ -35,6 +35,7 @@ export const API = {
   GET_USER_LIST_API: process.env.API_V1 + 'user',//get
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
   GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
+  GET_THUMB_UP_API: process.env.API_V1 + 'user/thumb-up/home/',
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
   COMMUNITY_DETAIL_API: process.env.API_V1 + 'community', // /:id
   JOININ_COMMUNITY_API: process.env.API_V1 + 'community/member/join',//post /:userId
