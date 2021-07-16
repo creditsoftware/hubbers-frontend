@@ -14,6 +14,7 @@ export default withSession(async (req, res) => {
         Authorization: `Bearer ${token}`
       }
     });
+    console.log(response);
     if (response.data?.success) {
       req.session.set('refreshToken', response.data?.data.refreshToken);
       req.session.set('accessToken', response.data?.data.accessToken);
