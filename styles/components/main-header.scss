@@ -91,16 +91,32 @@
         bottom: -6px;
     }
 
-    .ant-menu-submenu.ant-menu-submenu-active,
-    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
-    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
-    .ant-menu-item.ant-menu-item-selected,
-    .ant-menu-submenu.ant-menu-submenu-selected {
-        color: $primary-color;
-        border-bottom: 2px solid $primary-color;
+    .left-menu {
 
-        a {
+        .ant-menu-submenu.ant-menu-submenu-active,
+        .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
+        .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
+        .ant-menu-item.ant-menu-item-selected,
+        .ant-menu-submenu.ant-menu-submenu-selected {
             color: $primary-color;
+            border-bottom: 2px solid $primary-color;
+
+            a {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .right-menu {
+
+        .ant-menu-submenu.ant-menu-submenu-active,
+        .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
+        .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
+        .ant-menu-item.ant-menu-item-selected,
+        .ant-menu-submenu.ant-menu-submenu-selected {
+            color: transparent;
+            border-bottom: 2px solid transparent;
+            background-color: transparent !important;
         }
     }
 
