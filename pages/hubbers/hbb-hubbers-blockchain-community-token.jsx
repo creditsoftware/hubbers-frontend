@@ -32,7 +32,7 @@ const ProductLauncher = ({ ...props }) => {
   return (
     <MainPageHoc title='HBB Blockchain Taken' auth={{ ...data }}>
       <React.Fragment>
-        <Container>
+        <Container className="py-5 my-5">
           <div className="max-w-50 m-auto py-5 text-center">
             <h1 className="fs-5 fw-6">Hubbers community token how it works</h1>
             <p className="fs-1">As a purpose-driven community, Hubbers let member to bring their best ideas to create the pro user-friendly to the purpose Rewards in Hubbers are called HBB.</p>
@@ -57,14 +57,26 @@ const ProductLauncher = ({ ...props }) => {
         </div>
         <Container className="py-5">
           <Row>
-            <Col span={24} className="fs-5 fw-6 text-center pb-5">You can also win HBB by doing a lot of useful things for Hubbers</Col>
-            <Col lg={12} sm={24} className="d-flex f-align-center">
-              <Image width={200} height={200} src="/images/hbb/post_in_your_social_media.png" />
-              <p className="px-3 fs-1 text-center">Post in your social media.</p>
+            <Col span={24} className="fs-5 fw-6 text-center pt-4 pb-5">You can also win HBB by doing a lot of useful things for Hubbers</Col>
+            <Col sm={12} xs={24} className="p-3">
+              <Row className="d-flex text-center f-align-center">
+                <Col lg={12} xs={24}>
+                  <Image width={200} height={200} src="/images/hbb/post_in_your_social_media.png" />
+                </Col>
+                <Col lg={12} xs={24}>
+                  <p className="px-3 fs-1 mb-0 text-center">Post in your social media.</p>
+                </Col>
+              </Row>
             </Col>
-            <Col lg={12} sm={24} className="d-flex fjc-end f-align-center">
-              <p className="px-3 fs-1 text-center">Bring new users that will use Hubbers.</p>
-              <Image width={200} height={200} src="/images/hbb/bring_new_users.png" />
+            <Col sm={12} xs={24} className="p-3">
+              <Row className="d-flex text-center f-align-center">
+                <Col lg={12} xs={24}>
+                  <Image width={200} height={200} src="/images/hbb/bring_new_users.png" />
+                </Col>
+                <Col lg={12} xs={24} className="f-left">
+                  <p className="px-3 fs-1 mb-0 text-center">Bring new users that will use Hubbers.</p>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>

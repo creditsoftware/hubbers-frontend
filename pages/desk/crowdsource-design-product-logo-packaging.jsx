@@ -4,7 +4,7 @@ import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
-import { Space } from 'antd';
+import { Row, Col } from 'antd';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
 const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
@@ -32,29 +32,39 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
     <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
       <Container className="py-5">
         <React.Fragment>
-          <div className="max-w-40 m-auto text-center">
+          <div className="max-w-40 m-auto text-center py-5">
             <h1 className="fw-6 fs-3 pt-3">
               Logo, product, packaging, UI/UI, creating design is at the heart of Hubbers community.
             </h1>
             <p className="fs-1">Creating by yourself is always a very complicated tasks. It is important to have enough feedbacks to make sure you are going in the right directions.</p>
             <p className="fs-1">Hubbers let&apos;s your crowdsource your next design with Hubbers community, start now.</p>
-            <h1 className="fw-6 fs-2">Select what you want to create next?</h1>
           </div>
-          <Space size={70} wrap align="center" className="d-flex fjc-center py-5">
-            {
-              card.map((item, index) => {
-                return(
-                  <div key={index} className="activity-crowd-card">
-                    <h3 className="fw-6 fs-2">{item.title}</h3>
-                    <div className="content">
-                      <p className="fs- pt-3" style={{ maxWidth: '280px' }}>{item.content}</p>
-                      <Image width={175} height={170} src={item.image} className="pb-3" />
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </Space>
+          <h1 className="fw-6 fs-2 text-center pt-5">Select what you want to create next?</h1>
+          <Row className="pt-5">
+          {
+            card.map((item, index) => {
+              return (
+                <Col key={index} lg={12} xs={24} className="p-4">
+                  <Row
+                    className="general-card bg-white h-100"
+                    style={{
+                      borderRadius: '24px',
+                      padding: '24px'
+                    }}
+                  >
+                    <Col span={24}><h3 className="fw-6 fs-2">{item.title}</h3></Col>
+                    <Col sm={16} xs={24} className="d-flex fjc-center f-align-center">
+                      <p className="fs-1 text-center">{item.content}</p>
+                    </Col>
+                    <Col sm={8} xs={24} className="d-flex f-align-center fjc-center">
+                      <Image width={145} height={140} src={item.image} />
+                    </Col>
+                  </Row>
+                </Col>
+              );
+            })
+          }
+        </Row>
         </React.Fragment>
       </Container>
     </DeskPageHoc>
