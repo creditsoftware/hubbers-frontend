@@ -20,6 +20,7 @@ const Home = ({ ...props }) => {
     fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
       setThumbup(response);
     });
+    console.log(thumbUp);
   }, []);
   const hubbers = [
     {

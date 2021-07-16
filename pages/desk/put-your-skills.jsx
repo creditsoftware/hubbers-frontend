@@ -5,7 +5,7 @@ import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
-import { Button, Space, Row, Col } from 'antd';
+import { Button, Row, Col } from 'antd';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
 const PutYourSkills = ({ ...props }) => {
