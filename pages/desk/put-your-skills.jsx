@@ -44,14 +44,14 @@ const PutYourSkills = ({ ...props }) => {
     <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
       <Container className="py-5">
         <React.Fragment>
-          <div className="max-w-50 m-auto text-center">
+          <div className="max-w-50 m-auto text-center py-5">
             <h1 className="fw-6 fs-3 pt-3">
               Feel you can help the community of creators and companies launching new products with your expertise. Hubbers offers your few opportunities where you can offer your expertise and earn money and/or HBB.
             </h1>
-            <p className="fs-1 pt-5">Before jumping into describing your work, first fill better your expert profile only profile with more than 75% completion can offer their expertise.</p>
-            <h1 className="fw-6 fs-2 pt-5">There are 4 ways to get a gig/job in Hubbers expert market place.</h1>
+            <p className="fs-1">Before jumping into describing your work, first fill better your expert profile only profile with more than 75% completion can offer their expertise.</p>
           </div>
-          <Row className="pt-4">
+          <h1 className="text-center fw-6 fs-2 pt-5">There are 4 ways to get a gig/job in Hubbers expert market place.</h1>
+          <Row className="py-5">
             {
               jobTile.map((item,index)=>{
                 return(
@@ -84,20 +84,19 @@ const PutYourSkills = ({ ...props }) => {
             {
               choiceTile.map((item, index) => {
                 return (
-                  <Col key={index} lg={12} xs={24} className="p-2">
+                  <Col key={index} lg={12} xs={24} className="p-4">
                     <Row
-                      className="general-card bg-white"
+                      className="general-card bg-white h-100"
                       style={{
-                        minHeight: '300px',
                         borderRadius: '24px',
                         padding: '24px'
                       }}
                     >
-                      <Col sm={16} xs={24} className="d-flex f-align-center">
-                        <p className="fw-6 fs-2 mb-0 text-center">{item.content}</p>
+                      <Col sm={16} xs={24} className="d-flex fjc-center f-align-center">
+                        <p className="fs-1 text-center">{item.content}</p>
                       </Col>
-                      <Col sm={8} xs={24} className="d-flex f-align-center fjc-center pt-3">
-                        <Image width={175} height={170} src={item.image} />
+                      <Col sm={8} xs={24} className="d-flex f-align-center fjc-center">
+                        <Image width={145} height={140} src={item.image} />
                       </Col>
                     </Row>
                   </Col>
