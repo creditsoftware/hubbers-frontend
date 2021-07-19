@@ -18,7 +18,7 @@ export const GroupListItem = ({ ...props }) => {
   return (
     <Link href={`/desk/community/group?community=${router.query.community}&group=${props.id}`}>
       <a>
-        <Row style={{ padding: '0.5rem 1rem', backgroundColor: 'white' }}>
+        <Row style={{ padding: '0.5rem 1rem', marginBottom:'1rem',border:'1px solid #ddd', backgroundColor: 'white' }}>
           <Col flex="180px">
             <div className='m-3'>
               <div className="text-center">

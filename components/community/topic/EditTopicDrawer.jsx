@@ -105,8 +105,8 @@ export const EditTopicDrawer = ({ visible, onHide }) => {
             ]}
           >
             <Select style={{ width: '100%' }} placeholder='All members can contribute'>
-              <Option value='all_members'>All Members</Option>
-              <Option value='host_moderators'>Host Moderator</Option>
+              <Option value='all_members'>All Members can contribute</Option>
+              <Option value='host_moderators'>Only Host and Moderator can contribute</Option>
             </Select>
           </Form.Item>
           <p className='mb-2 mt-3 fw-6'>Topic description</p>

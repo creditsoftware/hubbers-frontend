@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Space } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import { PostTileContent } from './PostTileContent';
 import { PostTileHeader } from './PostTileHeader';
 import { REQUEST_TYPE } from '../../../constants/requestType';
-import { API } from '../../../constants';
+import { API, primaryColor } from '../../../constants';
 import { httpRequestLocal, openNotificationWithIcon } from '../../../utils';
 import {
   HeartOutlined,
@@ -85,12 +85,16 @@ export const PostTileBody = ({ ...props }) => {
         onCancel={() => setContentEditable(false)}
       />
       <Space className='p-3 pt-0'>
-        <Button type='text' onClick={props.onCheer}>
-          <HeartOutlined />
-        </Button>
-        <Button type='text' onClick={props.onReply}>
-          <MessageOutlined />
-        </Button>
+        <Tooltip title='Cheer' color={primaryColor}>
+          <Button type='text' onClick={props.onCheer}>
+            <HeartOutlined />
+          </Button>
+        </Tooltip>
+        <Tooltip title='Reply' color={primaryColor}>
+          <Button type='text' onClick={props.onReply}>
+            <MessageOutlined />
+          </Button>
+        </Tooltip>
       </Space>
     </div>
   );
