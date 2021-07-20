@@ -106,3 +106,7 @@ export { CustomSlider1 } from './CustomSlider1';
 export {
   ContestTile
 } from './contest';
+export {
+  ProfileNavbar,
+  MainProfile
+} from './profile';

@@ -1,11 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
-import { MainProfile } from '../../../components/profile';
+import { MainProfile, ProfileNavbar } from '../../../components';
 import { Container } from '../../../components/Container';
 import { DatePicker, Select, Space, Row, Col, Avatar, Button } from 'antd';
 const { Option } = Select;
@@ -21,23 +20,7 @@ const Profile = ({ ...props }) => {
         <MainProfile />
         <Container className="mt-4">
           <React.Fragment>
-            <div>
-              <Link href="/desk/profile/">
-                <a style={{ display: 'inline-block' }} className="p-3 active-profile">General Profile</a>
-              </Link>
-              <Link href="/desk/profile/creator-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Creator Profile</a>
-              </Link>
-              <Link href="/desk/profile/expert-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Expert</a>
-              </Link>
-              <Link href="/desk/profile/investor-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Investor</a>
-              </Link>
-              <Link href="/desk/profile/hubbers-team">
-                <a style={{ display: 'inline-block' }} className="p-3">Hubbers Team</a>
-              </Link>
-            </div>
+            <ProfileNavbar />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 pb-3">
