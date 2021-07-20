@@ -27,11 +27,11 @@ const Profile = ({ ...props }) => {
   }]);
   const [educationForm] = Form.useForm();
   const addEducation = () => {
-    setEducationState("add");
+    setEducationState('add');
     educationForm.resetFields();
-  }
+  };
   const editEducation = (id) => {
-    setEducationState("edit");
+    setEducationState('edit');
     setEducationSelect(id);
     let filterData = education.filter((item) => item.id === id);
     educationForm.setFieldsValue({
@@ -44,13 +44,13 @@ const Profile = ({ ...props }) => {
   };
   const onSubmitEducation = (values) => {
     let newData = [...education];
-    if(educationState==="add"){
-      newData.push({...values,id: null});
+    if (educationState === 'add') {
+      newData.push({ ...values, id: null });
     }
-    else{
-      for(let i=0;i<newData.length;i++){
-        if(newData[i].id===educationSelect){
-          newData[i] = {...values,id:educationSelect};
+    else {
+      for (let i = 0; i < newData.length; i++) {
+        if (newData[i].id === educationSelect) {
+          newData[i] = { ...values, id: educationSelect };
           return;
         }
       }
@@ -241,8 +241,8 @@ const Profile = ({ ...props }) => {
                   <p className="fs-2 fw-6">Your Education</p>
                   <Row>
                     {
-                      education?.map((item,index)=>{
-                        return(
+                      education?.map((item, index) => {
+                        return (
                           <div
                             key={index}
                             className="general-portfolio-item mr-3 mb-3"
@@ -253,7 +253,7 @@ const Profile = ({ ...props }) => {
                                 <p className="fw-6 fs-1 fc-white">{item.title}</p>
                               </div>
                               <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={()=>editEducation(item.id)} />
+                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => editEducation(item.id)} />
                                 <Button className="ml-2" danger icon={<DeleteOutlined />} />
                               </div>
                             </div>
@@ -282,7 +282,7 @@ const Profile = ({ ...props }) => {
                     </div>
                   </Row>
                   {
-                    educationState!=null ? (
+                    educationState != null ? (
                       <Form
                         hideRequiredMark
                         form={educationForm}
@@ -290,7 +290,7 @@ const Profile = ({ ...props }) => {
                       >
                         <Row className="mt-5">
                           <Col span={6}>
-                            
+
                           </Col>
                           <Col span={18}>
                             <Row>
@@ -379,17 +379,17 @@ const Profile = ({ ...props }) => {
                                 </Form.Item>
                               </Col>
                               <Col sm={12} xs={24} className="text-right mt-2">
-                                <Button onClick={()=>{setEducationState(null)}} danger className="mr-3" shape="round">Cancel</Button>
+                                <Button onClick={() => setEducationState(null) } danger className="mr-3" shape="round">Cancel</Button>
                                 {
-                                  educationState==="add"? <Button htmlType="submit" type="hbs-primary" shape="round">Add</Button>
-                                  : <Button htmlType="submit" type="hbs-primary" shape="round" onClick={()=>{updateEducation(item.id)}}>Edit</Button>
+                                  educationState === 'add' ? <Button htmlType="submit" type="hbs-primary" shape="round">Add</Button>
+                                    : <Button htmlType="submit" type="hbs-primary" shape="round" onClick={() => updateEducation(item.id) }>Edit</Button>
                                 }
                               </Col>
                             </Row>
                           </Col>
                         </Row>
                       </Form>
-                    ): null
+                    ) : null
                   }
                 </div>
                 <p className="mt-4">Great Job! We are done with the intro. Time to involve as a creator, expert, or investor in products. Fill in the role you want to play to be considered.</p>

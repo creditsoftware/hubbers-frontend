@@ -5,11 +5,9 @@ import {
   Col,
   Avatar,
   Space,
-  // Button
 } from 'antd';
 import { Container } from '../Container';
 import { primaryColor } from '../../constants';
-import { fetchJson } from '../../utils';
 
 export const MainProfile = () => {
   // const [thumbUp, setThumbup] = React.useState([]);
