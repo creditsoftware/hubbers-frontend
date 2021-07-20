@@ -9,8 +9,16 @@ import {
 } from 'antd';
 import { Container } from '../Container';
 import { primaryColor } from '../../constants';
+import { fetchJson } from '../../utils';
 
 export const MainProfile = () => {
+  // const [thumbUp, setThumbup] = React.useState([]);
+  // React.useEffect(()=>{
+  //   fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
+  //     setThumbup(response);
+  //   });
+  //   console.log(thumbUp);
+  // }, []);
   return (
     <Container>
       <React.Fragment>
