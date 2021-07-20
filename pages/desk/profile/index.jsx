@@ -30,16 +30,15 @@ const Profile = ({ ...props }) => {
     setEducationState('add');
     educationForm.resetFields();
   };
-  const editEducation = (id) => {
+  const editEducation = (index) => {
     setEducationState('edit');
-    setEducationSelect(id);
-    let filterData = education.filter((item) => item.id === id);
+    setEducationSelect(index);
     educationForm.setFieldsValue({
-      country: filterData[0].country,
-      university: filterData[0].university,
-      title: filterData[0].title,
-      degree: filterData[0].degree,
-      year: filterData[0].year,
+      country: filterData[index].country,
+      university: filterData[index].university,
+      title: filterData[index].title,
+      degree: filterData[index].degree,
+      year: filterData[index].year,
     });
   };
   const onSubmitEducation = (values) => {
@@ -253,7 +252,7 @@ const Profile = ({ ...props }) => {
                                 <p className="fw-6 fs-1 fc-white">{item.title}</p>
                               </div>
                               <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => editEducation(item.id)} />
+                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={()=>editEducation(index)} />
                                 <Button className="ml-2" danger icon={<DeleteOutlined />} />
                               </div>
                             </div>
@@ -296,13 +295,13 @@ const Profile = ({ ...props }) => {
                             <Row>
                               <Col sm={12} xs={24} className="d-flex f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                                 <Form.Item
-                                  className="mb-2"
                                   name="country"
                                   label="Country"
+                                  style={{width:'100%'}}
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Please choose country',
+                                      message: 'Country required',
                                     },
                                   ]}
                                 >
@@ -316,13 +315,13 @@ const Profile = ({ ...props }) => {
                               </Col>
                               <Col sm={12} xs={24} className="d-flex f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                                 <Form.Item
-                                  className="mb-2"
                                   name="university"
                                   label="College/University"
+                                  style={{width:'100%'}}
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Please enter the college/university name',
+                                      message: 'University required',
                                     },
                                   ]}
                                 >
@@ -333,13 +332,13 @@ const Profile = ({ ...props }) => {
                             <Row>
                               <Col sm={12} xs={24} className="d-flex f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                                 <Form.Item
-                                  className="mb-2"
                                   name="title"
                                   label="Title"
+                                  style={{width:'100%'}}
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Please enter the title',
+                                      message: 'Title required',
                                     },
                                   ]}
                                 >
@@ -348,13 +347,12 @@ const Profile = ({ ...props }) => {
                               </Col>
                               <Col sm={12} xs={24} className="d-flex f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                                 <Form.Item
-                                  className="mb-2"
                                   name="degree"
                                   label="Degree"
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Please enter the degree',
+                                      message: 'Degree required',
                                     },
                                   ]}
                                 >
@@ -365,13 +363,12 @@ const Profile = ({ ...props }) => {
                             <Row>
                               <Col sm={12} xs={24} className="d-flex f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                                 <Form.Item
-                                  className="mb-2"
                                   name="year"
                                   label="Year"
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Please enter the year',
+                                      message: 'Year required',
                                     },
                                   ]}
                                 >
@@ -382,7 +379,7 @@ const Profile = ({ ...props }) => {
                                 <Button onClick={() => setEducationState(null) } danger className="mr-3" shape="round">Cancel</Button>
                                 {
                                   educationState === 'add' ? <Button htmlType="submit" type="hbs-primary" shape="round">Add</Button>
-                                    : <Button htmlType="submit" type="hbs-primary" shape="round" onClick={() => updateEducation(item.id) }>Edit</Button>
+                                    : <Button htmlType="submit" type="hbs-primary" shape="round">Edit</Button>
                                 }
                               </Col>
                             </Row>
