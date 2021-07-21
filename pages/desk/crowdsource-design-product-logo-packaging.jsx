@@ -41,30 +41,30 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
           </div>
           <h1 className="fw-6 fs-2 text-center pt-5">Select what you want to create next?</h1>
           <Row className="pt-5">
-          {
-            card.map((item, index) => {
-              return (
-                <Col key={index} lg={12} xs={24} className="p-4">
-                  <Row
-                    className="general-card bg-white h-100"
-                    style={{
-                      borderRadius: '24px',
-                      padding: '24px'
-                    }}
-                  >
-                    <Col span={24}><h3 className="fw-6 fs-2">{item.title}</h3></Col>
-                    <Col sm={16} xs={24} className="d-flex fjc-center f-align-center">
-                      <p className="fs-1 text-center">{item.content}</p>
-                    </Col>
-                    <Col sm={8} xs={24} className="d-flex f-align-center fjc-center">
-                      <Image width={145} height={140} src={item.image} />
-                    </Col>
-                  </Row>
-                </Col>
-              );
-            })
-          }
-        </Row>
+            {
+              card.map((item, index) => {
+                return (
+                  <Col key={index} lg={12} xs={24} className="p-4">
+                    <Row
+                      className="general-card bg-white h-100"
+                      style={{
+                        borderRadius: '24px',
+                        padding: '24px'
+                      }}
+                    >
+                      <Col span={24}><h3 className="fw-6 fs-2">{item.title}</h3></Col>
+                      <Col sm={16} xs={24} className="d-flex fjc-center f-align-center">
+                        <p className="fs-1 text-center">{item.content}</p>
+                      </Col>
+                      <Col sm={8} xs={24} className="d-flex f-align-center fjc-center">
+                        <Image width={145} height={140} src={item.image} />
+                      </Col>
+                    </Row>
+                  </Col>
+                );
+              })
+            }
+          </Row>
         </React.Fragment>
       </Container>
     </DeskPageHoc>

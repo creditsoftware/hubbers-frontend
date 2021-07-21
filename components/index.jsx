@@ -15,6 +15,7 @@ export { PageLoading } from './PageLoading';
 export { UploadImage } from './UploadImage';
 export { ActivityCards } from './ActivityCards';
 export { MainBanner } from './MainBanner';
+export { CountrySelect } from './CountrySelect';
 export * as Communities from './community';
 export {
   InvitePane,

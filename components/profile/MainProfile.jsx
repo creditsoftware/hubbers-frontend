@@ -9,28 +9,20 @@ import {
 import { Container } from '../Container';
 import { primaryColor } from '../../constants';
 
-export const MainProfile = () => {
-  // const [thumbUp, setThumbup] = React.useState([]);
-  // React.useEffect(()=>{
-  //   fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
-  //     setThumbup(response);
-  //   });
-  //   console.log(thumbUp);
-  // }, []);
+export const MainProfile = ({data}) => {
   return (
     <Container>
       <React.Fragment>
-        <h1 className="pt-5 fs-6 fw-6">Profile</h1>
-        <div className="bg-white p-4" style={{ borderRadius: '20px' }}>
-          <div className="d-flex fjc-space-between f-align-center">
-            <img width="36" height="24" src="https://flagcdn.com/h24/ru.png" style={{ border: '1px solid gray' }} />
+        <div className="bg-white pt-4 mt-5" style={{ borderRadius: '20px' }}>
+          {/* <div className="d-flex fjc-space-between f-align-center">
+            <Image width={36} height={24} src={`https://flagcdn.com/h24/${data.detail?.nationality}`} style={{ border: '1px solid gray' }} />
             <p className="fs-1 fw-6 mb-0">Liftime member</p>
-          </div>
+          </div> */}
           <Row className="py-3">
             <Col lg={6} sm={24} xs={24}>
               <div className="text-center">
                 <div>
-                  <Avatar size={124} src="https://hubbers-us.oss-us-west-1.aliyuncs.com/698p6_s0u.png" />
+                  <Avatar size={124} src={data.avatar} />
                 </div>
                 <Space size={15} className="py-4">
                   <Image width={24} height={24} src="/images/social/linkedin.png" alt='' />
@@ -60,11 +52,14 @@ export const MainProfile = () => {
             <Col lg={16} sm={24} className="main-profile">
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Location:</p></div>
-                <div><b>Kaliningrad, Russian Federation</b></div>
+                <div><b>
+                  {data.detail?.location.city? data.detail.location.city + ', ' : ''}
+                  {data.detail?.location.country}
+                </b></div>
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Member since:</p></div>
-                <div><b>Jan. 11 2021</b></div>
+                <div><b>{data.detail?.joinedDate.split('T')[0]}</b></div>
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Followers:</p></div>
@@ -74,9 +69,13 @@ export const MainProfile = () => {
                 <div><p className="mb-0">Product I like:</p></div>
                 <div>
                   <Space wrap>
-                    <b>Product1</b>
-                    <b>Product2</b>
-                    <b>Product3</b>
+                    {
+                      data.productCategory?.map((item,index)=>{
+                        return(
+                          <b key={index}>{item.productCategory.name}</b>
+                        );
+                      })
+                    }
                   </Space>
                 </div>
               </Row>
@@ -84,19 +83,27 @@ export const MainProfile = () => {
                 <div><p className="mb-0">Innovation I like:</p></div>
                 <div>
                   <Space wrap>
-                    <b>Innovation1</b>
-                    <b>Innovation2</b>
-                    <b>Innovation3</b>
+                    {
+                      data.innovationCategory?.map((item,index)=>{
+                        return(
+                          <b key={index}>{item.innovationCategory.name}</b>
+                        );
+                      })
+                    }
                   </Space>
                 </div>
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Tech I follow:</p></div>
                 <div>
-                  <Space>
-                    <b>Tech1</b>
-                    <b>Tech2</b>
-                    <b>Tech3</b>
+                  <Space wrap>
+                    {
+                      data.techCategory?.map((item,index)=>{
+                        return(
+                          <b key={index}>{item.techCategory.name}</b>
+                        );
+                      })
+                    }
                   </Space>
                 </div>
               </Row>
@@ -118,23 +125,21 @@ export const MainProfile = () => {
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Bio:</p></div>
-                <div><b>“The reasonable man adapts himself to the world; the unreasonable one persists in trying to adapt the world to himself. Therefore all progress depends on the unreasonable man.” George Bernard Shaw (1856-1950), Playwright</b></div>
+                <div><b>{data.detail?.bio}</b></div>
               </Row>
             </Col>
             <Col lg={2} xs={24} className="text-center">
               <Space wrap size={18} className="fjc-center py-3">
-                <div>
-                  <Image width={42} height={42} src="/images/creator.png" alt='' />
-                  <p className="mb-0">Creator</p>
-                </div>
-                <div>
-                  <Image width={42} height={42} src="/images/expert.png" alt='' />
-                  <p className="mb-0">Expert</p>
-                </div>
-                <div>
-                  <Image width={42} height={42} src="/images/Investor.png" alt='' />
-                  <p className="mb-0">Investor</p>
-                </div>
+                {
+                  data.roles?.map((item,index)=>{
+                    return(
+                      <div key={index}>
+                        <Image width={42} height={42} src={`/images/${item.name.toLowerCase()}.png`} alt='' />
+                        <p className="mb-0">{item.name}</p>
+                      </div>
+                    );
+                  })
+                }
               </Space>
             </Col>
           </Row>
