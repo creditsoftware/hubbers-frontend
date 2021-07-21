@@ -17,13 +17,13 @@ export const CountrySelect = ({ idValue = true, ...props }) => {
   const onSearchCountry = (v) => {
     const countries = [...countryList];
     if (v) {
-      setlist([
+      setList([
         ...countries.filter(
           (c) => c?.name?.toLowerCase().indexOf(v.toLowerCase()) > -1
         ),
       ]);
     } else {
-      setlist(countries);
+      setList(countries);
     }
   };
   return (

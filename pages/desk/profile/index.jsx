@@ -16,11 +16,19 @@ const { TextArea } = Input;
 
 const Profile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const [productCategory, setProductCategory] = React.useState([]);
-  const [innovationCategory, setInnovationCategory] = React.useState([]);
+  const [form] = Form.useForm();
+  const [pastJobForm] = Form.useForm();
+  const [educationForm] = Form.useForm();
+  const [birthday, setBirthday] = React.useState('');
   const [techCategory, setTechCategory] = React.useState([]);
   const [generalProfile, setGeneralProfile] = React.useState({});
-  React.useEffect(()=>{
+  const [productCategory, setProductCategory] = React.useState([]);
+  const [innovationCategory, setInnovationCategory] = React.useState([]);
+  const [pastJobState, setPastJobState] = React.useState(null);
+  const [pastJobSelect, setPastJobSelect] = React.useState(null);
+  const [educationState, setEducationState] = React.useState(null);
+  const [educationSelect, setEducationSelect] = React.useState(null);
+  React.useEffect(() => {
     fetchJson(`${API.GET_PRODUCT_CATTEGORY_API}`).then((response) => {
       setProductCategory(response.data);
     });
@@ -31,47 +39,78 @@ const Profile = ({ ...props }) => {
       setTechCategory(response.data);
     });
     fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
-      setGeneralProfile(response.data); 
+      setGeneralProfile(response.data);
     });
   }, []);
-  const [form] = Form.useForm();
-  React.useEffect(()=>{
-    let bio = generalProfile.detail?.bio? generalProfile.detail?.bio : creatorBio; 
+  React.useEffect(() => {
+    let bio = generalProfile.detail?.bio ? generalProfile.detail?.bio : creatorBio;
     let birthday = moment(generalProfile.detail?.birthday);
+    let productCategoryList = [];
+    if (generalProfile.productCategory && generalProfile.productCategory.length) {
+      productCategoryList = generalProfile.productCategory.map((i) => {
+        return i.productCategoryId;
+      });
+    }
+    let innovationCategoryList = [];
+    if (generalProfile.innovationCategory && generalProfile.innovationCategory.length) {
+      innovationCategoryList = generalProfile.innovationCategory.map((i) => {
+        return i.innovationCategoryId;
+      });
+    }
+    let techCategoryList = [];
+    if (generalProfile.techCategory && generalProfile.techCategory.length) {
+      techCategoryList = generalProfile.techCategory.map((i) => {
+        return i.techCategoryId;
+      });
+    }
+    setBirthday(generalProfile.detail?.birthday);
     form.setFieldsValue({
       ...generalProfile,
       detail: {
         ...generalProfile.detail,
         bio: bio,
         birthday: birthday
-      }
+      },
+      productCategory: productCategoryList,
+      innovationCategory: innovationCategoryList,
+      techCategory: techCategoryList,
     });
-  }, [generalProfile]);
+  }, [generalProfile, form]);
   const onSubmit = (values) => {
-    console.log(values);
+    const v = { ...values, ...values.detail, birthday };
+    delete v.detail;
+    console.log(v);
+    fetchJson(`${API.UPDATE_GENERAL_PROFILE_API}/${data.id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(v),
+    });
   };
-  //////////////////////////////////////
-  const [pastJobForm] = Form.useForm();
-  const [pastJobState, setPastJobState] = React.useState(null);
-  const [pastJobSelect, setPastJobSelect] = React.useState(null);
+  const onChangeMainForm = () => {
+    form.submit();
+  };
+  const onChangeBirthDay = (m, d) => {
+    setBirthday(d);
+    form.submit();
+  };
   const editPastJob = (index) => {
-    let data = {...generalProfile.pastJob};
-    pastJobForm.setFieldsValue({...data[index], startDate: moment(data[index].from), endDate: moment(data[index].to)});
+    let data = { ...generalProfile.pastJob };
+    pastJobForm.setFieldsValue({ ...data[index], startDate: moment(data[index].from), endDate: moment(data[index].to) });
     setPastJobState('edit');
     setPastJobSelect(index);
   };
   const deletePastJob = (index) => {
-    let data = {...generalProfile};
-    if(data.pastJob[index].id){
+    let data = { ...generalProfile };
+    if (data.pastJob[index].id) {
       data.pastJob['removed'] = true;
     }
-    else{
-      data.pastJob.splice(index,1);
+    else {
+      data.pastJob.splice(index, 1);
     }
     setGeneralProfile(data);
   };
   const onSubmitPastJob = (values) => {
-    let data = {...generalProfile};
+    let data = { ...generalProfile };
     if (pastJobState === 'add') {
       data.pastJob.push({ ...values });
     }
@@ -82,23 +121,19 @@ const Profile = ({ ...props }) => {
     // setEducationState(null);
     // educationForm.resetFields();
   };
-  //////////////////////////////////////
-  const [educationForm] = Form.useForm();
-  const [educationState, setEducationState] = React.useState(null);
-  const [educationSelect, setEducationSelect] = React.useState(null);
   const editEducation = (index) => {
-    let data = {...generalProfile.detail.education};
-    educationForm.setFieldsValue({...data[index]});
+    let data = { ...generalProfile.detail.education };
+    educationForm.setFieldsValue({ ...data[index] });
     setEducationState('edit');
     setEducationSelect(index);
   };
   const deleteEducation = (index) => {
-    let data = {...generalProfile};
-    data.detail.education.splice(index,1);
+    let data = { ...generalProfile };
+    data.detail.education.splice(index, 1);
     setGeneralProfile(data);
   };
   const onSubmitEducation = (values) => {
-    let data = {...generalProfile};
+    let data = { ...generalProfile };
     if (educationState === 'add') {
       data.detail.education.push({ ...values });
     }
@@ -108,22 +143,21 @@ const Profile = ({ ...props }) => {
     setGeneralProfile(data);
     // setEducationState(null);
     // educationForm.resetFields();
-    
+
   };
-  ////////////////////////////////////////
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
-        <MainProfile data={generalProfile}/>
+        <MainProfile data={generalProfile} />
         <Container className="mt-4">
           <React.Fragment>
             <ProfileNavbar />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 pb-3">
-                    Let&apos;s the community know a little more about you.
+                  Let&apos;s the community know a little more about you.
                   <br />
-                    Let&apos;s start with your profile picture. Click on the picture above and upload your best shot of you.
+                  Let&apos;s start with your profile picture. Click on the picture above and upload your best shot of you.
                 </p>
                 <Form
                   hideRequiredMark
@@ -136,9 +170,9 @@ const Profile = ({ ...props }) => {
                         name="lastname"
                         label="My surname is"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <Input bordered={false} placeholder="Please enter the surname." onBlur={onSubmit} />
+                        <Input bordered={false} placeholder="Please enter the surname." onBlur={onChangeMainForm} />
                       </Form.Item>
                     </Col>
                     <Col sm={12} xs={24} className="d-flex py-2 f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
@@ -146,7 +180,7 @@ const Profile = ({ ...props }) => {
                         name="firstname"
                         label="and my name is"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                         rules={[
                           {
                             required: true,
@@ -154,7 +188,7 @@ const Profile = ({ ...props }) => {
                           },
                         ]}
                       >
-                        <Input bordered={false} placeholder="Please enter the name." onBlur={onSubmit} />
+                        <Input bordered={false} placeholder="Please enter the name." onBlur={onChangeMainForm} />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -164,7 +198,7 @@ const Profile = ({ ...props }) => {
                         name={['detail', 'nationality']}
                         label="I am from"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                         rules={[
                           {
                             required: true,
@@ -172,7 +206,7 @@ const Profile = ({ ...props }) => {
                           },
                         ]}
                       >
-                        <Input bordered={false} placeholder="Please enter the nationality." onBlur={onSubmit} />
+                        <Input bordered={false} placeholder="Please enter the nationality." onBlur={onChangeMainForm} />
                       </Form.Item>
                     </Col>
                     <Col sm={12} xs={24} className="d-flex py-2 f-align-center" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
@@ -180,9 +214,9 @@ const Profile = ({ ...props }) => {
                         name={['detail', 'location', 'city']}
                         label="and live in"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <Input bordered={false} placeholder="Please enter the city." onBlur={onSubmit} />
+                        <Input bordered={false} placeholder="Please enter the city." onBlur={onChangeMainForm} />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -192,7 +226,7 @@ const Profile = ({ ...props }) => {
                         name={['detail', 'location', 'country']}
                         label="From this beautiful country"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                         rules={[
                           {
                             required: true,
@@ -200,7 +234,7 @@ const Profile = ({ ...props }) => {
                           },
                         ]}
                       >
-                        <CountrySelect idValue={false} bordered={false} onChange={onSubmit} />
+                        <CountrySelect idValue={false} bordered={false} onChange={onChangeMainForm} />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -210,9 +244,9 @@ const Profile = ({ ...props }) => {
                         name={['detail', 'gender']}
                         label="I am a"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <Select bordered={false} onChange={onSubmit}>
+                        <Select bordered={false} onChange={onChangeMainForm}>
                           <Option value="man">Man</Option>
                           <Option value="woman">Woman</Option>
                           <Option value="both">Both</Option>
@@ -225,24 +259,24 @@ const Profile = ({ ...props }) => {
                         name={['detail', 'birthday']}
                         label="and I am born on"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <DatePicker bordered={false} style={{ width: '100%' }} onChange={onSubmit} />
+                        <DatePicker bordered={false} style={{ width: '100%' }} onChange={onChangeBirthDay} />
                       </Form.Item>
                     </Col>
                   </Row>
                   <p className="fs-1 py-3">
-                      And as you know, Hubbers community is all about product creation, contributting to projects with your experience and resources. Share a bit about your passion.
+                    And as you know, Hubbers community is all about product creation, contributting to projects with your experience and resources. Share a bit about your passion.
                   </p>
                   <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                     <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                       <Form.Item
-                        name="productCateogry"
+                        name="productCategory"
                         label="Product categories I am fond it:"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <Select mode="multiple" bordered={false} onChange={onSubmit}>
+                        <Select mode="multiple" bordered={false} onChange={onChangeMainForm}>
                           {
                             productCategory?.map((item, index) => {
                               return <Option key={index} value={item.id}>{item.name}</Option>;
@@ -255,12 +289,12 @@ const Profile = ({ ...props }) => {
                   <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                     <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                       <Form.Item
-                        name="innovationCateogry"
+                        name="innovationCategory"
                         label="Type of innovation that I like:"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <Select mode="multiple" bordered={false} onChange={onSubmit}>
+                        <Select mode="multiple" bordered={false} onChange={onChangeMainForm}>
                           {
                             innovationCategory?.map((item, index) => {
                               return <Option key={index} value={item.id}>{item.name}</Option>;
@@ -273,12 +307,12 @@ const Profile = ({ ...props }) => {
                   <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                     <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                       <Form.Item
-                        name="techCateogry"
+                        name="techCategory"
                         label="Tech I follow:"
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                       >
-                        <Select mode="multiple" bordered={false} onChange={onSubmit}>
+                        <Select mode="multiple" bordered={false} onChange={onChangeMainForm}>
                           {
                             techCategory?.map((item, index) => {
                               return <Option key={index} value={item.id}>{item.name}</Option>;
@@ -298,15 +332,14 @@ const Profile = ({ ...props }) => {
                       </Select>
                     </Row> */}
                   <p className="fs-1 py-3 mt-4">
-                      As you are being creative, leave a message to the community or we will pick on for you:
+                    As you are being creative, leave a message to the community or we will pick on for you:
                   </p>
                   <Row style={{ borderBottom: '1px solid black', marginBottom: '24px' }}>
                     <Col sm={24} xs={24} className="d-flex py-2 f-align-center">
                       <Form.Item
-                          
                         name={['detail', 'bio']}
                         className="mb-0"
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                         rules={[
                           {
                             required: true,
@@ -314,12 +347,11 @@ const Profile = ({ ...props }) => {
                           },
                         ]}
                       >
-                        <TextArea rows={3} bordered={false} />
+                        <TextArea rows={3} bordered={false} onBlur={onChangeMainForm} />
                       </Form.Item>
                     </Col>
                   </Row>
                 </Form>
-
                 {/* <p className="fs-1 fw-6 mb-0">Now let´s go for a bitt of social media, sharing is caring.</p>
                   <p>Share your Id or Link your account</p>
                   <Space size={24} className="py-4">
@@ -346,8 +378,8 @@ const Profile = ({ ...props }) => {
                                 <p className="fw-6 fs-1 fc-white mb-3">{item.title}</p>
                               </div>
                               <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={()=>{editPastJob(index);}} />
-                                <Button className="ml-2" danger icon={<DeleteOutlined />} onClick={()=>{deletePastJob(index);}} />
+                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPastJob(index); }} />
+                                <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
                               </div>
                             </div>
                           </div>
@@ -355,7 +387,7 @@ const Profile = ({ ...props }) => {
                       })
                     }
                     <div
-                      onClick={()=>{setPastJobState('add');}}
+                      onClick={() => { setPastJobState('add'); }}
                       className="d-flex fd-vertical fjc-center f-align-center px-3"
                       style={{
                         cursor: 'pointer',
@@ -396,7 +428,7 @@ const Profile = ({ ...props }) => {
                                   name="title"
                                   label="Job title"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -414,7 +446,7 @@ const Profile = ({ ...props }) => {
                                   name="startDate"
                                   label="From"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                 >
                                   <DatePicker bordered={false} style={{ width: '100%' }} />
                                 </Form.Item>
@@ -424,7 +456,7 @@ const Profile = ({ ...props }) => {
                                   name="endDate"
                                   label="to"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                 >
                                   <DatePicker bordered={false} style={{ width: '100%' }} />
                                 </Form.Item>
@@ -436,7 +468,7 @@ const Profile = ({ ...props }) => {
                                   name="location"
                                   label="Location"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -454,7 +486,7 @@ const Profile = ({ ...props }) => {
                                   name="state"
                                   label="State"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                 >
                                   <Input bordered={false} placeholder="Please enter the state" />
                                 </Form.Item>
@@ -464,7 +496,7 @@ const Profile = ({ ...props }) => {
                                   name="city"
                                   label="City"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -482,7 +514,7 @@ const Profile = ({ ...props }) => {
                                   name="companyName"
                                   label="Company"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -498,7 +530,7 @@ const Profile = ({ ...props }) => {
                                   name="companySize"
                                   label="Company Size"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                 >
                                   <Input type="number" bordered={false} placeholder="Please enter the Company Size" />
                                 </Form.Item>
@@ -506,14 +538,14 @@ const Profile = ({ ...props }) => {
                             </Row>
                             <Row>
                               <Col span={24} className="text-right">
-                                <Button onClick={()=>{setPastJobState(null);}} danger className="mr-3" shape="round">Cancel</Button>
+                                <Button onClick={() => { setPastJobState(null); }} danger className="mr-3" shape="round">Cancel</Button>
                                 <Button htmlType="submit" type="hbs-primary" shape="round">{pastJobState === 'add' ? 'Add' : 'Edit'}</Button>
                               </Col>
                             </Row>
                           </Col>
                         </Row>
                       </Form>
-                    ): null
+                    ) : null
                   }
                 </div>
                 <div className="mt-5">
@@ -533,8 +565,8 @@ const Profile = ({ ...props }) => {
                                 <p className="fw-6 fs-1 fc-white mb-3">{item.title}</p>
                               </div>
                               <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={()=>{editEducation(index);}} />
-                                <Button className="ml-2" danger icon={<DeleteOutlined />} onClick={()=>{deleteEducation(index);}} />
+                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editEducation(index); }} />
+                                <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deleteEducation(index); }} />
                               </div>
                             </div>
                           </div>
@@ -542,7 +574,7 @@ const Profile = ({ ...props }) => {
                       })
                     }
                     <div
-                      onClick={()=>{setEducationState('add');}}
+                      onClick={() => { setEducationState('add'); }}
                       className="d-flex fd-vertical fjc-center f-align-center px-3"
                       style={{
                         cursor: 'pointer',
@@ -583,7 +615,7 @@ const Profile = ({ ...props }) => {
                                   name="country"
                                   label="Country"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -599,7 +631,7 @@ const Profile = ({ ...props }) => {
                                   name="university"
                                   label="College/University"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -617,7 +649,7 @@ const Profile = ({ ...props }) => {
                                   name="title"
                                   label="Title"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -633,7 +665,7 @@ const Profile = ({ ...props }) => {
                                   name="degree"
                                   label="Degree"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -651,7 +683,7 @@ const Profile = ({ ...props }) => {
                                   name="year"
                                   label="Year"
                                   className="mb-1"
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                   rules={[
                                     {
                                       required: true,
@@ -663,7 +695,7 @@ const Profile = ({ ...props }) => {
                                 </Form.Item>
                               </Col>
                               <Col sm={12} xs={24} className="text-right mt-2">
-                                <Button onClick={()=>{setEducationState(null);}} danger className="mr-3" shape="round">Cancel</Button>
+                                <Button onClick={() => { setEducationState(null); }} danger className="mr-3" shape="round">Cancel</Button>
                                 <Button htmlType="submit" type="hbs-primary" shape="round">{educationState === 'add' ? 'Add' : 'Edit'}</Button>
                               </Col>
                             </Row>

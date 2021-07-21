@@ -40,6 +40,7 @@ export const API = {
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
+  UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
   COMMUNITY_DETAIL_API: process.env.API_V1 + 'community', // /:id
