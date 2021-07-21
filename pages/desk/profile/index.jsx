@@ -48,7 +48,6 @@ const Profile = ({ ...props }) => {
     });
   }, [generalProfile]);
   const onSubmit = (values) => {
-    values.detail.birthday = values.detail.birthday?._i;
     console.log(values);
   };
   //////////////////////////////////////
@@ -72,8 +71,6 @@ const Profile = ({ ...props }) => {
     setGeneralProfile(data);
   };
   const onSubmitPastJob = (values) => {
-    values.startDate = values.startDate._i;
-    values.endDate = values.endDate._i;
     let data = {...generalProfile};
     if (pastJobState === 'add') {
       data.pastJob.push({ ...values });
@@ -109,9 +106,9 @@ const Profile = ({ ...props }) => {
       data.detail.education[educationSelect] = { ...values };
     }
     setGeneralProfile(data);
-    console.log(generalProfile);
     // setEducationState(null);
     // educationForm.resetFields();
+    
   };
   ////////////////////////////////////////
   return (
