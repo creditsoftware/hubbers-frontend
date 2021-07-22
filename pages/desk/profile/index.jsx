@@ -44,32 +44,32 @@ const Profile = ({ ...props }) => {
     });
   }, []);
   React.useEffect(() => {
-    let bio = generalProfile.detail?.bio ? generalProfile.detail?.bio : creatorBio;
+    let bio = generalProfile?.detail?.bio ? generalProfile?.detail?.bio : creatorBio;
     let productCategoryList = [];
-    if (generalProfile.productCategory && generalProfile.productCategory.length) {
-      productCategoryList = generalProfile.productCategory.map((i) => {
+    if (generalProfile?.productCategory && generalProfile?.productCategory.length) {
+      productCategoryList = generalProfile?.productCategory.map((i) => {
         return i.productCategoryId;
       });
     }
     let innovationCategoryList = [];
-    if (generalProfile.innovationCategory && generalProfile.innovationCategory.length) {
-      innovationCategoryList = generalProfile.innovationCategory.map((i) => {
+    if (generalProfile?.innovationCategory && generalProfile?.innovationCategory.length) {
+      innovationCategoryList = generalProfile?.innovationCategory.map((i) => {
         return i.innovationCategoryId;
       });
     }
     let techCategoryList = [];
-    if (generalProfile.techCategory && generalProfile.techCategory.length) {
-      techCategoryList = generalProfile.techCategory.map((i) => {
+    if (generalProfile?.techCategory && generalProfile?.techCategory.length) {
+      techCategoryList = generalProfile?.techCategory.map((i) => {
         return i.techCategoryId;
       });
     }
-    setBirthday(generalProfile.detail?.birthday ? moment(generalProfile.detail?.birthday) : '');
+    setBirthday(generalProfile?.detail?.birthday ? moment(generalProfile?.detail?.birthday) : '');
     form.setFieldsValue({
       ...generalProfile,
       detail: {
-        ...generalProfile.detail,
+        ...generalProfile?.detail,
         bio: bio,
-        birthday: generalProfile.detail?.birthday ? moment(generalProfile.detail?.birthday) : ''
+        birthday: generalProfile?.detail?.birthday ? moment(generalProfile?.detail?.birthday) : ''
       },
       productCategory: productCategoryList,
       innovationCategory: innovationCategoryList,
@@ -77,7 +77,7 @@ const Profile = ({ ...props }) => {
     });
   }, [generalProfile, form]);
   const onSubmit = (values) => {
-    const v = { ...values, ...values.detail, birthday, education: generalProfile.detail.education, pastJob: generalProfile.pastJob };
+    const v = { ...values, ...values.detail, birthday, education: generalProfile?.detail.education, pastJob: generalProfile?.pastJob };
     delete v.detail;
     fetchJson(`${API.UPDATE_GENERAL_PROFILE_API}/${data.id}`, {
       method: 'POST',
@@ -93,7 +93,7 @@ const Profile = ({ ...props }) => {
     form.submit();
   };
   const editPastJob = (index) => {
-    let data = { ...generalProfile.pastJob };
+    let data = { ...generalProfile?.pastJob };
     pastJobForm.setFieldsValue({ ...data[index], startDate: moment(data[index].from), endDate: moment(data[index].to) });
     setPastJobState('edit');
     setPastJobSelect(index);
@@ -122,7 +122,7 @@ const Profile = ({ ...props }) => {
     form.submit();
   };
   const editEducation = (index) => {
-    let data = { ...generalProfile.detail.education };
+    let data = { ...generalProfile?.detail.education };
     educationForm.setFieldsValue({ ...data[index] });
     setEducationState('edit');
     setEducationSelect(index);
@@ -341,7 +341,7 @@ const Profile = ({ ...props }) => {
                   <p className="fs-2 fw-6">Your Past Jobs</p>
                   <Row>
                     {
-                      generalProfile.pastJob?.map((item, index) => {
+                      generalProfile?.pastJob?.map((item, index) => {
                         if (!item.removed) {
                           return (
                             <div
@@ -518,7 +518,7 @@ const Profile = ({ ...props }) => {
                   <p className="fs-2 fw-6">Your Education</p>
                   <Row>
                     {
-                      generalProfile.detail?.education?.map((item, index) => {
+                      generalProfile?.detail?.education?.map((item, index) => {
                         return (
                           <div
                             key={index}
