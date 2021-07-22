@@ -45,7 +45,6 @@ const Profile = ({ ...props }) => {
   }, []);
   React.useEffect(() => {
     let bio = generalProfile.detail?.bio ? generalProfile.detail?.bio : creatorBio;
-    let birthday = moment(generalProfile.detail?.birthday);
     let productCategoryList = [];
     if (generalProfile.productCategory && generalProfile.productCategory.length) {
       productCategoryList = generalProfile.productCategory.map((i) => {
@@ -64,13 +63,13 @@ const Profile = ({ ...props }) => {
         return i.techCategoryId;
       });
     }
-    setBirthday(generalProfile.detail?.birthday);
+    setBirthday(generalProfile.detail?.birthday ? moment(generalProfile.detail?.birthday) : '');
     form.setFieldsValue({
       ...generalProfile,
       detail: {
         ...generalProfile.detail,
         bio: bio,
-        birthday: birthday
+        birthday: generalProfile.detail?.birthday ? moment(generalProfile.detail?.birthday) : ''
       },
       productCategory: productCategoryList,
       innovationCategory: innovationCategoryList,
@@ -80,15 +79,11 @@ const Profile = ({ ...props }) => {
   const onSubmit = (values) => {
     const v = { ...values, ...values.detail, birthday, education: generalProfile.detail.education, pastJob: generalProfile.pastJob };
     delete v.detail;
-    console.log(v);
     fetchJson(`${API.UPDATE_GENERAL_PROFILE_API}/${data.id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(v),
     });
-    // fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
-    //   setGeneralProfile(response.data);
-    // });
   };
   const onChangeMainForm = () => {
     form.submit();
@@ -123,9 +118,8 @@ const Profile = ({ ...props }) => {
       data.pastJob[pastJobSelect] = { ...values };
     }
     setGeneralProfile(data);
+    pastJobForm.resetFields();
     form.submit();
-    // setEducationState(null);
-    // educationForm.resetFields();
   };
   const editEducation = (index) => {
     let data = { ...generalProfile.detail.education };
@@ -148,15 +142,13 @@ const Profile = ({ ...props }) => {
       data.detail.education[educationSelect] = { ...values };
     }
     setGeneralProfile(data);
+    educationForm.resetFields();
     form.submit();
-    // setEducationState(null);
-    // educationForm.resetFields();
-
   };
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
-        <MainProfile  auth={data} />
+        <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
             <ProfileNavbar />
@@ -189,12 +181,6 @@ const Profile = ({ ...props }) => {
                         label="and my name is"
                         className="mb-0"
                         style={{ width: '100%' }}
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Name required',
-                          },
-                        ]}
                       >
                         <Input bordered={false} placeholder="Please enter the name." onBlur={onChangeMainForm} />
                       </Form.Item>
@@ -207,12 +193,6 @@ const Profile = ({ ...props }) => {
                         label="I am from"
                         className="mb-0"
                         style={{ width: '100%' }}
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Nationality required',
-                          },
-                        ]}
                       >
                         <Input bordered={false} placeholder="Please enter the nationality." onBlur={onChangeMainForm} />
                       </Form.Item>
@@ -235,12 +215,6 @@ const Profile = ({ ...props }) => {
                         label="From this beautiful country"
                         className="mb-0"
                         style={{ width: '100%' }}
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Country required',
-                          },
-                        ]}
                       >
                         <CountrySelect idValue={false} bordered={false} onChange={onChangeMainForm} />
                       </Form.Item>
@@ -348,12 +322,6 @@ const Profile = ({ ...props }) => {
                         name={['detail', 'bio']}
                         className="mb-0"
                         style={{ width: '100%' }}
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Bio required',
-                          },
-                        ]}
                       >
                         <TextArea rows={3} bordered={false} onBlur={onChangeMainForm} />
                       </Form.Item>
@@ -374,7 +342,7 @@ const Profile = ({ ...props }) => {
                   <Row>
                     {
                       generalProfile.pastJob?.map((item, index) => {
-                        if(!item.removed) {
+                        if (!item.removed) {
                           return (
                             <div
                               key={index}
@@ -383,10 +351,10 @@ const Profile = ({ ...props }) => {
                             >
                               <div className="portfolio-mask px-3">
                                 <div>
-                                  <p className="fw-6 fs-1 text-center fc-white mb-0">{item.title}</p>
-                                  <p className="fs-1 text-center fc-white mb-3">{item.location}</p>
+                                  <p className="fw-6 fs-1 text-center mb-0">{item.title}</p>
+                                  <p className="fs-1 text-center mb-3">{item.location}</p>
                                 </div>
-                                <div>
+                                <div className='general-portfolio-item-actions'>
                                   <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPastJob(index); }} />
                                   <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
                                 </div>
@@ -397,7 +365,7 @@ const Profile = ({ ...props }) => {
                       })
                     }
                     <div
-                      onClick={() => { setPastJobState('add'); }}
+                      onClick={() => { setPastJobState('add'); pastJobForm.resetFields(); }}
                       className="d-flex fd-vertical fjc-center f-align-center px-3"
                       style={{
                         cursor: 'pointer',
@@ -442,7 +410,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Title required',
+                                      message: 'Title is required',
                                     },
                                   ]}
                                 >
@@ -482,7 +450,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Country required',
+                                      message: 'Country is required',
                                     },
                                   ]}
                                 >
@@ -507,12 +475,6 @@ const Profile = ({ ...props }) => {
                                   label="City"
                                   className="mb-1"
                                   style={{ width: '100%' }}
-                                  rules={[
-                                    {
-                                      required: true,
-                                      message: 'City required',
-                                    },
-                                  ]}
                                 >
                                   <Input bordered={false} placeholder="Please enter the year" />
                                 </Form.Item>
@@ -525,12 +487,6 @@ const Profile = ({ ...props }) => {
                                   label="Company"
                                   className="mb-1"
                                   style={{ width: '100%' }}
-                                  rules={[
-                                    {
-                                      required: true,
-                                      message: 'Company Name required',
-                                    },
-                                  ]}
                                 >
                                   <Input bordered={false} placeholder="Please enter the Company Name" />
                                 </Form.Item>
@@ -584,7 +540,7 @@ const Profile = ({ ...props }) => {
                       })
                     }
                     <div
-                      onClick={() => { setEducationState('add'); }}
+                      onClick={() => { setEducationState('add'); educationForm.resetFields(); }}
                       className="d-flex fd-vertical fjc-center f-align-center px-3"
                       style={{
                         cursor: 'pointer',
@@ -629,7 +585,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Country required',
+                                      message: 'Country is required',
                                     },
                                   ]}
                                 >
@@ -645,7 +601,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'University required',
+                                      message: 'University is required',
                                     },
                                   ]}
                                 >
@@ -663,7 +619,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Title required',
+                                      message: 'Title is required',
                                     },
                                   ]}
                                 >
@@ -679,7 +635,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Degree required',
+                                      message: 'Degree is required',
                                     },
                                   ]}
                                 >
@@ -697,7 +653,7 @@ const Profile = ({ ...props }) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'Year required',
+                                      message: 'Year is required',
                                     },
                                   ]}
                                 >

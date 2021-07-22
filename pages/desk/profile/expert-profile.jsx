@@ -67,7 +67,7 @@ const ExpertProfile = ({ ...props }) => {
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
-        <MainProfile />
+        <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
             <div>
