@@ -36,7 +36,7 @@ export const API = {
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
   GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
   GET_THUMB_UP_API: process.env.API_V1 + 'user/thumb-up/home/',
-  GET_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general/',
+  GET_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
