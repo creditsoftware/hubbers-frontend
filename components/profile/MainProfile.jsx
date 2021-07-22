@@ -7,9 +7,16 @@ import {
   Space,
 } from 'antd';
 import { Container } from '../Container';
-import { primaryColor } from '../../constants';
+import { API, primaryColor } from '../../constants/index';
+import { fetchJson } from '../../utils';
 
-export const MainProfile = ({data}) => {
+export const MainProfile = (props) => {
+  const [data, setData] = React.useState({});
+  React.useEffect(() => {
+    fetchJson(`${API.GET_GENERAL_PROFILE_API}/${props.auth.id}`).then((response) => {
+      setData(response.data);
+    });
+  }, []);
   return (
     <Container>
       <React.Fragment>
@@ -22,7 +29,7 @@ export const MainProfile = ({data}) => {
             <Col lg={6} sm={24} xs={24}>
               <div className="text-center">
                 <div>
-                  <Avatar size={124} src={data.avatar} />
+                  <Avatar size={124} src={data?.avatar} />
                 </div>
                 <Space size={15} className="py-4">
                   <Image width={24} height={24} src="/images/social/linkedin.png" alt='' />
@@ -53,13 +60,13 @@ export const MainProfile = ({data}) => {
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Location:</p></div>
                 <div><b>
-                  {data.detail?.location.city? data.detail.location.city + ', ' : ''}
-                  {data.detail?.location.country}
+                  {data?.detail?.location.city? data?.detail.location.city + ', ' : ''}
+                  {data?.detail?.location.country}
                 </b></div>
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Member since:</p></div>
-                <div><b>{data.detail?.joinedDate.split('T')[0]}</b></div>
+                <div><b>{data?.detail?.joinedDate.split('T')[0]}</b></div>
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Followers:</p></div>
@@ -70,7 +77,7 @@ export const MainProfile = ({data}) => {
                 <div>
                   <Space wrap>
                     {
-                      data.productCategory?.map((item,index)=>{
+                      data?.productCategory?.map((item,index)=>{
                         return(
                           <b key={index}>{item.productCategory.name}</b>
                         );
@@ -84,7 +91,7 @@ export const MainProfile = ({data}) => {
                 <div>
                   <Space wrap>
                     {
-                      data.innovationCategory?.map((item,index)=>{
+                      data?.innovationCategory?.map((item,index)=>{
                         return(
                           <b key={index}>{item.innovationCategory.name}</b>
                         );
@@ -98,7 +105,7 @@ export const MainProfile = ({data}) => {
                 <div>
                   <Space wrap>
                     {
-                      data.techCategory?.map((item,index)=>{
+                      data?.techCategory?.map((item,index)=>{
                         return(
                           <b key={index}>{item.techCategory.name}</b>
                         );
@@ -111,12 +118,12 @@ export const MainProfile = ({data}) => {
                 <div><p className="mb-0">Members of:</p></div>
                 <div>
                   <Space wrap>
-                    <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
+                    {/* <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Shanghai
                     </div>
                     <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Lisbon
-                    </div>
+                    </div> */}
                     {/* <div style={{ borderRadius: '20px', border: `1px solid ${primaryColor}`, padding: '2px 8px' }}>
                       Add/Remove
                     </div> */}
@@ -125,13 +132,13 @@ export const MainProfile = ({data}) => {
               </Row>
               <Row className="profile-item mb-4">
                 <div><p className="mb-0">Bio:</p></div>
-                <div><b>{data.detail?.bio}</b></div>
+                <div><b>{data?.detail?.bio}</b></div>
               </Row>
             </Col>
             <Col lg={2} xs={24} className="text-center">
               <Space wrap size={18} className="fjc-center py-3">
                 {
-                  data.roles?.map((item,index)=>{
+                  data?.roles?.map((item,index)=>{
                     return(
                       <div key={index}>
                         <Image width={42} height={42} src={`/images/${item.name.toLowerCase()}.png`} alt='' />

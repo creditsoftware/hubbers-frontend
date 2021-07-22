@@ -9,6 +9,7 @@ import { MainProfile, ProfileNavbar, CountrySelect, UploadImage } from '../../..
 import { Container } from '../../../components/Container';
 import { DatePicker, Select, Row, Form, Input, Col, Button } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -77,7 +78,7 @@ const Profile = ({ ...props }) => {
     });
   }, [generalProfile, form]);
   const onSubmit = (values) => {
-    const v = { ...values, ...values.detail, birthday };
+    const v = { ...values, ...values.detail, birthday, education: generalProfile.detail.education, pastJob: generalProfile.pastJob };
     delete v.detail;
     console.log(v);
     fetchJson(`${API.UPDATE_GENERAL_PROFILE_API}/${data.id}`, {
@@ -85,6 +86,9 @@ const Profile = ({ ...props }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(v),
     });
+    // fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
+    //   setGeneralProfile(response.data);
+    // });
   };
   const onChangeMainForm = () => {
     form.submit();
@@ -102,12 +106,13 @@ const Profile = ({ ...props }) => {
   const deletePastJob = (index) => {
     let data = { ...generalProfile };
     if (data.pastJob[index].id) {
-      data.pastJob['removed'] = true;
+      data.pastJob[index].removed = true;
     }
     else {
       data.pastJob.splice(index, 1);
     }
     setGeneralProfile(data);
+    form.submit();
   };
   const onSubmitPastJob = (values) => {
     let data = { ...generalProfile };
@@ -118,6 +123,7 @@ const Profile = ({ ...props }) => {
       data.pastJob[pastJobSelect] = { ...values };
     }
     setGeneralProfile(data);
+    form.submit();
     // setEducationState(null);
     // educationForm.resetFields();
   };
@@ -131,6 +137,7 @@ const Profile = ({ ...props }) => {
     let data = { ...generalProfile };
     data.detail.education.splice(index, 1);
     setGeneralProfile(data);
+    form.submit();
   };
   const onSubmitEducation = (values) => {
     let data = { ...generalProfile };
@@ -141,6 +148,7 @@ const Profile = ({ ...props }) => {
       data.detail.education[educationSelect] = { ...values };
     }
     setGeneralProfile(data);
+    form.submit();
     // setEducationState(null);
     // educationForm.resetFields();
 
@@ -148,7 +156,7 @@ const Profile = ({ ...props }) => {
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
-        <MainProfile data={generalProfile} />
+        <MainProfile  auth={data} />
         <Container className="mt-4">
           <React.Fragment>
             <ProfileNavbar />
@@ -366,24 +374,26 @@ const Profile = ({ ...props }) => {
                   <Row>
                     {
                       generalProfile.pastJob?.map((item, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className="general-portfolio-item mr-3 mb-3"
-                            style={{ backgroundImage: `url(${item.logo})` }}
-                          >
-                            <div className="portfolio-mask px-3">
-                              <div>
-                                <p className="fw-6 fs-1 fc-white mb-0">{item.companyName}</p>
-                                <p className="fw-6 fs-1 fc-white mb-3">{item.title}</p>
-                              </div>
-                              <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPastJob(index); }} />
-                                <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
+                        if(!item.removed) {
+                          return (
+                            <div
+                              key={index}
+                              className="general-portfolio-item mr-3 mb-3"
+                              style={{ backgroundImage: `url(${item.logo})` }}
+                            >
+                              <div className="portfolio-mask px-3">
+                                <div>
+                                  <p className="fw-6 fs-1 text-center fc-white mb-0">{item.title}</p>
+                                  <p className="fs-1 text-center fc-white mb-3">{item.location}</p>
+                                </div>
+                                <div>
+                                  <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPastJob(index); }} />
+                                  <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
+                          );
+                        }
                       })
                     }
                     <div
@@ -705,7 +715,7 @@ const Profile = ({ ...props }) => {
                     ) : null
                   }
                 </div>
-                <p className="mt-4">Great Job! We are done with the intro. Time to involve as a creator, expert, or investor in products. Fill in the role you want to play to be considered.</p>
+                <p className="mt-4">Great Job! We are done with the intro. Time to involve as a <Link href="/desk/profile/creator-profile"><a className="primary-link">creator</a></Link>, <Link href="/desk/profile/expert-profile"><a className="primary-link">expert</a></Link>, or <Link href="/desk/profile/investor-profile"><a className="primary-link">investor</a></Link> in products. Fill in the role you want to play to be considered.</p>
               </div>
             </div>
           </React.Fragment>
