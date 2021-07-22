@@ -54,9 +54,11 @@ const Signin = ({ ...props }) => {
         openNotificationWithIcon('success', 'Login successfully!', ssoResult.message);
         router.push(ssoResult.data.redirectUrl);
       } else {
-        setBtnLoading(false);
-        openNotificationWithIcon('success', 'Login successfully!', '');
-        router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
+        setTimeout(() => {
+          setBtnLoading(false);
+          openNotificationWithIcon('success', 'Login successfully!', '');
+          router.push(!router.query.redirect ? '/desk/dashboard' : router.query.redirect);
+        }, 1000);
       }
     } catch (error) {
       setBtnLoading(false);
