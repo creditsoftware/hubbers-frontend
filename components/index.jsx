@@ -112,3 +112,4 @@ export {
   ProfileNavbar,
   MainProfile
 } from './profile';
+export { Translate } from './global';

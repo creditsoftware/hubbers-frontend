@@ -1,8 +1,7 @@
 import { Button, Col, Row, Space } from 'antd';
-import { Container, HomepageMainBanner, Userdata  } from '../components';
+import { Container, HomepageMainBanner, Translate, Userdata  } from '../components';
 import Image from 'next/image';
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { MainPageHoc } from '../containers';
 import { withSession } from '../utils/withSession';
 import Link from 'next/link';
@@ -13,8 +12,6 @@ import { fetcher } from '../utils/fetcher';
 
 const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const { formatMessage } = useIntl();
-  const f = id => formatMessage({ id });
   const [thumbUp, setThumbup] = React.useState([]);
   React.useEffect(()=>{
     fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
@@ -46,7 +43,7 @@ const Home = ({ ...props }) => {
         <Container>
           <React.Fragment>
             <h1 className="fs-6 pt-5 fw-6 text-center">
-              {f('You have an innovative product ready to be launched?')}
+              {<Translate name='You have an innovative product ready to be launched?' />}
             </h1>
             <h2 className="fs-5 pb-5 text-center">
               Get Hubbers community of creators, experts and contributors to help your design, prototype and launch it
