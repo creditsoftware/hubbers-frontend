@@ -21,9 +21,7 @@ export const TopicContextMenu = (props) => {
     setShow(!show);
   };
   const removeTopic = () => {
-    console.log(props);
     toggleShow();
-
   };
   return <React.Fragment>
     <Popover

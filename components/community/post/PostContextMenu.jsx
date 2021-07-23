@@ -1,5 +1,11 @@
 import React from 'react';
-import { Button, Divider, Menu, Popover, Radio } from 'antd';
+import {
+  Button,
+  // Divider,
+  Menu,
+  Popover,
+  Radio
+} from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
 const { SubMenu } = Menu;
 export const PostContextMenu = (props) => {
@@ -9,7 +15,7 @@ export const PostContextMenu = (props) => {
       <React.Fragment>
         <Radio.Group>
           <Menu>
-            <Menu.Item key='save-post'>
+            {/* <Menu.Item key='save-post'>
               Save Post
             </Menu.Item>
             <Menu.Item key='mute-post'>
@@ -32,9 +38,9 @@ export const PostContextMenu = (props) => {
                 Copy Post Id
               </Menu.Item>
             </SubMenu>
-            <Divider />
+            <Divider /> */}
             <Menu.ItemGroup key='manage' title='Manage'>
-              <SubMenu key='add-this-to' title='Add This To ...'>
+              {/* <SubMenu key='add-this-to' title='Add This To ...'>
                 <Menu.Item key='featured'>
                   <Radio value='featured'>
                     Featured
@@ -45,20 +51,20 @@ export const PostContextMenu = (props) => {
                     Welcome
                   </Radio>
                 </Menu.Item>
-              </SubMenu>
+              </SubMenu> */}
               <SubMenu key='action' title='Actions'>
-                <Menu.Item key='recommend'>
+                {/* <Menu.Item key='recommend'>
                   Recommend
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key='edit-event'>
                   Edit
                 </Menu.Item>
                 <Menu.Item key='delete-event'>
                   Delete
                 </Menu.Item>
-                <Menu.Item key='manage-event'>
+                {/* <Menu.Item key='manage-event'>
                   Manage
-                </Menu.Item>
+                </Menu.Item> */}
               </SubMenu>
             </Menu.ItemGroup>
           </Menu>

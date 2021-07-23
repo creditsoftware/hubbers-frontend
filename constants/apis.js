@@ -69,6 +69,7 @@ export const API = {
   SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso',
   GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/group-privacy-option', //get
   CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post
+  REMOVE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/remove', //delete /:id
   GET_COMMUNITY_GROUP_LIST_API: process.env.API_V1 + 'community/group/all', //get /:communityId
   GET_COMMUNITY_GROUP_DETAIL_API: process.env.API_V1 + 'community/group', //get /:groupId
   //socket stream endpoint

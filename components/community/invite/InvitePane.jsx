@@ -16,7 +16,6 @@ import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { defaultMsgOfCommunityMemberInvitation } from '../../../constants/defaultMsgOfCommunityMemberInvitation';
 import { API } from '../../../constants';
-import { useForm } from 'antd/lib/form/Form';
 import { UserSelector } from '../../UserSelector';
 const { Option } = Select;
 export const InvitePane = () => {
@@ -24,7 +23,7 @@ export const InvitePane = () => {
   const [auth, setAuth] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
   const [roles, setRoles] = React.useState(null);
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const getData = React.useCallback(async () => {
     const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
     setAuth(response);

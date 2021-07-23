@@ -17,8 +17,7 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { AuthLink } from '../../components';
-import { fetchJson } from '../../utils/fetchJson';
-import { API } from '../../constants';
+import { useCommunityList } from '../../hooks';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 export const DeskSidebar = ({ active, ...props }) => {
@@ -31,7 +30,24 @@ export const DeskSidebar = ({ active, ...props }) => {
   const onCollapse = c => {
     setCollapsed(c);
   };
-  const getData = React.useCallback(async () => {
+  const {data} = useCommunityList();
+  React.useEffect(()=>{
+    if(data && data.data) {
+      setCommunityList(data.data.data);
+      if (router.pathname.indexOf('community') > 0) {
+        if (data.data.data?.length > 0) {
+          if (!router.query.community) {
+            router.push({ query: { ...router.query, community: data.data.data[0].id } });
+          }
+        } else {
+          if (router.query.community !== 'join') {
+            router.push({ query: { community: 'join' } });
+          }
+        }
+      }
+    }
+  },[data, router]);
+  useEffect(() => {
     if (router.query.community) {
       setCommunityId(router.query.community);
       if (router.pathname) {
@@ -41,32 +57,11 @@ export const DeskSidebar = ({ active, ...props }) => {
         }
       }
     }
-    fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
-      .then((response) => {
-        setCommunityList(response.data.data);
-        if (router.pathname.indexOf('community') > 0) {
-          if (response.data && response.data.data?.length > 0) {
-            if (!router.query.community) {
-              router.push({ query: { ...router.query, community: response.data?.data[0].id } });
-            }
-          } else {
-            if (router.query.community !== 'join') {
-              router.push({ query: { community: 'join' } });
-            }
-          }
-        }
-      })
-      .catch(() => {
-        setCommunityList([]);
-      });
     window.addEventListener('resize', () => {
       onCollapse(window.innerWidth < 1024);
     });
     onCollapse(window.innerWidth < 1024);
   }, [router]);
-  useEffect(() => {
-    getData();
-  }, [router, getData]);
   const onChangeOpenKeys = (k) => {
     if (openKeys.filter((key) => key === k).length) {
       setOpenKeys([...openKeys.filter((key) => key !== k)]);

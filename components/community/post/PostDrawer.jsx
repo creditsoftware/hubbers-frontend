@@ -48,7 +48,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
     clear();
     onHide();
   };
-  const createPost = () => {
+  const savePost = () => {
     if (!post.title && article) {
       openNotificationWithIcon('error', 'Something went wrong!', 'Please enter title');
       return;
@@ -78,7 +78,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
     title='Post'
     headerActions={
       editable || !content &&
-      <Button type='hbs-primary' shape='round' className='mr-2' onClick={createPost}>Post</Button>
+      <Button type='hbs-primary' shape='round' className='mr-2' onClick={savePost}>Post</Button>
     }
     {...props}
   >

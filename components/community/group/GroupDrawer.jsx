@@ -6,6 +6,7 @@ import { openNotificationWithIcon, fetchJson, slugify } from '../../../utils';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
+import { useCommunityList, useGroupList } from '../../../hooks';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -13,9 +14,16 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
   const [optionList, setOptionList] = React.useState(false);
   const router = useRouter();
   const [form] = Form.useForm();
+  const { mutate: mutateCommunityList } = useCommunityList();
+  const { mutate: mutateGroupList } = useGroupList(props.query.community);
   React.useEffect(() => {
     fetchJson(`${API.GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
   }, []);
+  React.useEffect(() => {
+    if (content) {
+      form.setFieldsValue({ ...content });
+    }
+  }, [form, content]);
   const onFinish = (value) => {
     let data;
     if (router?.query?.community) {
@@ -24,21 +32,27 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
     if (props.auth?.isLoggedIn && props.auth.id) {
       data = { ...data, createdBy: props.auth.id };
     }
-    fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}`, {
-      method: REQUEST_TYPE.POST,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, slug: slugify(data.name) }),
-    }).then((res) => {
-      openNotificationWithIcon('success', 'Success', res.message);
-    }).catch(() => {
-      openNotificationWithIcon('error', 'Error', 'Failed to create a group!');
-    });
+    if (!content) {
+      fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}`, {
+        method: REQUEST_TYPE.POST,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, slug: slugify(data.name) }),
+      }).then((res) => {
+        mutateCommunityList();
+        mutateGroupList();
+        openNotificationWithIcon('success', 'Success', res.message);
+      }).catch(() => {
+        openNotificationWithIcon('error', 'Error', 'Failed to create a group!');
+      });
+    } else {
+      // edit part
+    }
     onHide();
   };
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
-    title='Creaete Group'
+    title='Group'
     submitBtn={(!content && editable) || (content && editable)}
     submitBtnLabel={!content && editable ? 'Create' : content && editable ? 'Save' : 'Save'}
     form={form}
@@ -62,7 +76,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
               },
             ]}
           >
-            <Input type='text' placeholder='e.g. The Astronaut&apos;s Guide to Exercise' />
+            <Input disabled={!editable} type='text' placeholder='e.g. The Astronaut&apos;s Guide to Exercise' />
           </Form.Item>
           <p className='mb-2 mt-3 fw-6'>Group Tagline</p>
           <Form.Item
@@ -75,6 +89,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
             ]}
           >
             <TextArea
+              disabled={!editable}
               placeholder="e.g. Stay as fit as an astronaut, even when gravity is working against you"
               autoSize={{ minRows: 4, maxRows: 24 }}
             />
@@ -90,6 +105,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
             ]}
           >
             <TextArea
+              disabled={!editable}
               placeholder="e.g. Our bodies aren&apos;t built for space. That&apos;s why astronauts need to adopt rigorous fitness regimens to maintain bone and muscle mass for when they live in microgravity. The astronaut&apos;s Guide to Exercise will teach you how you can keep up a similar exercise routine(without living earch)."
               autoSize={{ minRows: 6, maxRows: 24 }}
             />
@@ -105,7 +121,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
               },
             ]}
           >
-            <Select>
+            <Select disabled={!editable}>
               {
                 optionList &&
                 optionList.map((item, index) => {
