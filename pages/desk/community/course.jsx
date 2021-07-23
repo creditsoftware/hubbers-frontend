@@ -7,18 +7,14 @@ import { useRouter } from 'next/router';
 import { Row, Col, Space } from 'antd';
 import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
-import { CourseManageBtn, CreateCourseBtn, SwitchCommunity } from '../../../components';
+import { CourseManageBtn, CreateCourseBtn, CourseListItem, SwitchCommunity } from '../../../components';
 
 const Course = (props) => {
   const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const courseList = [{
     contents: 'content 1',
-    description: 'description1',
-    type: 'seceret',
-    lesson: 'lesson1',
-    section: 'section1',
-    introductor: 'Teacher'
+    description: 'description1 description1 description1 description1 description1 description1 description1 description1'
   }]; 
   return (
     router.query.community === 'join' ?
@@ -38,6 +34,11 @@ const Course = (props) => {
                 </Space>
               </Col>
             </Row>
+            {
+              courseList?.map((course,index)=>{
+                return <CourseListItem key={index} data={course} />;
+              })
+            }
           </div>
         </React.Fragment> 
       </DeskPageHoc>
