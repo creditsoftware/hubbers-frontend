@@ -57,7 +57,10 @@ export {
   CreateTopicBtn,
   TopicListItem,
   CourseManageBtn,
-  CreateCourseBtn
+  CreateCourseBtn,
+  CreateGroupContentBtn,
+  EventDrawer,
+  CreateEventBtn
 } from './community';
 export * as JobBoard from './job-board';
 export {

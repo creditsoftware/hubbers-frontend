@@ -1,5 +1,4 @@
 import { Col, Row } from 'antd';
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import {
   MemberInvitationBtn,
@@ -17,7 +16,6 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 const Members = (props) => {
-  const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   // const [filterValue, setFilterValue] = React.useState('all');
   const [auth, setAuth] = React.useState(null);
@@ -32,9 +30,9 @@ const Members = (props) => {
     // }
   }, []);
   return (
-    router.query.community === 'join' ?
+    props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: ['members'], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Members' activeSide={{ active: [`members-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -75,18 +73,18 @@ export const getServerSideProps = withSession(async (ctx) => {
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   }
   return httpApiServer(`${API.LOCAL_GET_MEMBER_LIST_API}?communityId=${query.community}`, REQUEST_TYPE.GET, null, ctx)
     .then((response) => {
-      return { props: { data: { ...response, auth: user }, error: null, auth: { isLoggedIn: true, ...user } } };
+      return { props: { data: { ...response, auth: user }, error: null, auth: { isLoggedIn: true, ...user }, query } };
     })
     .catch(async (err) => {
       if (err.response && err.response.status === 401) {
         await req.session.destroy();
-        return { props: { error: err.message, data: null, auth: { isLoggedIn: true, ...user } } };
+        return { props: { error: err.message, data: null, auth: { isLoggedIn: true, ...user }, query } };
       }
-      return { props: { data: null, error: err.message, auth: { isLoggedIn: true, ...user } } };
+      return { props: { data: null, error: err.message, auth: { isLoggedIn: true, ...user }, query } };
     });
 });
 export default Members;

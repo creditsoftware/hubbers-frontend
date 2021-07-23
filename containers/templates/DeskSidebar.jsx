@@ -204,108 +204,120 @@ export const DeskSidebar = ({ active, ...props }) => {
                 {
                   community.groups &&
                   community.groups.length > 0 &&
-                  <SubMenu
-                    key={`community-${community.id}-group`}
-                    icon={<TeamOutlined />}
-                    onTitleClick={() => onChangeOpenKeys(`community-${community.id}-group`)}
-                    title={
-                      <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
-                        <a>
-                          Groups&nbsp;&nbsp;
-                          <Badge
-                            // count={120}
-                            size='small'
-                            style={{ backgroundColor: '#52c41a' }}
-                          />
-                        </a>
-                      </AuthLink>
-                    }
-                  >
-                    {
-                      community.groups &&
-                      community.groups.length > 0 &&
-                      community.groups.map((g) => {
-                        return <SubMenu
-                          key={`community-${community.id}-group-${g.id}`}
-                          icon={<TeamOutlined />}
-                          onTitleClick={() => onChangeOpenKeys(`community-${community.id}-group-${g.id}`)}
-                          title={
-                            <AuthLink href={`/desk/community/group?community=${community.id}&group=${g.id}`} {...props}>
-                              <a>
-                                {g.name}&nbsp;&nbsp;
-                                <Badge
-                                  // count={120}
-                                  size='small'
-                                  style={{ backgroundColor: '#52c41a' }}
-                                />
-                              </a>
-                            </AuthLink>
-                          }
-                        >
-                          <Menu.Item key={`group-activity-feed-${g.id}`}>
-                            <AuthLink href={'#'} {...props}>
-                              <a>
-                                Activity Feed&nbsp;&nbsp;
-                                <Badge
-                                  // count={80}
-                                  size='small'
-                                  style={{ backgroundColor: '#52c41a' }}
-                                />
-                              </a>
-                            </AuthLink>
-                          </Menu.Item>
-                          <Menu.Item key={`group-discovery-${g.id}`}>
-                            <AuthLink href={'#'} {...props}>
-                              <a>
-                                Discovery&nbsp;&nbsp;
-                                <Badge
-                                  // count={80}
-                                  size='small'
-                                  style={{ backgroundColor: '#52c41a' }}
-                                />
-                              </a>
-                            </AuthLink>
-                          </Menu.Item>
-                          <Menu.Item key={`group-members-${g.id}`}>
-                            <AuthLink href={'#'} {...props}>
-                              <a>
-                                Members&nbsp;&nbsp;
-                                <Badge
-                                  // count={80}
-                                  size='small'
-                                  style={{ backgroundColor: '#52c41a' }}
-                                />
-                              </a>
-                            </AuthLink>
-                          </Menu.Item>
-                          <Menu.Item key={`group-about-${g.id}`}>
-                            <AuthLink href={'#'} {...props}>
-                              <a>
-                                About&nbsp;&nbsp;
-                                <Badge
-                                  // count={80}
-                                  size='small'
-                                  style={{ backgroundColor: '#52c41a' }}
-                                />
-                              </a>
-                            </AuthLink>
-                          </Menu.Item>
-                          <Menu.Item key={`group-invite-${g.id}`}>
-                            <AuthLink href={'#'} {...props}>
-                              <a>
-                                Invite&nbsp;&nbsp;
-                                <Badge
-                                  // count={80}
-                                  size='small'
-                                  style={{ backgroundColor: '#52c41a' }}
-                                />
-                              </a>
-                            </AuthLink>
-                          </Menu.Item>
-                        </SubMenu>;
-                      })
-                    }
-                  </SubMenu>
+                  <Menu.Item key={`community-${community.id}-group`}>
+                    <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
+                      <a>
+                        Groups&nbsp;&nbsp;
+                        <Badge
+                          // count={80}
+                          size='small'
+                          style={{ backgroundColor: '#52c41a' }}
+                        />
+                      </a>
+                    </AuthLink>
+                  </Menu.Item>
+                  // <SubMenu
+                  //   key={`community-${community.id}-group`}
+                  //   icon={<TeamOutlined />}
+                  //   onTitleClick={() => onChangeOpenKeys(`community-${community.id}-group`)}
+                  //   title={
+                  //     <AuthLink href={`/desk/community/groups?community=${community.id}`} {...props}>
+                  //       <a>
+                  //         Groups&nbsp;&nbsp;
+                  //         <Badge
+                  //           // count={120}
+                  //           size='small'
+                  //           style={{ backgroundColor: '#52c41a' }}
+                  //         />
+                  //       </a>
+                  //     </AuthLink>
+                  //   }
+                  // >
+                  //   {
+                  //     community.groups &&
+                  //     community.groups.length > 0 &&
+                  //     community.groups.map((g) => {
+                  //       return <SubMenu
+                  //         key={`community-${community.id}-group-${g.id}`}
+                  //         icon={<TeamOutlined />}
+                  //         onTitleClick={() => onChangeOpenKeys(`community-${community.id}-group-${g.id}`)}
+                  //         title={
+                  //           <AuthLink href={`/desk/community/group?community=${community.id}&group=${g.id}`} {...props}>
+                  //             <a>
+                  //               {g.name}&nbsp;&nbsp;
+                  //               <Badge
+                  //                 // count={120}
+                  //                 size='small'
+                  //                 style={{ backgroundColor: '#52c41a' }}
+                  //               />
+                  //             </a>
+                  //           </AuthLink>
+                  //         }
+                  //       >
+                  //         <Menu.Item key={`group-activity-feed-${g.id}`}>
+                  //           <AuthLink href={'#'} {...props}>
+                  //             <a>
+                  //               Activity Feed&nbsp;&nbsp;
+                  //               <Badge
+                  //                 // count={80}
+                  //                 size='small'
+                  //                 style={{ backgroundColor: '#52c41a' }}
+                  //               />
+                  //             </a>
+                  //           </AuthLink>
+                  //         </Menu.Item>
+                  //         <Menu.Item key={`group-discovery-${g.id}`}>
+                  //           <AuthLink href={'#'} {...props}>
+                  //             <a>
+                  //               Discovery&nbsp;&nbsp;
+                  //               <Badge
+                  //                 // count={80}
+                  //                 size='small'
+                  //                 style={{ backgroundColor: '#52c41a' }}
+                  //               />
+                  //             </a>
+                  //           </AuthLink>
+                  //         </Menu.Item>
+                  //         <Menu.Item key={`group-members-${g.id}`}>
+                  //           <AuthLink href={'#'} {...props}>
+                  //             <a>
+                  //               Members&nbsp;&nbsp;
+                  //               <Badge
+                  //                 // count={80}
+                  //                 size='small'
+                  //                 style={{ backgroundColor: '#52c41a' }}
+                  //               />
+                  //             </a>
+                  //           </AuthLink>
+                  //         </Menu.Item>
+                  //         <Menu.Item key={`group-about-${g.id}`}>
+                  //           <AuthLink href={'#'} {...props}>
+                  //             <a>
+                  //               About&nbsp;&nbsp;
+                  //               <Badge
+                  //                 // count={80}
+                  //                 size='small'
+                  //                 style={{ backgroundColor: '#52c41a' }}
+                  //               />
+                  //             </a>
+                  //           </AuthLink>
+                  //         </Menu.Item>
+                  //         <Menu.Item key={`group-invite-${g.id}`}>
+                  //           <AuthLink href={'#'} {...props}>
+                  //             <a>
+                  //               Invite&nbsp;&nbsp;
+                  //               <Badge
+                  //                 // count={80}
+                  //                 size='small'
+                  //                 style={{ backgroundColor: '#52c41a' }}
+                  //               />
+                  //             </a>
+                  //           </AuthLink>
+                  //         </Menu.Item>
+                  //       </SubMenu>;
+                  //     })
+                  //   }
+                  // </SubMenu>
                 }
                 <Menu.Item key={`course-${community.id}`}>
                   <AuthLink href={`/desk/community/course?community=${community.id}`} {...props}>

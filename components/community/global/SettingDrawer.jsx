@@ -57,7 +57,7 @@ export const SettingDrawer = ({
     }
     closable={false}
     visible={visible}
-    onClick={(e)=>e.preventDefault()}
+    onClick={(e) => e.preventDefault()}
     onClose={onHide}
     key='1'
     width={fullWidth || size.width <= 1024 ? '100%' : 1024}
@@ -70,14 +70,14 @@ export const SettingDrawer = ({
       }}
       onBack={onCoursePrev}
       extra={
-        type === 'course' && submitBtn ? <Button type='hbs-dashed' shap='round' onClick={onCourseNext}>{ submitBtnLabel }</Button> :
-        form && submitBtn ?
-        <Button type='hbs-dashed' shape='round' onClick={()=>{
-          if(form.submit) {
-            form.submit();
-          }
-        }}>{submitBtnLabel}</Button>
-        : null
+        type === 'course' && submitBtn ? <Button type='hbs-dashed' shap='round' onClick={onCourseNext}>{submitBtnLabel}</Button> :
+          form && submitBtn ?
+            <Button type='hbs-dashed' shape='round' onClick={() => {
+              if (form.submit) {
+                form.submit();
+              }
+            }}>{submitBtnLabel}</Button>
+            : null
       }
     />
     <Container>

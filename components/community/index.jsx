@@ -1,6 +1,8 @@
 export {
   EditEventDrawer,
-  EventContextMenu
+  EventContextMenu,
+  CreateEventBtn,
+  EventDrawer
 } from './events';
 export {
   ListItemTile,
@@ -16,7 +18,8 @@ export {
   GroupContextMenu,
   GroupManageBtn,
   GroupDrawer,
-  CreateGroupBtn
+  CreateGroupBtn,
+  CreateGroupContentBtn
 } from './group';
 export {
   HomeBody,

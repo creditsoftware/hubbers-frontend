@@ -1,8 +1,9 @@
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  GroupManageBtn,
+  CreateGroupContentBtn,
+  // GroupManageBtn,
   SwitchCommunity,
 } from '../../../components';
 import { Space } from 'antd';
@@ -29,23 +30,23 @@ const Groups = (props) => {
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [`community-${router.query.community}-group-${router.query.group}`], open: ['community',  `community-${router.query.community}-group`, `community-${router.query.community}-group-${router.query.group}`] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Members' activeSide={{ active: [`community-${router.query.community}-group-${router.query.group}`], open: ['community', `community-${router.query.community}-group`, `community-${router.query.community}-group-${router.query.group}`] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
-              <Col span={12}>
+              <Col flex='auto'>
                 <span className='text-upper'>group</span>
-                <h1 className='fw-6 fs-5 m-0'>{group && group.name}</h1>
-                <p>{group && group.tagLine}</p>
               </Col>
-              <Col span={12} className='text-right'>
+              <Col flex='auto' className='text-right'>
                 <Space>
-                  <GroupManageBtn />
-                  <Button shape='circle' type='hbs-primary'>+</Button>
+                  {/* <GroupManageBtn /> */}
+                  <CreateGroupContentBtn auth={{ ...data }} group={{ ...group }} />
                   <SwitchCommunity />
                 </Space>
               </Col>
             </Row>
+            <h1 className='fw-6 fs-5 m-0'>{group && group.name}</h1>
+            <p>{group && group.tagLine}</p>
             <div>
               <p className="text-center mt-5">
                 This Group is just getting started!
