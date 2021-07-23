@@ -26,6 +26,7 @@ import { UploadImage } from '../../UploadImage';
 import { fetchJson, openNotificationWithIcon, slugify } from '../../../utils';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
+import { useEventList } from '../../../hooks';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -52,6 +53,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   const [endType, setEndType] = React.useState('date');
   const [eventType, setEventType] = React.useState('online');
   const [eventOnlineType, setEventOnlineType] = React.useState('meeting');
+  const { mutate } = useEventList(props.query.community);
 
   React.useEffect(() => {
     if (selectedCommunity) {
@@ -100,6 +102,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
     })
       .then((response) => {
         if (response.success) {
+          mutate();
           openNotificationWithIcon('success', 'Success!', response.message);
         } else {
           openNotificationWithIcon('error', 'Something went wrong!', response.message ? response.message : response.errors[0]?.message);

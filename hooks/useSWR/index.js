@@ -1,1 +1,1 @@
-export { useGroupList, useCommunityList } from './community';
+export { useGroupList, useCommunityList, useEventList } from './community';

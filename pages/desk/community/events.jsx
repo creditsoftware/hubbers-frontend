@@ -11,9 +11,16 @@ import { API } from '../../../constants/apis';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
+import { useEventList } from '../../../hooks';
 const Events = (props) => {
+  const [eventList, setEventList] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-
+  const { data: events } = useEventList(props.query.community);
+  React.useEffect(() => {
+    if (events) {
+      setEventList(events.data);
+    }
+  }, [events]);
   return (
     props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -26,7 +33,7 @@ const Events = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <CreateEventBtn auth={{...data}} />
+                  <CreateEventBtn auth={{ ...data }} query={{...props.query}} />
                   <SwitchCommunity />
                 </Space>
               </Col>
@@ -38,6 +45,13 @@ const Events = (props) => {
               <Button type='hbs-outline-primary'>Yours</Button>
             </Space> */}
             <div>
+              {
+                eventList &&
+                eventList.length > 0 &&
+                eventList.map((e) => {
+                  return <div key={e.id}>{e.title}</div>;
+                })
+              }
             </div>
           </div>
         </React.Fragment>

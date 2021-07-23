@@ -60,11 +60,7 @@ const providers = [
           try {
             const response = await axios.get(`${API.SINGLE_SIGN_ON_API}?email=${credentials.email}&sig=${credentials.sig}&payload=${credentials.sso}`);
             if (response && response.data?.data?.redirectUrl) {
-              return {
-                status: 'success',
-                callbackUrl: response.data?.data?.redirectUrl,
-                redirect: response.data?.data?.redirectUrl
-              };
+              return {...response.data.data, sso: true};
             }
           } catch (e) {
             const errorMessage = e.response?.data?.message;
@@ -80,6 +76,10 @@ const providers = [
 
 const callbacks = {
   async jwt(token, user) {
+    if(user && user.sso) {
+      token.redirectUrl = user.redirectUrl;
+      return token;
+    }
     if (user && user.data) {
       token.accessToken = user.data.accessToken;
       token.refreshToken = user.data.refreshToken;
@@ -96,6 +96,10 @@ const callbacks = {
   },
 
   async session(session, token) {
+    if(token.redirectUrl) {
+      session.redirectUrl = token.redirectUrl;
+      return session;
+    }
     session.accessToken = token.accessToken;
     session.refreshToken = token.refreshToken;
     return session;
