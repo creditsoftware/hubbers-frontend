@@ -312,8 +312,8 @@ export const DeskSidebar = ({ active, ...props }) => {
                     }
                   </SubMenu>
                 }
-                <Menu.Item key={`courses-${community.id}`}>
-                  <AuthLink href={`/desk/community/courses?community=${community.id}`} {...props}>
+                <Menu.Item key={`course-${community.id}`}>
+                  <AuthLink href={`/desk/community/course?community=${community.id}`} {...props}>
                     <a>
                       Courses&nbsp;&nbsp;
                       <Badge

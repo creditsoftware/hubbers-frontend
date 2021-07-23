@@ -55,5 +55,8 @@ export {
   TopicContextMenu,
   TopicManageBtn,
   TopicDrawer,
-  CreateTopicBtn
+  CreateTopicBtn,
 } from './topic';
+export {
+  CreateCourseBtn
+} from './course';
