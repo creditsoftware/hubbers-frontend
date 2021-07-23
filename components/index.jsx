@@ -62,6 +62,7 @@ export {
   EventDrawer,
   CreateEventBtn,
   CourseListItem,
+  CourseDrawer
 } from './community';
 export * as JobBoard from './job-board';
 export {

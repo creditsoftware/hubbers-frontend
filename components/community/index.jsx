@@ -65,5 +65,6 @@ export {
 export {
   CreateCourseBtn,
   CourseListItem,
-  CourseManageBtn
+  CourseManageBtn,
+  CourseDrawer
 } from './course';
