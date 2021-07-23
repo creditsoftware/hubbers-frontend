@@ -1,9 +1,8 @@
-import { Button, Col, Row } from 'antd';
-import { useRouter } from 'next/router';
+import { Col, Row } from 'antd';
 import React from 'react';
 import {
   GroupListItem,
-  GroupManageBtn,
+  // GroupManageBtn,
   SwitchCommunity,
 } from '../../../components';
 import { Space } from 'antd';
@@ -13,24 +12,20 @@ import { API } from '../../../constants/apis';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
-import { fetchJson } from '../../../utils';
+import { CreateGroupBtn } from '../../../components/community';
 const Groups = (props) => {
-  const router = useRouter();
   const [groups, setGroups] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const getGroups = React.useCallback(async () => {
-    const result = await fetchJson(`${API.GET_COMMUNITY_GROUP_LIST_API}/${router.query.community}`);
-    setGroups(result.data);
-  }, [router]);
+  const {data: result} = useSWR(`${API.GET_COMMUNITY_GROUP_LIST_API}/${props.query.community}`, fetcher);
   React.useEffect(() => {
-    if (router.query.community) {
-      getGroups();
+    if(result && result.data) {
+      setGroups(result.data);
     }
-  }, [router, getGroups]);
+  }, [result]);
   return (
-    router.query.community === 'join' ?
+    props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [ `community-${router.query.community}-group`], open: ['community', `community-${router.query.community}-group`] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Members' activeSide={{ active: [ `community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -39,8 +34,8 @@ const Groups = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <GroupManageBtn />
-                  <Button shape='circle' type='hbs-primary'>+</Button>
+                  {/* <GroupManageBtn /> */}
+                  <CreateGroupBtn />
                   <SwitchCommunity />
                 </Space>
               </Col>
@@ -60,12 +55,12 @@ const Groups = (props) => {
 };
 
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   }
-  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user }, query } };
 });
 export default Groups;

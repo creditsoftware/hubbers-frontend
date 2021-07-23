@@ -2,8 +2,7 @@ import React from 'react';
 import { Button, Divider, Menu, Popover, Radio } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
 const { SubMenu } = Menu;
-export const GroupContextMenu = (props) => {
-  console.log(props);
+export const GroupContextMenu = () => {
   return <Popover
     placement='bottomRight'
     content={

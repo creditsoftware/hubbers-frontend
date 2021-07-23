@@ -14,7 +14,9 @@ export {
   EditGroupDrawer,
   GroupListItem,
   GroupContextMenu,
-  GroupManageBtn
+  GroupManageBtn,
+  GroupDrawer,
+  CreateGroupBtn
 } from './group';
 export {
   HomeBody,
