@@ -60,5 +60,6 @@ export {
   CreateTopicBtn,
 } from './topic';
 export {
-  CreateCourseBtn
+  CreateCourseBtn,
+  CourseManageBtn
 } from './course';
