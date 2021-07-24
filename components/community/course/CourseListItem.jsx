@@ -12,15 +12,15 @@ export const CourseListItem = ({ data }) => {
   return (
     <Link href="#">
       <a className='community-child-list-item'>
-        <Row style={{ padding: '24px', borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px' }}>
-          <Col>
+        <Row style={{ padding: '24px', borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px', backgroundColor: 'white' }}>
+          <Col className="d-flex fjc-center f-align-center">
             <Avatar
               size={100}
               src={DEFAULT_COMMUNITY_COURSE_IMAGE}
               alt='course'
             />
           </Col>
-          <Col flex="auto" style={{ paddingLeft: '20px', backgroundColor: 'white' }}>
+          <Col flex="auto" style={{ paddingLeft: '20px' }}>
             <h4 className="fw-6 fs-4 mb-0 mt-2">{data.contents}</h4>
             <p style={{
               overflow: 'hidden',
