@@ -61,5 +61,6 @@ export {
 } from './topic';
 export {
   CreateCourseBtn,
+  CourseListItem,
   CourseManageBtn
 } from './course';

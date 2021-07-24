@@ -6,7 +6,7 @@ import { SettingDrawer } from '../global';
 const { Option } = Select;
 const { TextArea } = Input;
 
-export const CourseDrawer = ({ visible, onHide, editable = true, content, ...props }) => {
+export const CourseDrawer = ({ visible, onHide, ...props }) => {
   const [progress, setProgress] = React.useState(1);
   const [form] = Form.useForm();
   const onFinish = () => {
@@ -21,7 +21,7 @@ export const CourseDrawer = ({ visible, onHide, editable = true, content, ...pro
     } else {
       setProgress (progress - 1);
     }
-  }
+  };
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
@@ -75,7 +75,7 @@ export const CourseDrawer = ({ visible, onHide, editable = true, content, ...pro
           ): progress == 2 ? (
             <React.Fragment>
               <p className="fw-6 fs-2 mb-2">Course Structure</p>
-              <p className="fs-1 mb-4">Now let's set up the structure of your Course.</p>
+              <p className="fs-1 mb-4">Now let&apos;s set up the structure of your Course.</p>
               <p className="fw-6 fs-1 mb-2">Table of Contents</p>
               <p className="fs-1 mb-3">The Table of Contents is a hoslistic view of your Course, where students can go to get a summary of the Course Material they have access to. Customize the name here.</p>
               <Form.Item
@@ -114,7 +114,7 @@ export const CourseDrawer = ({ visible, onHide, editable = true, content, ...pro
             <React.Fragment>
               <p className="fw-6 fs-2 mb-2">Instructors</p>
               <p className="fs-1">In a Course, members will see your Moderators and Hosts ans Instructors. They will still have separate Moderator or Host permissions, but you will have the added ability to assign instuctors to Lessons.</p>
-              <p className="fs-1">You can rename your Course's Instructors here.</p>
+              <p className="fs-1">You can rename your Course&apos;s Instructors here.</p>
               <Form.Item
                 name='instructor'
                 style={{ width: '300px', borderBottom: '1px solid gray' }}

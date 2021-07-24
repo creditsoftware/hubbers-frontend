@@ -57,6 +57,7 @@ export {
   CreateTopicBtn,
   TopicListItem,
   CourseManageBtn,
+  CourseListItem,
   CreateCourseBtn
 } from './community';
 export * as JobBoard from './job-board';

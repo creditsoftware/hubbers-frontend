@@ -71,13 +71,13 @@ export const SettingDrawer = ({
       onBack={onCoursePrev}
       extra={
         type === 'course' && submitBtn ? <Button type='hbs-dashed' shap='round' onClick={onCourseNext}>{ submitBtnLabel }</Button> :
-        form && submitBtn ?
-        <Button type='hbs-dashed' shape='round' onClick={()=>{
-          if(form.submit) {
-            form.submit();
-          }
-        }}>{submitBtnLabel}</Button>
-        : null
+          form && submitBtn ?
+            <Button type='hbs-dashed' shape='round' onClick={()=>{
+              if(form.submit) {
+                form.submit();
+              }
+            }}>{submitBtnLabel}</Button>
+            : null
       }
     />
     <Container>
