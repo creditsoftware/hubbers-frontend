@@ -9,7 +9,7 @@ export const CreateCourseBtn = ({...props}) => {
     setVisible(!visible);
   };
   return <React.Fragment>
-    <Button shape='circle' type='hbs-primary' size="large" onClick={toggleVisible} icon={<PlusOutlined />} />
+    <Button shape='circle' type='hbs-primary' onClick={toggleVisible} icon={<PlusOutlined />} />
     <CourseDrawer visible={visible} onHide={toggleVisible} {...props} />
   </React.Fragment>;
 };
