@@ -11,9 +11,9 @@ import {
 import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../../constants/etc';
 import Avatar from 'antd/lib/avatar/avatar';
 import Image from 'next/image';
-import {
-  DownOutlined
-} from '@ant-design/icons';
+// import {
+//   DownOutlined
+// } from '@ant-design/icons';
 import { ViewEventBtn } from './ViewEventBtn';
 import { EventContextMenu } from './EventContextMenu';
 export const EventListItem = ({ ...props }) => {
@@ -48,7 +48,7 @@ export const EventListItem = ({ ...props }) => {
             > */}
             <Button type='hbs-primary' size='small' shape='round' className='not-hover'>
               You&apos;re going
-              <DownOutlined />
+              {/* <DownOutlined /> */}
             </Button>
             {/* </Dropdown> */}
           </div>
