@@ -3,14 +3,14 @@
     &>div{
         margin-bottom: 2rem;
     }
-    button {
+    button:not(.not-hover) {
         visibility: hidden;
     }
     &>div:hover {
         box-shadow: 0px 0px 5px 5px #ddd;
     }
     &:hover {
-        button {
+        button:not(.not-hover) {
             visibility: visible;
         }
     }

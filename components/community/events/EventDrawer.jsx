@@ -27,6 +27,7 @@ import { fetchJson, openNotificationWithIcon, slugify } from '../../../utils';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
 import { useEventList } from '../../../hooks';
+import moment from 'moment';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -56,15 +57,59 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   const { mutate } = useEventList(props.query.community);
 
   React.useEffect(() => {
-    if (selectedCommunity) {
+    if (selectedCommunity && allTopicList) {
       let t = allTopicList.filter((topic) => topic.communityId === selectedCommunity);
       setTopicList(t);
     } else {
       setTopicList(allTopicList);
+      if (props.query?.community) {
+        setSelectedCommunity(Number(props.query.community));
+        form.setFieldsValue({ communityId: Number(props.query.community) });
+      }
+      if (content) {
+        if (content?.communityId) {
+          setSelectedCommunity(content.communityId);
+          form.setFieldsValue({ communityId: Number(content.communityId) });
+        }
+      }
     }
-  }, [selectedCommunity, allTopicList]);
+  }, [selectedCommunity, allTopicList, props.query, content, form]);
 
   React.useEffect(() => {
+    if (content) {
+      form.setFieldsValue({
+        ...content,
+        startDate: moment(content.startDate),
+        endDate: moment(content.endDate),
+        startTime: moment(content.startTime),
+        endTime: moment(content.endTime),
+        customRepeatPeriod: {
+          ...content.customRepeatPeriod,
+          date: content.customRepeatPeriod?.date ? moment(content.customRepeatPeriod?.date) : ''
+        }
+      });
+      if (content.onlineType) {
+        setEventOnlineType(content.onlineType);
+      }
+      if (content.eventType) {
+        setEventType(content.eventType);
+      }
+      if (content.endType) {
+        setEventType(content.endType);
+      }
+      if (content.repeatPeriod) {
+        setRepeatPeriod(content.repeatPeriod);
+      }
+      if (content.rsvp) {
+        setRsvp(content.rsvp);
+      }
+      if (content.isGlobal) {
+        setIsGlobal(content.isGlobal);
+      }
+      if (content.isRepeat) {
+        setIsRepeat(content.isRepeat);
+      }
+    }
     //get community list
     fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
       .then((response) => {
@@ -112,15 +157,14 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
         openNotificationWithIcon('error', 'Something went wrong!', 'Faild to create event');
       });
   };
-
   return <SettingDrawer
+    {...props}
     visible={visible}
     onHide={onHide}
-    title='Group'
+    title='Event'
     submitBtn={(!content && editable) || (content && editable)}
     submitBtnLabel={!content && editable ? 'Create' : content && editable ? 'Save' : 'Save'}
     form={form}
-    {...props}
   >
     <Container>
       <Form

@@ -1,16 +1,38 @@
 import React from 'react';
-import { Button, Divider, Menu, Popover, Radio } from 'antd';
+import {
+  Button,
+  // Divider,
+  Menu,
+  Popover,
+  Radio
+} from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
-const { SubMenu } = Menu;
-export const EventContextMenu = (props) => {
-  console.log(props);
+import { fetchJson } from '../../../utils';
+import { API, REQUEST_TYPE } from '../../../constants';
+import { useEventList } from '../../../hooks';
+// const { SubMenu } = Menu;
+export const EventContextMenu = ({ ...props }) => {
+  const [visible, setVisible] = React.useState(false);
+  const { mutate: eventListMutate } = useEventList(props.query?.community);
+  const onToggleVisible = () => {
+    setVisible(!visible);
+  };
+  const onDelete = () => {
+    onToggleVisible();
+    fetchJson(`${API.DELETE_EVENT_API}/${props.id}`, {
+      method: REQUEST_TYPE.DELETE
+    })
+      .then(() => {
+        eventListMutate();
+      });
+  };
   return <Popover
     placement='bottomRight'
     content={
       <React.Fragment>
         <Radio.Group>
           <Menu>
-            <Menu.Item key='add-to-calendar'>
+            {/* <Menu.Item key='add-to-calendar'>
               Add to calendar
             </Menu.Item>
             <Menu.Item key='save-event'>
@@ -68,22 +90,24 @@ export const EventContextMenu = (props) => {
                 </Menu.Item>
                 <Menu.Item key='edit-event'>
                   Edit
-                </Menu.Item>
-                <Menu.Item key='delete-event'>
-                  Delete
-                </Menu.Item>
-                <Menu.Item key='manage-event'>
+                </Menu.Item> */}
+            <Menu.Item key='delete-event' onClick={onDelete}>
+              Delete
+            </Menu.Item>
+            {/* <Menu.Item key='manage-event'>
                   Manage
                 </Menu.Item>
               </SubMenu>
-            </Menu.ItemGroup>
+            </Menu.ItemGroup> */}
           </Menu>
         </Radio.Group>
       </React.Fragment>
     }
+    visible={visible}
+    onVisibleChange={onToggleVisible}
     trigger='click'
   >
-    <Button type='text'>
+    <Button type='text' onClick={onToggleVisible}>
       <MoreOutlined />
     </Button>
   </Popover>;

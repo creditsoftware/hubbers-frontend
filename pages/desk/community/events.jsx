@@ -12,11 +12,13 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { useEventList } from '../../../hooks';
+import { EventListItem } from '../../../components/community/events/EventListItem';
 const Events = (props) => {
   const [eventList, setEventList] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: events } = useEventList(props.query.community);
   React.useEffect(() => {
+    console.log(events);
     if (events) {
       setEventList(events.data);
     }
@@ -24,7 +26,7 @@ const Events = (props) => {
   return (
     props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Events' activeSide={{ active: ['members'], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Events' activeSide={{ active: [`events-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -49,7 +51,7 @@ const Events = (props) => {
                 eventList &&
                 eventList.length > 0 &&
                 eventList.map((e) => {
-                  return <div key={e.id}>{e.title}</div>;
+                  return <EventListItem key={e.id} {...e} auth={{...props.auth}} query={{...props.query}} />;
                 })
               }
             </div>

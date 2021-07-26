@@ -1,11 +1,15 @@
 import React from 'react';
-import { Col, Row, Space } from 'antd';
+import { Button, Col, Row, Space } from 'antd';
 // import Link from 'next/link';
 import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../../constants/etc';
 import { GroupContextMenu } from './GroupContextMenu';
 import Avatar from 'antd/lib/avatar/avatar';
 import Image from 'next/image';
-import { LockOutlined, CrownOutlined } from '@ant-design/icons';
+import {
+  LockOutlined,
+  // CrownOutlined,
+  SafetyCertificateOutlined
+} from '@ant-design/icons';
 import { ViewGroupBtn } from './ViewGroupBtn';
 export const GroupListItem = ({ ...props }) => {
   return (
@@ -30,9 +34,13 @@ export const GroupListItem = ({ ...props }) => {
         </Col>
         <Col flex="auto">
           <div className="text-right">
-            <Space>
+            {/* <Space>
               Host
               <CrownOutlined />
+            </Space> */}
+            <Space>
+              Joined
+              <SafetyCertificateOutlined />
             </Space>
           </div>
           <h4 className="fw-6 fs-3 mb-0 mt-2">{props.name}</h4>
@@ -44,6 +52,9 @@ export const GroupListItem = ({ ...props }) => {
           <div className='text-right'>
             <Space>
               <ViewGroupBtn {...props} />
+              <Button type='hbs-outline-primary' shape='round'>
+                Join Us
+              </Button>
               <GroupContextMenu {...props} />
             </Space>
           </div>
