@@ -28,6 +28,8 @@ import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
 import { useEventList } from '../../../hooks';
 import moment from 'moment';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -55,6 +57,8 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   const [eventType, setEventType] = React.useState('online');
   const [eventOnlineType, setEventOnlineType] = React.useState('meeting');
   const { mutate } = useEventList(props.query.community);
+  const { mutate: mutateTDetail } = useTopicDetail(props.query.topic);
+  const { mutate: mutateGDetail } = useGroupDetail(props.query.group);
 
   React.useEffect(() => {
     if (selectedCommunity && allTopicList) {
@@ -66,10 +70,20 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
         setSelectedCommunity(Number(props.query.community));
         form.setFieldsValue({ communityId: Number(props.query.community) });
       }
+      if (props.query?.group) {
+        setSelectedCommunity(Number(props.query.group));
+        form.setFieldsValue({ communityId: Number(props.query.group) });
+      }
+      if (props.query?.topic) {
+        form.setFieldsValue({ topicId: Number(props.query.topic) });
+      }
       if (content) {
         if (content?.communityId) {
           setSelectedCommunity(content.communityId);
           form.setFieldsValue({ communityId: Number(content.communityId) });
+        }
+        if (content?.topicId) {
+          form.setFieldsValue({ topicId: Number(content.topicId) });
         }
       }
     }
@@ -111,9 +125,9 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
       }
     }
     //get community list
-    fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`)
+    fetchJson(`${API.GET_MY_COMMUNITY_AND_GROUP_LIST_API}/${props.auth?.id}`)
       .then((response) => {
-        setCommunityList(response.data.data);
+        setCommunityList(response.data);
       })
       .catch(() => {
         setCommunityList([]);
@@ -140,6 +154,9 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
       },
       createdBy: props.auth?.communityMember?.filter((c) => c.communityId === parseInt(router.query.community, 10))[0].id
     };
+    if (props.query?.group) {
+      data = { ...data, communityId: props.query?.group };
+    }
     fetchJson(`${API.CREATE_EVENT_API}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -147,8 +164,17 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
     })
       .then((response) => {
         if (response.success) {
-          mutate();
           openNotificationWithIcon('success', 'Success!', response.message);
+          onHide();
+          if (props.query.topic) {
+            mutateTDetail();
+            return;
+          }
+          if (props.query.group) {
+            mutateGDetail();
+            return;
+          }
+          mutate();
         } else {
           openNotificationWithIcon('error', 'Something went wrong!', response.message ? response.message : response.errors[0]?.message);
         }

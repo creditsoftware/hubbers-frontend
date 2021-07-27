@@ -9,7 +9,7 @@ import {
 } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
 import { TopicDrawer } from './TopicDrawer';
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 export const TopicContextMenu = (props) => {
   const [visible, setVisible] = React.useState(false);
   const [show, setShow] = React.useState(false);
@@ -36,7 +36,7 @@ export const TopicContextMenu = (props) => {
               </Menu.Item> */}
               {/* <Divider /> */}
               <Menu.ItemGroup key='manage' title='Manage'>
-                <SubMenu key='add-this-to' title='Add This To ...'>
+                {/* <SubMenu key='add-this-to' title='Add This To ...'>
                   <Menu.Item key='featured-topic'>
                     <Radio value='featured'>
                       Featured
@@ -47,18 +47,18 @@ export const TopicContextMenu = (props) => {
                       Welcome
                     </Radio>
                   </Menu.Item>
-                </SubMenu>
+                </SubMenu> */}
                 <Menu.Item key='edit-topic' onClick={() => { toggleShow(); toggleVisible(); setEditable(true); }}>
                   Edit
                 </Menu.Item>
                 <Menu.Item key='delete-topic'>
                   <Popconfirm title='Are you sure?' okText='Yes' cancelText='No' onConfirm={removeTopic} onCancel={toggleShow}>
-                      Delete
+                    Delete
                   </Popconfirm>
                 </Menu.Item>
-                <Menu.Item key='manage-topic'>
+                {/* <Menu.Item key='manage-topic'>
                   Manage
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu.ItemGroup>
             </Menu>
           </Radio.Group>

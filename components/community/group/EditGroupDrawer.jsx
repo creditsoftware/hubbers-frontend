@@ -33,7 +33,8 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
     if (props.auth?.isLoggedIn && props.auth.id) {
       data = { ...data, createdBy: props.auth.id };
     }
-    fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}`, {
+    console.log(props);
+    fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}/${props.auth?.id}`, {
       method: REQUEST_TYPE.POST,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...data, slug: slugify(data.name) }),

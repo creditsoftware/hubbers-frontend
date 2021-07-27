@@ -15,7 +15,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
-import { ListItemTile } from '../../../components/community';
+import { PostListItem } from '../../../components/community';
 const Groups = (props) => {
   const router = useRouter();
   const [group, setGroup] = React.useState(null);
@@ -24,7 +24,6 @@ const Groups = (props) => {
   React.useEffect(() => {
     if(gDetail) {
       setGroup(gDetail.data);
-      console.log(gDetail.data);
     }
   }, [gDetail]);
   return (
@@ -52,7 +51,7 @@ const Groups = (props) => {
                 group &&
                 group.posts &&
                 group.posts.map((p) => {
-                  return <ListItemTile type='post' key={p.id} data={{...p}} auth={{...props.auth}} query={{...props.query}} />;
+                  return <PostListItem key={p.id} data={{...p}} auth={{...props.auth}} query={{...props.query}} />;
                 })
               }
               {/* <p className="text-center mt-5">

@@ -5,7 +5,6 @@ export {
   EventDrawer
 } from './events';
 export {
-  ListItemTile,
   CommunityManageBtn,
   CommunityProgress,
   CreateNewBtn,
@@ -49,7 +48,8 @@ export {
   TopPostSwiper,
   ReplyPostTile,
   PostContextMenu,
-  PostDrawer
+  PostDrawer,
+  PostListItem
 } from './post';
 export {
   TopicListItem,

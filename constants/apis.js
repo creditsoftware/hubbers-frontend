@@ -43,6 +43,7 @@ export const API = {
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
+  GET_MY_COMMUNITY_AND_GROUP_LIST_API: process.env.API_V1 + 'community/c-g-list', // /:userId
   COMMUNITY_DETAIL_API: process.env.API_V1 + 'community', // /:id
   JOININ_COMMUNITY_API: process.env.API_V1 + 'community/member/join',//post /:userId
   SIMPLE_TOPIC_LIST_API: process.env.API_V1 + 'community/topic/all', //get /:communityId
@@ -70,10 +71,11 @@ export const API = {
   LINKEDIN_LOGIN_REDIRECT_API: process.env.API_V1 + 'auth/user/linkedin',
   SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso',
   GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/group-privacy-option', //get
-  CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post
+  CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post /:userId
   REMOVE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/remove', //delete /:id
   GET_COMMUNITY_GROUP_LIST_API: process.env.API_V1 + 'community/group/all', //get /:communityId
   GET_COMMUNITY_GROUP_DETAIL_API: process.env.API_V1 + 'community/group', //get /:groupId
+  JOININ_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/join', //patch /:groupId/:userId
   //socket stream endpoint
   SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1
 };

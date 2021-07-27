@@ -34,7 +34,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
       data = { ...data, createdBy: props.auth.id };
     }
     if (!content) {
-      fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}`, {
+      fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}/${props.auth?.id}`, {
         method: REQUEST_TYPE.POST,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, slug: slugify(data.name) }),

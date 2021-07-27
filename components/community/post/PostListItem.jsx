@@ -1,6 +1,5 @@
 import {
   Badge,
-  Button,
   Col,
   Row,
   Space
@@ -17,26 +16,13 @@ import { defaultAvatar } from '../../../constants/etc';
 import {
   PostContextMenu,
   PostDrawer
-} from '../post';
-import { EventContextMenu } from '../events';
+} from '.';
 import moment from 'moment';
 
-export const ListItemTile = ({ type = 'event', ...props }) => {
-  const [visible, setVisible] = React.useState({
-    post: false,
-    event: false
-  });
+export const PostListItem = ({ ...props }) => {
+  const [visible, setVisible] = React.useState(false);
   const onChangeVisible = () => {
-    switch (type) {
-      case 'post':
-        setVisible({ ...visible, post: !visible.post });
-        break;
-      case 'event':
-        setVisible({ ...visible, event: !visible.event });
-        break;
-      default:
-        break;
-    }
+    setVisible(!visible);
   };
   return <React.Fragment>
     <div className='community-child-list-item cursor-pointer' onClick={onChangeVisible}>
@@ -47,10 +33,7 @@ export const ListItemTile = ({ type = 'event', ...props }) => {
           </div>
         </Col>
         <Col flex='auto' className='px-3 py-2'>
-          {
-            type === 'post' &&
-            <div className='ck-content' style={{ height: '6rem', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: props.data?.content }}></div>
-          }
+          <div className='ck-content' style={{ height: '6rem', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: props.data?.content }}></div>
           <div>
             <Row>
               <Col flex='auto'>
@@ -66,33 +49,23 @@ export const ListItemTile = ({ type = 'event', ...props }) => {
               </Col>
               <Col flex='auto'></Col>
               <Col flex='150px'>
-                {
-                  type === 'event' &&
-                  <Space>
-                    <Button shape='round' type='hbs-outline-primary'>View Event</Button>
-                    <EventContextMenu />
-                  </Space>
-                }
-                {
-                  type === 'post' &&
-                  <div className="text-right">
-                    <Space onClick={(e) => e.stopPropagation()}>
-                      {/* <Button type='text' onClick={(e)=>e.stopPropagation()}>
+                <div className="text-right">
+                  <Space onClick={(e) => e.stopPropagation()}>
+                    {/* <Button type='text' onClick={(e)=>e.stopPropagation()}>
                         <HeartOutlined />
                       </Button>
                       <Button type='text' onClick={(e)=>e.stopPropagation()}>
                         <MessageOutlined />
                       </Button> */}
-                      <PostContextMenu onClick={(e) => e.stopPropagation()} {...props} />
-                    </Space>
-                  </div>
-                }
+                    <PostContextMenu onClick={(e) => e.stopPropagation()} {...props} />
+                  </Space>
+                </div>
               </Col>
             </Row>
           </div>
         </Col>
       </Row>
     </div>
-    <PostDrawer visible={visible.post} editable={false} onHide={onChangeVisible} content={{ ...props.data }} {...props} />
+    <PostDrawer visible={visible} editable={false} onHide={onChangeVisible} content={{ ...props.data }} {...props} />
   </React.Fragment>;
 };

@@ -10,10 +10,13 @@ import { MoreOutlined } from '@ant-design/icons';
 import { fetchJson } from '../../../utils';
 import { API, REQUEST_TYPE } from '../../../constants';
 import { useEventList } from '../../../hooks';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 // const { SubMenu } = Menu;
 export const EventContextMenu = ({ ...props }) => {
   const [visible, setVisible] = React.useState(false);
   const { mutate: eventListMutate } = useEventList(props.query?.community);
+  const { mutate: mutateTDetail } = useTopicDetail(props.query?.topic);
+
   const onToggleVisible = () => {
     setVisible(!visible);
   };
@@ -23,6 +26,10 @@ export const EventContextMenu = ({ ...props }) => {
       method: REQUEST_TYPE.DELETE
     })
       .then(() => {
+        if(props.query?.topic) {
+          mutateTDetail();
+          return;
+        }
         eventListMutate();
       });
   };

@@ -46,15 +46,6 @@ export const TopicListItem = ({ ...props }) => {
                 src={data.backgroundImageUrl ?? DEFAULT_COMMUNITY_TOPIC_IMAGE}
                 alt='topic'
                 preview={false}
-                placeholder={
-                  <Image
-                    width={180}
-                    height={130}
-                    src={data.backgroundImageUrl ?? DEFAULT_COMMUNITY_TOPIC_IMAGE}
-                    alt='topic'
-                    preview={false}
-                  />
-                }
               />
             </div>
           </Col>

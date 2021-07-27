@@ -16,8 +16,9 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { fetchJson } from '../../../utils';
-import { ListItemTile } from '../../../components/community/global/ListItemTile';
+import { PostListItem } from '../../../components';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { EventListItem } from '../../../components/community/events/EventListItem';
 const TopicDetail = (props) => {
   const [topicData, setTopicData] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
@@ -55,7 +56,14 @@ const TopicDetail = (props) => {
               topicData &&
               topicData.posts &&
               topicData.posts.map((p) => {
-                return <ListItemTile type='post' auth={{ ...data }} data={{ ...p }} key={p.id} query={{ ...props.query }} />;
+                return <PostListItem auth={{ ...data }} data={{ ...p }} key={p.id} query={{ ...props.query }} />;
+              })
+            }
+            {
+              topicData &&
+              topicData.events &&
+              topicData.events.map((p) => {
+                return <EventListItem auth={{ ...data }} { ...p } key={p.id} query={{ ...props.query }} />;
               })
             }
           </div>
