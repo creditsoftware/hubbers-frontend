@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
 import { Form, Input, Button } from 'antd';
 import { fetchJson, withSession, openNotificationWithIcon, fetcher } from '../../utils';
+import { jwtDecode } from '../../utils/jwt';
 import { API } from '../../constants/index';
 import Link from 'next/link';
 import useSWR from 'swr';
@@ -79,7 +80,7 @@ const ForgotPassword = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

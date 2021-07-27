@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
 import useSWR from 'swr';
+import { jwtDecode } from '../../utils/jwt';
 import { fetchJson } from '../../utils';
 import { fetcher } from '../../utils/fetcher';
 const HubbersTeam = ({ ...props }) => {
@@ -101,7 +102,7 @@ const HubbersTeam = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   const hubbersTeamMemberList = {};
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user }, list: hubbersTeamMemberList } };

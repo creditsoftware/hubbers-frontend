@@ -7,6 +7,7 @@ import {
 import {
   httpApiServer
 } from '../../../utils/httpRequest';
+import { jwtDecode } from '../../../utils/jwt';
 import {
   withSession
 } from '../../../utils/withSession';
@@ -14,7 +15,7 @@ import {
 export default withSession(async (req, res) => {
   const ctx = {req, res};
   try{
-    const user = await req.session.get('user');
+    const user = jwtDecode(await req.session.get('accessToken'))?.data;
     const response = await httpApiServer(`${API.IS_EXIST_MY_COMMUNITY_API}/${user.id}`, REQUEST_TYPE.GET, null, ctx);
     res.status(200).json(response);
   } catch(err) {

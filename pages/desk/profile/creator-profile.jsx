@@ -6,6 +6,7 @@ import { API } from '../../../constants/index';
 import useSWR from 'swr';
 import { PlusOutlined } from '@ant-design/icons';
 import { fetcher } from '../../../utils/fetcher';
+import { jwtDecode } from '../../../utils/jwt';
 import { MainProfile } from '../../../components/profile';
 import { Container } from '../../../components/Container';
 import { Select, Radio, Input, Checkbox, Row, Col, Button } from 'antd';
@@ -287,7 +288,7 @@ const CreatorProfile = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

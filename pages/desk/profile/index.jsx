@@ -4,6 +4,7 @@ import { withSession } from '../../../utils/withSession';
 import { API, creatorBio, primaryColor } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetchJson } from '../../../utils';
+import { jwtDecode } from '../../../utils/jwt';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile, ProfileNavbar, CountrySelect, UploadImage } from '../../../components';
 import { Container } from '../../../components/Container';
@@ -682,7 +683,7 @@ const Profile = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

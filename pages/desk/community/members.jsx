@@ -7,6 +7,7 @@ import {
   MemberTile
 } from '../../../components';
 import { Space } from 'antd';
+import { jwtDecode } from '../../../utils/jwt';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
 import { httpApiServer } from '../../../utils/httpRequest';
@@ -70,7 +71,7 @@ const Members = (props) => {
 
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user }, query } };

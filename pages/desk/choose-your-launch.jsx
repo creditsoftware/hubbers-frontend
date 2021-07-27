@@ -5,6 +5,7 @@ import { Container, ChooseYourLaunchProgress, ChooseYourLaunchSelector } from '.
 import { Space, Button } from 'antd';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
+import { jwtDecode } from '../../utils/jwt';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
 const ChooseYourLaunch = ({ ...props }) => {
@@ -59,7 +60,7 @@ const ChooseYourLaunch = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

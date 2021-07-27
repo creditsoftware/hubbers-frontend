@@ -6,6 +6,7 @@ import { API } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { MainProfile } from '../../../components/profile';
+import { jwtDecode } from '../../../utils/jwt';
 import { PlusOutlined } from '@ant-design/icons';
 import { Container } from '../../../components/Container';
 import { Input, Select, Radio, Checkbox, Row, Col, Button } from 'antd';
@@ -309,7 +310,7 @@ const ExpertProfile = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

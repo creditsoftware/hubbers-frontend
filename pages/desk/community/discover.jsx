@@ -7,6 +7,7 @@ import {
   // TopPostSwiper,
   SwitchCommunity
 } from '../../../components';
+import { jwtDecode } from '../../../utils/jwt';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
 import { API, primaryColor } from '../../../constants/index';
@@ -70,7 +71,7 @@ const Discover = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {

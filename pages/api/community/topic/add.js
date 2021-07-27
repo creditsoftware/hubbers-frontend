@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { API } from '../../../../constants';
+import { jwtDecode } from '../../../../utils/jwt';
 import {
   withSession
 } from '../../../../utils/withSession';
 
-export default withSession((req, res) => {
+export default withSession(async (req, res) => {
   const data = req.body;
   try {
     const accessToken = req.session.get('accessToken');
-    const user = req.session.get('user');
+    const user = jwtDecode(await req.session.get('accessToken'))?.data;
     const apiInstance = axios.create({
       headers: {
         'Content-Type': 'application/json',

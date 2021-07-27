@@ -3,6 +3,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
+import { jwtDecode } from '../../utils/jwt';
 import { API } from '../../constants';
 import useSWR from 'swr';
 import { fetcher, openNotificationWithIcon, withSession } from '../../utils';
@@ -63,7 +64,7 @@ const SendVerifyEmail = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

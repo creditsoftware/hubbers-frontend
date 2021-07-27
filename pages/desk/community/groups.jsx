@@ -7,6 +7,7 @@ import {
 } from '../../../components';
 import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
+import { jwtDecode } from '../../../utils/jwt';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/apis';
 import useSWR from 'swr';
@@ -57,7 +58,7 @@ const Groups = (props) => {
 
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user }, query } };

@@ -15,6 +15,7 @@ import { REQUEST_TYPE } from '../../../constants/requestType';
 import { httpApiServer } from '../../../utils/httpRequest';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
+import { jwtDecode } from '../../../utils/jwt';
 
 const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
@@ -50,9 +51,7 @@ const Home = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
-  const user = await req.session.get('user');
-  const accT = await req.session.get('accessToken');
-  console.log(accT);
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user }, query } };

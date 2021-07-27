@@ -3,6 +3,7 @@ import React from 'react';
 import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
 import { useRouter } from 'next/router';
 import { Option } from 'antd/lib/mentions';
+import { jwtDecode } from '../../utils/jwt';
 import { Container } from '../../components';
 import { countryList } from '../../constants/index';
 import { API } from '../../constants';
@@ -285,7 +286,7 @@ const SignupDetail = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

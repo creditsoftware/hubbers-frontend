@@ -5,6 +5,7 @@ import { MainPageHoc } from '../../containers';
 import { Container, MainBanner } from '../../components';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
+import { jwtDecode } from '../../utils/jwt';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
 const BecomeAnExpert = ({ ...props }) => {
@@ -110,7 +111,7 @@ const BecomeAnExpert = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

@@ -22,6 +22,7 @@ import { useRouter } from 'next/router';
 import { LinkedinLogin } from '../../components';
 import useSWR from 'swr';
 import { signIn, useSession } from 'next-auth/client';
+import { jwtDecode } from '../../utils/jwt';
 const Signin = ({ ...props }) => {
   const size = useWindowSize();
   const [session, loading] = useSession();
@@ -157,7 +158,7 @@ const Signin = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

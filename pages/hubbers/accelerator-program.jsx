@@ -6,6 +6,7 @@ import { Container } from '../../components';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
 import useSWR from 'swr';
+import { jwtDecode } from '../../utils/jwt';
 import { fetcher } from '../../utils/fetcher';
 const { Option } = Select;
 
@@ -199,7 +200,7 @@ const AcceleratorProgram = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

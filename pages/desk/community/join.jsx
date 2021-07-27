@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { API, CONTINENTS } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
+import { jwtDecode } from '../../../utils/jwt';
 import { openNotificationWithIcon } from '../../../utils';
 const { Panel } = Collapse;
 const JoinInCommunity = ({ ...props }) => {
@@ -113,7 +114,7 @@ const JoinInCommunity = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

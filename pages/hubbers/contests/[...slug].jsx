@@ -7,6 +7,7 @@ import { API } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import Image from 'next/image';
+import { jwtDecode } from '../../../utils/jwt';
 const ContestsDetail = ({ ...props }) => {
   // const router = useRouter();
   const [pageKey, setPageKey] = React.useState('general');
@@ -118,7 +119,7 @@ const ContestsDetail = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

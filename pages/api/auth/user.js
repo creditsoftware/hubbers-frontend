@@ -1,8 +1,9 @@
 
+import { jwtDecode } from '../../../utils/jwt';
 import { withSession } from '../../../utils/withSession';
 
 export default withSession(async (req, res) => {
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     res.json({
       isLoggedIn: true,

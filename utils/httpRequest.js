@@ -109,7 +109,8 @@ const refreshEwalletAccessToken = async (req, res)=>{
   try {
     const accessToken = request.session.get("access_token");  
     const refreshToken = request.session.get("refresh_token");  
-    const user = request.session.get("user");
+        const user = jwtDecode(await req.session.get('accessToken'))?.data;
+
     const post = {
       refreshToken:refreshToken,
       user_id:user.customer.user_id

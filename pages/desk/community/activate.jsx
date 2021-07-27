@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Button } from 'antd';
 import { fetchJson, openNotificationWithIcon, withSession, fetcher } from '../../../utils';
 import { API } from '../../../constants/index';
+import { jwtDecode } from '../../../utils/jwt';
 import useSWR from 'swr';
 const Activate = ({ ...props }) => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const Activate = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

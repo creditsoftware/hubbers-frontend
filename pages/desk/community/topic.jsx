@@ -7,6 +7,7 @@ import {
   SwitchCommunity,
   // TopicManageBtn,
 } from '../../../components';
+import { jwtDecode } from '../../../utils/jwt';
 import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
 import { withSession } from '../../../utils/withSession';
@@ -69,7 +70,7 @@ export const getServerSideProps = withSession(async (ctx) => {
   if (query.topic) {
     detail = await fetchJson(`${API.GET_TOPIC_DETAIL_API}/${query.topic}`);
   }
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user }, query } };

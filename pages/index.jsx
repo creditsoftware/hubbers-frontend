@@ -18,6 +18,7 @@ import { withSession } from '../utils/withSession';
 import Link from 'next/link';
 import { API } from '../constants';
 import useSWR from 'swr';
+import { jwtDecode } from '../utils/jwt';
 import { fetchJson } from '../utils';
 import { fetcher } from '../utils/fetcher';
 
@@ -460,7 +461,7 @@ const Home = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

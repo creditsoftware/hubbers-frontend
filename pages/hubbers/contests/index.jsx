@@ -7,6 +7,7 @@ import { fetcher } from '../../../utils/fetcher';
 import { Container, MainBanner } from '../../../components';
 import { Row, Col } from 'antd';
 import { ContestTile } from '../../../components';
+import { jwtDecode } from '../../../utils/jwt';
 const ProductCompetition = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const contests = [{
@@ -64,7 +65,7 @@ const ProductCompetition = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

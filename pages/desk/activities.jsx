@@ -3,6 +3,7 @@ import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container, ActivityCards } from '../../components';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
+import { jwtDecode } from '../../utils/jwt';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
 const Activities = ({ ...props }) => {
@@ -22,7 +23,7 @@ const Activities = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

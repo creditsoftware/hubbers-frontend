@@ -7,6 +7,7 @@ import {
   Button
 } from 'antd';
 import React from 'react';
+import { jwtDecode } from '../../utils/jwt';
 import {
   UserOutlined,
   LockOutlined
@@ -168,7 +169,7 @@ const Signin = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

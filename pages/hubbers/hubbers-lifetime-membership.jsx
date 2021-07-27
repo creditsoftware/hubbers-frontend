@@ -11,6 +11,7 @@ import {
   MembershipBanner9,
   MembershipBanner10
 } from '../../components';
+import { jwtDecode } from '../../utils/jwt';
 import { MainPageHoc } from '../../containers';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
@@ -37,7 +38,7 @@ const LifetimeMembership = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

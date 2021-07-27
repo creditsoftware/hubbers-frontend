@@ -7,6 +7,7 @@ import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
 import { Button, Row, Col } from 'antd';
 import useSWR from 'swr';
+import { jwtDecode } from '../../utils/jwt';
 import { fetcher } from '../../utils/fetcher';
 const PutYourSkills = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
@@ -121,7 +122,7 @@ const PutYourSkills = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {

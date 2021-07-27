@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { API } from '../../constants';
+import { jwtDecode } from '../../utils/jwt';
 import useSWR from 'swr';
 import { fetcher, withSession, openNotificationWithIcon } from '../../utils';
 const ConfirmVerifyEmail = ({ ...props }) => {
@@ -45,7 +46,7 @@ const ConfirmVerifyEmail = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user } } };
   } else {
