@@ -8,6 +8,7 @@ import { Row, Col, Space } from 'antd';
 import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
 import { CourseManageBtn, CreateCourseBtn, CourseListItem, SwitchCommunity } from '../../../components';
+import { jwtDecode } from '../../../utils/jwt';
 
 const Courses = (props) => {
   const router = useRouter();
@@ -47,7 +48,7 @@ const Courses = (props) => {
 
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
-  const user = await req.session.get('user');
+  const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user } } };
