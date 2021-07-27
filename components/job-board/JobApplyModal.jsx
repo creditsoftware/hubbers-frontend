@@ -3,6 +3,9 @@ import { Button, Col, Input, Modal, Row, Form } from 'antd';
 import Image from 'next/image';
 export const JobApplyModal = () => {
   const [visible, setVisible] = React.useState(false);
+  const onFinish = (values) => {
+    console.log(values);
+  };
   return <React.Fragment>
     <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={()=>setVisible(true)}>Apply</Button>
     <Modal
@@ -23,13 +26,13 @@ export const JobApplyModal = () => {
       <p className="text-center">
         Thanks for your interest of our great community. Your application to Hubbers is one step away !
       </p>
-      <Row>
-        <Col lg={12} md={12} sm={24}>
-          <Form
-            name='job-apply'
-            layout='vertical'
-            // onFinish={onFinish}
-          >
+      <Form
+        name='job-apply'
+        layout='vertical'
+        onFinish={onFinish}
+      >
+        <Row>
+          <Col lg={12} md={12} sm={24}>
             <p>
               To make the hiring process smoother, we rely on your Linkedin profile information, so make sure that your profile is up to date.
             </p>
@@ -54,19 +57,19 @@ export const JobApplyModal = () => {
             <p>
               Keep in mind that Hubbers is a very open-minded community and an equal opportunity employer.
             </p>
-          </Form>
-        </Col>
-        <Col lg={12} md={12} sm={24}>
-          <div className="d-flex fd-vertical fjc-center f-align-center h-100">
-            <Image width={400} height={300} src='/images/job-board/job-board.png'/>
-            <div className="text-center">
-              <Button type='hbs-primary' shape='round' size='large'>
-                Apply Now
-              </Button>
+          </Col>
+          <Col lg={12} md={12} sm={24}>
+            <div className="d-flex fd-vertical fjc-center f-align-center h-100">
+              <Image width={400} height={300} src='/images/job-board/job-board.png'/>
+              <div className="text-center">
+                <Button type='hbs-primary' htmlType="submit" shape='round' size='large'>
+                  Apply Now
+                </Button>
+              </div>
             </div>
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Form>
     </Modal>
   </React.Fragment>;
 };
