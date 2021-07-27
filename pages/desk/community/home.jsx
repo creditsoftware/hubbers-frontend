@@ -15,6 +15,7 @@ import { REQUEST_TYPE } from '../../../constants/requestType';
 import { httpApiServer } from '../../../utils/httpRequest';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
+
 const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [community, setCommunity] = React.useState(null);
@@ -50,6 +51,8 @@ const Home = ({ ...props }) => {
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
   const user = await req.session.get('user');
+  const accT = await req.session.get('accessToken');
+  console.log(accT);
   if (!user) {
     await req.session.destroy();
     return { props: { auth: { isLoggedIn: false, ...user }, query } };
