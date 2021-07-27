@@ -1,12 +1,11 @@
 import { Col, Row } from 'antd';
-import { useRouter } from 'next/router';
 import React from 'react';
 import {
   CreateNewBtn,
   // HomeFilter,
   // HomeSorter,
   SwitchCommunity,
-  TopicManageBtn,
+  // TopicManageBtn,
 } from '../../../components';
 import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
@@ -17,23 +16,20 @@ import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { fetchJson } from '../../../utils';
 import { ListItemTile } from '../../../components/community/global/ListItemTile';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 const TopicDetail = (props) => {
-  const router = useRouter();
   const [topicData, setTopicData] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const getTopicDetail = React.useCallback(async () => {
-    const result = await fetchJson(`${API.GET_TOPIC_DETAIL_API}/${router.query.topic}`);
-    setTopicData(result.data);
-  }, [router]);
+  const { data: tDetail } = useTopicDetail(props.query?.topic);
   React.useEffect(() => {
-    if (router.query.community) {
-      getTopicDetail();
+    if (tDetail) {
+      setTopicData(tDetail.data);
     }
-  }, [router, getTopicDetail]);
+  }, [tDetail]);
   return (
-    router.query.community === 'join' ?
+    props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title={`Topic ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`topics-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title={`Topic ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`topics-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -44,9 +40,8 @@ const TopicDetail = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <TopicManageBtn />
-                  {/* <Button type='hbs-primary'>+</Button> */}
-                  <CreateNewBtn />
+                  {/* <TopicManageBtn /> */}
+                  <CreateNewBtn {...props} />
                   <SwitchCommunity />
                 </Space>
               </Col>
@@ -59,7 +54,7 @@ const TopicDetail = (props) => {
               topicData &&
               topicData.posts &&
               topicData.posts.map((p) => {
-                return <ListItemTile type='post' auth={{...data}} data={{...p}} key={p.id} />;
+                return <ListItemTile type='post' auth={{ ...data }} data={{ ...p }} key={p.id} query={{ ...props.query }} />;
               })
             }
           </div>
@@ -77,8 +72,8 @@ export const getServerSideProps = withSession(async (ctx) => {
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   }
-  return { props: { data: detail ? { ...detail.data } : null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: detail ? { ...detail.data } : null, error: null, auth: { isLoggedIn: true, ...user }, query } };
 });
 export default TopicDetail;

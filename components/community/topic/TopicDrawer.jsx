@@ -3,7 +3,7 @@ import { Input, Select, Form } from 'antd';
 import { ColorPicker } from '../../ColorPicker';
 import { Container } from '../../Container';
 import { UploadImage } from '../../UploadImage';
-import { httpRequestLocal, openNotificationWithIcon } from '../../../utils';
+import { fetchJson, openNotificationWithIcon } from '../../../utils';
 import { API, primaryColor } from '../../../constants';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { useRouter } from 'next/router';
@@ -24,33 +24,39 @@ export const TopicDrawer = ({ visible, onHide, editable = true, content, ...prop
   }, [content, form]);
   const onFinish = (value) => {
     if (!content && editable) {
-      httpRequestLocal(`${API.LOCAL_ADD_TOPIC_API}`, REQUEST_TYPE.POST, { ...value, communityId: router.query.community })
-        .then((response) => {
-          openNotificationWithIcon('success', 'Success', response.message);
-          if (props.refreshList) {
-            props.refreshList();
-          }
-          form.resetFields();
-        })
-        .catch((err) => {
-          openNotificationWithIcon('error', 'Failed', err.response.message);
-          form.resetFields();
-        });
+      let v = { ...value };
+      if (props.query?.community) {
+        v = { ...v, communityId: router.query?.community };
+      }
+      if (props.query?.group) {
+        v = { ...v, communityId: router.query?.group };
+      }
+      if (props.auth) {
+        v = { ...v, createdBy: props.auth?.communityMember.filter((member) => member.communityId === Number(props.query.community))[0].id };
+      }
+      fetchJson(`${API.ADD_TOPIC_API}/${v.communityId}`, {
+        method: REQUEST_TYPE.POST,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(v)
+      }).then(() => {
+        openNotificationWithIcon('success', 'Success', 'Successed to create topic!');
+        form.resetFields();
+        onHide();
+      });
     }
     if (content && editable) {
       axios.put(`${API.UPDATE_TOPIC_API}/${props.id}`, { ...value })
         .then((response) => {
           openNotificationWithIcon('success', 'Success', 'Updated successfully');
-          console.log(props);
           if (response.data?.success && props.refreshList) {
             props.refreshList();
           }
+          onHide();
         })
         .catch(() => {
           openNotificationWithIcon('error', 'Failed', 'Failed to update');
         });
     }
-    onHide();
   };
   return <SettingDrawer
     visible={visible}

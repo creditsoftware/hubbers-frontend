@@ -2,7 +2,8 @@ import { Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  SwitchCommunity, TopicManageBtn,
+  SwitchCommunity,
+  // TopicManageBtn,
 } from '../../../components';
 import { Space } from 'antd';
 import { DeskPageHoc } from '../../../containers';
@@ -42,7 +43,7 @@ const Topics = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <TopicManageBtn />
+                  {/* <TopicManageBtn /> */}
                   <CreateTopicBtn auth={{ ...data }} refreshList={refreshList} />
                   <SwitchCommunity />
                 </Space>
@@ -52,7 +53,7 @@ const Topics = (props) => {
               topicList &&
               topicList.length > 0 &&
               topicList.map((t) => {
-                return <TopicListItem key={t.id} topic={{...t}} auth={{...data}} refreshList={refreshList} />;
+                return <TopicListItem key={t.id} topic={{ ...t }} auth={{ ...data }} query={{ ...props.query }} refreshList={refreshList} />;
               })
             }
           </div>
@@ -62,12 +63,12 @@ const Topics = (props) => {
 };
 
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   }
-  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user }, query } };
 });
 export default Topics;

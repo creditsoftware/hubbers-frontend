@@ -7,8 +7,31 @@ import {
   Radio
 } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
-const { SubMenu } = Menu;
+import { fetchJson } from '../../../utils';
+import { API, REQUEST_TYPE } from '../../../constants';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
+// const { SubMenu } = Menu;
 export const PostContextMenu = (props) => {
+  const [visible, setVisible] = React.useState(false);
+  const { mutate: mutateTDetail } = useTopicDetail(props.query?.topic);
+  const { mutate: mutateGDetail } = useGroupDetail(props.query?.group);
+  const onToggleVisible = () => {
+    setVisible(!visible);
+  };
+  const onDelete = () => {
+    onToggleVisible();
+    fetchJson(`${API.DELETE_POST_API}/${props.data?.id}`, {
+      method: REQUEST_TYPE.DELETE
+    }).then(() => {
+      if(props.query.topic) {
+        mutateTDetail();
+      }
+      if(props.query.group) {
+        mutateGDetail();
+      }
+    });
+  };
   return <Popover
     placement='bottomRight'
     content={
@@ -52,28 +75,30 @@ export const PostContextMenu = (props) => {
                   </Radio>
                 </Menu.Item>
               </SubMenu> */}
-              <SubMenu key='action' title='Actions'>
-                {/* <Menu.Item key='recommend'>
+              {/* <SubMenu key='action' title='Actions'> */}
+              {/* <Menu.Item key='recommend'>
                   Recommend
                 </Menu.Item> */}
-                <Menu.Item key='edit-event'>
-                  Edit
-                </Menu.Item>
-                <Menu.Item key='delete-event'>
-                  Delete
-                </Menu.Item>
-                {/* <Menu.Item key='manage-event'>
+              {/* <Menu.Item key='edit-event'>
+                Edit
+              </Menu.Item> */}
+              <Menu.Item key='delete-event' onClick={onDelete}>
+                Delete
+              </Menu.Item>
+              {/* <Menu.Item key='manage-event'>
                   Manage
                 </Menu.Item> */}
-              </SubMenu>
+              {/* </SubMenu> */}
             </Menu.ItemGroup>
           </Menu>
         </Radio.Group>
       </React.Fragment>
     }
     trigger='click'
+    visible={visible}
+    onVisibleChange={onToggleVisible}
   >
-    <Button type='text' {...props}>
+    <Button type='text' {...props} onClick={onToggleVisible}>
       <MoreOutlined />
     </Button>
   </Popover>;

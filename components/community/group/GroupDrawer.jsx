@@ -7,6 +7,7 @@ import { REQUEST_TYPE } from '../../../constants/requestType';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
 import { useCommunityList, useGroupList } from '../../../hooks';
+import { UploadImage } from '../../UploadImage';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -129,6 +130,11 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
                 })
               }
             </Select>
+          </Form.Item>
+          <Form.Item
+            name='featuredImage'
+          >
+            <UploadImage disabled={!editable} />
           </Form.Item>
         </React.Fragment>
       </Container>

@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  CreateGroupContentBtn,
+  CreateNewBtn,
   // GroupManageBtn,
   SwitchCommunity,
 } from '../../../components';
@@ -13,20 +13,19 @@ import { API } from '../../../constants/apis';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
-import { fetchJson } from '../../../utils';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
+import { ListItemTile } from '../../../components/community';
 const Groups = (props) => {
   const router = useRouter();
   const [group, setGroup] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const getGroup = React.useCallback(async () => {
-    const result = await fetchJson(`${API.GET_COMMUNITY_GROUP_DETAIL_API}/${router.query.group}`);
-    setGroup(result.data);
-  }, [router]);
+  const {data: gDetail} = useGroupDetail(props.query?.group);
   React.useEffect(() => {
-    if (router.query.community) {
-      getGroup();
+    if(gDetail) {
+      setGroup(gDetail.data);
+      console.log(gDetail.data);
     }
-  }, [router, getGroup]);
+  }, [gDetail]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -40,7 +39,7 @@ const Groups = (props) => {
               <Col flex='auto' className='text-right'>
                 <Space>
                   {/* <GroupManageBtn /> */}
-                  <CreateGroupContentBtn auth={{ ...data }} group={{ ...group }} />
+                  <CreateNewBtn auth={{ ...data }} group={{ ...group }} query={{ ...props.query }} />
                   <SwitchCommunity />
                 </Space>
               </Col>
@@ -48,9 +47,16 @@ const Groups = (props) => {
             <h1 className='fw-6 fs-5 m-0'>{group && group.name}</h1>
             <p>{group && group.tagLine}</p>
             <div>
-              <p className="text-center mt-5">
+              {
+                group &&
+                group.posts &&
+                group.posts.map((p) => {
+                  return <ListItemTile type='post' key={p.id} data={{...p}} auth={{...props.auth}} query={{...props.query}} />;
+                })
+              }
+              {/* <p className="text-center mt-5">
                 This Group is just getting started!
-              </p>
+              </p> */}
             </div>
           </div>
         </React.Fragment>
@@ -59,12 +65,12 @@ const Groups = (props) => {
 };
 
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = await req.session.get('user');
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   }
-  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user }, query } };
 });
 export default Groups;

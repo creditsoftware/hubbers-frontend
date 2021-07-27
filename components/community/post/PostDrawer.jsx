@@ -10,6 +10,8 @@ import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { mutate } from 'swr';
 import { SettingDrawer } from '../global/SettingDrawer';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -19,6 +21,8 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
   const [topicList, setTopicList] = React.useState([]);
   const [post, setPost] = React.useState({});
   const router = useRouter();
+  const { mutate: mutateTDetail } = useTopicDetail(props.query?.topic ?? 0);
+  const { mutate: mutateGDetail } = useGroupDetail(props.query?.group ?? 0);
   React.useEffect(() => {
     if (content) {
       setPost({ ...post, ...content });
@@ -36,13 +40,26 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
       setPost({ ...post, ...p });
     }
     fetchJson(`${API.LOCAL_SIMPLE_TOPIC_LIST_API}?communityId=${router.query.community}`).then((response) => {
+      if (props.query?.topic) {
+        setPost({
+          ...post,
+          topicId: Number(props.query?.topic),
+          content: '',
+          title: '',
+        });
+      }
       setTopicList(response);
     }).catch(() => {
       setTopicList([]);
     });
   }, [router]);
   const clear = () => {
-    setPost({ ...post, topicId: '', content: '', title: '' });
+    setPost({
+      ...post,
+      topicId: '',
+      content: '',
+      title: ''
+    });
   };
   const onClose = () => {
     clear();
@@ -57,9 +74,42 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
       openNotificationWithIcon('error', 'Something went wrong!', 'Please enter description');
       return;
     }
-    httpRequestLocal(`${API.LOCAL_CREATE_POST_API}`, REQUEST_TYPE.POST, post)
+    let v = { ...post };
+    if (props.auth) {
+      v = {
+        ...v,
+        createdBy: props.auth.communityMember.filter((member) => member.communityId === Number(props.query?.community))[0].id
+      };
+    } else {
+      openNotificationWithIcon('error', 'Something went wrong!', '');
+      return;
+    }
+    if (props.query?.community) {
+      v = {
+        ...v,
+        communityId: props.query?.community
+      };
+    } else {
+      openNotificationWithIcon('error', 'Something went wrong!', '');
+      return;  
+    }
+    if (props.query?.group) {
+      v = {
+        ...v,
+        communityId: props.query?.group
+      };
+    }
+    httpRequestLocal(`${API.CREATE_POST_API}`, REQUEST_TYPE.POST, v)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
+        if (props.query?.topic) {
+          mutateTDetail();
+          return;
+        }
+        if (props.query?.group) {
+          mutateGDetail();
+          return;
+        }
         mutate(`${API.LOCAL_GET_POST_LIST_API}`, async () => {
           if (router.query.community) {
             let response = await fetch(`${API.LOCAL_GET_POST_LIST_API}?communityId=${router.query.community}`);
@@ -75,9 +125,9 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
-    title='Post'
+    title={article ? 'Article' : 'Post'}
     headerActions={
-      editable || !content &&
+      (editable || !content) &&
       <Button type='hbs-primary' shape='round' className='mr-2' onClick={savePost}>Post</Button>
     }
     {...props}

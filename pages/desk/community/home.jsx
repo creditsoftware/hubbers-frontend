@@ -28,7 +28,7 @@ const Home = ({ ...props }) => {
         <div className='max-w-80 m-auto px-3'>
           <div className="f-right" style={{ right: 10, top: 70 }}>
             {/* <CommunityManageBtn /> */}
-            <CreateNewBtn auth={{ ...data }} />
+            <CreateNewBtn auth={{ ...data }} query={{...props.query}} />
             <SwitchCommunity />
           </div>
           <h1 className="fw-6 fs-5 mt-5">

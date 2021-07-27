@@ -1,11 +1,25 @@
-import { Badge, Button, Col, Row, Space } from 'antd';
+import {
+  Badge,
+  Button,
+  Col,
+  Row,
+  Space
+} from 'antd';
 import React from 'react';
 import { primaryColor } from '../../../constants';
-import { AlignLeftOutlined, HeartOutlined, MessageOutlined } from '@ant-design/icons';
+import {
+  AlignLeftOutlined,
+  // HeartOutlined,
+  // MessageOutlined
+} from '@ant-design/icons';
 import Avatar from 'antd/lib/avatar/avatar';
 import { defaultAvatar } from '../../../constants/etc';
-import { PostContextMenu, PostDrawer } from '../post';
+import {
+  PostContextMenu,
+  PostDrawer
+} from '../post';
 import { EventContextMenu } from '../events';
+import moment from 'moment';
 
 export const ListItemTile = ({ type = 'event', ...props }) => {
   const [visible, setVisible] = React.useState({
@@ -33,20 +47,22 @@ export const ListItemTile = ({ type = 'event', ...props }) => {
           </div>
         </Col>
         <Col flex='auto' className='px-3 py-2'>
-          {/* <div style={{ minHeight: '6rem' }}>Just checking in guys! </div> */}
           {
             type === 'post' &&
-            <div className='ck-content' style={{height:'6rem', overflow:'hidden'}} dangerouslySetInnerHTML={{ __html: props.data?.content }}></div>
+            <div className='ck-content' style={{ height: '6rem', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: props.data?.content }}></div>
           }
           <div>
             <Row>
-              <Col flex='300px'>
-                <Space>
-                  <Avatar src={defaultAvatar} size='small' />
-                  <div>Denis Kravchenko</div>
-                  <Badge status="default" text="Posted 1d ago" />
-                  {/* <Badge status="success" text="Posted 1d ago" /> */}
-                </Space>
+              <Col flex='auto'>
+                {
+                  props.data?.creator?.user &&
+                  <Space>
+                    <Avatar src={props.data?.creator?.user.avatar ?? defaultAvatar} size='small' />
+                    <div>{props.data?.creator?.user.firstname ?? ''} {props.data?.creator?.user.lastname ?? ''}</div>
+                    <Badge status="default" text={`Posted ${moment(props.data?.createdAt).fromNow()}`} />
+                    {/* <Badge status="success" text="Posted 1d ago" /> */}
+                  </Space>
+                }
               </Col>
               <Col flex='auto'></Col>
               <Col flex='150px'>
@@ -59,15 +75,17 @@ export const ListItemTile = ({ type = 'event', ...props }) => {
                 }
                 {
                   type === 'post' &&
-                  <Space onClick={(e)=>e.stopPropagation()}>
-                    <Button type='text' onClick={(e)=>e.stopPropagation()}>
-                      <HeartOutlined />
-                    </Button>
-                    <Button type='text' onClick={(e)=>e.stopPropagation()}>
-                      <MessageOutlined />
-                    </Button>
-                    <PostContextMenu  onClick={(e)=>e.stopPropagation()} />
-                  </Space>
+                  <div className="text-right">
+                    <Space onClick={(e) => e.stopPropagation()}>
+                      {/* <Button type='text' onClick={(e)=>e.stopPropagation()}>
+                        <HeartOutlined />
+                      </Button>
+                      <Button type='text' onClick={(e)=>e.stopPropagation()}>
+                        <MessageOutlined />
+                      </Button> */}
+                      <PostContextMenu onClick={(e) => e.stopPropagation()} {...props} />
+                    </Space>
+                  </div>
                 }
               </Col>
             </Row>
@@ -75,6 +93,6 @@ export const ListItemTile = ({ type = 'event', ...props }) => {
         </Col>
       </Row>
     </div>
-    <PostDrawer visible={visible.post} editable={false} onHide={onChangeVisible} content={{...props.data}} {...props} />
+    <PostDrawer visible={visible.post} editable={false} onHide={onChangeVisible} content={{ ...props.data }} {...props} />
   </React.Fragment>;
 };

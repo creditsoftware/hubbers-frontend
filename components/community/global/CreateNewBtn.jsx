@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Popover, Menu } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { EditPostDrawer } from '../post/EditPostDrawer';
-import { EditTopicDrawer } from '../topic/EditTopicDrawer';
-import { EditEventDrawer } from '../events/EditEventDrawer';
 import { EditGroupDrawer } from '../group/EditGroupDrawer';
 import { useRouter } from 'next/router';
+import { PostDrawer } from '../post';
+import { TopicDrawer } from '../topic/TopicDrawer';
+import { EventDrawer } from '../events';
 
 export const CreateNewBtn = ({...props}) => {
   const router = useRouter();
@@ -44,16 +44,16 @@ export const CreateNewBtn = ({...props}) => {
               Event
             </Menu.Item>
             {
-              !router.query.topic &&
+              !router.query.topic && !router.query.group &&
               <Menu.Item key='group' onClick={() => setVisible({ ...visible, groupEditor: !visible.groupEditor, popover: !visible.popover })}>
                 Group
               </Menu.Item>
             }
           </Menu>
-          <EditPostDrawer {...props} visible={visible.postEditor} onHide={() => setVisible({ ...visible, postEditor: !visible.postEditor })} />
-          <EditPostDrawer {...props} article visible={visible.articleEditor} onHide={() => setVisible({ ...visible, articleEditor: !visible.articleEditor })} />
-          <EditTopicDrawer visible={visible.topicEditor} onHide={() => setVisible({ ...visible, topicEditor: !visible.topicEditor })} />
-          <EditEventDrawer visible={visible.eventEditor} onHide={() => setVisible({ ...visible, eventEditor: !visible.eventEditor })} />
+          <PostDrawer {...props} visible={visible.postEditor} onHide={() => setVisible({ ...visible, postEditor: !visible.postEditor })} />
+          <PostDrawer {...props} article visible={visible.articleEditor} onHide={() => setVisible({ ...visible, articleEditor: !visible.articleEditor })} />
+          <TopicDrawer {...props} visible={visible.topicEditor} onHide={() => setVisible({ ...visible, topicEditor: !visible.topicEditor })} />
+          <EventDrawer {...props} visible={visible.eventEditor} onHide={() => setVisible({ ...visible, eventEditor: !visible.eventEditor })} />
           <EditGroupDrawer visible={visible.groupEditor} onHide={() => setVisible({ ...visible, groupEditor: !visible.groupEditor })} {...props} />
         </React.Fragment>
       }
