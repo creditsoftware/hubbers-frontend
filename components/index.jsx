@@ -58,7 +58,6 @@ export {
   TopicListItem,
   CourseManageBtn,
   CreateCourseBtn,
-  CreateGroupContentBtn,
   EventDrawer,
   CreateEventBtn,
   CourseListItem,
@@ -118,4 +117,7 @@ export {
   ProfileNavbar,
   MainProfile
 } from './profile';
-export { Translate } from './global';
+export {
+  Translate,
+  LazyLoading
+} from './global';

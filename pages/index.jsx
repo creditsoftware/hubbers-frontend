@@ -1,3 +1,14 @@
+// import dynamic from 'next/dynamic';
+// import React from 'react';
+// import { LazyLoading } from '../components';
+
+// export default dynamic(
+//   () => import('./home'),
+//   /* eslint-disable */
+//   { loading: () => <LazyLoading /> }
+//   /* eslint-enable */
+// );
+
 import { Button, Col, Row, Space } from 'antd';
 import { Container, HomepageMainBanner, Translate, Userdata  } from '../components';
 import Image from 'next/image';

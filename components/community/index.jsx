@@ -19,7 +19,6 @@ export {
   GroupManageBtn,
   GroupDrawer,
   CreateGroupBtn,
-  CreateGroupContentBtn
 } from './group';
 export {
   HomeBody,
