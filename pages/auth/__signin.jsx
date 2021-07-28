@@ -34,7 +34,7 @@ const Signin = ({ ...props }) => {
     wrapperCol: { span: 16 },
   };
   React.useEffect(() => {
-    if(session && !loading && router.query.sso && router.query.sig) {
+    if(session && !loading && router.query.sso && router.query.sig && session.redirectUrl) {
       router.push(session.redirectUrl);
     }
   }, [session, loading, router]);

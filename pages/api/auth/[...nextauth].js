@@ -17,7 +17,8 @@ async function refreshAccessToken(token) {
     }
 
     const refreshedTokens = response.data;
-
+    console.log(refreshedTokens.expiresIn);
+    console.log(Date.now());
     return {
       ...token,
       accessToken: refreshedTokens.accessToken,
