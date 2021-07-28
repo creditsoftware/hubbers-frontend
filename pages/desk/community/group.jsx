@@ -16,13 +16,14 @@ import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
 import { PostListItem } from '../../../components/community';
+import { EventListItem } from '../../../components/community/events/EventListItem';
 const Groups = (props) => {
   const router = useRouter();
   const [group, setGroup] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const {data: gDetail} = useGroupDetail(props.query?.group);
+  const { data: gDetail } = useGroupDetail(props.query?.group);
   React.useEffect(() => {
-    if(gDetail) {
+    if (gDetail) {
       setGroup(gDetail.data);
     }
   }, [gDetail]);
@@ -51,12 +52,16 @@ const Groups = (props) => {
                 group &&
                 group.posts &&
                 group.posts.map((p) => {
-                  return <PostListItem key={p.id} data={{...p}} auth={{...props.auth}} query={{...props.query}} />;
+                  return <PostListItem key={p.id} data={{ ...p }} auth={{ ...props.auth }} query={{ ...props.query }} />;
                 })
               }
-              {/* <p className="text-center mt-5">
-                This Group is just getting started!
-              </p> */}
+              {
+                group &&
+                group.events &&
+                group.events.map((p) => {
+                  return <EventListItem auth={{ ...data }} {...p} key={p.id} query={{ ...props.query }} />;
+                })
+              }
             </div>
           </div>
         </React.Fragment>

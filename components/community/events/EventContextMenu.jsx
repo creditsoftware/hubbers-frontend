@@ -11,11 +11,13 @@ import { fetchJson } from '../../../utils';
 import { API, REQUEST_TYPE } from '../../../constants';
 import { useEventList } from '../../../hooks';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
 // const { SubMenu } = Menu;
 export const EventContextMenu = ({ ...props }) => {
   const [visible, setVisible] = React.useState(false);
   const { mutate: eventListMutate } = useEventList(props.query?.community);
   const { mutate: mutateTDetail } = useTopicDetail(props.query?.topic);
+  const { mutate: mutateGDetail } = useGroupDetail(props.query?.group);
 
   const onToggleVisible = () => {
     setVisible(!visible);
@@ -28,6 +30,10 @@ export const EventContextMenu = ({ ...props }) => {
       .then(() => {
         if(props.query?.topic) {
           mutateTDetail();
+          return;
+        }
+        if(props.query?.group) {
+          mutateGDetail();
           return;
         }
         eventListMutate();
