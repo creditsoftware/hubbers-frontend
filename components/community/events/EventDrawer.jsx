@@ -22,6 +22,9 @@ import {
   WeekDays,
   API
 } from '../../../constants';
+import {
+  PlusOutlined
+} from '@ant-design/icons';
 import { UploadImage } from '../../UploadImage';
 import { fetchJson, openNotificationWithIcon, slugify } from '../../../utils';
 import { useRouter } from 'next/router';
@@ -91,8 +94,17 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
 
   React.useEffect(() => {
     if (content) {
+      let schedules = [];
+      if(content.schedules) {
+        schedules = [...content.schedules];
+        schedules = schedules.map((s) => {
+          return {...s, time: s.time ? moment(s.time, 'HH:mm:ss') : ''};
+        });
+        delete content.schedules;
+      }
       form.setFieldsValue({
         ...content,
+        schedules: [...schedules],
         startDate: moment(content.startDate),
         endDate: moment(content.endDate),
         startTime: moment(content.startTime),
@@ -156,6 +168,14 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
     };
     if (props.query?.group) {
       data = { ...data, communityId: props.query?.group };
+    }
+    if(data.schedules) {
+      let schedules = [...data.schedules];
+      schedules = schedules.map((s) => {
+        return {...s, time: s.time.format('HH:mm:ss')};
+      });
+      delete data.schedules;
+      data = {...data, schedules: [...schedules]};
     }
     fetchJson(`${API.CREATE_EVENT_API}`, {
       method: 'POST',
@@ -681,6 +701,115 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
           >
             <TextArea disabled={!editable} type='text' placeholder='decribe your new event' />
           </Form.Item>
+          <Form.List name="speakers">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(field => (
+                  <React.Fragment key={field.key}>
+                    <Row>
+                      <Col md={11}>
+                        <p className='mb-2 mt-4 fw-6'>Name</p>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'name']}
+                          fieldKey={[field.fieldKey, 'name']}
+                          rules={[{ required: true, message: 'Name is required' }]}
+                        >
+                          <Input disabled={!editable} type='text' placeholder='Name' />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={2} md={2} sm={2} />
+                      <Col md={11}>
+                        <p className='mb-2 mt-4 fw-6'>Position</p>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'position']}
+                          fieldKey={[field.fieldKey, 'position']}
+                          rules={[{ required: true, message: 'Position is required' }]}
+                        >
+                          <Input disabled={!editable} type='text' placeholder='position' />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={11}>
+                        <p className='mb-2 mt-4 fw-6'>Bio</p>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'bio']}
+                          fieldKey={[field.fieldKey, 'bio']}
+                        >
+                          <TextArea disabled={!editable} placeholder='bio' />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={2} md={2} sm={2} />
+                      <Col md={11}>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'imageUrl']}
+                          fieldKey={[field.fieldKey, 'imageUrl']}
+                        >
+                          <UploadImage disabled={!editable} />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <div className="text-right mb-3">
+                      <Button danger disabled={!editable} onClick={() => remove(field.name)}>Remove</Button>
+                    </div>
+                  </React.Fragment>
+                ))}
+
+                <Form.Item>
+                  <Button disabled={!editable} type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    Add Speaker
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+          <Form.List name="schedules">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(field => (
+                  <React.Fragment key={field.key}>
+                    <Row>
+                      <Col md={11}>
+                        <p className='mb-2 mt-4 fw-6'>Time</p>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'time']}
+                          fieldKey={[field.fieldKey, 'time']}
+                          rules={[{ required: true, message: 'Name is required' }]}
+                        >
+                          <TimePicker disabled={!editable} style={{ width: '100%' }} />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={2} md={2} sm={2} />
+                      <Col md={11}>
+                        <p className='mb-2 mt-4 fw-6'>Description</p>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'description']}
+                          fieldKey={[field.fieldKey, 'description']}
+                        >
+                          <TextArea disabled={!editable} placeholder='description' />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <div className="text-right mb-3">
+                      <Button danger disabled={!editable} onClick={() => remove(field.name)}>Remove</Button>
+                    </div>
+                  </React.Fragment>
+                ))}
+
+                <Form.Item>
+                  <Button disabled={!editable} type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    Add Schedule
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
         </React.Fragment>
       </Form>
     </Container>

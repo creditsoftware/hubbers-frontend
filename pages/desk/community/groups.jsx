@@ -24,7 +24,6 @@ const Groups = (props) => {
       setGroups(result.data);
     }
   }, [result]);
-  console.log(groups);
   return (
     props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
