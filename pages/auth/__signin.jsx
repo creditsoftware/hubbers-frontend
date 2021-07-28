@@ -33,9 +33,10 @@ const Signin = ({ ...props }) => {
     wrapperCol: { span: 16 },
   };
   React.useEffect(() => {
-    console.log(session);
-    console.log(loading);
-  }, [session]);
+    if(session && !loading && router.query.sso && router.query.sig) {
+      router.push(session.redirectUrl);
+    }
+  }, [session, loading, router]);
   const tailLayout = {
     wrapperCol: { offset: size.width > 575 ? 8 : 0, span: 16 },
   };

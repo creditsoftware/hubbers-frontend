@@ -13,28 +13,18 @@ import { API, primaryColor } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
-import { useRouter } from 'next/router';
-import { fetchJson } from '../../../utils';
 const Discover = ({ ...props }) => {
-  const router = useRouter();
   const [memberList, setMemberList] = React.useState(null);
-  const [community, setCommunity] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   React.useEffect(() => {
-    console.log(community);
-    if (router.query.community) {
-      fetch(`${API.GET_MEMBER_LIST_API}/${router.query.community}`).then(async (response) => setMemberList(await response.json()));
-      fetchJson(`${API.LOCAL_GET_COMMUNITY_LIST_API}`).then((response) => {
-        if (response.data && response.data.data?.length > 0) {
-          setCommunity(response.data.data.filter((f) => Number(f.id) === Number(router.query.community)) && response.data.data.filter((f) => Number(f.id) === Number(router.query.community))[0]);
-        }
-      });
+    if (props.query.community) {
+      fetch(`${API.GET_MEMBER_LIST_API}/${props.query.community}`).then(async (response) => setMemberList(await response.json()));
     }
-  }, [router]);
+  }, [props.query.community]);
   return (
-    router.query.community === 'join' ?
+    props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Discover' activeSide={{ active: ['discover'], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Discover' activeSide={{ active: [`discover-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
         <div className='max-w-80 m-auto px-3 pt-5'>
           <h1 className="fw-6 fs-5">
             Discover
@@ -64,7 +54,7 @@ const Discover = ({ ...props }) => {
                     placement='bottom'
                     key={e.id}
                     title={`${e.user?.firstname ? e.user?.firstname : ''} ${e.user?.lastname ? e.user?.lastname : ''}${!e.user?.firstname && !e.user?.lastname ? e.user?.email : ''}`}>
-                    <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'} />} />
+                    <Avatar src={<Image width={100} height={100} src={e.user?.avatar ? e.user?.avatar : '/images/icons/avatar.png'} alt='' />} />
                   </Tooltip>;
                 })
               }
@@ -79,12 +69,12 @@ const Discover = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = await req.session.get('user');
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Discover;
