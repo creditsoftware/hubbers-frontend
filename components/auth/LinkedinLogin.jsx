@@ -1,5 +1,6 @@
 import { LinkedinOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+// import { signIn } from 'next-auth/client';
 import React from 'react';
 import { API } from '../../constants';
 import { REQUEST_TYPE } from '../../constants/requestType';
@@ -17,6 +18,7 @@ export const LinkedinLogin = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(token),
       });
+      // signIn('credentials', { provider: 'refresh', token });
     }
   };
   const handleClick = () => {
