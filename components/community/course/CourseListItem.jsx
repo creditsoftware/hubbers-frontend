@@ -2,15 +2,17 @@ import { Button, Col, Row, Space, Avatar } from 'antd';
 import React, { useState } from 'react';
 import { DEFAULT_COMMUNITY_COURSE_IMAGE } from '../../../constants/etc';
 import { useWindowSize } from '../../../hooks';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 export const CourseListItem = ({ data }) => {
+  const router = useRouter();
   const size = useWindowSize();
   const [w, setW] = useState('');
   React.useEffect(() => {
     setW(size.width);
   }, [size]);
   return (
-    <Link href="#">
+    <Link href={`/desk/community/course?community=${router.query.community}&course=${data.id}`}>
       <a className='community-child-list-item'>
         <Row style={{ padding: '24px', borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px', backgroundColor: 'white' }}>
           <Col className="d-flex fjc-center f-align-center">

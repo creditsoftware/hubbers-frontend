@@ -41,7 +41,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
         onFinish={onFinish}
       >
         {
-          progress == 1 ? (
+          progress === 1 ? (
             <React.Fragment>
               <p className="fw-6 fs-1 mb-2">Table of Contents</p>
               <Form.Item
@@ -71,8 +71,9 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                   <Option value="private">Private</Option>
                 </Select> 
               </Form.Item>
+              <div className="mt-5 p-4" style={{ border: '1px solid grey', borderRadius: '5px' }}>We&apos;ve made this Course secret while you get it set up. If you're ready for this Course to go live now, feel free to choose another privacy setting.</div>
             </React.Fragment>
-          ): progress == 2 ? (
+          ): progress === 2 ? (
             <React.Fragment>
               <p className="fw-6 fs-2 mb-2">Course Structure</p>
               <p className="fs-1 mb-4">Now let&apos;s set up the structure of your Course.</p>
@@ -110,7 +111,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                 </Select> 
               </Form.Item>
             </React.Fragment>
-          ): progress == 3 ? (
+          ): progress === 3 ? (
             <React.Fragment>
               <p className="fw-6 fs-2 mb-2">Instructors</p>
               <p className="fs-1">In a Course, members will see your Moderators and Hosts ans Instructors. They will still have separate Moderator or Host permissions, but you will have the added ability to assign instuctors to Lessons.</p>
@@ -128,7 +129,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                 </Select> 
               </Form.Item>
             </React.Fragment>
-          ): progress == 4 ? (
+          ): progress === 4 ? (
             <React.Fragment>
               <p className="text-center fw-6 fs-2 mb-2">How to build a Brand has been created!</p>
               <p className="text-center fs-1">Next, you can choose to invite members, view your new Course and customize the settings, or create a new plan so you can charge members for access.</p>

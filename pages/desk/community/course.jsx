@@ -1,57 +1,53 @@
 import React from 'react';
-import JoinInCommunity from './join';
-import useSWR from 'swr';
-import { API } from '../../../constants/apis';
-import { fetcher } from '../../../utils/fetcher';
+import { DeskPageHoc } from '../../../containers';
 import { useRouter } from 'next/router';
 import { Row, Col, Space } from 'antd';
-import { withSession } from '../../../utils/withSession';
-import { DeskPageHoc } from '../../../containers';
+import { fetchJson, openNotificationWithIcon, withSession, fetcher } from '../../../utils';
+import { API } from '../../../constants/index';
 import { CourseManageBtn, CreateCourseBtn, CourseListItem, SwitchCommunity } from '../../../components';
-
-const Course = (props) => {
+import useSWR from 'swr';
+const Course = ({ ...props }) => {
   const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const courseList = [{
-    contents: 'content 1',
-    description: 'description1 description1 description1 description1 description1 description1 description1 description1'
-  }]; 
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Course - Hubbers Community' activeSide={{ active: [`Course-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc title={`Course ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`course-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
               <Col span={12}>
-                <h1 className='fw-6 fs-5'>Course</h1>
+                <span className='text-upper'>course</span>
+                <h1 className='fw-6 fs-5'>{props.data?.name}</h1>
+                <p>{props.data?.description}</p>
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
                   <CourseManageBtn />
-                  <CreateCourseBtn auth={{ ...data }}/>
+                  <CreateCourseBtn auth={{ ...data }} />
                   <SwitchCommunity />
                 </Space>
               </Col>
             </Row>
-            {
-              courseList?.map((course,index)=>{
-                return <CourseListItem key={index} data={course} />;
+            {/* {
+              courseData &&
+              courseData.posts &&
+              courseData.posts.map((p) => {
+                return <ListItemTile type='post' auth={{...data}} data={{...p}} key={p.id} />;
               })
-            }
+            } */}
           </div>
-        </React.Fragment> 
+        </React.Fragment>
       </DeskPageHoc>
   );
 };
-
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
   const user = await req.session.get('user');
-  if (!user) {
-    await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+  if (user) {
+    return { props: { auth: { isLoggedIn: true, ...user } } };
+  } else {
+    return { props: { auth: { isLoggedIn: false } } };
   }
-  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user } } };
 });
 export default Course;
