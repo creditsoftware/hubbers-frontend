@@ -80,7 +80,7 @@ const HubbersJobBoard = ({ ...props }) => {
             <h3 className="fw-6 text-center pt-4 mb-4 fs-4">
               Apply if you fit the following available positions
             </h3>
-            <JobApplyTable />
+            <JobApplyTable auth={{ ...data }} />
           </React.Fragment>
         </Container>
       </React.Fragment>

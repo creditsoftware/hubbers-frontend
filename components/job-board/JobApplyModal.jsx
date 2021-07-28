@@ -1,10 +1,23 @@
 import React from 'react';
 import { Button, Col, Input, Modal, Row, Form } from 'antd';
 import Image from 'next/image';
-export const JobApplyModal = () => {
+import { API } from '../../constants/index';
+import { fetchJson } from '../../utils';
+export const JobApplyModal = ({id, auth}) => {
   const [visible, setVisible] = React.useState(false);
+  const [applyState, setApplyState] = React.useState(true);
+  React.useEffect(() => {
+    fetchJson(`${API.CHECK_APPLY_STATE_API}/${id}/${auth.id}`).then((response) => {
+      setApplyState(response);
+    });
+  }, []);
   const onFinish = (values) => {
-    console.log(values);
+    fetchJson(`${API.CREATE_JOB_APPLICATION_API}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({...values, jobId:id, userId:auth.id}),
+    })
+    setVisible(false);
   };
   return <React.Fragment>
     <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={()=>setVisible(true)}>Apply</Button>
@@ -39,7 +52,7 @@ export const JobApplyModal = () => {
             <Form.Item name='linkedinUrl' label='Your linkedin url:'>
               <Input placeholder=''/>
             </Form.Item>
-            <Form.Item name='description' label='So please just copy paste your linkedin url below and explain us why you want to join us in less than 800 words :'>
+            <Form.Item name='message' label='So please just copy paste your linkedin url below and explain us why you want to join us in less than 800 words :'>
               <Input.TextArea rows={5} placeholder=''/>
             </Form.Item>
             <p>
@@ -62,7 +75,7 @@ export const JobApplyModal = () => {
             <div className="d-flex fd-vertical fjc-center f-align-center h-100">
               <Image width={400} height={300} src='/images/job-board/job-board.png'/>
               <div className="text-center">
-                <Button type='hbs-primary' htmlType="submit" shape='round' size='large'>
+                <Button type='hbs-primary' htmlType="submit" shape='round' size='large' disabled={applyState}>
                   Apply Now
                 </Button>
               </div>

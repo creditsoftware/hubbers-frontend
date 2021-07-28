@@ -42,6 +42,9 @@ export const API = {
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
+  GET_ALL_JOB_API: process.env.API_V1 + 'job/',
+  CHECK_APPLY_STATE_API: process.env.API_V1 + 'job-application/check',
+  CREATE_JOB_APPLICATION_API: process.env.API_V1 + 'job-application',
   IS_EXIST_MY_COMMUNITY_API: process.env.API_V1 + 'community/all', // /:userId
   GET_MY_COMMUNITY_AND_GROUP_LIST_API: process.env.API_V1 + 'community/c-g-list', // /:userId
   COMMUNITY_DETAIL_API: process.env.API_V1 + 'community', // /:id
