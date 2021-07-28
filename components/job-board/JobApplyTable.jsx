@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Table } from 'antd';
-import { LinkedSocial } from './LinkedSocial';
+// import { LinkedSocial } from './LinkedSocial';
 import Link from 'next/link';
 import { JobApplyModal } from './JobApplyModal';
 import { API } from '../../constants';
@@ -39,7 +39,7 @@ export const JobApplyTable = ({auth}) => {
       dataIndex: 'location',
       /* eslint-disable */
       render: (_, record) => (
-        <span>{record.country + record.city + record.remote}</span>
+        <span>{record._country?.name} {record.city} {record.remote}</span>
       ),
       /* eslint-enable */
     },
