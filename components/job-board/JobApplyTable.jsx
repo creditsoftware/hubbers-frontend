@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Table } from 'antd';
-import { LinkedSocial } from './LinkedSocial';
+// import { LinkedSocial } from './LinkedSocial';
 import Link from 'next/link';
 import { JobApplyModal } from './JobApplyModal';
 import { API } from '../../constants';

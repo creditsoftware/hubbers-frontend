@@ -16,11 +16,11 @@ export const JobApplyModal = ({id, auth}) => {
   const showModal = () => {
     form.setFieldsValue({
       message: applyState.message,
-      name: auth.lastname? (auth.firstname + " " + auth.lastname): auth.firstname,
+      name: auth.lastname? (auth.firstname + ' ' + auth.lastname): auth.firstname,
       email: auth.email
-    })
+    });
     setVisible(true);
-  }
+  };
   const onFinish = (values) => {
     fetchJson(`${API.CREATE_JOB_APPLICATION_API}`, {
       method: 'POST',
@@ -34,7 +34,7 @@ export const JobApplyModal = ({id, auth}) => {
   return <React.Fragment>
     {
       auth.isLoggedIn ? <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={showModal}>Apply</Button>
-      : <Link href='/auth/signin?redirect=/hubbers/hubbers-job-board'><a><Button type='hbs-primary' className='w-100 my-3' shape='round'>Apply</Button></a></Link>
+        : <Link href='/auth/signin?redirect=/hubbers/hubbers-job-board'><a><Button type='hbs-primary' className='w-100 my-3' shape='round'>Apply</Button></a></Link>
     }
     <Modal
       title={<React.Fragment>
