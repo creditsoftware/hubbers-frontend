@@ -11,7 +11,6 @@ export const JobApplyTable = ({auth}) => {
   const [jobList, setJobList] = useState([]);
   React.useEffect(()=>{
     fetchJson(`${API.GET_ALL_JOB_API}`).then((response) => {
-      console.log(response);
       setJobList(response);
     });
   }, []);
@@ -86,17 +85,17 @@ export const JobApplyTable = ({auth}) => {
             <h3 className="fw-6 mt-3">
               Job Description
             </h3>
-            <p>{filterData.description}</p>
+            <div dangerouslySetInnerHTML={{ __html: filterData.description}} />
             <h3 className="fw-6 mt-3">
               Job Responsibilities
             </h3>
-            <p>{filterData.responsibilities}</p>
+            <div dangerouslySetInnerHTML={{ __html: filterData.responsibilities}} />
             <h3 className="fw-6 mt-3">
               Qualification/Job requirements
             </h3>
-            <p>{filterData.requirements}</p>
+            <div dangerouslySetInnerHTML={{ __html: filterData.requirements}} />
           </Col>
-          <Col lg={8} md={8} sm={24}>
+          <Col lg={8} md={8} sm={24} className="pl-3">
             <h3 className="fw-6">
               Skills needed
             </h3>
@@ -124,7 +123,7 @@ export const JobApplyTable = ({auth}) => {
             <h3 className="fw-6 mt-3">
               Compensation
             </h3>
-            <div>{filterData?.compensation}</div>
+            <div dangerouslySetInnerHTML={{ __html: filterData?.compensation }} />
             <JobApplyModal id={filterData.id} auth={auth} />
           </Col>
         </Row>
