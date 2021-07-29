@@ -3,24 +3,39 @@ import { Button, Col, Input, Modal, Row, Form } from 'antd';
 import Image from 'next/image';
 import { API } from '../../constants/index';
 import { fetchJson } from '../../utils';
+import Link from 'next/link';
 export const JobApplyModal = ({id, auth}) => {
+  const [form] = Form.useForm();
   const [visible, setVisible] = React.useState(false);
-  const [applyState, setApplyState] = React.useState(true);
+  const [applyState, setApplyState] = React.useState(null);
   React.useEffect(() => {
     fetchJson(`${API.CHECK_APPLY_STATE_API}/${id}/${auth.id}`).then((response) => {
       setApplyState(response);
     });
   }, []);
+  const showModal = () => {
+    form.setFieldsValue({
+      message: applyState.message,
+      name: auth.lastname? (auth.firstname + " " + auth.lastname): auth.firstname,
+      email: auth.email
+    })
+    setVisible(true);
+  }
   const onFinish = (values) => {
     fetchJson(`${API.CREATE_JOB_APPLICATION_API}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({...values, jobId:id, userId:auth.id}),
-    })
+    }).then((response)=>{
+      setApplyState(response.result);
+    });
     setVisible(false);
   };
   return <React.Fragment>
-    <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={()=>setVisible(true)}>Apply</Button>
+    {
+      auth.isLoggedIn ? <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={showModal}>Apply</Button>
+      : <Link href='/auth/signin?redirect=/hubbers/hubbers-job-board'><a><Button type='hbs-primary' className='w-100 my-3' shape='round'>Apply</Button></a></Link>
+    }
     <Modal
       title={<React.Fragment>
         <p className="fw-6 text-center mt-4">
@@ -40,6 +55,7 @@ export const JobApplyModal = ({id, auth}) => {
         Thanks for your interest of our great community. Your application to Hubbers is one step away !
       </p>
       <Form
+        form={form}
         name='job-apply'
         layout='vertical'
         onFinish={onFinish}

@@ -39,7 +39,7 @@ export const JobApplyTable = ({auth}) => {
       dataIndex: 'location',
       /* eslint-disable */
       render: (_, record) => (
-        <span>{record.country + record.city + record.remote}</span>
+        <span>{record._country?.name} {record.city} {record.remote}</span>
       ),
       /* eslint-enable */
     },
