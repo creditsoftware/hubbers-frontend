@@ -73,7 +73,7 @@ const HubbersTeam = ({ ...props }) => {
               })
             }
             <Col lg={6} className='p-3'>
-              <Link href='/hubbers/hubbers-job-board'>
+              <Link href='/hubbers/hubbers-job-board/jobs'>
                 <a>
                   <HubbersTeamMemberTile end={true} />
                 </a>

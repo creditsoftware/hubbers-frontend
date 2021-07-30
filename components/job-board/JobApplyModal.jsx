@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { API } from '../../constants/index';
 import { fetchJson } from '../../utils';
 import Link from 'next/link';
-export const JobApplyModal = ({id, auth}) => {
+export const JobApplyModal = ({data, auth}) => {
   const [form] = Form.useForm();
   const [visible, setVisible] = React.useState(false);
   const [applyState, setApplyState] = React.useState(null);
   React.useEffect(() => {
-    fetchJson(`${API.CHECK_APPLY_STATE_API}/${id}/${auth.id}`).then((response) => {
+    fetchJson(`${API.CHECK_APPLY_STATE_API}/${data.id}/${auth.id}`).then((response) => {
       setApplyState(response);
     });
   }, []);
@@ -25,7 +25,7 @@ export const JobApplyModal = ({id, auth}) => {
     fetchJson(`${API.CREATE_JOB_APPLICATION_API}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({...values, jobId:id, userId:auth.id}),
+      body: JSON.stringify({...values, jobId:data.id, userId:auth.id}),
     }).then((response)=>{
       setApplyState(response.result);
     });
@@ -34,7 +34,7 @@ export const JobApplyModal = ({id, auth}) => {
   return <React.Fragment>
     {
       auth.isLoggedIn ? <Button type='hbs-primary' className='w-100 my-3' shape='round' onClick={showModal}>Apply</Button>
-        : <Link href='/auth/signin?redirect=/hubbers/hubbers-job-board'><a><Button type='hbs-primary' className='w-100 my-3' shape='round'>Apply</Button></a></Link>
+        : <Link href={`/auth/signin?redirect=/hubbers/hubbers-job-board/${data.slug}`}><a><Button type='hbs-primary' className='w-100 my-3' shape='round'>Apply</Button></a></Link>
     }
     <Modal
       title={<React.Fragment>

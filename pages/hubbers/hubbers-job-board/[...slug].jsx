@@ -16,7 +16,7 @@ const SelectJob = ({ ...props }) => {
   return (
     <MainPageHoc title='Hubbers Job Board' auth={{ ...data }}>
       <React.Fragment>
-        <Container className='mt-5'>
+        <Container className='mt-5 py-5'>
           <React.Fragment>
             <h1 className="fw-6 fs-5 text-center mb-4">
               Hubbers Job Board
@@ -27,7 +27,7 @@ const SelectJob = ({ ...props }) => {
           </React.Fragment>
         </Container>
         <div className="bg-white">
-          <Container className='pb-3'>
+          <Container className='py-5'>
             <Row>
               <Col lg={18} md={18}>
                 <h3 className="fw-6 text-center pt-4 mb-4 fs-4">
@@ -78,7 +78,7 @@ const SelectJob = ({ ...props }) => {
             </Row>
           </Container>
         </div>
-        <Container className='mb-4'>
+        <Container className='mb-4 pt-5'>
           <React.Fragment>
             <h3 className="fw-6 text-center pt-4 mb-4 fs-4">
               Apply if you fit the following available positions

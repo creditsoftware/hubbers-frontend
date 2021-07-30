@@ -20,13 +20,13 @@ export const JobApplyTable = ({auth, status=null}) => {
   React.useEffect(()=>{
     const filterData = jobList?.filter((item) => item.slug === status)[0];
     setExpandedKey(filterData?.id);
-  }, [jobList, status])
+  }, [jobList, status]);
 
   const onRowEvent = (e) => {
     return {
       onClick: () => {
         setExpandedKey(e.id);
-        router.push("/hubbers/hubbers-job-board/" + e.slug);
+        router.push('/hubbers/hubbers-job-board/' + e.slug);
       }
     };
   };
@@ -140,7 +140,7 @@ export const JobApplyTable = ({auth, status=null}) => {
               Compensation
             </h3>
             <div dangerouslySetInnerHTML={{ __html: filterData?.compensation }} />
-            <JobApplyModal id={filterData.id} auth={auth} />
+            <JobApplyModal data={filterData} auth={auth} />
           </Col>
         </Row>
         <div className="text-center">

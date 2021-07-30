@@ -127,7 +127,7 @@ export const MainFooter = ({ className }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/hubbers/hubbers-job-board">
+                <Link href="/hubbers/hubbers-job-board/jobs">
                   <a>
                     Hubbers job board
                   </a>

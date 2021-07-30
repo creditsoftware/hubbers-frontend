@@ -17,6 +17,7 @@ export const TopicListItem = ({ ...props }) => {
   }, [size]);
   React.useEffect(() => {
     setData({ ...props.topic });
+    console.log(props);
   }, [props.topic]);
   const followTopic = (e) => {
     e.preventDefault();
@@ -65,7 +66,7 @@ export const TopicListItem = ({ ...props }) => {
             </p>
             <div className='text-right'>
               <Space>
-                <Button shape='round' loading={loadingToFollow} type='hbs-outline-primary' onClick={followTopic}>{data.follow && data.follow.filter((f) => f.userId === data.auth?.id).length > 0 ? 'Following' : 'Follow'}</Button>
+                <Button shape='round' loading={loadingToFollow} type='hbs-outline-primary' onClick={followTopic}>{data.follow && data.follow.filter((f) => f.userId === props.auth?.id).length > 0 ? 'Following' : 'Follow'}</Button>
                 <TopicContextMenu refreshList={props.refreshList ? props.refreshList : null} {...data} />
               </Space>
             </div>
