@@ -26,7 +26,7 @@ export const JobApplyTable = ({auth, status=null}) => {
     return {
       onClick: () => {
         setExpandedKey(e.id);
-        router.push('/hubbers/hubbers-job-board/' + e.slug);
+        router.push('/hubbers/hubbers-job-board/' + e.slug + '#' + e.slug);
       }
     };
   };
@@ -37,10 +37,10 @@ export const JobApplyTable = ({auth, status=null}) => {
       dataIndex: 'position',
       /* eslint-disable */
       render: (_, record) => (
-        <div className='text-center'>
+        <div className='text-center' id={`${record.slug}`}>
           <div>{record.companyName}</div>
           <div className="fw-6">{record.title}</div>
-          <small>Published on {record.punlishFrom?.split('T')[0]}</small>
+          <small>Published on {record.publishedFrom?.split('T')[0]}</small>
         </div>
       ),
       /* eslint-enable */
