@@ -3,17 +3,33 @@ import { Col, Row, Table } from 'antd';
 // import { LinkedSocial } from './LinkedSocial';
 import Link from 'next/link';
 import { JobApplyModal } from './JobApplyModal';
+import { useRouter } from 'next/router';
 import { API } from '../../constants';
 import { fetchJson } from '../../utils';
 import moment from 'moment';
 
-export const JobApplyTable = ({auth}) => {
+export const JobApplyTable = ({auth, status=null}) => {
+  const router = useRouter();
   const [jobList, setJobList] = useState([]);
+  const [expandedKey, setExpandedKey] = useState();
   React.useEffect(()=>{
     fetchJson(`${API.GET_ALL_JOB_API}`).then((response) => {
       setJobList(response);
     });
   }, []);
+  React.useEffect(()=>{
+    const filterData = jobList?.filter((item) => item.slug === status)[0];
+    setExpandedKey(filterData?.id);
+  }, [jobList, status])
+
+  const onRowEvent = (e) => {
+    return {
+      onClick: () => {
+        setExpandedKey(e.id);
+        router.push("/hubbers/hubbers-job-board/" + e.slug);
+      }
+    };
+  };
 
   const columns = [
     {
@@ -139,14 +155,6 @@ export const JobApplyTable = ({auth}) => {
     );
   };
 
-  const [expandedKey, setExpandedKey] = useState();
-  const onRowEvent = (e) => {
-    return {
-      onClick: () => {
-        setExpandedKey(e.id);
-      }
-    };
-  };
   return(
     <Table
       rowKey="id"

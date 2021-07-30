@@ -1,13 +1,13 @@
 import { Col, Row } from 'antd';
 import Image from 'next/image';
 import React from 'react';
-import { Container, JobApplyTable } from '../../components';
-import { MainPageHoc } from '../../containers';
-import { withSession } from '../../utils/withSession';
-import { jwtDecode } from '../../utils/jwt';
-import { API } from '../../constants/index';
+import { Container, JobApplyTable } from '../../../components';
+import { MainPageHoc } from '../../../containers';
+import { withSession } from '../../../utils/withSession';
+import { jwtDecode } from '../../../utils/jwt';
+import { API } from '../../../constants/index';
 import useSWR from 'swr';
-import { fetcher } from '../../utils/fetcher';
+import { fetcher } from '../../../utils/fetcher';
 const HubbersJobBoard = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
