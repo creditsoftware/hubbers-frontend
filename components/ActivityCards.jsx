@@ -31,7 +31,7 @@ export const ActivityCards = () => {
       title: 'I need some fundings for my projects',
       content: 'You have the idea but not the $$$, we have investors ready to contribute in kool ideas.',
     }, {
-      url: '',
+      url: '/desk/community/join?community=join',
       image: '/images/activity/activity6.png',
       title: 'I want to mingle with my community',
       content: 'Start to be social and discuss, share and comments on your community ideas and posts',
