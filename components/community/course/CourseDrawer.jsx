@@ -13,6 +13,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
     onHide();
   };
   const onNext = () => {
+    console.log(progress);
     setProgress (progress + 1);
   };
   const onPrev = () => {

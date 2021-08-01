@@ -29,7 +29,7 @@ const Courses = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <CourseManageBtn />
+                  <CourseManageBtn auth={{ ...data }}/>
                   <CreateCourseBtn auth={{ ...data }}/>
                   <SwitchCommunity />
                 </Space>
@@ -37,8 +37,8 @@ const Courses = (props) => {
             </Row>
             {
               courseList?.map((course,index)=>{
-                return <CourseListItem key={index} data={course} />;
-              })
+                return <CourseListItem key={index} data={course} auth={{...data}}/>;
+              })  
             }
           </div>
         </React.Fragment> 
