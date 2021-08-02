@@ -3,11 +3,10 @@ import {
   Button,
   Popover
 } from 'antd';
-import { CourseSettingDrawer } from './CourseSettingDrawer'
+import { CourseSettingDrawer } from './CourseSettingDrawer';
 import { MoreOutlined } from '@ant-design/icons';
 
 export const CourseContextMenu = ({...props}) => {
-  console.log(props);
   const [visible, setVisible] = React.useState(false);
 
   const onToggleVisible = () => {

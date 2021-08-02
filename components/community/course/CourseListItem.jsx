@@ -41,9 +41,9 @@ export const CourseListItem = ({ ...props }) => {
             <Link href={`/desk/community/course?community=${router.query.community}&course=${props.data.id}`}>
               <a>
                 <Button shape='round' type='hbs-outline-primary'>More Details</Button>
-            </a>
-          </Link>
-          <CourseContextMenu {...props}/>
+              </a>
+            </Link>
+            <CourseContextMenu {...props}/>
           </Space>
         </div>
       </Col>

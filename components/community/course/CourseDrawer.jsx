@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, Select, Button, Form } from 'antd';
 import { Container } from '../../Container';
 import { SettingDrawer } from '../global';
+import { CourseWarning } from './CourseWarning';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -70,9 +71,9 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                   <Option value="secret">Secret</Option>
                   <Option value="public">Public</Option>
                   <Option value="private">Private</Option>
-                </Select> 
+                </Select>
               </Form.Item>
-              <div className="mt-5 p-4" style={{ border: '1px solid grey', borderRadius: '5px' }}>We&apos;ve made this Course secret while you get it set up. If you&apos;re ready for this Course to go live now, feel free to choose another privacy setting.</div>
+             <CourseWarning text="We&apos;ve made this Course secret while you get it set up. If you're ready for this Course to go live now, feel free to choose another privacy setting." />
             </React.Fragment>
           ): progress === 2 ? (
             <React.Fragment>
