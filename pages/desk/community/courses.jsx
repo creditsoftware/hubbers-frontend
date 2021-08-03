@@ -16,7 +16,7 @@ const Courses = (props) => {
   const courseList = [{
     contents: 'content 1',
     description: 'description1 description1 description1 description1 description1 description1 description1 description1'
-  }]; 
+  }];
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
@@ -29,19 +29,19 @@ const Courses = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <CourseManageBtn auth={{ ...data }}/>
-                  <CreateCourseBtn auth={{ ...data }}/>
+                  <CourseManageBtn auth={{ ...data }} />
+                  <CreateCourseBtn auth={{ ...data }} />
                   <SwitchCommunity />
                 </Space>
               </Col>
             </Row>
             {
-              courseList?.map((course,index)=>{
-                return <CourseListItem key={index} data={course} auth={{...data}}/>;
-              })  
+              courseList?.map((course, index) => {
+                return <CourseListItem key={index} data={course} auth={{ ...data }} />;
+              })
             }
           </div>
-        </React.Fragment> 
+        </React.Fragment>
       </DeskPageHoc>
   );
 };
