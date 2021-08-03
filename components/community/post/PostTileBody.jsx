@@ -10,11 +10,11 @@ import {
   MessageOutlined
 } from '@ant-design/icons';
 import { mutate } from 'swr';
-import { useRouter } from 'next/router';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 export const PostTileBody = ({ ...props }) => {
   const [contentEditable, setContentEditable] = React.useState(false);
   const [newPost, setNewPost] = React.useState(null);
-  const router = useRouter();
+  const {mutate: updateTDetail} = useTopicDetail(props.query.topic);
   React.useEffect(() => {
     setNewPost({
       id: props.post.id,
@@ -25,7 +25,7 @@ export const PostTileBody = ({ ...props }) => {
       category: props.post.category,
       articleType: props.post.articleType,
       postType: props.post.postType,
-      createdBy: props.auth.communityMember.filter((member) => member.communityId === Number(router.query.community))[0].id,
+      createdBy: props.auth.communityMember.filter((member) => member.communityId === Number(props.query.community))[0].id,
       content: props.post.content
     });
   }, []);
@@ -43,8 +43,8 @@ export const PostTileBody = ({ ...props }) => {
   };
   const update = () => {
     mutate(`${API.LOCAL_GET_POST_LIST_API}`, async () => {
-      if (router.query.community) {
-        let response = await fetch(`${API.LOCAL_GET_POST_LIST_API}?communityId=${router.query.community}`);
+      if (props.query.community) {
+        let response = await fetch(`${API.LOCAL_GET_POST_LIST_API}?communityId=${props.query.community}`);
         response = await response.json();
         return response.data;
       } else {
@@ -57,6 +57,7 @@ export const PostTileBody = ({ ...props }) => {
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
         setContentEditable(false);
+        updateTDetail();
         update();
       })
       .catch((err) => {
@@ -68,6 +69,7 @@ export const PostTileBody = ({ ...props }) => {
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
         setContentEditable(false);
+        updateTDetail();
         update();
       })
       .catch((err) => {

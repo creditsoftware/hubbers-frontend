@@ -45,7 +45,7 @@ const Topics = (props) => {
               <Col span={12} className='text-right'>
                 <Space>
                   {/* <TopicManageBtn /> */}
-                  <CreateTopicBtn auth={{ ...data }} refreshList={refreshList} />
+                  <CreateTopicBtn auth={{ ...data }} refreshList={refreshList} {...props} />
                   <SwitchCommunity />
                 </Space>
               </Col>

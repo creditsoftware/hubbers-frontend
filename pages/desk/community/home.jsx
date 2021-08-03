@@ -44,7 +44,7 @@ const Home = ({ ...props }) => {
             <HomeFilter />
             <HomeSorter className='ml-2' />
           </div>
-          <HomeBody auth={{ ...data }} />
+          <HomeBody auth={{ ...data }} query={{...props.query}} />
         </div>
       </DeskPageHoc>
   );

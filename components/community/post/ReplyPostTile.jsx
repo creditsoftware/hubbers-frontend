@@ -13,9 +13,11 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { CKEditor5 } from '../../CKEditor5';
 import { mutate } from 'swr';
+import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 export const ReplyPostTile = ({ ...props }) => {
   const [editableReply, setEditableReply] = React.useState(false);
   const [replyData, setReplyData] = React.useState();
+  const{mutate:mutateTDetail} = useTopicDetail(props.query.topic);
   const router = useRouter();
   React.useEffect(() => {
     setReplyData({
@@ -42,6 +44,7 @@ export const ReplyPostTile = ({ ...props }) => {
             return [];
           }
         });
+        mutateTDetail();
       });
     cancel();
   };
@@ -53,7 +56,7 @@ export const ReplyPostTile = ({ ...props }) => {
   };
   return (
     <Space className='response-wrap p-3'>
-      <Avatar size='large' src={<Image width={100} height={100} src={props && props.auth && props.auth.avatar} />} />
+      <Avatar size='large' src={<Image width={100} height={100} src={props && props.auth && props.auth.avatar} alt='' />} />
       {
         !editableReply
           ? <Input

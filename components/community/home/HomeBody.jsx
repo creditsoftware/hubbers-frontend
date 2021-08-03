@@ -46,7 +46,7 @@ export const HomeBody = ({...props}) => {
     {
       data &&
       data.map((post) => {
-        return <PostTile auth={authUser} key={post.id} post={{ ...post }} />;
+        return <PostTile auth={authUser} key={post.id} post={{ ...post }} query={{...props.query}} />;
       })
     }
   </React.Fragment>;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Image as Img, Upload, message } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Image as Img, Upload, message, Badge } from 'antd';
+import { LoadingOutlined, PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import { API } from '../constants';
 
-export const UploadImage = ({ name, onChange, value, disabled=false }) => {
+export const UploadImage = ({ name, onChange, value, disabled=false, preview = false }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [url, setUrl] = React.useState('');
   React.useEffect(()=>{
@@ -45,7 +45,9 @@ export const UploadImage = ({ name, onChange, value, disabled=false }) => {
         onChange={changeHandle}
       >
         {
-          url ? <Img src={url} /> : <div>
+          url ? <Badge count={<CloseOutlined color={'red'} onClick={(e) =>{e.stopPropagation();setUrl('');onChange('');}} />}>
+            <Img preview={preview} src={url} />
+          </Badge> : <div>
             {
               isLoading ? <LoadingOutlined /> : <PlusOutlined />
             }

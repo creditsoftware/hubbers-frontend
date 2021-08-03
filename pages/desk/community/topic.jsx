@@ -1,7 +1,8 @@
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import React from 'react';
 import {
   CreateNewBtn,
+  PostTile,
   // HomeFilter,
   // HomeSorter,
   SwitchCommunity,
@@ -19,19 +20,37 @@ import { fetchJson } from '../../../utils';
 import { PostListItem } from '../../../components';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 import { EventListItem } from '../../../components/community/events/EventListItem';
+// import { usePostList } from '../../../hooks/useSWR/community/usePostList';
+import { BarsOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 const TopicDetail = (props) => {
   const [topicData, setTopicData] = React.useState(null);
+  // const [posts, setPosts] = React.useState(null);
+  const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: tDetail } = useTopicDetail(props.query?.topic);
+  // const { data: postList } = usePostList({ topic: props.query?.topic });
   React.useEffect(() => {
     if (tDetail) {
       setTopicData(tDetail.data);
     }
   }, [tDetail]);
+  // React.useEffect(() => {
+  //   if (postList) {
+  //     setPosts(postList.data);
+  //   }
+  // }, [postList]);
   return (
     props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title={`Topic ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`topics-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      : <DeskPageHoc
+        title={`Topic ${props.data?.name} - Hubbers Community`}
+        activeSide={{
+          active: [`topics-${props.query.community}`],
+          open: ['community']
+        }}
+        auth={{ ...data }}
+      >
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -48,11 +67,34 @@ const TopicDetail = (props) => {
                 </Space>
               </Col>
             </Row>
-            {/* <div>
-              <HomeFilter />
-              <HomeSorter className='ml-2' />
-            </div> */}
+            <div className='mb-3'>
+              <Row>
+                <Col flex='auto'>
+                  {/* <HomeFilter />
+                </Col>
+                <Col flex='auto'>
+                  <HomeSorter /> */}
+                </Col>
+                <Col flex='3rem' className='text-right'>
+                  <Button
+                    icon={<BarsOutlined />}
+                    size='small'
+                    type={router.query.postWrapped * 1 ? 'hbs-outline-primary' : 'hbs-primary'}
+                    onClick={
+                      () => router.push({
+                        query: {
+                          community: router.query.community,
+                          topic: router.query.topic,
+                          postWrapped: router.query.postWrapped * 1 ? 0 : 1
+                        }
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+            </div>
             {
+              props.query?.postWrapped === '1' &&
               topicData &&
               topicData.posts &&
               topicData.posts.map((p) => {
@@ -60,10 +102,19 @@ const TopicDetail = (props) => {
               })
             }
             {
+              (!props.query?.postWrapped ||
+              props.query?.postWrapped === '0') &&
+              topicData &&
+              topicData.posts &&
+              topicData.posts.map((post) => {
+                return <PostTile auth={{ ...data }} key={post.id} post={{ ...post }} query={{ ...props.query }} />;
+              })
+            }
+            {
               topicData &&
               topicData.events &&
               topicData.events.map((p) => {
-                return <EventListItem auth={{ ...data }} { ...p } key={p.id} query={{ ...props.query }} />;
+                return <EventListItem auth={{ ...data }} {...p} key={p.id} query={{ ...props.query }} />;
               })
             }
           </div>

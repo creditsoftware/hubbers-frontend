@@ -18,7 +18,7 @@ export const PostTileHeader = ({ ...props }) => {
         props.post.creator &&
         props.post.creator.user &&
         <React.Fragment>
-          <Avatar src={<Image src={props.post.creator.user.avatar} width={100} height={100} />} size='large' />
+          <Avatar src={<Image src={props.post.creator.user.avatar} width={100} height={100} alt='' />} size='large' />
           <div>
             {/* <Badge dot={true} status='success'> */}
             <b>

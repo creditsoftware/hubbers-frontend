@@ -17,7 +17,6 @@ export const TopicListItem = ({ ...props }) => {
   }, [size]);
   React.useEffect(() => {
     setData({ ...props.topic });
-    console.log(props);
   }, [props.topic]);
   const followTopic = (e) => {
     e.preventDefault();

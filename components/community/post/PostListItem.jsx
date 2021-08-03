@@ -18,12 +18,18 @@ import {
   PostDrawer
 } from '.';
 import moment from 'moment';
+import { useWindowSize } from '../../../hooks';
 
 export const PostListItem = ({ ...props }) => {
   const [visible, setVisible] = React.useState(false);
+  const [w, setW] = React.useState('');
+  const size = useWindowSize();
   const onChangeVisible = () => {
     setVisible(!visible);
   };
+  React.useEffect(() => {
+    setW(size.width);
+  }, [size]);
   return <React.Fragment>
     <div className='community-child-list-item cursor-pointer' onClick={onChangeVisible}>
       <Row style={{ backgroundColor: 'white', marginBottom: '2rem', borderRadius: '1rem' }}>
@@ -33,7 +39,17 @@ export const PostListItem = ({ ...props }) => {
           </div>
         </Col>
         <Col flex='auto' className='px-3 py-2'>
-          <div className='ck-content' style={{ height: '6rem', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: props.data?.content }}></div>
+          <div
+            className='ck-content'
+            style={{
+              height: '5.5rem',
+              marginBottom:'.7rem',
+              overflow: 'hidden',
+              width: w ? w > 1023 ? w - 600 : w - 300 : 0,
+              maxWidth: 1000
+            }}
+            dangerouslySetInnerHTML={{ __html: props.data?.content }}
+          ></div>
           <div>
             <Row>
               <Col flex='auto'>

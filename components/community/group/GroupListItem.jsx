@@ -52,7 +52,7 @@ export const GroupListItem = ({ ...props }) => {
           <Col flex="180px">
             <div className='m-3'>
               <div className="text-center">
-                <Avatar src={<Image width={100} height={100} src={props.featuredImage ?? DEFAULT_COMMUNITY_TOPIC_IMAGE} alt='' />} size={100} style={{ marginBottom: '-8px' }} />
+                <Avatar src={<Image width={100} height={100} preview={false} src={props.featuredImage ?? DEFAULT_COMMUNITY_TOPIC_IMAGE} alt='' />} size={100} style={{ marginBottom: '-8px' }} />
                 {
                   props.privacyOption.name !== 'Public' &&
                   <Space style={{ backgroundColor: '#aaa', fontWeight: 'bold', color: 'white', padding: '0 5px', position: 'relative' }} className='text-upper'>
@@ -91,7 +91,10 @@ export const GroupListItem = ({ ...props }) => {
             </p>
             <div className='text-right'>
               <Space>
-                <ViewGroupBtn {...props} />
+                {
+                  props.members.filter((m) => m.user?.id === props.auth?.id).length > 0 &&
+                  <ViewGroupBtn {...props} />
+                }
                 {
                   props.members.filter((m) => m.user?.id === props.auth?.id).length === 0 &&
                   props.privacyOption?.name === 'Public' &&

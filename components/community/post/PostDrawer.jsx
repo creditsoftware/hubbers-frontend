@@ -12,6 +12,7 @@ import { mutate } from 'swr';
 import { SettingDrawer } from '../global/SettingDrawer';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
+import { PostTile } from './PostTile';
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -187,7 +188,8 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
               : <Space direction='vertical' style={{ width: '100%' }}>
                 {
                   !editable &&
-                  <div className='ck-content oy-auto p-3 pb-0' dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                  <PostTile auth={{...props.auth}} post={{ ...props.data }} query={{...props.query}} />
+                  // <div className='ck-content oy-auto p-3 pb-0' dangerouslySetInnerHTML={{ __html: post.content }}></div>
                 }
                 {
                   editable &&

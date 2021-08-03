@@ -10,7 +10,6 @@ export const MainFooter = ({ className, ...props }) => {
   if (className) {
     classname = 'main-footer ' + className;
   }
-  console.log(props);
   return (
     <div className={classname}>
       <Footer className="footer-top">

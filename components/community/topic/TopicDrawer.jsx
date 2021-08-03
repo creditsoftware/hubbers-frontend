@@ -120,6 +120,12 @@ export const TopicDrawer = ({ visible, onHide, editable = true, content, ...prop
           <p className='mb-2 mt-3 fw-6'>Choose a background image</p>
           <Form.Item
             name='backgroundImageUrl'
+            rules={[
+              {
+                required: true,
+                message: 'Please input background image!',
+              },
+            ]}
           >
             <UploadImage disabled={!editable} />
           </Form.Item>
