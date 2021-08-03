@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Row, Col, Input, Select, Button, Form, Radio } from 'antd';
+import { Row, Col, Input, Select, Button, Form, Radio, Alert } from 'antd';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Container } from '../../Container';
 import { SettingDrawer } from '../global';
 import { CourseManageItem } from './CourseManageItem';
-import { CourseWarning } from './CourseWarning';
 
 const {Option} = Select;
 const {TextArea} = Input;
@@ -40,8 +39,6 @@ export const CourseSettingDrawer = ({ ...props }) => {
       setPaymentsType(null);
     } else if (showDrawer === 'New External Plan' || showDrawer === 'New External Bundle Plan' || showDrawer === 'New Internal Plan' || showDrawer === 'New Internal Bundle Plan') {
       setShowDrawer('Create New Plan');
-    } else if (showDrawer === 'New External Bundle Plan') {
-      setShowDrawer('Create New Plan');
     } else {
       setShowDrawer('Course Settings');
     }
@@ -58,8 +55,8 @@ export const CourseSettingDrawer = ({ ...props }) => {
   const removeBenefis = (index) => {
     let changeArr = [...benefisList];
     changeArr.splice(index, 1);
-    setBenefisList(changeArr)
-  }
+    setBenefisList(changeArr);
+  };
   const [showRate, setShowRate] = React.useState(false);
   const handlePricyingType = (value) => {
     if(value==='subscription'){
@@ -75,11 +72,11 @@ export const CourseSettingDrawer = ({ ...props }) => {
       setShowWeb(false);
     }
     else{
-      setShowWeb(true)
+      setShowWeb(true);
     }
   };
   const onFinish = () => {
-    onHide();
+    toggleVisible();
   };
   const radioStyle = {
     display: 'block'
@@ -124,7 +121,7 @@ export const CourseSettingDrawer = ({ ...props }) => {
             <React.Fragment>
               <div className="p-5 text-center" style={{ border: '1px solid grey' }}>
                 <h1 className="fw-6 fs-3">Create Your First Plan</h1>
-                <p className="fs-1">Once you've created your first plan, it will appear here. To get started, take a quick tour that will show you everything you need to know about creating your first plan and charging members for access to your Mighty Network.</p>
+                <p className="fs-1">Once you&apos;ve created your first plan, it will appear here. To get started, take a quick tour that will show you everything you need to know about creating your first plan and charging members for access to your Mighty Network.</p>
                 <Button type="hbs-primary" shape="round" size="large" className="mt-2" onClick={()=>{changeDrawer('Create New Plan');}}>Create Plan</Button>
               </div>
             </React.Fragment>
@@ -133,7 +130,7 @@ export const CourseSettingDrawer = ({ ...props }) => {
               <h1 className="fw-6 fs-3 mb-4">Choose your Target Audience</h1>
               <CourseManageItem onClick={()=>{changePaymentsType('external');}} text="External Audience (Non-Members)" description="Create plans to market and sell to people who are not yet members of KOMPROM. Network Membership will always be included with these plans." />
               <CourseManageItem onClick={()=>{changePaymentsType('internal');}} text="Internal Audience (Members)" description="Create plans to offer and sell to your members inside KOMPROM." />
-              <CourseWarning text="Heads up! If you choose to create an External Plan, you will be switching your Mighty Network from Private to Paid. This means you are making it available to anyone who wants to purchase membership, and you’ll need to create plans to allow people to join." />
+              <Alert type='warning' message='Heads up! If you choose to create an External Plan, you will be switching your Mighty Network from Private to Paid. This means you are making it available to anyone who wants to purchase membership, and you’ll need to create plans to allow people to join.' />
             </React.Fragment>
           ):showDrawer === 'Create New Plan' && paymentsType === 'external' ? (
             <React.Fragment>
@@ -165,7 +162,7 @@ export const CourseSettingDrawer = ({ ...props }) => {
                 <Form.Item
                   name='pricingType'
                   style={{ width: '300px' }}
-                  className={showRate?"mb-2":"mb-5"}
+                  className={showRate?'mb-2':'mb-5'}
                 >
                   <Select onChange={handlePricyingType}>
                     <Option value="one-time">One Time Payment</Option>
@@ -223,7 +220,7 @@ export const CourseSettingDrawer = ({ ...props }) => {
                 }
                 <h1 className="fw-6 fs-3 py-4">Fill in the Details</h1>
                 <p className="fs-1 fw-6">Plan Name</p>
-                <p className="fs-1" style={{ color: 'grey' }}>This is the name displayed to members. Under most circumstances we recommend using the title of the Group and/or Course you're creating this plan for.</p>
+                <p className="fs-1" style={{ color: 'grey' }}>This is the name displayed to members. Under most circumstances we recommend using the title of the Group and/or Course you&apos;re creating this plan for.</p>
                 <Form.Item
                   name='planName'
                   className="mb-5"
@@ -267,7 +264,7 @@ export const CourseSettingDrawer = ({ ...props }) => {
                     if(index < benefisList.length - 1){
                       return <div key={index} className="d-flex mb-3">
                         <Input placeholder="e.g. Be the first to hear about special offers and announcements" value={item} onChange={handleBenefis(index)} />
-                        <Button onClick={()=>{removeBenefis(index)}} icon={<CloseOutlined />} className="ml-2" />
+                        <Button onClick={()=>{removeBenefis(index);}} icon={<CloseOutlined />} className="ml-2" />
                       </div>;
                     }
                   })

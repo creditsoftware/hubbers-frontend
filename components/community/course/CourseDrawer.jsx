@@ -1,8 +1,7 @@
 import React from 'react';
-import { Input, Select, Button, Form } from 'antd';
+import { Input, Select, Button, Form, Alert } from 'antd';
 import { Container } from '../../Container';
 import { SettingDrawer } from '../global';
-import { CourseWarning } from './CourseWarning';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -15,13 +14,13 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
   };
   const onNext = () => {
     console.log(progress);
-    setProgress (progress + 1);
+    setProgress(progress + 1);
   };
   const onPrev = () => {
     if (progress === 1) {
       onHide();
     } else {
-      setProgress (progress - 1);
+      setProgress(progress - 1);
     }
   };
   return <SettingDrawer
@@ -31,7 +30,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
     onCoursePrev={onPrev}
     title='Create a Course'
     submitBtn={progress < 4}
-    type = 'course'
+    type='course'
     submitBtnLabel={progress < 3 ? 'Next' : 'Finish'}
     form={form}
     {...props}
@@ -73,9 +72,9 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                   <Option value="private">Private</Option>
                 </Select>
               </Form.Item>
-             <CourseWarning text="We&apos;ve made this Course secret while you get it set up. If you're ready for this Course to go live now, feel free to choose another privacy setting." />
+              <Alert type='warning' message='We&apos;ve made this Course secret while you get it set up. If you&apos;re ready for this Course to go live now, feel free to choose another privacy setting' />
             </React.Fragment>
-          ): progress === 2 ? (
+          ) : progress === 2 ? (
             <React.Fragment>
               <p className="fw-6 fs-2 mb-2">Course Structure</p>
               <p className="fs-1 mb-4">Now let&apos;s set up the structure of your Course.</p>
@@ -90,7 +89,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                   <Option value="syllabus">Syllabus</Option>
                   <Option value="course material">Course Material</Option>
                   <Option value="add a custom name">Add a Custom Name...</Option>
-                </Select> 
+                </Select>
               </Form.Item>
               <p className="fw-6 fs-1 mt-5 pt-5 mb-2">Lessons</p>
               <p className="fs-1">Lessons are the main learning unit of a Course. Lessons can stand alone or live within Sections, and can be completed by your members. Coose what you want your Lessons to be called here.</p>
@@ -100,7 +99,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
               >
                 <Select bordered={false} className="fw-6">
                   <Option value="lesson">Lesson</Option>
-                </Select> 
+                </Select>
               </Form.Item>
               <p className="fw-6 fs-1 mt-5 mb-2">Sections</p>
               <p className="fs-1">Secions allow you to break up your Course and organize Lessons together in one place. Choose what you want your Sections to be called here.</p>
@@ -110,10 +109,10 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
               >
                 <Select bordered={false} className="fw-6">
                   <Option value="section">Section</Option>
-                </Select> 
+                </Select>
               </Form.Item>
             </React.Fragment>
-          ): progress === 3 ? (
+          ) : progress === 3 ? (
             <React.Fragment>
               <p className="fw-6 fs-2 mb-2">Instructors</p>
               <p className="fs-1">In a Course, members will see your Moderators and Hosts ans Instructors. They will still have separate Moderator or Host permissions, but you will have the added ability to assign instuctors to Lessons.</p>
@@ -128,10 +127,10 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                   <Option value="ta">TA</Option>
                   <Option value="teacher">Teacher</Option>
                   <Option value="add a custom name">Add a Custom Name...</Option>
-                </Select> 
+                </Select>
               </Form.Item>
             </React.Fragment>
-          ): progress === 4 ? (
+          ) : progress === 4 ? (
             <React.Fragment>
               <p className="text-center fw-6 fs-2 mb-2">How to build a Brand has been created!</p>
               <p className="text-center fs-1">Next, you can choose to invite members, view your new Course and customize the settings, or create a new plan so you can charge members for access.</p>
@@ -141,7 +140,7 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                 <Button style={{ width: '300px' }} type="hbs-outline-primary" shape="round" size="large">View this Course</Button>
               </div>
             </React.Fragment>
-          ): null
+          ) : null
         }
       </Form>
     </Container>

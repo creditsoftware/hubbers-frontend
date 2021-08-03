@@ -5,11 +5,12 @@ import { Footer } from 'antd/lib/layout/layout';
 import { InstagramOutlined, LinkedinOutlined, FacebookFilled, TwitterOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { BLOG_ENDPOINT, HELP_CENTER_ENDPOINT } from '../../constants/etc';
-export const MainFooter = ({ className }) => {
+export const MainFooter = ({ className, ...props }) => {
   let classname = 'main-footer';
   if (className) {
     classname = 'main-footer ' + className;
   }
+  console.log(props);
   return (
     <div className={classname}>
       <Footer className="footer-top">
@@ -143,13 +144,13 @@ export const MainFooter = ({ className }) => {
                   Help center
                 </a>
               </div>
-              {/* <div>
+              <div>
                 <Link href={props.auth?.isLoggedIn ? '/hubbers/grab-a-share' : '/hubbers/request-investor-access'}>
                   <a>
                     Grab a share
                   </a>
                 </Link>
-              </div> */}
+              </div>
               <div>
                 <Link href="/hubbers/get-our-app">
                   <a>
