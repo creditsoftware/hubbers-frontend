@@ -18,10 +18,20 @@ import {
 import { ViewGroupBtn } from './ViewGroupBtn';
 import { fetchJson } from '../../../utils';
 import { API, REQUEST_TYPE } from '../../../constants';
+import { useWindowSize } from '../../../hooks';
 import { useGroupList } from '../../../hooks';
 export const GroupListItem = ({ ...props }) => {
   const [joinLoading, setJoinLoading] = React.useState(false);
+  const[isJoined, setIsJoined] = React.useState(false);
   // const [requestLoading, setRequestLoading] = React.useState(false);
+  const size = useWindowSize();
+  const [w, setW] = React.useState('');
+  React.useEffect(() => {
+    setW(size.width);
+  }, [size]);
+  React.useEffect(() => {
+    setIsJoined(props.members.filter((m) => m.user?.id === props.auth?.id).length > 0);
+  },[props]);
   const { mutate } = useGroupList(props.query.community);
   const onJoin = () => {
     setJoinLoading(true);
@@ -46,7 +56,7 @@ export const GroupListItem = ({ ...props }) => {
   // });
   // };
   return (
-    <Link href={props.members.filter((m) => m.user?.id === props.auth?.id).length > 0 ? `/desk/community/group?community=${props.query.community}&group=${props.id}` : '#'}>
+    <Link href={isJoined ? `/desk/community/group?community=${props.query.community}&group=${props.id}` : '#'}>
       <a className='community-child-list-item'>
         <Row style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', backgroundColor: 'white' }}>
           <Col flex="180px">
@@ -76,15 +86,35 @@ export const GroupListItem = ({ ...props }) => {
               }
               {
                 props.creator?.id !== props.auth?.id &&
-                props.members.filter((m) => m.user?.id === props.auth?.id).length > 0 &&
+                isJoined &&
                 <Space>
                   Joined
                   <SafetyCertificateOutlined />
                 </Space>
               }
             </div>
-            <h4 className="fw-6 fs-3 mb-0 mt-2">{props.name}</h4>
-            <p>
+            <h4
+              className="fw-6 fs-3 mb-0 mt-2"
+              style={{
+                textOverflow:'ellipsis',
+                whiteSpace:'nowrap',
+                overflow:'hidden',
+                width: w ? w > 1023 ? w - 600 : w - 300 : 0,
+                maxWidth: 1000
+              }}
+            >
+              {props.name}
+            </h4>
+            <p
+              style={{
+                overflow: 'hidden',
+                display: '-webkit-box',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 2,
+                width: w ? w > 1023 ? w - 600 : w - 300 : 0,
+                maxWidth: 1000
+              }}
+            >
               {
                 props.tagLine ?? ''
               }

@@ -16,6 +16,7 @@ export const API = {
   LOCAL_DELETE_POST_API: process.env.LOCAL_API_V1 + '/api/community/post/delete', //get /:postId
   LOCAL_GET_COMMUNITY_LIST_API: process.env.LOCAL_API_V1 + '/api/community/get-simple-community-list',
   LOCAL_GET_POST_LIST_API: process.env.LOCAL_API_V1 + '/api/community/post/get-list',
+  LOCAL_GET_GROUP_API: process.env.LOCAL_API_V1 + '/api/community/group/get-list',
   LOCAL_GET_MEMBER_LIST_API: process.env.LOCAL_API_V1 + '/api/community/member/get',
   LOCAL_VERIFY_EMAIL_API: process.env.LOCAL_API_V1 + '/api/auth/verify-email',
   LOCAL_GET_COMMUNITY_MEMBER_ROLES_API: process.env.LOCAL_API_V1 + '/api/community/member/get-roles',
@@ -76,7 +77,7 @@ export const API = {
   GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/group-privacy-option', //get
   CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post /:userId
   REMOVE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/remove', //delete /:id
-  GET_COMMUNITY_GROUP_LIST_API: process.env.API_V1 + 'community/group/all', //get /:communityId
+  GET_COMMUNITY_GROUP_LIST_API: process.env.API_V1 + 'community/group/all', //get /:communityId/:userId
   GET_COMMUNITY_GROUP_DETAIL_API: process.env.API_V1 + 'community/group', //get /:groupId
   JOININ_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/join', //patch /:groupId/:userId
   GET_REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //get /:communityId

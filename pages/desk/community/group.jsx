@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
@@ -15,8 +15,9 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import JoinInCommunity from './join';
 import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
-import { PostListItem } from '../../../components/community';
+import { PostListItem, PostTile } from '../../../components/community';
 import { EventListItem } from '../../../components/community/events/EventListItem';
+import { BarsOutlined } from '@ant-design/icons';
 const Groups = (props) => {
   const router = useRouter();
   const [group, setGroup] = React.useState(null);
@@ -30,7 +31,8 @@ const Groups = (props) => {
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [`community-${router.query.community}-group-${router.query.group}`], open: ['community', `community-${router.query.community}-group`, `community-${router.query.community}-group-${router.query.group}`] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Members' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }}>
+        {/* : <DeskPageHoc title='Members' activeSide={{ active: [`community-${router.query.community}-group-${router.query.group}`], open: ['community', `community-${router.query.community}-group`, `community-${router.query.community}-group-${router.query.group}`] }} auth={{ ...data }}> */}
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -47,15 +49,52 @@ const Groups = (props) => {
             </Row>
             <h1 className='fw-6 fs-5 m-0'>{group && group.name}</h1>
             <p>{group && group.tagLine}</p>
+            <div className='mb-3'>
+              <Row>
+                <Col flex='auto'>
+                  {/* <HomeFilter />
+                </Col>
+                <Col flex='auto'>
+                  <HomeSorter /> */}
+                </Col>
+                <Col flex='3rem' className='text-right'>
+                  <Button
+                    icon={<BarsOutlined />}
+                    size='small'
+                    type={router.query.postWrapped * 1 ? 'hbs-outline-primary' : 'hbs-primary'}
+                    onClick={
+                      () => router.push({
+                        query: {
+                          community: router.query.community,
+                          group: router.query.group,
+                          postWrapped: router.query.postWrapped * 1 ? 0 : 1
+                        }
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+            </div>
             <div>
               {
+                props.query?.postWrapped === '1' &&
                 group &&
                 group.posts &&
                 group.posts.map((p) => {
-                  return <PostListItem key={p.id} data={{ ...p }} auth={{ ...props.auth }} query={{ ...props.query }} />;
+                  return <PostListItem key={p.id} data={{ ...p }} auth={{ ...data }} query={{ ...props.query }} />;
                 })
               }
               {
+                (!props.query?.postWrapped ||
+                  props.query?.postWrapped === '0') &&
+                group &&
+                group.posts &&
+                group.posts.map((post) => {
+                  return <PostTile auth={{ ...data }} key={post.id} post={{ ...post }} query={{ ...props.query }} />;
+                })
+              }
+              {
+                props.query?.postWrapped === '1' &&
                 group &&
                 group.events &&
                 group.events.map((p) => {

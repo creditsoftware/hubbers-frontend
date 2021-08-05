@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Select, Form } from 'antd';
 import { Container } from '../../Container';
 import { API } from '../../../constants';
-import { openNotificationWithIcon, fetchJson, slugify } from '../../../utils';
+import { openNotificationWithIcon, fetchJson, slugify, getRandomInt } from '../../../utils';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
@@ -37,7 +37,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
       fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}/${props.auth?.id}`, {
         method: REQUEST_TYPE.POST,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, slug: slugify(data.name) }),
+        body: JSON.stringify({ ...data, slug: `${slugify(data.name)}-${getRandomInt(100000, 999999)}` }),
       }).then((res) => {
         mutateCommunityList();
         mutateGroupList();

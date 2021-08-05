@@ -6,7 +6,7 @@ import { Container } from '../../Container';
 import { useWindowSize } from '../../../hooks';
 import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
 import { API } from '../../../constants';
-import { openNotificationWithIcon, fetchJson, socket, slugify } from '../../../utils';
+import { openNotificationWithIcon, fetchJson, socket, slugify, getRandomInt } from '../../../utils';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { useRouter } from 'next/router';
 import { defaultAvatar } from '../../../constants/etc';
@@ -37,7 +37,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
     fetchJson(`${API.CREATE_COMMUNITY_GROUP_API}/${props.auth?.id}`, {
       method: REQUEST_TYPE.POST,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, slug: slugify(data.name) }),
+      body: JSON.stringify({ ...data, slug: `${slugify(data.name)}-${getRandomInt(100000, 999999)}` }),
     }).then((res) => {
       socket.emit('create-community-post', { ...data });
       openNotificationWithIcon('success', 'Success', res.message);

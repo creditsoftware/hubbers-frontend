@@ -18,7 +18,7 @@ import { useGroupList } from '../../../hooks';
 const Groups = (props) => {
   const [groups, setGroups] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const {groups: result} = useGroupList(props.query.community);
+  const {data: result} = useGroupList(props.query.community);
   React.useEffect(() => {
     if (result && result.data) {
       setGroups(result.data);
@@ -46,7 +46,7 @@ const Groups = (props) => {
               {
                 groups &&
                 groups.map((g) => {
-                  return <GroupListItem key={g.id} {...g} auth={{...props.auth}} query={{...props.query}} />;
+                  return <GroupListItem key={g.id} {...g} auth={{ ...props.auth }} query={{ ...props.query }} />;
                 })
               }
             </div>

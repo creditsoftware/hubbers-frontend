@@ -11,12 +11,18 @@ import {
 import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../../constants/etc';
 import Avatar from 'antd/lib/avatar/avatar';
 import Image from 'next/image';
+import { useWindowSize } from '../../../hooks';
 // import {
 //   DownOutlined
 // } from '@ant-design/icons';
 import { ViewEventBtn } from './ViewEventBtn';
 import { EventContextMenu } from './EventContextMenu';
 export const EventListItem = ({ ...props }) => {
+  const size = useWindowSize();
+  const [w, setW] = React.useState('');
+  React.useEffect(() => {
+    setW(size.width);
+  }, [size]);
   return (
     // <Link href={`/desk/community/event?community=${props.query.community}&event=${props.id}`}>
     <a className='community-child-list-item'>
@@ -53,7 +59,16 @@ export const EventListItem = ({ ...props }) => {
             {/* </Dropdown> */}
           </div>
           <h4 className="fw-6 fs-3 mb-0 mt-2">{props.title ?? ''}</h4>
-          <p>
+          <p
+            style={{
+              overflow: 'hidden',
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 2,
+              width: w ? w > 1023 ? w - 600 : w - 300 : 0,
+              maxWidth: 1000
+            }}
+          >
             {
               props.description ?? ''
             }
