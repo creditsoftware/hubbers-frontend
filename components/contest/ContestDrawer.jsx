@@ -1,33 +1,39 @@
 import React from 'react';
-import { Select, Form, Switch, Slider } from 'antd';
+import { Select, Form, Switch, Slider, Checkbox, Row, Col, Input, Button } from 'antd';
 import { Container } from '../Container';
-import { SettingDrawer } from '../community';
-import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { SettingDrawer } from '../community/global/SettingDrawer';
+import { primaryColor } from '../../constants';
 const { Option } = Select;
 
 export const ContestDrawer = ({ visible, onHide, editable = true, content, ...props }) => {
   const [isGlobal, setIsGlobal] = React.useState(false);
   const [someDesignerDisable, setSomeDesignerDisable] = React.useState(false);
+  const [step, setStep] = React.useState(0);
   const [form] = Form.useForm();
-  const contestType = [{id:0, name:'Product Design'},{id:1, name:'Logo/icon desing'}, {id:2, name:'Product packaging/packing design'},{id:3, name:'UI/UX for website/app'} ];
+  const contestType = ['Product Design','Logo/icon desing','Product packaging/packing design','UI/UX for website/app'];
   const industryItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
   const innovationItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
   const techItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
   const countryItems = ['Italy', 'Paris', 'United Kingdom', 'United State'];
   React.useEffect(() => {
-    if(form && props.contestTypeName) {
+    if(form && props.contestTypeName !== undefined) {
       form.setFieldsValue({
         contestType: props.contestTypeName
       });
     }
   }, [props.contestTypeName, form]);
-  const handleSomeDesignerChange = (disabled) => {
-    setSomeDesignerDisable(disabled);
+  const handleSomeDesignerChange = (e) => {
+    setSomeDesignerDisable(e.target.checked);
+    form.setFieldsValue({alldesigners: e.target.checked})
   };
+  const handleStepClick = () => {
+    setStep(step+1);
+  }
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
     title='Contest'
+    onN
     submitBtn={(!content && editable) || (content && editable)}
     submitBtnLabel={!content && editable ? 'Create' : content && editable ? 'Save' : 'Save'}
     form={form}
@@ -38,6 +44,9 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
       form={form}
     >
       <Container>
+        <div className="text-right">
+          <Button type="hbs-dashed" shape="round" onClick={handleStepClick}>Next</Button>
+        </div>
         <React.Fragment>
           <p className='mb-2 mt-3 fw-6'>Contest Type</p>
           <Form.Item
@@ -52,8 +61,8 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
             <Select>
               {
                 contestType &&
-                contestType.map((name) => {
-                  return <Option key={name.id} value={name.id}>{name.name}</Option>;
+                contestType.map((name, index) => {
+                  return <Option key={index} value={index}>{name}</Option>;
                 })
               }
             </Select>
@@ -157,25 +166,110 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
             ) : ''
           }
           <p className='mb-2 mt-3 fw-6'>How many designers would you like to participate in your product competition?</p>
+          <Row>
+            <Col sm={12} md={15} lg={18} className="pr-3">
+              <Form.Item
+                name='designers'
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the Designers!',
+                  },
+                ]}
+              >
+                <Slider
+                  defaultValue={0}
+                  min={0}
+                  max={50}
+                  trackStyle={{ backgroundColor: primaryColor }}
+                  handleStyle={{ borderColor: primaryColor }}
+                  disabled={someDesignerDisable}
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={12} md={9} lg={6} className="pl-3">
+              <Form.Item
+                name='alldesigners'
+                valuePropName='checked'
+              >
+                <Checkbox onChange={handleSomeDesignerChange}>Everyone can participate</Checkbox>
+              </Form.Item>
+            </Col>
+          </Row>
+          <p className='mb-2 mt-3 fw-6'>Experience and talents of designers</p>
+          <Row>
+            <Col className="pt-1">
+              <span>Minimum</span>
+            </Col>
+            <Col sm={2} className="px-2">
+              <Form.Item
+                name="designerpoint"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the designer point!',
+                  },
+                ]}
+              >
+                <Input type="number" />
+              </Form.Item>
+            </Col>
+            <Col className="pt-1">
+              <span>points in the Hubbers  product competion</span>
+            </Col>
+          </Row>
+          <p className='mb-2 mt-3 fw-6'>How many judges will participate from your side?</p>
           <Form.Item
-            name='designers'
+            name='judges'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the judges!',
+              },
+            ]}
+          >
+            <Slider
+              defaultValue={5}
+              min={5}
+              max={50}
+              trackStyle={{ backgroundColor: primaryColor }}
+              handleStyle={{ borderColor: primaryColor }}
+            />
+          </Form.Item>
+          <p className='mb-2 mt-3 fw-6'>If you don t have enough, you can choose experienced judge from our community.</p>
+          <Form.Item
+            name='restjudges'
+            label={<span>Number of extra judge needed:</span>}
+            rules={[
+              {
+                required: false,
+              }
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <p className='mb-2 mt-3 fw-6'>How many revisions do you want to allow designers to provide (up to 3).</p>
+          <Form.Item
+            name='revisions'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the revisions!',
+              },
+            ]}
           >
             <Slider
               defaultValue={0}
               min={0}
-              max={50}
-              trackStyle={{ backgroundColor: '#75AC2A' }}
-              handleStyle={{ borderColor: '#75AC2A' }}
-              disabled={someDesignerDisable}
+              max={3}
+              trackStyle={{ backgroundColor: primaryColor }}
+              handleStyle={{ borderColor: primaryColor }}
             />
           </Form.Item>
-          <Form.Item
-            name='alldesigners'
-            valuePropName='checked'
-          >
-            <Checkbox onChange={(e) => handleSomeDesignerChange(e.target.checked)}>Everyone can participate</Checkbox>
-          </Form.Item>
         </React.Fragment>
+        <div className="text-right">
+          <Button type="hbs-dashed" shape="round" onClick={handleStepClick}>Next</Button>
+        </div>
       </Container>
     </Form>
   </SettingDrawer>;

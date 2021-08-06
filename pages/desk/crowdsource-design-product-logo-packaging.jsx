@@ -14,10 +14,13 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
   const { data: card } = useSWR(API.GET_CONTEST_CATEGORY_API, fetcher);
   const [visible, setVisible] = React.useState(false);
   const [contestTypeName, setContestTypeName] = React.useState();
-  const toggleVisible = (index) => {
-    setContestTypeName(index);
+  const toggleVisible = () => {
     setVisible(!visible);
   };
+  const handleVisiable = (index) => {
+    setContestTypeName(index);
+    setVisible(!visible);
+  }
   return (
     <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
       <Container className="py-5">
@@ -36,7 +39,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
                 return (
                   <Col key={index} lg={12} xs={24} className="p-4">
                     <Row
-                      onClick={() => toggleVisible(index)}
+                      onClick={() => handleVisiable(index)}
                       className="general-card bg-white h-100"
                       style={{
                         borderRadius: '24px',
