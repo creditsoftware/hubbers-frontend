@@ -9,17 +9,19 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
   const [isGlobal, setIsGlobal] = React.useState(false);
   const [someDesignerDisable, setSomeDesignerDisable] = React.useState(false);
   const [form] = Form.useForm();
-  const contestType = ['Product Design', 'Logo/icon desing', 'Product packaging/packing design', 'UI/UX for website/app'];
+  const contestType = [{id:0, name:'Product Design'},{id:1, name:'Logo/icon desing'}, {id:2, name:'Product packaging/packing design'},{id:3, name:'UI/UX for website/app'} ];
   const industryItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
+  const innovationItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
+  const techItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
   const countryItems = ['Italy', 'Paris', 'United Kingdom', 'United State'];
-  const handleIndustryChange = (value) => {
-    console.log(value);
-  };
-  const handleLocationChange = (value) => {
-    console.log(value);
-  };
+  React.useEffect(() => {
+    if(form && props.contestTypeName) {
+      form.setFieldsValue({
+        contestType: props.contestTypeName
+      });
+    }
+  }, [props.contestTypeName, form]);
   const handleSomeDesignerChange = (disabled) => {
-    console.log(disabled);
     setSomeDesignerDisable(disabled);
   };
   return <SettingDrawer
@@ -47,11 +49,12 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
               },
             ]}
           >
-            <Select defaultValue={contestType[props.contestTypeName]}>
+            <Select>
               {
-                contestType.map((name, index) =>
-                  <Option key={index}>{name}</Option>
-                )
+                contestType &&
+                contestType.map((name) => {
+                  return <Option key={name.id} value={name.id}>{name.name}</Option>;
+                })
               }
             </Select>
           </Form.Item>
@@ -69,7 +72,6 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
               mode="multiple"
               allowClear
               placeholder="Please select"
-              onChange={handleIndustryChange}
             >
               {
                 industryItems.map((product, index) =>
@@ -78,9 +80,54 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
               }
             </Select>
           </Form.Item>
+          <p className='mb-2 mt-3 fw-6'>Innovations</p>
+          <Form.Item
+            name='innovation'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the contest innovation!',
+              },
+            ]}
+          >
+            <Select
+              mode="multiple"
+              allowClear
+              placeholder="Please select"
+            >
+              {
+                innovationItems.map((product, index) =>
+                  <Option key={index}>{product}</Option>
+                )
+              }
+            </Select>
+          </Form.Item>
+          <p className='mb-2 mt-3 fw-6'>Tech</p>
+          <Form.Item
+            name='tech'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the contest tech!',
+              },
+            ]}
+          >
+            <Select
+              mode="multiple"
+              allowClear
+              placeholder="Please select"
+            >
+              {
+                techItems.map((product, index) =>
+                  <Option key={index}>{product}</Option>
+                )
+              }
+            </Select>
+          </Form.Item>
           <Form.Item
             name='isGlobal'
             label={<b>Global/Local</b>}
+            valuePropName='checked'
           >
             <Switch onChange={(e) => setIsGlobal(e)} />
           </Form.Item>
@@ -99,7 +146,6 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
                   mode="multiple"
                   allowClear
                   placeholder="Please select"
-                  onChange={handleLocationChange}
                 >
                   {
                     countryItems.map((country, index) =>
@@ -122,9 +168,12 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
               handleStyle={{ borderColor: '#75AC2A' }}
               disabled={someDesignerDisable}
             />
-            <div className="mt-3 mb-2">
-              <Checkbox onChange={(e) => handleSomeDesignerChange(e.target.checked)}>Everyone can participate</Checkbox>
-            </div>
+          </Form.Item>
+          <Form.Item
+            name='alldesigners'
+            valuePropName='checked'
+          >
+            <Checkbox onChange={(e) => handleSomeDesignerChange(e.target.checked)}>Everyone can participate</Checkbox>
           </Form.Item>
         </React.Fragment>
       </Container>
