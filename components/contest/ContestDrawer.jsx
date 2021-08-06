@@ -1,18 +1,31 @@
 import React from 'react';
-import { Input, Select, Form } from 'antd';
+import { Select, Form, Switch, Slider } from 'antd';
 import { Container } from '../Container';
-import { UploadImage } from '../UploadImage';
 import { SettingDrawer } from '../community';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 const { Option } = Select;
-const { TextArea } = Input;
 
 export const ContestDrawer = ({ visible, onHide, editable = true, content, ...props }) => {
-  const [optionList, setOptionList] = React.useState(false);
+  const [isGlobal, setIsGlobal] = React.useState(false);
+  const [someDesignerDisable, setSomeDesignerDisable] = React.useState(false);
   const [form] = Form.useForm();
+  const contestType = ['Product Design', 'Logo/icon desing', 'Product packaging/packing design', 'UI/UX for website/app'];
+  const industryItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
+  const countryItems = ['Italy', 'Paris', 'United Kingdom', 'United State'];
+  const handleIndustryChange = (value) => {
+    console.log(value);
+  };
+  const handleLocationChange = (value) => {
+    console.log(value);
+  };
+  const handleSomeDesignerChange = (disabled) => {
+    console.log(disabled);
+    setSomeDesignerDisable(disabled);
+  };
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
-    title='Group'
+    title='Contest'
     submitBtn={(!content && editable) || (content && editable)}
     submitBtnLabel={!content && editable ? 'Create' : content && editable ? 'Save' : 'Save'}
     form={form}
@@ -24,75 +37,94 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
     >
       <Container>
         <React.Fragment>
-          <p className='mb-1 fw-6 fc-black fs-3'>The Big stuff</p>
-          <p className='mb-1 fw-6 fc-grey fs-1'>Adjust basic information about your Group here.</p>
+          <p className='mb-2 mt-3 fw-6'>Contest Type</p>
           <Form.Item
-            name='name'
+            name='contestType'
             rules={[
               {
                 required: true,
-                message: 'Please input the group title!',
+                message: 'Please input the contest type!',
               },
             ]}
           >
-            <Input disabled={!editable} type='text' placeholder='e.g. The Astronaut&apos;s Guide to Exercise' />
+            <Select defaultValue={contestType[props.contestTypeName]}>
+              {
+                contestType.map((name, index) =>
+                  <Option key={index}>{name}</Option>
+                )
+              }
+            </Select>
           </Form.Item>
-          <p className='mb-2 mt-3 fw-6'>Group Tagline</p>
+          <p className='mb-2 mt-3 fw-6'>Industry</p>
           <Form.Item
-            name='tagLine'
+            name='industry'
             rules={[
               {
                 required: true,
-                message: 'Please input the group Tagline!',
+                message: 'Please input the contest industry!',
               },
             ]}
           >
-            <TextArea
-              disabled={!editable}
-              placeholder="e.g. Stay as fit as an astronaut, even when gravity is working against you"
-              autoSize={{ minRows: 4, maxRows: 24 }}
-            />
-          </Form.Item>
-          <p className='mb-2 mt-3 fw-6'>Group description</p>
-          <Form.Item
-            name='description'
-            rules={[
+            <Select
+              mode="multiple"
+              allowClear
+              placeholder="Please select"
+              onChange={handleIndustryChange}
+            >
               {
-                required: true,
-                message: 'Please input the group description!',
-              },
-            ]}
-          >
-            <TextArea
-              disabled={!editable}
-              placeholder="e.g. Our bodies aren&apos;t built for space. That&apos;s why astronauts need to adopt rigorous fitness regimens to maintain bone and muscle mass for when they live in microgravity. The astronaut&apos;s Guide to Exercise will teach you how you can keep up a similar exercise routine(without living earch)."
-              autoSize={{ minRows: 6, maxRows: 24 }}
-            />
-          </Form.Item>
-          <p className='mb-1 fw-6 fc-black fs-3'>Privacy and Invites</p>
-          <p className='mb-1 fw-6 fc-grey fs-1'>Change who can join, view and send invites to your group.</p>
-          <Form.Item
-            name='privacyOptionId'
-            rules={[
-              {
-                required: true,
-                message: 'Please select privacy option!',
-              },
-            ]}
-          >
-            <Select disabled={!editable}>
-              {
-                optionList &&
-                optionList.map((item, index) => {
-                  return <Option key={index} value={item.id}>{item.name}</Option>;
-                })
+                industryItems.map((product, index) =>
+                  <Option key={index}>{product}</Option>
+                )
               }
             </Select>
           </Form.Item>
           <Form.Item
-            name='featuredImage'
+            name='isGlobal'
+            label={<b>Global/Local</b>}
           >
-            <UploadImage disabled={!editable} />
+            <Switch onChange={(e) => setIsGlobal(e)} />
+          </Form.Item>
+          {
+            isGlobal ? (
+              <Form.Item
+                name='location'
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the area or country!',
+                  },
+                ]}
+              >
+                <Select
+                  mode="multiple"
+                  allowClear
+                  placeholder="Please select"
+                  onChange={handleLocationChange}
+                >
+                  {
+                    countryItems.map((country, index) =>
+                      <Option key={index}>{country}</Option>
+                    )
+                  }
+                </Select>
+              </Form.Item>
+            ) : ''
+          }
+          <p className='mb-2 mt-3 fw-6'>How many designers would you like to participate in your product competition?</p>
+          <Form.Item
+            name='designers'
+          >
+            <Slider
+              defaultValue={0}
+              min={0}
+              max={50}
+              trackStyle={{ backgroundColor: '#75AC2A' }}
+              handleStyle={{ borderColor: '#75AC2A' }}
+              disabled={someDesignerDisable}
+            />
+            <div className="mt-3 mb-2">
+              <Checkbox onChange={(e) => handleSomeDesignerChange(e.target.checked)}>Everyone can participate</Checkbox>
+            </div>
           </Form.Item>
         </React.Fragment>
       </Container>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import Image from 'next/image';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
@@ -13,7 +13,9 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: card } = useSWR(API.GET_CONTEST_CATEGORY_API, fetcher);
   const [visible, setVisible] = React.useState(false);
-  const toggleVisible = () => {
+  const [contestTypeName, setContestTypeName] = React.useState();
+  const toggleVisible = (index) => {
+    setContestTypeName(index);
     setVisible(!visible);
   };
   return (
@@ -34,7 +36,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
                 return (
                   <Col key={index} lg={12} xs={24} className="p-4">
                     <Row
-                      onClick={toggleVisible}
+                      onClick={() => toggleVisible(index)}
                       className="general-card bg-white h-100"
                       style={{
                         borderRadius: '24px',
@@ -54,7 +56,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
               })
             }
           </Row>
-          <ContestDrawer visible={visible} onHide={toggleVisible} {...props} />
+          <ContestDrawer visible={visible} onHide={toggleVisible} {...props} contestTypeName={contestTypeName} />
         </React.Fragment>
       </Container>
     </DeskPageHoc>
