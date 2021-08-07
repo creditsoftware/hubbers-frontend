@@ -22,7 +22,7 @@ export const MainFooter = ({ className, ...props }) => {
                 </h3>
               </div>
               <div>
-                <Link href='/creator'>
+                <Link href='/hubbers/become-a-creator'>
                   <a>
                     Are you a creator?
                   </a>
