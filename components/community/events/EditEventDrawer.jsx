@@ -26,7 +26,7 @@ import {
   API
 } from '../../../constants';
 import { UploadImage } from '../../UploadImage';
-import { fetchJson, openNotificationWithIcon, slugify } from '../../../utils';
+import { fetchJson, getRandomInt, openNotificationWithIcon, slugify } from '../../../utils';
 import { useRouter } from 'next/router';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -224,7 +224,7 @@ export const EditEventDrawer = ({ visible, onHide }) => {
                   { required: true, message: 'Please input event title!' }
                 ]}
               >
-                <Input type='text' placeholder='Add a title' onChange={(v) => formRef.current.setFieldsValue({ slug: slugify(v.target.value) })} />
+                <Input type='text' placeholder='Add a title' onChange={(v) => formRef.current.setFieldsValue({ slug: `${slugify(v.target.value)}-${getRandomInt(100000, 999999)}` })} />
               </Form.Item>
             </Col>
             <Col lg={2} md={2} />

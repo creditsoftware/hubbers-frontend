@@ -11,10 +11,12 @@ import {
 } from '@ant-design/icons';
 import { mutate } from 'swr';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
 export const PostTileBody = ({ ...props }) => {
   const [contentEditable, setContentEditable] = React.useState(false);
   const [newPost, setNewPost] = React.useState(null);
-  const {mutate: updateTDetail} = useTopicDetail(props.query.topic);
+  const { mutate: updateTDetail } = useTopicDetail(props.query.topic ?? null);
+  const { mutate: updateGDetail } = useGroupDetail(props.query.group ?? null);
   React.useEffect(() => {
     setNewPost({
       id: props.post.id,
@@ -58,6 +60,7 @@ export const PostTileBody = ({ ...props }) => {
         openNotificationWithIcon('success', 'Success', response.message);
         setContentEditable(false);
         updateTDetail();
+        updateGDetail();
         update();
       })
       .catch((err) => {
@@ -70,6 +73,7 @@ export const PostTileBody = ({ ...props }) => {
         openNotificationWithIcon('success', 'Success', response.message);
         setContentEditable(false);
         updateTDetail();
+        updateGDetail();
         update();
       })
       .catch((err) => {

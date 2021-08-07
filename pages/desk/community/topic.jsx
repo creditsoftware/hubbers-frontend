@@ -111,6 +111,7 @@ const TopicDetail = (props) => {
               })
             }
             {
+              props.query?.postWrapped === '1' &&
               topicData &&
               topicData.events &&
               topicData.events.map((p) => {
