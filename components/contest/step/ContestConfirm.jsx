@@ -136,7 +136,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
             name='designers'
             rules={[
               {
-                required: true,
+                required: !designerDisable,
                 message: 'Please input the Designers!',
               },
             ]}
@@ -171,11 +171,11 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
             rules={[
               {
                 required: true,
-                message: 'Please input the designer point!',
+                message: 'required',
               },
             ]}
           >
-            <Input type="number" />
+            <Input type="number" min={0} />
           </Form.Item>
         </Col>
         <Col className="pt-1">
@@ -203,14 +203,14 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       <p className='mb-2 mt-3 fw-6'>If you don t have enough, you can choose experienced judge from our community.</p>
       <Form.Item
         name='restjudges'
-        label={<span>Number of extra judge needed:</span>}
+        label={<span>Number of extra judge needed</span>}
         rules={[
           {
             required: false,
           }
         ]}
       >
-        <Input />
+        <Input type='number' min={0} />
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>How many revisions do you want to allow designers to provide (up to 3).</p>
       <Form.Item

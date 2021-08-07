@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form } from 'antd';
+import { Button, Form, Space } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Container } from '../Container';
 import { SettingDrawer } from '../community/global/SettingDrawer';
 import { ContestConfirm } from './step/ContestConfirm';
@@ -21,22 +22,36 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
     setSomeDesignerDisable(e.target.checked);
     form.setFieldsValue({ alldesigners: e.target.checked });
   };
-  const handleStepClick = () => {
+  const handleStepNextClick = () => {
     setStep(step + 1);
+  };
+  const handleStepPrevClick = () => {
+    step-1 <0 ? setStep(0) : setStep(step - 1);
   };
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
-    title='Contest'
+    title={
+      <Space>
+        {
+          step ? (
+            <Button type='link' size='small' onClick={handleStepPrevClick}>
+              <ArrowLeftOutlined style={{ color: 'black' }} />
+            </Button>
+          ) : ''
+        }
+        Contest
+      </Space>
+    }
     submitBtn={(!content && editable) || (content && editable)}
-    // submitBtnLabel={!content && editable ? 'Next' : content && editable ? 'Save' : 'Save'}
+    submitBtnLabel={!content && editable ? 'Next' : content && editable ? 'Save' : 'Save'}
     form={form}
     {...props}
   >
     <Form
       name='group-edit'
       form={form}
-      onFinish={handleStepClick}
+      onFinish={handleStepNextClick}
     >
       <Container>
         <React.Fragment>
