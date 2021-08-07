@@ -20,7 +20,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
   const handleVisiable = (index) => {
     setContestTypeName(index);
     setVisible(!visible);
-  }
+  };
   return (
     <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
       <Container className="py-5">
