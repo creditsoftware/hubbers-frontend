@@ -26,7 +26,7 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 import { UploadImage } from '../../UploadImage';
-import { fetchJson, openNotificationWithIcon, slugify } from '../../../utils';
+import { fetchJson, getRandomInt, openNotificationWithIcon, slugify } from '../../../utils';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
 import { useEventList } from '../../../hooks';
@@ -293,7 +293,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
                   { required: true, message: 'Please input event title!' }
                 ]}
               >
-                <Input type='text' disabled={!editable} placeholder='Add a title' onChange={(v) => form.setFieldsValue({ slug: slugify(v.target.value) })} />
+                <Input type='text' disabled={!editable} placeholder='Add a title' onChange={(v) => form.setFieldsValue({ slug: `${slugify(v.target.value)}-${getRandomInt(100000, 999999)}` })} />
               </Form.Item>
             </Col>
             <Col lg={2} md={2} />

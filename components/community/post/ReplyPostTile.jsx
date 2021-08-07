@@ -14,10 +14,12 @@ import Image from 'next/image';
 import { CKEditor5 } from '../../CKEditor5';
 import { mutate } from 'swr';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
+import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
 export const ReplyPostTile = ({ ...props }) => {
   const [editableReply, setEditableReply] = React.useState(false);
   const [replyData, setReplyData] = React.useState();
-  const{mutate:mutateTDetail} = useTopicDetail(props.query.topic);
+  const { mutate: mutateTDetail } = useTopicDetail(props.query.topic ?? null);
+  const { mutate: mutateGDetail } = useGroupDetail(props.query.group ?? null);
   const router = useRouter();
   React.useEffect(() => {
     setReplyData({
@@ -45,6 +47,7 @@ export const ReplyPostTile = ({ ...props }) => {
           }
         });
         mutateTDetail();
+        mutateGDetail();
       });
     cancel();
   };

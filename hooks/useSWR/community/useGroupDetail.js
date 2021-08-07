@@ -13,7 +13,7 @@ export const useGroupDetail = (
     data,
     mutate,
     error
-  } = useSWR(`${API.GET_COMMUNITY_GROUP_DETAIL_API}/${groupId}`, fetcher, initialValue);
+  } = useSWR(groupId ? `${API.GET_COMMUNITY_GROUP_DETAIL_API}/${groupId}` : null, fetcher, initialValue);
   return {
     data,
     loading: !data && !error,

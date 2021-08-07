@@ -10,7 +10,7 @@ export const PostTile = ({ ...props }) => {
         props.post.children &&
         props.post.children.length > 0 &&
         props.post.children.map((child) => {
-          return <PostTileChild key={child.id} auth={{ ...props.auth }} post={{ ...child }} query={{...props.query}} />;
+          return <PostTileChild key={child.id} auth={{ ...props.auth }} post={{ ...child }} query={{ ...props.query }} />;
         })
       }
       <div className='p-3'>

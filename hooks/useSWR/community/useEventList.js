@@ -13,7 +13,7 @@ export const useEventList = (
     data,
     mutate,
     error
-  } = useSWR(`${API.GET_EVENT_LIST_API}/${communityId}`, fetcher, initialValue);
+  } = useSWR(communityId ? `${API.GET_EVENT_LIST_API}/${communityId}` : null, fetcher, initialValue);
   return {
     data,
     loading: !data && !error,

@@ -13,9 +13,9 @@ export const useGroupList = (
     data,
     mutate,
     error
-  } = useSWR(`${API.GET_COMMUNITY_GROUP_LIST_API}/${communityId}`, fetcher, initialValue);
+  } = useSWR(communityId ? `${API.LOCAL_GET_GROUP_API}?community=${communityId}` : null, fetcher, initialValue);
   return {
-    groups: data,
+    data,
     loading: !data && !error,
     mutate,
     error

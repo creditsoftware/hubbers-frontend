@@ -13,7 +13,7 @@ export const useTopicDetail = (
     data,
     mutate,
     error
-  } = useSWR(`${API.GET_TOPIC_DETAIL_API}/${topicId}`, fetcher, initialValue);
+  } = useSWR(topicId ? `${API.GET_TOPIC_DETAIL_API}/${topicId}` : null, fetcher, initialValue);
   return {
     data,
     loading: !data && !error,
