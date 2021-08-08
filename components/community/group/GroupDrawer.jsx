@@ -18,7 +18,7 @@ export const GroupDrawer = ({ visible, onHide, editable = true, content, ...prop
   const { mutate: mutateCommunityList } = useCommunityList();
   const { mutate: mutateGroupList } = useGroupList(props.query.community);
   React.useEffect(() => {
-    fetchJson(`${API.GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
+    fetchJson(`${API.GET_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
   }, []);
   React.useEffect(() => {
     if (content) {

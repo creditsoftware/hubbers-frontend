@@ -26,7 +26,7 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
     setStep(step + 1);
   };
   const handleStepPrevClick = () => {
-    step-1 <0 ? setStep(0) : setStep(step - 1);
+    step - 1 < 0 ? setStep(0) : setStep(step - 1);
   };
   return <SettingDrawer
     visible={visible}
@@ -34,11 +34,13 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
     title={
       <Space>
         {
-          step ? (
-            <Button type='link' size='small' onClick={handleStepPrevClick}>
-              <ArrowLeftOutlined style={{ color: 'black' }} />
-            </Button>
-          ) : ''
+          step ?
+            <div className="d-flex">
+              <Button type='link' size='small' onClick={handleStepPrevClick}>
+                <ArrowLeftOutlined style={{ color: 'black' }} />
+              </Button>
+            </div>
+            : ''
         }
         Contest
       </Space>

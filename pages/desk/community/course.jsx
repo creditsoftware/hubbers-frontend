@@ -6,7 +6,10 @@ import { withSession } from '../../../utils/withSession';
 import { jwtDecode } from '../../../utils/jwt';
 import { fetcher } from '../../../utils';
 import { API } from '../../../constants/index';
-import { CreateCourseBtn, SwitchCommunity } from '../../../components';
+import {
+  // CreateCourseBtn,
+  SwitchCommunity
+} from '../../../components';
 import useSWR from 'swr';
 import JoinInCommunity from './join';
 const Course = ({ ...props }) => {
@@ -27,7 +30,7 @@ const Course = ({ ...props }) => {
               <Col span={12} className='text-right'>
                 <Space>
                   {/* <CourseManageBtn /> */}
-                  <CreateCourseBtn auth={{ ...data }} />
+                  {/* <CreateCourseBtn auth={{ ...data }} /> */}
                   <SwitchCommunity />
                 </Space>
               </Col>

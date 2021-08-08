@@ -20,7 +20,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
   const router = useRouter();
   const [form] = Form.useForm();
   React.useEffect(() => {
-    fetchJson(`${API.GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
+    fetchJson(`${API.GET_PRIVACY_OPTIONS_API}`).then((v) => setOptionList(v.data));
     socket.on('created-community-post', (d) => {
       console.log(d);
     });

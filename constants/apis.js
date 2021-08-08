@@ -75,7 +75,7 @@ export const API = {
   GET_ALL_POST_LIST_API: process.env.API_V1 + 'community/post/all-list', //get ?community?group?topic
   LINKEDIN_LOGIN_REDIRECT_API: process.env.API_V1 + 'auth/user/linkedin',
   SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso',
-  GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/group-privacy-option', //get
+  GET_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/privacy-option', //get
   CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post /:userId
   REMOVE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/remove', //delete /:id
   GET_COMMUNITY_GROUP_LIST_API: process.env.API_V1 + 'community/group/all', //get /:communityId/:userId
