@@ -1,25 +1,21 @@
 import React from 'react';
-import { Table, Input, Button, Space, Avatar } from 'antd';
+import { Table, Input, Button, Space, Avatar, Image } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import Image from 'next/image';
-import { fetchJson } from '../../../utils/fetchJson';
-// import { mutate } from 'swr';
-import { API } from '../../../constants';
 import { useRouter } from 'next/router';
+import { useInvitedList } from '../../../hooks/useSWR/community/useInvitedList';
 
-export const CommunityMembersTable = () => {
+export const CommunityMembersTable = ({ ...props }) => {
   const [searchText, setSearchText] = React.useState('');
   const [searchedColumn, setSearchedColumn] = React.useState('');
   const router = useRouter();
   const [invitationData, setInvitationData] = React.useState(null);
-  const getData = React.useCallback(async () => {
-    // mutate(`${API.GET_LOCAL_COMMUNITY_MEMBER_INVITE_API}`);
-    let result = await fetchJson(`${API.GET_LOCAL_COMMUNITY_MEMBER_INVITE_API}?communityId=${router.query.community}`);
+  const { data: result } = useInvitedList(props.gid ?? router.query.community);
+  React.useEffect(() => {
     if (result && result.success) {
       let d = [];
       if (result.data) {
-        await result.data.map((item, index) => {
+        result.data.map((item, index) => {
           d.push({
             key: index,
             firstName: item?.toMember?.user?.firstname,
@@ -27,7 +23,7 @@ export const CommunityMembersTable = () => {
             email: item?.toMember?.user?.email,
             invitedBy: <React.Fragment>
               <Space>
-                <Avatar src={<Image src={item?.fromMember?.user?.avatar} width={100} height={100} alt='' />} />
+                <Avatar size={40} src={<Image src={item?.fromMember?.user?.avatar} width={40} height={40} alt='' />} />
                 <span className="fw-6">{item?.fromMember?.user?.firstname + ' ' + item?.fromMember?.user?.lastname}</span>
               </Space>
             </React.Fragment>,
@@ -38,10 +34,7 @@ export const CommunityMembersTable = () => {
       }
       setInvitationData(d);
     }
-  }, []);
-  React.useEffect(() => {
-    getData();
-  }, [getData]);
+  }, [result]);
   const getColumnSearchProps = (dataIndex) => ({
     // eslint-disable-next-line react/display-name
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {

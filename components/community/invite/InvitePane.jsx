@@ -18,7 +18,7 @@ import { defaultMsgOfCommunityMemberInvitation } from '../../../constants/defaul
 import { API } from '../../../constants';
 import { UserSelector } from '../../UserSelector';
 const { Option } = Select;
-export const InvitePane = () => {
+export const InvitePane = ({...props}) => {
   const router = useRouter();
   const [auth, setAuth] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
@@ -39,7 +39,7 @@ export const InvitePane = () => {
     getData();
   }, [router, getData]);
   const invite = (values) => {
-    let data = { ...values, communityId: router.query.community, from: auth && auth.communityMember.filter((member) => member.communityId === Number(router.query.community))[0].id };
+    let data = { ...values, communityRoleId: props.gid ? 2 : 1, communityId: props.gid ?? router.query.community, from: props && props.data && props.data.members.filter((member) => member.communityId === Number(props.gid ?? router.query.community))[0].id };
     httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
@@ -73,7 +73,7 @@ export const InvitePane = () => {
         rules={[{ required: true, message: 'Please input description!' }]}
       >
         <AvatarTextarea
-          avatar={defaultAvatar}
+          avatar={props.auth?.avatar ?? defaultAvatar}
           placeholder={`${defaultMsgOfCommunityMemberInvitation}\n${auth && auth.firstname ? auth.firstname : ''} ${auth && auth.lastname ? auth.lastname : ''}`}
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
@@ -111,7 +111,7 @@ export const InvitePane = () => {
         </Col>
         <Col span={8} className='text-right'>
           <Form.Item>
-            <Button htmlType='submit' type='hbs-primary' size='large'>Send</Button>
+            <Button htmlType='submit' type='hbs-primary' size='large' onClick={(e)=>e.stopPropagation()}>Send</Button>
           </Form.Item>
         </Col>
       </Row>

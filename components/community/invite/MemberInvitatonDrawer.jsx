@@ -13,7 +13,6 @@ import { RequestToJoinPane } from './RequestToJoinPane';
 const { TabPane } = Tabs;
 // const { Text } = Typography;
 export const MemberInvitationDrawer = ({ visible, onCloseInvitation, ...props }) => {
-  console.log(props);
   return <Drawer
     title={
       <Row>
@@ -31,15 +30,16 @@ export const MemberInvitationDrawer = ({ visible, onCloseInvitation, ...props })
     className='member-invite-drawer'
     placement="right"
     closable={false}
+    onClick={(e)=>e.stopPropagation()}
     onClose={onCloseInvitation}
     visible={visible}
   >
     <Tabs defaultActiveKey="1" centered>
       <TabPane tab="Invite" key="1">
-        <InvitePane />
+        <InvitePane {...props} />
       </TabPane>
       <TabPane tab="Sent Invites" key="2">
-        <SentInvitePane />
+        <SentInvitePane gid={props.gid} />
       </TabPane>
       <TabPane tab={
         <span>
@@ -47,7 +47,7 @@ export const MemberInvitationDrawer = ({ visible, onCloseInvitation, ...props })
           {/* <Text mark>1</Text> */}
         </span>
       } key="3">
-        <RequestToJoinPane />
+        <RequestToJoinPane gid={props.gid} />
       </TabPane>
     </Tabs>
   </Drawer>;
