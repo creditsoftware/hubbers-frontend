@@ -1,8 +1,6 @@
 import React from 'react';
-import Slider from 'react-slick';
-import Image from 'next/image';
 import useSWR from 'swr';
-// import { Badge } from 'antd';
+import { Button, Row, Col, Image } from 'antd';
 import { fetchJson } from '../../utils';
 import { fetcher } from '../../utils/fetcher';
 import { withSession } from '../../utils/withSession';
@@ -10,78 +8,76 @@ import { jwtDecode } from '../../utils/jwt';
 import { API } from '../../constants/index';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
+import { useWindowSize } from '../../hooks';
+import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../constants/etc';
+
 
 const Dashboard = ({ ...props }) => {
+  const displaySize = useWindowSize();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [communityList, setCommunityList] = React.useState([]);
+  const [rowSize, setRowSize] = React.useState(3);
+  const [rowNum, setRowNum] = React.useState(2);
+
   React.useEffect(() => {
-    fetchJson(`${API.GET_MY_COMMUNITY_AND_GROUP_LIST_API}/${data.id}`).then((response) => {
-      setCommunityList(response.data?.filter((item) => item.roleId === 1));
+    fetchJson(`${API.IS_EXIST_MY_COMMUNITY_API}/${data.id}`).then((response) => {
+      setCommunityList(response.data);
     });
   }, []);
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 5000,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 4,
-    responsive: [
-      {
-        breakpoint: 1375,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 766,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1
-        }
-      }
-    ]
+  React.useEffect(() => {
+    if(displaySize.width>1500){
+      setRowSize(3);
+    }
+    if(displaySize.width<1500){
+      setRowSize(2);
+    }
+    if(displaySize.width<1150){
+      setRowSize(1);
+    }
+    if(displaySize.width<1024){
+      setRowSize(2);
+    }
+    if(displaySize.width<992){
+      setRowSize(1);
+    }
+  }, [displaySize]);
+  
+  const addRow = () => {
+    setRowNum(rowNum + 1);
   };
-
-  const defaultImageURL = '/images/community/join.png';
-
+  
   return (
     <DeskPageHoc title='Dashboard' activeSide={{ active: ['dashboard'], open: [] }} auth={{ ...data }}>
       <React.Fragment>
-        <Container className="p-5">
-          <Slider {...settings}>
+        <Container className={displaySize.width > 992 ? 'p-5' : 'p-4'}>
+          <Row>
             {
               communityList.map((item, index) => {
-                return(
-                  <div key={index} className="text-center">
-                    <Image width={200} height={170} src={item.featuredImage ? item.featuredImage : defaultImageURL} />
-                    <h1 className="text-center">{item.name}</h1>
-                  </div>
-                );
+                if(index < rowSize*rowNum){
+                  return(
+                    <Col key={index} span={24/rowSize} className="text-center py-2">
+                      <Image preview={false} width={320} height={140} src={item.featuredImage ? item.featuredImage : DEFAULT_COMMUNITY_TOPIC_IMAGE} />
+                      <h1 className="text-center">{item.name}</h1>
+                    </Col>
+                  );
+                }
               })
             }
-          </Slider>
+            {
+              communityList.length > rowSize*rowNum ? (
+                <Col span={24} className="text-right">
+                  <Button type="hbs-primary" shap="round" onClick={addRow}>More</Button>
+                </Col>
+              ): null
+            }
+          </Row>
         </Container>
       </React.Fragment>
     </DeskPageHoc>
   );
 };
+
 export const getServerSideProps = withSession(async (ctx) => {
   const { req } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
