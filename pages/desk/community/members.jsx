@@ -42,7 +42,7 @@ const Members = (props) => {
               </Col>
               <Col span={12} className='text-right'>
                 <Space>
-                  <MemberInvitationBtn />
+                  <MemberInvitationBtn query={{...props.query}} auth={{ ...data }} />
                   <SwitchCommunity />
                 </Space>
               </Col>

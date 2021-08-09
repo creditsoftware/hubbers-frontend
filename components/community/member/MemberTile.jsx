@@ -40,7 +40,7 @@ export const MemberTile = ({
       <div onMouseEnter={onShowActions} onMouseLeave={onHideActions}>
         <Space className='member-tile p-2 mt-3 bg-white'>
           <div>
-            <Avatar size='large' src={<Image alt='' preview={false} width={100} height={100} src={avatar} />} />
+            <Avatar size='large' src={<Image alt='' preview={false} width={80} height={80} src={avatar} />} />
           </div>
           <div>
             <div className="fw-5 fs-2 text-center">

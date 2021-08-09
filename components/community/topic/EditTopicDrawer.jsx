@@ -7,7 +7,7 @@ import { defaultAvatar } from '../../../constants/etc';
 import { Container } from '../../Container';
 import { UploadImage } from '../../UploadImage';
 import { useWindowSize } from '../../../hooks';
-import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
+// import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
 import { httpRequestLocal, openNotificationWithIcon } from '../../../utils';
 import { API } from '../../../constants';
 import { REQUEST_TYPE } from '../../../constants/requestType';
@@ -49,7 +49,7 @@ export const EditTopicDrawer = ({ visible, onHide }) => {
             <Button type='hbs-link' onClick={() => setFullWidth(!fullWidth)}>
               <ArrowsAltOutlined style={{ fontSize: '26px', fontWeight: '600', color: '#c4c4c4' }} />
             </Button>
-            <MemberInvitationBtn shape='round' />
+            {/* <MemberInvitationBtn shape='round' /> */}
             <Button type='hbs-dashed' shape='round' onClick={onHide}>&times;&nbsp;Close</Button>
           </Space>
         </Col>

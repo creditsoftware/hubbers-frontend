@@ -14,7 +14,7 @@ export const MemberInvitationBtn = ({ ...props }) => {
   return (
     <React.Fragment>
       <Button type='hbs-primary' shape={props.shape ? props.shape : false} onClick={onOpenInvitation}>Invite</Button>
-      <MemberInvitationDrawer visible={visibleInvitation} onCloseInvitation={onCloseInvitation} />
+      <MemberInvitationDrawer visible={visibleInvitation} onCloseInvitation={onCloseInvitation} query={{...props.query}} auth={{...props.auth}} />
     </React.Fragment>
   );
 };

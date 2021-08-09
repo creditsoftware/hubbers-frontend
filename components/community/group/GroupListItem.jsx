@@ -22,8 +22,8 @@ import { useWindowSize } from '../../../hooks';
 import { useGroupList } from '../../../hooks';
 export const GroupListItem = ({ ...props }) => {
   const [joinLoading, setJoinLoading] = React.useState(false);
-  const[isJoined, setIsJoined] = React.useState(false);
-  // const [requestLoading, setRequestLoading] = React.useState(false);
+  const [isJoined, setIsJoined] = React.useState(false);
+  const [requestLoading, setRequestLoading] = React.useState(false);
   const size = useWindowSize();
   const [w, setW] = React.useState('');
   React.useEffect(() => {
@@ -31,7 +31,7 @@ export const GroupListItem = ({ ...props }) => {
   }, [size]);
   React.useEffect(() => {
     setIsJoined(props.members.filter((m) => m.user?.id === props.auth?.id).length > 0);
-  },[props]);
+  }, [props]);
   const { mutate } = useGroupList(props.query.community);
   const onJoin = () => {
     setJoinLoading(true);
@@ -44,17 +44,17 @@ export const GroupListItem = ({ ...props }) => {
       setJoinLoading(false);
     });
   };
-  // const onRequest = () => {
-  // setRequestLoading(true);
-  // fetchJson(`${API.JOININ_COMMUNITY_GROUP_API}/${props.id}/${props.auth?.id}`, {
-  //   method: REQUEST_TYPE.PATCH
-  // }).then(() => {
-  //   setRequestLoading(false);
-  //   mutate();
-  // }).catch(() => {
-  //   setRequestLoading(false);
-  // });
-  // };
+  const onRequest = () => {
+    setRequestLoading(true);
+    fetchJson(`${API.JOININ_COMMUNITY_GROUP_API}/${props.id}/${props.auth?.id}`, {
+      method: REQUEST_TYPE.PATCH
+    }).then(() => {
+      setRequestLoading(false);
+      mutate();
+    }).catch(() => {
+      setRequestLoading(false);
+    });
+  };
   return (
     <Link href={isJoined ? `/desk/community/group?community=${props.query.community}&group=${props.id}` : '#'}>
       <a className='community-child-list-item'>
@@ -96,9 +96,9 @@ export const GroupListItem = ({ ...props }) => {
             <h4
               className="fw-6 fs-3 mb-0 mt-2"
               style={{
-                textOverflow:'ellipsis',
-                whiteSpace:'nowrap',
-                overflow:'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
                 width: w ? w > 1023 ? w - 600 : w - 300 : 0,
                 maxWidth: 1000
               }}
@@ -133,11 +133,18 @@ export const GroupListItem = ({ ...props }) => {
                   </Button>
                 }
                 {
-                  // props.members.filter((m) => m.user?.id === props.auth?.id).length === 0 &&
-                  // props.privacyOption?.name === 'Private' &&
-                  // <Button loading={requestLoading} type='hbs-outline-primary' shape='round' onClick={onRequest}>
-                  //   Request to Join
-                  // </Button>
+                  props.members.filter((m) => m.user?.id === props.auth?.id).length > 0 &&
+                  props.privacyOption?.name === 'Secret' &&
+                  <Button loading={joinLoading} type='hbs-outline-primary' shape='round' onClick={onJoin}>
+                    Invite
+                  </Button>
+                }
+                {
+                  props.members.filter((m) => m.user?.id === props.auth?.id).length === 0 &&
+                  props.privacyOption?.name === 'Private' &&
+                  <Button loading={requestLoading} type='hbs-outline-primary' shape='round' onClick={onRequest}>
+                    Request to Join
+                  </Button>
                 }
                 <GroupContextMenu {...props} />
               </Space>

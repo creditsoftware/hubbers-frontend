@@ -51,7 +51,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
       <Row className='px-3 py-2'>
         <Col lg={14} md={14} sm={14}>
           <Row className='f-align-center'>
-            <Avatar size={50} icon={<Image width={100} height={100} src={props.auth?.avatar ?? defaultAvatar} />} />
+            <Avatar size={50} icon={<Image width={100} height={100} alt='' src={props.auth?.avatar ?? defaultAvatar} />} />
             <div className='ml-4'>
               <p className='mb-1 fw-6 fc-primary'>Hubbers</p>
               <p className='mb-1 fw-6 fc-3 fs-3'>Network Setting</p>
@@ -63,7 +63,7 @@ export const EditGroupDrawer = ({ visible, onHide, ...props }) => {
             <Button type='hbs-link' onClick={() => setFullWidth(!fullWidth)}>
               <ArrowsAltOutlined style={{ fontSize: '26px', fontWeight: '600', color: '#c4c4c4' }} />
             </Button>
-            <MemberInvitationBtn shape='round' />
+            <MemberInvitationBtn shape='round' query={{...props.query}} auth={{...props.auth}} />
             <Button type='hbs-dashed' shape='round' onClick={onHide}>&times;&nbsp;Close</Button>
           </Space>
         </Col>

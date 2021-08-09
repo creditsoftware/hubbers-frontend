@@ -12,7 +12,8 @@ import { SentInvitePane } from './SentInvitePane';
 import { RequestToJoinPane } from './RequestToJoinPane';
 const { TabPane } = Tabs;
 // const { Text } = Typography;
-export const MemberInvitationDrawer = ({ visible, onCloseInvitation }) => {
+export const MemberInvitationDrawer = ({ visible, onCloseInvitation, ...props }) => {
+  console.log(props);
   return <Drawer
     title={
       <Row>
