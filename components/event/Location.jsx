@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import GoogleMapReact from 'google-map-react';
 import { TwitterOutlined, FacebookOutlined, LinkedinOutlined } from '@ant-design/icons';
-export const Location = () => {
+export const Location = ({eventData}) => {
   return (
     <div>
       <div className='text-center fw-6 fs-3 text-upper lts-1 pt-5 pb-5'>
@@ -12,7 +12,7 @@ export const Location = () => {
         <LocationMap/>
       </div>
       <div className='location-address mt-2 mb-4'>
-        <p>WeWork, Torre Bellini, Esmeralda 950, Capital Federal , Buenos Aires C1007ABL, Argentina, Buenos Aires, ArgentinaShare event on</p>
+        <p>{eventData.eventType === 'online' ? 'Online' : eventData.localContent?.location?.streetAddress}</p>
         <Row className='text-center'>
           <Col xs={24} lg={12}>
             <span className='fs-2 fc-primary'>Share event on</span>

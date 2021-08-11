@@ -1,57 +1,64 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Image } from 'antd';
 import { Container } from '../Container';
+import dateFormat from 'dateformat';
+
 export const EventItemSection = props => {
+  const date = dateFormat(props.startDate, 'mmmm dd, yyyy');
+  const day = date.split(',')[0].split(' ')[1];
+  const month = date.split(',')[0].split(' ')[0];
   return (
     <Container
       className={'mt-5'}
     >
       <div className='event-item-section'>
-        <a href={`events/${props.product}`}>
+        <a href={`events/${props.slug}`}>
           <Row>
             <Col xs={24} sm={0} md={4}>
               <div className='event-item-section-time text-center'>
-                <span className='fw-6'>{props.day}</span>
-                <p className='fw-6 fs-4'>{props.month}</p>
-                <p className='fw-4 fs-2 mb-1'>{props.time} - </p>
-                <p className='fw-4 fs-2'> : {props.second} </p>
+                <span className='fw-6'>{day}</span>
+                <p className='fw-6 fs-4'>{month}</p>
+                <p className='fw-4 fs-2 mb-1'>{props.startTime}</p>
               </div>
             </Col>
             <Col xs={24} sm={24} md={15}>
               <div className='event-item-section-content'>
                 <div className='event-item-section-content-heading'>
-                  <p className='text-upper fc-primary fw-6 fs-4 mb-2'>{props.countryName}</p>
-                  <div>
-                    <span>
-                      <img src={props.imgRoute}></img>
-                    </span>
-                    {props.event}
-                  </div>
+                  <p className='text-upper fc-primary fw-6 fs-4 mb-2'>
+                    {props.eventType === 'online' ? 'Online' : props.localContent?.location?.name}
+                  </p>
+                  {
+                    props.eventType === 'local' &&
+                    <div className="d-flex f-align-center">
+                      <Image preview={false} width={24} height={24} src="/images/icons/location_icon.png" />
+                      <span className="ml-2">{props.localContent?.location?.streetAddress}</span>
+                    </div>
+                  }
                 </div>
                 <div className='event-item-section-content-content pt-4 pb-4'>
                   <div className='fw-5 fs-4 lh-2'>
-                    {props.product}
+                    {props.title}
                   </div>
                   <div className='lh-1_5 fs-1'>
                     {props.description}
                   </div>
                 </div>
                 <div className='event-item-section-content-footer'>
-                  <div>
-                    <span className='fc-primary'>
-                      <img src={props.speakers} />
-                    </span>
-                    <span>Speakers: </span>
+                  <div className="d-flex f-align-center">
+                    <Image preview={false} width={24} height={24} src="/images/icons/comment_icon_green.png" />
+                    <span className="ml-1">Speakers: </span>
                   </div>
                   <div className='fw-6 fs-1'>
-                    {props.actor}
+                    {props.speakers?.map((item, index)=>{
+                      return <span key={item.id} className="ml-2">{index === props.speakers.length - 1 ? item.name : item.name + ',' }</span>;
+                    })}
                   </div>
                 </div>
               </div>
             </Col>
             <Col xs={24} sm={0} md={5}>
               <div className='event-item-section-img'>
-                <div style={{ backgroundImage: `url(${props.imgUrl})` }}></div>
+                <div style={{ backgroundImage: `url(${props.headerImageUrl})` }}></div>
               </div>
             </Col>
           </Row>

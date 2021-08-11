@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Button, Space } from 'antd';
 // import { Row, Col } from 'antd';
 import { MainPageHoc } from '../../containers';
-import { Userdata, CommunityProgress, Container, GlobalEventSlider, GlobalBlogSlider } from '../../components';
+import { Userdata, CommunityProgress, Container, GlobalPartnerSlider, GlobalEventSlider, GlobalBlogSlider } from '../../components';
 import Slider from 'react-slick';
 import { withSession } from '../../utils/withSession';
 import { API } from '../../constants/index';
@@ -59,13 +59,6 @@ const hubbers = [
     name: 'Rakesh  Murali',
     country: 'Singapore',
     date: 'Apr - 2021',
-  }
-];
-const partners = [
-  {
-    url: '/hubbers/sponsor/5fc648e517706a0018c61a23',
-    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/OeT5X1rU6.png',
-    name: 'Komaspec',
   }
 ];
 const Community = ({ ...props }) => {
@@ -198,19 +191,7 @@ const Community = ({ ...props }) => {
         </Container>
         <div className="bg-white py-5">
           <Container>
-            <React.Fragment>
-              <h2 className="fw-6 fs-5">Sponsors & Partners</h2>
-              <Slider {...settings}>
-                {
-                  partners.map((partner, index) => {
-                    return <a key={index} href={partner.url} className="text-center">
-                      <Image width="210" height="220" src={partner.image} />
-                      <h3>{partner.name}</h3>
-                    </a>;
-                  })
-                }
-              </Slider>
-            </React.Fragment>
+            <GlobalPartnerSlider />
           </Container>
         </div>
       </React.Fragment>

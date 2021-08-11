@@ -1,13 +1,12 @@
 import React from 'react';
-import { Space } from 'antd';
-import Image from 'next/image';
-import Avatar from 'antd/lib/avatar/avatar';
+import { Space, Avatar } from 'antd';
+
 export const Testimonial = (props) => {
   return (
     <Space className='mb-4'>
-      <Avatar size={150} src={<Image width={200} height={200} src={props.imageUrl}/>}/>
-      <div>
-        <p className='m-0'>
+      <Avatar size={150} src={props.imageUrl} />
+      <div className="pl-3">
+        <p className='mb-1'>
           <b>
             {
               props.name

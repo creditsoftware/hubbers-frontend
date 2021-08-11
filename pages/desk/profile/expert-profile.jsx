@@ -1,11 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
 import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
-import { MainProfile } from '../../../components/profile';
+import { MainProfile, ProfileNavbar } from '../../../components/profile';
 import { jwtDecode } from '../../../utils/jwt';
 import { PlusOutlined } from '@ant-design/icons';
 import { Container } from '../../../components/Container';
@@ -71,23 +70,7 @@ const ExpertProfile = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <div>
-              <Link href="/desk/profile/">
-                <a style={{ display: 'inline-block' }} className="p-3">General Profile</a>
-              </Link>
-              <Link href="/desk/profile/creator-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Creator Profile</a>
-              </Link>
-              <Link href="/desk/profile/expert-profile">
-                <a style={{ display: 'inline-block' }} className="p-3 active-profile">Expert</a>
-              </Link>
-              <Link href="/desk/profile/investor-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Investor</a>
-              </Link>
-              <Link href="/desk/profile/hubbers-team">
-                <a style={{ display: 'inline-block' }} className="p-3">Hubbers Team</a>
-              </Link>
-            </div>
+            <ProfileNavbar auth={data} />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-2 fw-6 mt-2 mb-4">Write your expert bio.</p>

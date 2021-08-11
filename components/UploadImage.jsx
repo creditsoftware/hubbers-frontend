@@ -56,4 +56,4 @@ export const UploadImage = ({ name, onChange, value, disabled=false, preview = f
       </Upload>
     </>
   );
-};
+};  

@@ -36,6 +36,8 @@ export const API = {
   GET_USER_LIST_API: process.env.API_V1 + 'user',//get
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
   GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
+  GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
+  UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
   GET_THUMB_UP_API: process.env.API_V1 + 'user/thumb-up/home/',
   GET_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
@@ -70,6 +72,12 @@ export const API = {
   GET_MEMBER_ROLE_LIST_API: process.env.API_V1 + 'community/member-role', //get
   COMMUNITY_MEMBER_INVITE_API: process.env.API_V1 + 'community/member/invite', //post
   GET_COMMUNITY_MEMBER_INVITES_API: process.env.API_V1 + 'community/member-invite', //get /:communityId
+  GET_GLOBAL_EVENT_API: process.env.API_V1 + 'community/event/global',
+  GET_EVENT_SLUG_API: process.env.API_V1 + 'community/event/single', //get /:slug
+  GET_GLOBAL_PARTNER_API: process.env.API_V1 + 'partner/global',
+  GET_PARTNER_DETAIL_API: process.env.API_V1 + 'partner', //get /:partnerId
+  CONTACT_PARTNER_API: process.env.API_V1 + 'partner-contact/send-message',
+  GET_TESTIMONIALS_API: process.env.API_V1 + 'testimonials',
   UPLOAD_IMAGE_API: process.env.API_V1 + 'upload/image',
   UPLOAD_AVATAR_API: process.env.API_V1 + 'upload/avatar',
   GET_ALL_POST_LIST_API: process.env.API_V1 + 'community/post/all-list', //get ?community?group?topic

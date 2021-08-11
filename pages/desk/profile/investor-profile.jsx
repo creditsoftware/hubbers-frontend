@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { PlusOutlined } from '@ant-design/icons';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
@@ -7,7 +6,7 @@ import { API } from '../../../constants/index';
 import useSWR from 'swr';
 import { jwtDecode } from '../../../utils/jwt';
 import { fetcher } from '../../../utils/fetcher';
-import { MainProfile } from '../../../components/profile';
+import { MainProfile, ProfileNavbar } from '../../../components/profile';
 import { Container } from '../../../components/Container';
 import { Input, Select, Radio, Slider, InputNumber, Row, Col, Button } from 'antd';
 import { useState } from 'react';
@@ -77,23 +76,7 @@ const InvestorProfile = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <div>
-              <Link href="/desk/profile/">
-                <a style={{ display: 'inline-block' }} className="p-3">General Profile</a>
-              </Link>
-              <Link href="/desk/profile/creator-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Creator Profile</a>
-              </Link>
-              <Link href="/desk/profile/expert-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Expert</a>
-              </Link>
-              <Link href="/desk/profile/investor-profile">
-                <a style={{ display: 'inline-block' }} className="p-3 active-profile">Investor</a>
-              </Link>
-              <Link href="/desk/profile/hubbers-team">
-                <a style={{ display: 'inline-block' }} className="p-3">Hubbers Team</a>
-              </Link>
-            </div>
+            <ProfileNavbar auth={data} />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 mt-2 mb-4">Hubbers community crowd funds great promising inventions, innovations and products, Would you consider contributing financially to a project that matches your interest?</p>
