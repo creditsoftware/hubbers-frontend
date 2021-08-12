@@ -6,23 +6,41 @@ import { SettingDrawer } from '../community/global/SettingDrawer';
 import { ContestConfirm } from './step/ContestConfirm';
 import { ContestIdentify } from './step/ContestIdentify';
 import { ContestCriterias } from './step/ContestCriterias';
+import { fetchJson } from '../../utils';
+import { API } from '../../constants';
 
-export const ContestDrawer = ({ visible, onHide, editable = true, content, ...props }) => {
+export const ContestDrawer = ({ visible, onHide, editable = true, content, contestType, ...props }) => {
   const [step, setStep] = React.useState(0);
   const [form] = Form.useForm();
   const [someDesignerDisable, setSomeDesignerDisable] = React.useState(false);
   React.useEffect(() => {
-    if (form && props.contestTypeName !== undefined) {
+    if (form && props.contestTypeId !== undefined) {
       form.setFieldsValue({
-        contestType: props.contestTypeName
+        contestTypeId: props.contestTypeId
       });
     }
-  }, [props.contestTypeName, form]);
+  }, [props.contestTypeId, form]);
   const handleSomeDesignerChange = (e) => {
     setSomeDesignerDisable(e.target.checked);
-    form.setFieldsValue({ alldesigners: e.target.checked });
+    form.setFieldsValue({
+      allnbContestant: e.target.checked,
+      nbContestant: 0
+    });
   };
-  const handleStepNextClick = () => {
+  const handleStepNextClick = (values) => {
+    if(step === 0) {
+      fetchJson(`${API.CREATE_CONTEST_API}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...values,
+          countryId: JSON.stringify(values.countryId),
+          productId: JSON.stringify(values.productId),
+          innovationId: JSON.stringify(values.innovationId),
+          techId: JSON.stringify(values.techId),
+        })
+      });
+    }
     setStep(step + 1);
   };
   const handleStepPrevClick = () => {
@@ -59,7 +77,7 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, ...pr
         <React.Fragment>
           {
             !step ? (
-              <ContestConfirm handleCheck={handleSomeDesignerChange} designerDisable={someDesignerDisable} />
+              <ContestConfirm handleCheck={handleSomeDesignerChange} designerDisable={someDesignerDisable} contestType={contestType} form={form} />
             ) : (
               step === 1 ? (
                 <ContestIdentify />

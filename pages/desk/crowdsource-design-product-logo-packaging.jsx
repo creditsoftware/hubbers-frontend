@@ -10,15 +10,21 @@ import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
 import { ContestDrawer } from '../../components/contest/ContestDrawer';
 const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
+  const [contestTypeList, setContestTypeList] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: card } = useSWR(API.GET_CONTEST_CATEGORY_API, fetcher);
   const [visible, setVisible] = React.useState(false);
   const [contestTypeName, setContestTypeName] = React.useState();
+  React.useEffect(()=>{
+    if(card) {
+      setContestTypeList(card);
+    }
+  },[card]);
   const toggleVisible = () => {
     setVisible(!visible);
   };
   const handleVisiable = (index) => {
-    setContestTypeName(index);
+    setContestTypeName(card.data[index].id);
     setVisible(!visible);
   };
   return (
@@ -35,7 +41,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
           <h1 className="fw-6 fs-2 text-center pt-5">Select what you want to create next?</h1>
           <Row className="pt-5">
             {
-              card && card.data && card.data.map((item, index) => {
+              contestTypeList && contestTypeList.data && contestTypeList.data.map((item, index) => {
                 return (
                   <Col key={index} lg={12} xs={24} className="p-4">
                     <Row
@@ -59,7 +65,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
               })
             }
           </Row>
-          <ContestDrawer visible={visible} onHide={toggleVisible} {...props} contestTypeName={contestTypeName} />
+          <ContestDrawer visible={visible} onHide={toggleVisible} {...props} contestTypeId={contestTypeName} contestType={contestTypeList} />
         </React.Fragment>
       </Container>
     </DeskPageHoc>
