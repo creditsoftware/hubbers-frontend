@@ -44,6 +44,9 @@ export const API = {
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
+  // CONTEST APIS
+  CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  //-------------
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
   GET_ALL_JOB_API: process.env.API_V1 + 'job/',
