@@ -16,6 +16,12 @@ export { UploadImage } from './UploadImage';
 export { ActivityCards } from './ActivityCards';
 export { MainBanner } from './MainBanner';
 export { CountrySelect } from './CountrySelect';
+export { GlobalPartnerSlider } from './GlobalPartnerSlider';
+export { GlobalEventSlider } from './GlobalEventSlider';
+export { GlobalBlogSlider } from './GlobalBlogSlider';
+export { UserSelector } from './UserSelector';
+export { Userdata } from './Userdata';
+export { CustomSlider1 } from './CustomSlider1';
 export * as Communities from './community';
 export {
   InvitePane,
@@ -106,11 +112,6 @@ export {
   LinkedinLogin,
   AuthLink
 } from './auth';
-export { GlobalEventSlider } from './GlobalEventSlider';
-export { GlobalBlogSlider } from './GlobalBlogSlider';
-export { UserSelector } from './UserSelector';
-export { Userdata } from './Userdata';
-export { CustomSlider1 } from './CustomSlider1';
 export {
   ContestTile
 } from './contest';

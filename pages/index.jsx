@@ -18,6 +18,7 @@ import { withSession } from '../utils/withSession';
 import Link from 'next/link';
 import { API } from '../constants';
 import useSWR from 'swr';
+import { GlobalPartnerSlider, GlobalEventSlider } from '../components';
 import { jwtDecode } from '../utils/jwt';
 import { fetchJson } from '../utils';
 import { fetcher } from '../utils/fetcher';
@@ -363,7 +364,7 @@ const Home = ({ ...props }) => {
             </div>
           </React.Fragment>
         </Container>
-        <div className="bg-white">
+        <div className="bg-white pb-3">
           <Container>
             <React.Fragment>
               <h1 className="fw-6 fs-6 pt-5 text-center">
@@ -432,6 +433,8 @@ const Home = ({ ...props }) => {
               <h2 className="fw-5 fs-4">
                 Find your Hubbers community in Shanghai, Singapore, Paris, Berlin, Seoul and many other Cities.
               </h2>
+              <GlobalEventSlider />
+              <GlobalPartnerSlider />
             </React.Fragment>
           </Container>
         </div>

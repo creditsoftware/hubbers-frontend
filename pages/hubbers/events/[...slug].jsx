@@ -6,22 +6,33 @@ import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
 import { jwtDecode } from '../../../utils/jwt';
 import useSWR from 'swr';
+import { fetchJson } from '../../../utils';
 import { fetcher } from '../../../utils/fetcher';
+import dateFormat from 'dateformat';
+
 const EventDetail = ({ ...props }) => {
   const router = useRouter();
+  const [eventData, setEventData] = React.useState({});
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
+  React.useEffect(() => {
+    fetchJson(`${API.GET_EVENT_SLUG_API}/${router.query.slug}`).then((response) => {
+      setEventData(response.data);
+    });
+  }, []);
   return (
     <MainPageHoc title='Hubers events' auth={{ ...data }}>
       <React.Fragment>
         <MainBanner
-          title={router.query.slug}
-          date={'18:00-20:00 Sep, 22 2019'}
-          url={'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/events/argentina.jpg'}
+          title={eventData.title}
+          date={eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5) + ' ' + dateFormat(eventData.startDate, 'mmmm dd, yyyy')}
+          url={eventData.headerImageUrl}
         />
-        <Talent />
-        <GuestSpeakers />
-        <TalkAbout />
-        <Location />
+        <Talent eventData={eventData} />
+        {
+          eventData.speakers && <GuestSpeakers eventData={eventData} />
+        }
+        <TalkAbout eventData={eventData} />
+        <Location eventData={eventData} />
       </React.Fragment>
     </MainPageHoc>
   );

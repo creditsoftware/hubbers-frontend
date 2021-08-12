@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
@@ -7,7 +6,7 @@ import useSWR from 'swr';
 import { PlusOutlined } from '@ant-design/icons';
 import { fetcher } from '../../../utils/fetcher';
 import { jwtDecode } from '../../../utils/jwt';
-import { MainProfile } from '../../../components/profile';
+import { MainProfile, ProfileNavbar } from '../../../components/profile';
 import { Container } from '../../../components/Container';
 import { Select, Radio, Input, Checkbox, Row, Col, Button } from 'antd';
 import { useState } from 'react';
@@ -79,23 +78,7 @@ const CreatorProfile = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <div>
-              <Link href="/desk/profile/">
-                <a style={{ display: 'inline-block' }} className="p-3">General Profile</a>
-              </Link>
-              <Link href="/desk/profile/creator-profile">
-                <a style={{ display: 'inline-block' }} className="p-3 active-profile">Creator Profile</a>
-              </Link>
-              <Link href="/desk/profile/expert-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Expert</a>
-              </Link>
-              <Link href="/desk/profile/investor-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Investor</a>
-              </Link>
-              <Link href="/desk/profile/hubbers-team">
-                <a style={{ display: 'inline-block' }} className="p-3">Hubbers Team</a>
-              </Link>
-            </div>
+            <ProfileNavbar auth={data} />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 fw-6 mt-2 mb-0">Creating, innovating, inventing new products is what Hubbers community is about.</p>

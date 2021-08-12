@@ -2,13 +2,15 @@ import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { Container } from '../Container';
 import Link from 'next/link';
-export const Talent = () => {
+import dateFormat from 'dateformat';
+
+export const Talent = ({eventData}) => {
   return (
     <div className='talent-creators-list'>
       <Container>
         <React.Fragment>
           <div className='talent-creators-list-title mb-5'>
-            <span>CREATORS & INVENTORS WELCOME! HUBBERS INTRODUCES 4 PRODUCT DEVELOPMENT TOOLS TO HELP CREATORS SUCCESSFULLY START AND COMPLETE THEIR PRODUCT DEVELOPMENT JOURNEY.</span>
+            <span>{eventData.description}</span>
           </div>
           <div className='talent-creators-items'>
             <Row className='text-center'>
@@ -21,11 +23,6 @@ export const Talent = () => {
                     <div className='mt-1'>
                       <span>HUBBERS COMMUNITY</span>
                     </div>
-                    <div className='talent-creators-list-description mt-1'>
-                      <p>#ProductDevelopment</p>
-                      <p>#ProductCompetition</p>
-                      <p>#Creators</p>
-                    </div>
                   </div>
                 </Row>
               </Col>
@@ -36,7 +33,7 @@ export const Talent = () => {
                   </div>
                   <div className='talent-creators-list-items-right text-left'>
                     <div className='mt-1'>
-                      <span>SEPTEMBER, 22 2019 18:00-20:00</span>
+                      <span>{dateFormat(eventData.startDate, 'mmmm dd, yyyy')}<br/>{eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5)}</span>
                     </div>
                   </div>
                 </Row>
@@ -48,10 +45,10 @@ export const Talent = () => {
                   </div>
                   <div className='talent-creators-list-items-right text-left br-n'>
                     <div className='mt-1'>
-                      <span>BUENOS AIRES, ARGENTINA</span>
+                      <span>{eventData.eventType === 'online' ? 'Online' : eventData.localContent?.location?.name}</span>
                     </div>
                     <div className='talent-creators-list-description mt-1'>
-                      <p>WeWork, Torre Bellini, Esmeralda 950, Capital Federal , Buenos Aires C1007ABL, Argentina</p>
+                      <p>{eventData.eventType === 'online' ? '' : eventData.localContent?.location?.streetAddress}</p>
                     </div>
                   </div>
                 </Row>

@@ -1,24 +1,45 @@
 import React from 'react';
-import Link from 'next/link';
+import useSWR from 'swr';
+import { API } from '../../../constants/index';
+import { Input, Row, Col, Button, Form, Image } from 'antd';
+import { MainProfile, ProfileNavbar } from '../../../components/profile';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
-import { API } from '../../../constants/index';
-import useSWR from 'swr';
-import { fetcher } from '../../../utils/fetcher';
-import { MainProfile } from '../../../components/profile';
 import { jwtDecode } from '../../../utils/jwt';
 import { Container } from '../../../components/Container';
-import { Input, Avatar, Row, Col, Button } from 'antd';
-import Image from 'next/image';
+import { fetcher } from '../../../utils/fetcher';
+import { fetchJson } from '../../../utils';
+import { UploadImage } from '../../../components';
 const {TextArea} = Input;
 
 const HubbersTeam = ({ ...props }) => {
+  const [form] = Form.useForm();
+  const [hubbersTeamData, setHubbersTeamData] = React.useState({});
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const person = {
-    name: 'Denis Kravchenko',
-    country: 'Russian Federation',
-    title: '24/7 CTO',
-    description: ''
+  React.useEffect(() => {
+    fetchJson(`${API.GET_HUBBERS_TEAM_PROFILE_API}/${data.id}`).then((response) => {
+      setHubbersTeamData(response.data);
+    });
+  }, []);
+  React.useEffect(() => {
+    form.setFieldsValue({
+      ...hubbersTeamData,
+      avatar: hubbersTeamData.user?.avatar,
+      firstname: hubbersTeamData.user?.firstname,
+      lastname: hubbersTeamData.user?.lastname
+    });
+  }, [hubbersTeamData]);
+  const onChange = () => {
+    form.submit();
+  };
+  const onSubmit = (values) => {
+    fetchJson(`${API.UPDATE_HUBBERS_TEAM_PROFILE_API}/${data.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    }).then((response)=>{
+      setHubbersTeamData(response.data);
+    });
   };
   return (
     <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
@@ -26,63 +47,72 @@ const HubbersTeam = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <div>
-              <Link href="/desk/profile/">
-                <a style={{ display: 'inline-block' }} className="p-3">General Profile</a>
-              </Link>
-              <Link href="/desk/profile/creator-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Creator Profile</a>
-              </Link>
-              <Link href="/desk/profile/expert-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Expert</a>
-              </Link>
-              <Link href="/desk/profile/investor-profile">
-                <a style={{ display: 'inline-block' }} className="p-3">Investor</a>
-              </Link>
-              <Link href="/desk/profile/hubbers-team">
-                <a style={{ display: 'inline-block' }} className="p-3 active-profile">Hubbers Team</a>
-              </Link>
-            </div>
+            <ProfileNavbar auth={data} />
             <div className="bg-white p-5">
-              <Row>
-                <Col sm={18} xs={24}>
-                  <Row className="d-flex f-align-center px-5">
-                    <Avatar size={200} src="/images/membership/membership2_-min.jpg" />
-                    <p className="pl-5 fs-2">Add image you want to<br/>show to your community.</p>
-                  </Row>
-                  <Row className="mt-5 px-5">
-                    <Col span={24}>
-                      <label>Name and Last Name</label>
-                      <input type="text" name="name" className="profile-input p-2 mt-1" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}/>
-                    </Col>
-                  </Row>
-                  <Row className="mt-4 px-5">
-                    <Col span={24}>
-                      <label>Title</label>
-                      <input type="text" name="title" className="profile-input p-2 mt-1" style={{ borderBottom: '1px solid black', marginBottom: '24px' }} />
-                    </Col>
-                  </Row>
-                  <Row className="mt-4 px-5">
-                    <Col span={24}>
-                      <label>Description</label>
-                      <TextArea name="description" className="profile-input mt-3 p-2" style={{ borderBottom: '1px solid black', marginBottom: '24px' }} />
-                    </Col>
-                  </Row>
-                  <Row className="fjc-center">
-                    <Button type="hbs-primary" size="large" shape="round">Active</Button>
-                  </Row>
-                </Col>
-                <Col sm={6} xs={24} className="d-flex fjc-center f-align-center" >
-                  <div className="p-4 text-center" style={{ borderRadius: '12px', border: '1px solid green' }}>
-                    <Image width={200} height={200} src="/images/membership/banner-img.png" style={{borderRadius: '12px'}}/>
-                    <h1 className="mt-4">{person.name}</h1>
-                    <p>{person.country}</p>
-                    <p>{person.date}</p>
-                    <p>{person.title}</p>
-                    <p>{person.description}</p>
-                  </div>
-                </Col>
-              </Row>
+              <Form
+                form={form}
+                layout="vertical"
+                hideRequiredMark
+                onChange={onChange}
+                onFinish={onSubmit}
+              >
+                <Row>
+                  <Col sm={18} xs={24}>
+                    <Row className="d-flex f-align-center px-5">
+                      <Form.Item
+                        name="avatar"
+                      >
+                        <UploadImage />
+                      </Form.Item>
+                      <p className="pl-5 fs-2">Add image you want to<br/>show to your community.</p>
+                    </Row>
+                    <Row className="mt-5 px-5">
+                      <Col span={12} className="pr-2">
+                        <Form.Item name="firstname" label="First Name">
+                          <Input type="text" className="profile-input p-2 mt-1" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}/>
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} className="pl-2">
+                        <Form.Item name="lastname" label="Last Name">
+                          <Input type="text" className="profile-input p-2 mt-1" style={{ borderBottom: '1px solid black', marginBottom: '24px' }}/>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row className="mt-4 px-5">
+                      <Col span={24}>
+                        <Form.Item
+                          name="title"
+                          label="Title"
+                        >
+                          <Input type="text" className="profile-input p-2 mt-1" style={{ borderBottom: '1px solid black', marginBottom: '24px' }} />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row className="mt-4 px-5">
+                      <Col span={24}>
+                        <Form.Item
+                          name="description"
+                          label="Description"
+                        >
+                          <TextArea rows={3} className="profile-input mt-3 p-2" style={{ borderBottom: '1px solid black', marginBottom: '24px' }} />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row className="fjc-center">
+                      <Button type="hbs-primary" size="large" shape="round">Active</Button>
+                    </Row>
+                  </Col>
+                  <Col sm={6} xs={24} className="d-flex fjc-center f-align-center" >
+                    <div className="p-4 text-center" style={{ borderRadius: '12px', border: '1px solid green' }}>
+                      <Image width={200} height={200} src={hubbersTeamData.user?.avatar} preview={false} style={{borderRadius: '12px'}}/>
+                      <h1 className="mt-4">{`${hubbersTeamData.user?.firstname ? hubbersTeamData.user?.firstname : ''} ${hubbersTeamData.user?.lastname ? hubbersTeamData.user?.lastname : ''}`}</h1>
+                      <p>{hubbersTeamData.user?.detail?.location?.country}</p>
+                      <p>{hubbersTeamData.title}</p>  
+                      <p>{hubbersTeamData.description}</p>
+                    </div>
+                  </Col>
+                </Row>
+              </Form>
             </div>
           </React.Fragment>
         </Container>

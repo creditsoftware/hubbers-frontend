@@ -152,7 +152,7 @@ const Profile = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <ProfileNavbar />
+            <ProfileNavbar auth={data} />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <p className="fs-1 pb-3">
