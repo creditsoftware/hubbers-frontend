@@ -14,10 +14,11 @@ export const GlobalEventSlider = () => {
       setList(response);
     });
   }, []);
-  console.log(list);
   return (
     <React.Fragment>
-      <h2 className="fs-5 fw-6 mt-5">Hubbers worldwide events</h2>
+      {
+        list?.length ? <h2 className="fs-5 fw-6 mt-5 mb-4">Hubbers worldwide events</h2> : null
+      }
       <CustomSlider1>
         {
           list?.map((item, index) => {

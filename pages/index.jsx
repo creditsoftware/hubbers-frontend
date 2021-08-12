@@ -365,7 +365,7 @@ const Home = ({ ...props }) => {
           </React.Fragment>
         </Container>
         <div className="bg-white pb-3">
-          <Container>
+          <Container className="pb-4">
             <React.Fragment>
               <h1 className="fw-6 fs-6 pt-5 text-center">
                 Hubbers Community
