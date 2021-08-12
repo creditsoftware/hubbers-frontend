@@ -9,6 +9,6 @@ export const ViewGroupBtn = ({ ...props }) => {
   };
   return <React.Fragment>
     <Button shape='round' type='hbs-outline-primary' onClick={toggleVisible}>View Group</Button>
-    <GroupDrawer visible={visible} onHide={toggleVisible} {...props} content={{ ...props }} editable={false} />
+    <GroupDrawer visible={visible} onHide={toggleVisible} {...props} content={{ ...props.data }} editable={false} />
   </React.Fragment>;
 };

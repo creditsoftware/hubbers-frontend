@@ -6,15 +6,10 @@ export const ContestIdentify = () => {
   const [isCompany, setIsCompany] = React.useState(false);
   return (
     <React.Fragment>
+      <p className='mt-3 mb-2 fw-6'></p>
       <Form.Item
         name='isCompany'
         label={<b>Do you organize this contest for your company?</b>}
-        rules={[
-          {
-            required: true,
-            message: 'Please input the your company detalies',
-          },
-        ]}
         valuePropName='checked'
       >
         <Switch onChange={(e) => setIsCompany(e)} />

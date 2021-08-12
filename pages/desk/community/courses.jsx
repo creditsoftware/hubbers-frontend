@@ -30,7 +30,7 @@ const Courses = (props) => {
               <Col span={12} className='text-right'>
                 <Space>
                   <CourseManageBtn auth={{ ...data }} />
-                  <CreateCourseBtn auth={{ ...data }} />
+                  <CreateCourseBtn auth={{ ...data }} query={{...props.query}} />
                   <SwitchCommunity />
                 </Space>
               </Col>
@@ -47,12 +47,12 @@ const Courses = (props) => {
 };
 
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   }
-  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user } } };
+  return { props: { data: null, error: null, auth: { isLoggedIn: true, ...user }, query } };
 });
 export default Courses;

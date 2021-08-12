@@ -1,7 +1,7 @@
 // import { Button } from 'antd';
 import React from 'react';
 import { RequestToJoinTable } from '../member/RequestToJoinTable';
-export const RequestToJoinPane = () => {
+export const RequestToJoinPane = ({...props}) => {
   return <React.Fragment>
     <h1 className="fw-6 fs-4 text-center mt-5">
       These People Want In
@@ -21,6 +21,6 @@ export const RequestToJoinPane = () => {
         </Button>
       </div>
     </div> */}
-    <RequestToJoinTable />
+    <RequestToJoinTable {...props} />
   </React.Fragment>;
 };

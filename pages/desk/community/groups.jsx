@@ -19,6 +19,7 @@ const Groups = (props) => {
   const [groups, setGroups] = React.useState(null);
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const {data: result} = useGroupList(props.query.community);
+
   React.useEffect(() => {
     if (result && result.data) {
       setGroups(result.data);
@@ -27,7 +28,7 @@ const Groups = (props) => {
   return (
     props.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }}>
+      : <DeskPageHoc title='Groups - Hubbers' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -46,7 +47,7 @@ const Groups = (props) => {
               {
                 groups &&
                 groups.map((g) => {
-                  return <GroupListItem key={g.id} {...g} auth={{ ...props.auth }} query={{ ...props.query }} />;
+                  return <GroupListItem key={g.id} data={{...g}} auth={{ ...props.auth }} query={{ ...props.query }} />;
                 })
               }
             </div>

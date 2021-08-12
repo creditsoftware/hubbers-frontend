@@ -1,21 +1,30 @@
 import React from 'react';
-import { Input, Select, Button, Form, Alert } from 'antd';
+import { Input, Select, Button, Form, Alert, Space } from 'antd';
 import { Container } from '../../Container';
 import { SettingDrawer } from '../global';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { getRandomInt, slugify } from '../../../utils';
+import { usePrivacyOptionList } from '../../../hooks/useSWR/community/usePrivacyOptionList';
 
 const { Option } = Select;
 const { TextArea } = Input;
 
 export const CourseDrawer = ({ visible, onHide, ...props }) => {
   const [progress, setProgress] = React.useState(1);
+  const [formData, setFormData] = React.useState(null);
   const [form] = Form.useForm();
-  const onFinish = () => {
-    onHide();
+  const {data: pol} = usePrivacyOptionList();
+  const onFinish = (values) => {
+    console.log(values);
+    setFormData({ ...formData, ...values });
+    if (progress < 4) {
+      setProgress(progress + 1);
+    } else {
+      onHide();
+    }
   };
-  const onNext = () => {
-    console.log(progress);
-    setProgress(progress + 1);
-  };
+  console.log(props);
+  console.log(formData);
   const onPrev = () => {
     if (progress === 1) {
       onHide();
@@ -26,11 +35,21 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
   return <SettingDrawer
     visible={visible}
     onHide={onHide}
-    onCourseNext={onNext}
-    onCoursePrev={onPrev}
-    title='Create a Course'
+    title={
+      <Space>
+        {
+          progress > 1 ?
+            <div className='d-flex'>
+              <Button type='link' size='small' onClick={onPrev}>
+                <ArrowLeftOutlined style={{ color: 'black' }} />
+              </Button>
+            </div>
+            : ''
+        }
+        Course
+      </Space>
+    }
     submitBtn={progress < 4}
-    type='course'
     submitBtnLabel={progress < 3 ? 'Next' : 'Finish'}
     form={form}
     {...props}
@@ -44,13 +63,47 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
         {
           progress === 1 ? (
             <React.Fragment>
-              <p className="fw-6 fs-1 mb-2">Table of Contents</p>
+              <p className='mb-1 fw-6 fc-black fs-3'>The Big stuff</p>
+              <p className='mb-1 fw-6 fc-grey fs-1'>Adjust basic information about your Group here.</p>
+              <p className="fw-6 fs-1 mb-2 mt-5">Course Title</p>
               <Form.Item
-                name='contents'
+                name='name'
                 className="mb-5"
                 style={{ borderBottom: '1px solid gray' }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the contest type!',
+                  }
+                ]}
               >
-                <TextArea rows={3} bordered={false} />
+                <Input bordered={false} onChange={(v) => form.setFieldsValue({ slug: `${slugify(v.target.value)}-${getRandomInt(100000, 999999)}` })} />
+              </Form.Item>
+              <Form.Item
+                name='slug'
+                hidden
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the slug!'
+                  }
+                ]}
+              >
+                <Input type='hidden' disabled />
+              </Form.Item>
+              <p className="fw-6 fs-1 mb-2">Course Tagline</p>
+              <Form.Item
+                name='tagLine'
+                className="mb-5"
+                style={{ borderBottom: '1px solid gray' }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the tagline!'
+                  }
+                ]}
+              >
+                <TextArea rows={3} bordered={false} placeholder='e.g. Stay as fit as an astronaut, even when gravity is working against you' />
               </Form.Item>
               <p className="fw-6 fs-1 mb-2">Course Description</p>
               <Form.Item
@@ -58,18 +111,31 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
                 className="mb-5"
                 style={{ borderBottom: '1px solid gray' }}
               >
-                <TextArea rows={3} bordered={false} />
+                <TextArea rows={6} bordered={false} placeholder='​e.g. Our bodies aren&apos;t built for space. That&apos;s why astronauts need to adopt rigorous fitness regimens to maintain bone and muscle mass for when they live in microgravity. The Astronaut&apos;s Guide to Exercise will teach you how you can keep up a similar exercise routine (without leaving Earth).' />
               </Form.Item>
               <p className="fw-6 fs-2">Privacy and Invites</p>
               <p className="fs-1 mb-5">Chavge who can join, and send invites to your Course.</p>
               <Form.Item
-                name='privacy'
-                style={{ width: '300px', borderBottom: '1px solid gray' }}
+                name='privacyOptionId'
+                style={{
+                  width: '300px',
+                  borderBottom: '1px solid gray'
+                }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input the tagline!'
+                  }
+                ]}
               >
                 <Select bordered={false} className="fw-6">
-                  <Option value="secret">Secret</Option>
-                  <Option value="public">Public</Option>
-                  <Option value="private">Private</Option>
+                  {
+                    pol &&
+                    pol.data &&
+                    pol.data.map((poi) => {
+                      return <Option key={poi.id} value={poi.id}>{poi.name}</Option>;
+                    })
+                  }
                 </Select>
               </Form.Item>
               <Alert type='warning' message='We&apos;ve made this Course secret while you get it set up. If you&apos;re ready for this Course to go live now, feel free to choose another privacy setting' />

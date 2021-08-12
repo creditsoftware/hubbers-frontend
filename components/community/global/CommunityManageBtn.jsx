@@ -1,6 +1,6 @@
 import { Button, Col, Drawer, Row } from 'antd';
 import React from 'react';
-import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
+// import { MemberInvitationBtn } from '../invite/MemberInvitationBtn';
 export const CommunityManageBtn = () => {
   const [visible, setVisible] = React.useState(false);
   return <React.Fragment>
@@ -20,7 +20,7 @@ export const CommunityManageBtn = () => {
             </h2>
           </Col>
           <Col span={12} className='text-right'>
-            <MemberInvitationBtn />
+            {/* <MemberInvitationBtn /> */}
             <Button type='hbs-dashed' className='ml-2' shape='round' onClick={() => setVisible(false)}>&times; Close</Button>
           </Col>
         </Row>

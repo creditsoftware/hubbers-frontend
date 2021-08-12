@@ -6,47 +6,44 @@ import { fetchJson } from '../../../utils/fetchJson';
 import { API, REQUEST_TYPE } from '../../../constants';
 import { useRouter } from 'next/router';
 import { ApproveStatus } from '../../../constants/status';
+import { useRequestToJoinList } from '../../../hooks/useSWR/community/useRequestToJoinList';
 
-export const RequestToJoinTable = () => {
+export const RequestToJoinTable = ({ ...props }) => {
   const [searchText, setSearchText] = React.useState('');
   const [approveLoadingId, setApproveLoadingId] = React.useState('');
   const [searchedColumn, setSearchedColumn] = React.useState('');
   const router = useRouter();
   const [invitationData, setInvitationData] = React.useState(null);
+  const { data: result, mutate: mutateRequestApprove } = useRequestToJoinList(props.gid ?? router.query.community);
   const onApprove = (id) => {
     setApproveLoadingId(id);
     fetchJson(`${API.GET_REQUEST_TO_JOIN_LIST_API}/${id}/${ApproveStatus.APPROVE}`, {
-      method:REQUEST_TYPE.PUT
+      method: REQUEST_TYPE.PUT
     }).then(() => {
       setApproveLoadingId(null);
-      getData();
+      mutateRequestApprove();
     }).catch(() => {
       setApproveLoadingId(null);
     });
   };
-  const getData = React.useCallback(async () => {
-    let result = await fetchJson(`${API.GET_REQUEST_TO_JOIN_LIST_API}/${router.query.community}`);
+  React.useEffect(() => {
     if (result && result.success) {
       let d = [];
       if (result.data) {
-        await result.data.map((item, index) => {
-          console.log(item);
+        result.data.map((item, index) => {
           d.push({
             key: index,
             firstName: item?.user?.firstname,
             lastName: item?.user?.lastname,
             email: item?.user?.email,
             lastUpdated: item?.updatedAt,
-            status: item?.status === 'PENDING' ? <Button loading={approveLoadingId === item.id} onClick={()=>onApprove(item.id)} type='hbs-outline-primary' shape='round' size='small'>Approve</Button> : <span className={`fw-6 fc-${item?.status.toLowerCase()}`}>{item?.status}</span>
+            status: item?.status === 'PENDING' ? <Button loading={approveLoadingId === item.id} onClick={() => onApprove(item.id)} type='hbs-outline-primary' shape='round' size='small'>Approve</Button> : <span className={`fw-6 fc-${item?.status.toLowerCase()}`}>{item?.status}</span>
           });
         });
       }
       setInvitationData(d);
     }
-  }, []);
-  React.useEffect(() => {
-    getData();
-  }, [getData]);
+  }, [result]);
   const getColumnSearchProps = (dataIndex) => ({
     // eslint-disable-next-line react/display-name
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {

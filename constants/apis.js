@@ -44,6 +44,9 @@ export const API = {
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
+  // CONTEST APIS
+  CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  //-------------
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
   GET_ALL_JOB_API: process.env.API_V1 + 'job/',
@@ -83,13 +86,14 @@ export const API = {
   GET_ALL_POST_LIST_API: process.env.API_V1 + 'community/post/all-list', //get ?community?group?topic
   LINKEDIN_LOGIN_REDIRECT_API: process.env.API_V1 + 'auth/user/linkedin',
   SINGLE_SIGN_ON_API: process.env.API_V1 + 'auth/user/sso',
-  GET_COMMUNITY_GROUP_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/group-privacy-option', //get
+  GET_PRIVACY_OPTIONS_API: process.env.API_V1 + 'community/privacy-option', //get
   CREATE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group', //post /:userId
   REMOVE_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/remove', //delete /:id
   GET_COMMUNITY_GROUP_LIST_API: process.env.API_V1 + 'community/group/all', //get /:communityId/:userId
   GET_COMMUNITY_GROUP_DETAIL_API: process.env.API_V1 + 'community/group', //get /:groupId
   JOININ_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/join', //patch /:groupId/:userId
   GET_REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //get /:communityId
+  REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //post /:communityId/:userId
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
   //socket stream endpoint
   SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1
