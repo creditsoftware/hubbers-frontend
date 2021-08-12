@@ -1,20 +1,55 @@
 import React from 'react';
-import { Select, Form, Switch, Slider, Checkbox, Row, Col, Input } from 'antd';
-import { primaryColor } from '../../../constants';
+import { Select, Form, Switch, Slider, Checkbox, Row, Col, Input, DatePicker } from 'antd';
+import { API, primaryColor } from '../../../constants';
+import useSWR from 'swr';
+import { fetcher, getRandomInt, slugify } from '../../../utils';
+import { UploadImage } from '../../UploadImage';
+import TextArea from 'antd/lib/input/TextArea';
+import moment from 'moment';
 const { Option } = Select;
+const { RangePicker } = DatePicker;
 
-export const ContestConfirm = ({ handleCheck, designerDisable }) => {
+export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form }) => {
   const [isGlobal, setIsGlobal] = React.useState(false);
-  const contestType = ['Product Design', 'Logo/icon desing', 'Product packaging/packing design', 'UI/UX for website/app'];
-  const industryItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
-  const innovationItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
-  const techItems = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee'];
-  const countryItems = ['Italy', 'Paris', 'United Kingdom', 'United State'];
+  const { data: industryItems } = useSWR(API.GET_PRODUCT_CATTEGORY_API, fetcher);
+  const { data: innovationItems } = useSWR(API.GET_INNOVATION_CATTEGORY_API, fetcher);
+  const { data: techItems } = useSWR(API.GET_TECH_CATTEGORY_API, fetcher);
+  const { data: countryItems } = useSWR(API.GET_COUNTRY_LIST_API, fetcher);
   return (
     <React.Fragment>
+      <p className='mb-2 mt-3 fw-6'>Title</p>
+      <Form.Item
+        name='name'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the contest title!',
+          },
+        ]}
+      >
+        <Input onChange={(e)=>form.setFieldsValue({slug:`${slugify(e.target.value)}-${getRandomInt(100000, 999999)}`})} />
+      </Form.Item>
+      <p className='mb-2 mt-3 fw-6'>Slug</p>
+      <Form.Item
+        name='slug'
+      >
+        <Input disabled />
+      </Form.Item>
+      <p className='mb-2 mt-3 fw-6'>Description</p>
+      <Form.Item
+        name='description'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the contest description!',
+          },
+        ]}
+      >
+        <TextArea />
+      </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Contest Type</p>
       <Form.Item
-        name='contestType'
+        name='contestTypeId'
         rules={[
           {
             required: true,
@@ -24,16 +59,16 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       >
         <Select>
           {
-            contestType &&
-            contestType.map((name, index) => {
-              return <Option key={index} value={index}>{name}</Option>;
+            contestType && contestType.data &&
+            contestType.data.map((product, index) => {
+              return <Option key={index} value={product.id}>{product.name}</Option>;
             })
           }
         </Select>
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Industry</p>
       <Form.Item
-        name='industry'
+        name='productId'
         rules={[
           {
             required: true,
@@ -47,15 +82,16 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
           placeholder="Please select"
         >
           {
-            industryItems.map((product, index) =>
-              <Option key={index}>{product}</Option>
+            industryItems && industryItems.data &&
+            industryItems.data.map((product, index) =>
+              <Option key={index} value={product.id}>{product.name}</Option>
             )
           }
         </Select>
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Innovations</p>
       <Form.Item
-        name='innovation'
+        name='innovationId'
         rules={[
           {
             required: true,
@@ -69,15 +105,16 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
           placeholder="Please select"
         >
           {
-            innovationItems.map((product, index) =>
-              <Option key={index}>{product}</Option>
+            innovationItems && innovationItems.data &&
+            innovationItems.data.map((product, index) =>
+              <Option key={index} value={product.id}>{product.name}</Option>
             )
           }
         </Select>
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Tech</p>
       <Form.Item
-        name='tech'
+        name='techId'
         rules={[
           {
             required: true,
@@ -91,8 +128,9 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
           placeholder="Please select"
         >
           {
-            techItems.map((product, index) =>
-              <Option key={index}>{product}</Option>
+            techItems && techItems.data &&
+            techItems.data.map((product, index) =>
+              <Option key={index} value={product.id}>{product.name}</Option>
             )
           }
         </Select>
@@ -107,7 +145,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       {
         isGlobal ? (
           <Form.Item
-            name='location'
+            name='countryId'
             rules={[
               {
                 required: true,
@@ -121,8 +159,9 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
               placeholder="Please select"
             >
               {
-                countryItems.map((country, index) =>
-                  <Option key={index}>{country}</Option>
+                countryItems && countryItems.data &&
+                countryItems.data.map((country, index) =>
+                  <Option key={index} value={country.id}>{country.name}</Option>
                 )
               }
             </Select>
@@ -133,7 +172,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       <Row>
         <Col sm={12} md={15} lg={18} className="pr-3">
           <Form.Item
-            name='designers'
+            name='nbContestant'
             rules={[
               {
                 required: !designerDisable,
@@ -153,7 +192,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
         </Col>
         <Col sm={12} md={9} lg={6} className="pl-3">
           <Form.Item
-            name='alldesigners'
+            name='allnbContestant'
             valuePropName='checked'
           >
             <Checkbox onChange={handleCheck}>Everyone can participate</Checkbox>
@@ -167,7 +206,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
         </Col>
         <Col sm={2} className="px-2">
           <Form.Item
-            name="designerpoint"
+            name="minPoints"
             rules={[
               {
                 required: true,
@@ -184,7 +223,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       </Row>
       <p className='mb-2 mt-3 fw-6'>How many judges will participate from your side?</p>
       <Form.Item
-        name='judges'
+        name='nbJudge'
         rules={[
           {
             required: true,
@@ -202,7 +241,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>If you don t have enough, you can choose experienced judge from our community.</p>
       <Form.Item
-        name='restjudges'
+        name='extraNbJudge'
         label={<span>Number of extra judge needed</span>}
         rules={[
           {
@@ -214,7 +253,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>How many revisions do you want to allow designers to provide (up to 3).</p>
       <Form.Item
-        name='revisions'
+        name='nbRevision'
         rules={[
           {
             required: true,
@@ -229,6 +268,79 @@ export const ContestConfirm = ({ handleCheck, designerDisable }) => {
           trackStyle={{ backgroundColor: primaryColor }}
           handleStyle={{ borderColor: primaryColor }}
         />
+      </Form.Item>
+      <p className='mt-3 mb-2 fw-6'>Image of your Contest</p>
+      <Form.Item
+        name='featuredImageUrl'
+        rules={[
+          {
+            required: true,
+            message: 'Please upload the image!',
+          },
+        ]}
+      >
+        <UploadImage />
+      </Form.Item>
+      <p className="mt-2 mb-3 fw-6">Start and End Date</p>
+      <Form.Item
+        name='date'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the date'
+          }
+        ]}
+      >
+        <RangePicker showTime onChange={(ds) => {
+          let duration = ds[1].diff(ds[0], 'days');
+          form.setFieldsValue({
+            startTime:ds[0].format(),
+            endTime:ds[1].format(),
+            duration: duration
+          });
+        }} />
+      </Form.Item>
+      <Form.Item
+        name='startTime'
+        hidden
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name='endTime'
+        hidden
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name='duration'
+        hidden
+      >
+        <Input />
+      </Form.Item>
+      <p className='mt-3 mb-2 fw-6'>Official Rules</p>
+      <Form.Item
+        name='officialRules'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the official rules!',
+          },
+        ]}
+      >
+        <TextArea />
+      </Form.Item>
+      <p className='mt-3 mb-2 fw-6'>Market Rules</p>
+      <Form.Item
+        name='marketRules'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the market rules!',
+          },
+        ]}
+      >
+        <TextArea />
       </Form.Item>
     </React.Fragment>
   );
