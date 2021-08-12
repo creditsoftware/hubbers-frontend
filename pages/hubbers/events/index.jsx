@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { jwtDecode } from '../../../utils/jwt';
 import { fetchJson } from '../../../utils';
+
 const Event = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [list, setList] = React.useState([]);

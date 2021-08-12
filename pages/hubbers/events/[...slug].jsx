@@ -8,6 +8,7 @@ import { jwtDecode } from '../../../utils/jwt';
 import useSWR from 'swr';
 import { fetchJson } from '../../../utils';
 import { fetcher } from '../../../utils/fetcher';
+import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../../constants/etc';
 import moment from 'moment';
 
 const EventDetail = ({ ...props }) => {
@@ -25,7 +26,7 @@ const EventDetail = ({ ...props }) => {
         <MainBanner
           title={eventData.title}
           date={eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5) + ' ' + moment(eventData.startDate).format('MMMM, DD YYYY')}
-          url={eventData.headerImageUrl}
+          url={eventData.headerImageUrl ?? DEFAULT_COMMUNITY_TOPIC_IMAGE}
         />
         <Talent eventData={eventData} />
         {
