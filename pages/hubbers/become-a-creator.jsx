@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Row, Col, Button } from 'antd';
+import { Space, Row, Col, Button } from 'antd';
 import { MainPageHoc } from '../../containers';
 import { Container, MainBanner } from '../../components';
 import { withSession } from '../../utils/withSession';
@@ -8,6 +8,8 @@ import { API } from '../../constants/index';
 import { jwtDecode } from '../../utils/jwt';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
+import { Testimonials } from '../../components';
+
 const BecomeACreator = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
@@ -74,28 +76,28 @@ const BecomeACreator = ({ ...props }) => {
             <React.Fragment>
               <h1 className="text-center pt-5 fs-3 fw-6 fc-white">EXPERT MARKETPLACE</h1>
               <p className="text-center fs-1 fc-white">Access a pool of talented and experienced professionals ready to work on your project.</p>
-              <Row className="py-4">
-                <Col lg={6} sm={12} xs={24} className="text-center px-3 pt-3">
+              <Space wrap size={42} className="d-flex fjc-center pt-4 pb-5">
+                <div className="text-center px-3 pt-3" style={{ width: '228px' }}>
                   <Image width={120} height={120} src="https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/landing/perk-item-9.png" />
                   <p className="fs-1 pt-2 fc-white">Browse Expert Marketplace</p>
-                </Col>
-                <Col lg={6} sm={12} xs={24} className="text-center px-3 pt-3">
+                </div>
+                <div className="text-center px-3 pt-3" style={{ width: '228px' }}>
                   <Image width={120} height={120} src="https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/landing/perk-item-2.png" />
                   <p className="fs-1 pt-2 fc-white">Choose experts or projects</p>
-                </Col>
-                <Col lg={6} sm={12} xs={24} className="text-center px-3 pt-3">
+                </div>
+                <div className="text-center px-3 pt-3" style={{ width: '228px' }}>
                   <Image width={120} height={120} src="https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/landing/perk-item-3.png" />
                   <p className="fs-1 pt-2 fc-white">Define the task</p>
-                </Col>
-                <Col lg={6} sm={12} xs={24} className="text-center px-3 pt-3">
+                </div>
+                <div className="text-center px-3 pt-3" style={{ width: '228px' }}>
                   <Image width={120} height={120} src="https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/landing/perk-item-4.png" />
                   <p className="fs-1 pt-2 fc-white">Agree on the price</p>
-                </Col>
-                {/* <Col lg={6} sm={12} xs={24} className="text-center px-3 pt-3">
+                </div>
+                <div className="text-center px-3 pt-3" style={{ width: '228px' }}>
                   <Image width={120} height={120} src="https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/landing/perk-item-4.png" />
                   <p className="fs-1 pt-2 fc-white">Complete the task</p>
-                </Col> */}
-              </Row>
+                </div>
+              </Space>
             </React.Fragment>
           </Container>
         </div>
@@ -108,6 +110,7 @@ const BecomeACreator = ({ ...props }) => {
             </React.Fragment>
           }
         />
+        <Testimonials />
       </React.Fragment>
     </MainPageHoc>
   );

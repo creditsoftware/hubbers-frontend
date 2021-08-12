@@ -4,7 +4,7 @@ import { Testimonial } from './Testimonial';
 import { API } from '../../constants/index';
 import { fetchJson } from '../../utils';
 
-export const MembershipBanner10 = () => {
+export const Testimonials = () => {
 
   const [testimonials, setTestimonials] = React.useState(null);
   React.useEffect(() => {
@@ -14,7 +14,7 @@ export const MembershipBanner10 = () => {
   }, []);
   
   return (
-    <Container className='py-4'>
+    <Container className={testimonials?.length && 'py-4'}>
       <React.Fragment>
         {
           testimonials?.length ? <h1 className="fw-6 fs-5">Testimonials</h1> : null
