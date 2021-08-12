@@ -35,18 +35,6 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
       >
         <Input disabled />
       </Form.Item>
-      <p className='mb-2 mt-3 fw-6'>Description</p>
-      <Form.Item
-        name='description'
-        rules={[
-          {
-            required: true,
-            message: 'Please input the contest description!',
-          },
-        ]}
-      >
-        <TextArea />
-      </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Contest Type</p>
       <Form.Item
         name='contestTypeId'
@@ -291,7 +279,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
           }
         ]}
       >
-        <RangePicker showTime onChange={(ds) => {
+        <RangePicker showTime style={{ width: '100%' }} onChange={(ds) => {
           let duration = ds[1].diff(ds[0], 'days');
           form.setFieldsValue({
             startTime:ds[0].format(),
@@ -317,30 +305,6 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
         hidden
       >
         <Input />
-      </Form.Item>
-      <p className='mt-3 mb-2 fw-6'>Official Rules</p>
-      <Form.Item
-        name='officialRules'
-        rules={[
-          {
-            required: true,
-            message: 'Please input the official rules!',
-          },
-        ]}
-      >
-        <TextArea />
-      </Form.Item>
-      <p className='mt-3 mb-2 fw-6'>Market Rules</p>
-      <Form.Item
-        name='marketRules'
-        rules={[
-          {
-            required: true,
-            message: 'Please input the market rules!',
-          },
-        ]}
-      >
-        <TextArea />
       </Form.Item>
     </React.Fragment>
   );

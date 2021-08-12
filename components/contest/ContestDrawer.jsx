@@ -28,17 +28,19 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
     });
   };
   const handleStepNextClick = (values) => {
-    fetchJson(`${API.CREATE_CONTEST_API}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...values,
-        countryId: JSON.stringify(values.countryId),
-        productId: JSON.stringify(values.productId),
-        innovationId: JSON.stringify(values.innovationId),
-        techId: JSON.stringify(values.techId),
-      })
-    });
+    if(step === 0) {
+      fetchJson(`${API.CREATE_CONTEST_API}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...values,
+          countryId: JSON.stringify(values.countryId),
+          productId: JSON.stringify(values.productId),
+          innovationId: JSON.stringify(values.innovationId),
+          techId: JSON.stringify(values.techId),
+        })
+      });
+    }
     setStep(step + 1);
   };
   const handleStepPrevClick = () => {
