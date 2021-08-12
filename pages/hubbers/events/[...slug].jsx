@@ -8,7 +8,7 @@ import { jwtDecode } from '../../../utils/jwt';
 import useSWR from 'swr';
 import { fetchJson } from '../../../utils';
 import { fetcher } from '../../../utils/fetcher';
-import dateFormat from 'dateformat';
+import moment from 'moment';
 
 const EventDetail = ({ ...props }) => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const EventDetail = ({ ...props }) => {
       <React.Fragment>
         <MainBanner
           title={eventData.title}
-          date={eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5) + ' ' + dateFormat(eventData.startDate, 'mmmm dd, yyyy')}
+          date={eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5) + ' ' + moment(eventData.startDate).format('MMMM, DD YYYY')}
           url={eventData.headerImageUrl}
         />
         <Talent eventData={eventData} />

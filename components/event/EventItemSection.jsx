@@ -1,12 +1,9 @@
 import React from 'react';
 import { Row, Col, Image } from 'antd';
 import { Container } from '../Container';
-import dateFormat from 'dateformat';
+import moment from 'moment';
 
 export const EventItemSection = props => {
-  const date = dateFormat(props.startDate, 'mmmm dd, yyyy');
-  const day = date.split(',')[0].split(' ')[1];
-  const month = date.split(',')[0].split(' ')[0];
   return (
     <Container
       className={'mt-5'}
@@ -16,8 +13,8 @@ export const EventItemSection = props => {
           <Row>
             <Col xs={24} sm={0} md={4}>
               <div className='event-item-section-time text-center'>
-                <span className='fw-6'>{day}</span>
-                <p className='fw-6 fs-4'>{month}</p>
+                <span className='fw-6'>{moment(props.startDate).format('DD')}</span>
+                <p className='fw-6 fs-4 text-upper'>{moment(props.startDate).format('MMM')}</p>
                 <p className='fw-4 fs-2 mb-1'>{props.startTime}</p>
               </div>
             </Col>
