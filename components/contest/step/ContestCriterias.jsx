@@ -1,16 +1,21 @@
 import React from 'react';
-import { Form, Input, Row, Col, Button } from 'antd';
+import { Form, Input, Row, Col, Button, Select } from 'antd';
 import {
   PlusOutlined
 } from '@ant-design/icons';
+import useSWR from 'swr';
+import { API } from '../../../constants';
+import { fetcher } from '../../../utils';
 const { TextArea } = Input;
+const { Option } = Select;
 
 export const ContestCriterias = () => {
+  const { data: currency } = useSWR(API.GET_CURRENCY_API, fetcher);
   return (
     <React.Fragment>
       <p className='mb-2 mt-3 fw-6'>Description</p>
       <Form.Item
-        name="generaldescription"
+        name="description"
         rules={[
           {
             required: true,
@@ -139,7 +144,14 @@ export const ContestCriterias = () => {
                           fieldKey={[field.fieldKey, 'currency']}
                           rules={[{ required: true, message: 'currency is required' }]}
                         >
-                          <Input placeholder='prize currency'/>
+                          <Select>
+                            {
+                              currency && currency.result &&
+                              currency.result.map((currency, index) => {
+                                return <Option key={index} value={currency.id}>{currency.name}</Option>;
+                              })
+                            }
+                          </Select>
                         </Form.Item>
                       </Col>
                       <Col lg={1} md={1} sm={1} />
