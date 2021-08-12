@@ -4,6 +4,7 @@ import { Image } from 'antd';
 import { API } from '../constants/index';
 import { fetchJson } from '../utils';
 import { CustomSlider1 } from './CustomSlider1';
+import moment from 'moment';
 
 export const GlobalEventSlider = () => {
   const [list, setList] = React.useState([]);
@@ -26,7 +27,7 @@ export const GlobalEventSlider = () => {
                   <h3 className="mt-3 fs-2">{item.title}</h3>
                   <div className="d-flex f-align-center fjc-center">
                     <Image width={16} height={16} src="/images/icons/calender_icon.png" preview={false} />
-                    <p className="mt-1 ml-2 mr-3 mb-0">{item.startDate?.split('T')[0]}</p>
+                    <p className="mt-1 ml-2 mr-3 mb-0">{moment(item.startDate).format('MMMM DD, YYYY')}</p>
                     <Image width={16} height={16} src="/images/icons/location_icon.png" preview={false} />
                     <p className="mt-1 ml-2 mr-3 mb-0">{item.eventType === 'online' ? 'Online' : item.localContent?.location?.name}</p>
                   </div>

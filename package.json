@@ -21,7 +21,6 @@
     "antd-mask-input": "^0.1.15",
     "axios": "^0.21.1",
     "ckeditor5-build-classic-dna": "^1.1.1",
-    "dateformat": "^4.5.1",
     "dotenv-webpack": "^7.0.2",
     "es6-promise": "^4.2.8",
     "forever": "^3.0.4",

@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { Container } from '../Container';
 import Link from 'next/link';
-import dateFormat from 'dateformat';
+import moment from 'moment';
 
 export const Talent = ({eventData}) => {
   return (
@@ -33,7 +33,7 @@ export const Talent = ({eventData}) => {
                   </div>
                   <div className='talent-creators-list-items-right text-left'>
                     <div className='mt-1'>
-                      <span>{dateFormat(eventData.startDate, 'mmmm dd, yyyy')}<br/>{eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5)}</span>
+                      <span>{moment(eventData.startDate).format('MMMM, DD YYYY')}<br/>{eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5)}</span>
                     </div>
                   </div>
                 </Row>
