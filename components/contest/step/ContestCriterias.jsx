@@ -20,6 +20,30 @@ export const ContestCriterias = () => {
       >
         <TextArea rows='5' placeholder='description'></TextArea>
       </Form.Item>
+      <p className='mt-3 mb-2 fw-6'>Official Rules</p>
+      <Form.Item
+        name='officialRules'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the official rules!',
+          },
+        ]}
+      >
+        <TextArea />
+      </Form.Item>
+      <p className='mt-3 mb-2 fw-6'>Market Rules</p>
+      <Form.Item
+        name='marketRules'
+        rules={[
+          {
+            required: true,
+            message: 'Please input the market rules!',
+          },
+        ]}
+      >
+        <TextArea />
+      </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Criterias</p>
       <Form.List name="criterias">
         {(fields, { add, remove }) => (
