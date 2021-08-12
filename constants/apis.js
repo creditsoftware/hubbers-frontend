@@ -44,7 +44,11 @@ export const API = {
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
   // CONTEST APIS
   CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  UPDATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
   //-------------
+  // CURRENCY APIS
+  GET_CURRENCY_API: process.env.API_V1 + 'payment/currency',
+  //--------------
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
   GET_ALL_JOB_API: process.env.API_V1 + 'job/',

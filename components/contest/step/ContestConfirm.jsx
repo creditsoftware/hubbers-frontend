@@ -4,8 +4,6 @@ import { API, primaryColor } from '../../../constants';
 import useSWR from 'swr';
 import { fetcher, getRandomInt, slugify } from '../../../utils';
 import { UploadImage } from '../../UploadImage';
-import TextArea from 'antd/lib/input/TextArea';
-import moment from 'moment';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -231,11 +229,6 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
       <Form.Item
         name='extraNbJudge'
         label={<span>Number of extra judge needed</span>}
-        rules={[
-          {
-            required: false,
-          }
-        ]}
       >
         <Input type='number' min={0} />
       </Form.Item>
