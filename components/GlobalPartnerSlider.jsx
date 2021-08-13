@@ -14,12 +14,14 @@ export const GlobalPartnerSlider = () => {
   }, []);
   return (
     <React.Fragment>
-      <h2 className="fs-5 fw-6 mt-4">Partners & Sponsors</h2>
+      {
+        list?.length ? <h2 className="fs-5 fw-6 my-4">Partners & Sponsors</h2> : null
+      }
       <CustomSlider1>
         {
           list?.map((item, index) => {
             return (
-              <Link key={index} href={`/hubbers/sponsor/${item.id}`}>
+              <Link key={index} href={`/hubbers/sponsor/${item.slug}`}>
                 <a className="d-block text-center">
                   <Image width={300} height={200} src={item.featuredImageUrl} preview={false} />
                   <h3 className="mt-3 fs-2">{item.name}</h3>

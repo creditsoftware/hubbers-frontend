@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Image } from 'antd';
 import { Container } from '../Container';
+import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../constants/etc';
 import moment from 'moment';
 
 export const EventItemSection = props => {
@@ -55,7 +56,7 @@ export const EventItemSection = props => {
             </Col>
             <Col xs={24} sm={0} md={5}>
               <div className='event-item-section-img'>
-                <div style={{ backgroundImage: `url(${props.headerImageUrl})` }}></div>
+                <div style={{ backgroundImage: `url(${props.headerImageUrl ?? DEFAULT_COMMUNITY_TOPIC_IMAGE})`, borderRadius: '5px' }}></div>
               </div>
             </Col>
           </Row>

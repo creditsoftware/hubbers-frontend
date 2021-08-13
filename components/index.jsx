@@ -104,7 +104,7 @@ export {
   MembershipBanner7,
   MembershipBanner8,
   MembershipBanner9,
-  MembershipBanner10,
+  Testimonials,
   LifetimeMembershipCheckoutLeft,
   LifetimeMembershipCheckoutRight
 } from './membership';

@@ -1,6 +1,7 @@
 import React from 'react';
 import useSWR from 'swr';
 import { Button, Row, Col, Image } from 'antd';
+import Link from 'next/dist/client/link';
 import { fetchJson } from '../../utils';
 import { fetcher } from '../../utils/fetcher';
 import { withSession } from '../../utils/withSession';
@@ -10,7 +11,6 @@ import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
 import { useWindowSize } from '../../hooks';
 import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../constants/etc';
-
 
 const Dashboard = ({ ...props }) => {
   const displaySize = useWindowSize();
@@ -57,8 +57,12 @@ const Dashboard = ({ ...props }) => {
                 if(index < rowSize*rowNum){
                   return(
                     <Col key={index} span={24/rowSize} className="text-center py-2">
-                      <Image preview={false} width={320} height={140} src={item.featuredImage ? item.featuredImage : DEFAULT_COMMUNITY_TOPIC_IMAGE} />
-                      <h1 className="text-center">{item.name}</h1>
+                      <Link href={`/desk/community/home?community=${item.id}`}>
+                        <a>
+                          <Image preview={false} width={320} height={140} src={item.featuredImage ? item.featuredImage : DEFAULT_COMMUNITY_TOPIC_IMAGE} />
+                          <h1 className="text-center">{item.name}</h1>
+                        </a>
+                      </Link>
                     </Col>
                   );
                 }

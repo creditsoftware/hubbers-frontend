@@ -9,7 +9,7 @@ import {
   MembershipBanner7,
   MembershipBanner8,
   MembershipBanner9,
-  MembershipBanner10
+  Testimonials
 } from '../../components';
 import { jwtDecode } from '../../utils/jwt';
 import { MainPageHoc } from '../../containers';
@@ -31,7 +31,7 @@ const LifetimeMembership = ({ ...props }) => {
         <MembershipBanner7 />
         <MembershipBanner8 />
         <MembershipBanner9 />
-        <MembershipBanner10 />
+        <Testimonials />
       </React.Fragment>
     </MainPageHoc>
   );

@@ -30,7 +30,7 @@ const SponsorDetail = ({ ...props }) => {
     });
   };
   return (
-    <MainPageHoc title='Sponsor Detail' auth={{ ...data }}>
+    <MainPageHoc title={`Sponsor - ${sponsorData.name}`} auth={{ ...data }}>
       <Container className="py-4">
         <React.Fragment>
           <h1 className="text-center fs-5 fw-6">{sponsorData.name}</h1>

@@ -9,6 +9,6 @@ export { MembershipBanner6 } from './MembershipBanner6';
 export { MembershipBanner7 } from './MembershipBanner7';
 export { MembershipBanner8 } from './MembershipBanner8';
 export { MembershipBanner9 } from './MembershipBanner9';
-export { MembershipBanner10 } from './MembershipBanner10';
+export { Testimonials } from './Testimonials';
 export { LifetimeMembershipCheckoutLeft } from './LifetimeMembershipCheckoutLeft';
 export { LifetimeMembershipCheckoutRight } from './LifetimeMembershipCheckoutRight';
