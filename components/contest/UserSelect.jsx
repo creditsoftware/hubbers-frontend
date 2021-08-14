@@ -12,7 +12,7 @@ export const UserSelect = ({...props}) => {
   const { data: users, mutate } = useSWR(searchValue ? `${API.GET_USER_LIST_SEARCH_API}/search/${searchValue}` : null, fetcher);
   const handleChange = (value) => {
     setSearchValue(value);
-  }
+  };
   React.useEffect(() => {
     if (searchValue) {
       mutate();
@@ -22,7 +22,7 @@ export const UserSelect = ({...props}) => {
     if (users) {
       setState(users);
     }
-  }, [users])
+  }, [users]);
   return (
     <Select
       mode="multiple"

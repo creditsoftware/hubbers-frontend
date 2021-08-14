@@ -63,7 +63,7 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
     step - 1 < 0 ? setStep(0) : setStep(step - 1);
   };
   return <SettingDrawer
-  visible={visible}
+    visible={visible}
     onHide={onHide}
     title={
       <Space>
