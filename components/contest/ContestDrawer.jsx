@@ -33,25 +33,13 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
       contestId === undefined ? fetchJson(`${API.CREATE_CONTEST_API}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...values,
-          countryId: JSON.stringify(values.countryId),
-          productId: JSON.stringify(values.productId),
-          innovationId: JSON.stringify(values.innovationId),
-          techId: JSON.stringify(values.techId),
-        })
+        body: JSON.stringify(values)
       }).then(res => {
         setContestId(res.result.id);
       }) : fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...values,
-          countryId: JSON.stringify(values.countryId),
-          productId: JSON.stringify(values.productId),
-          innovationId: JSON.stringify(values.innovationId),
-          techId: JSON.stringify(values.techId),
-        })
+        body: JSON.stringify(values)
       }).then(res => {
         setContestId(res.result.id);
       });
@@ -60,20 +48,13 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
       fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...values,
-          userId: JSON.stringify(values.userId)
-        })
+        body: JSON.stringify(values)
       });
     }else if(step === 2) {
       fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...values,
-          criterias: JSON.stringify(values.criterias),
-          prize: JSON.stringify(values.prize),
-        })
+        body: JSON.stringify(values)
       });
     }
     setStep(step + 1);
