@@ -30,7 +30,19 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
   };
   const handleStepNextClick = (values) => {
     if(step === 0) {
-      fetchJson(`${API.CREATE_CONTEST_API}`, {
+      contestId === undefined ? fetchJson(`${API.CREATE_CONTEST_API}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...values,
+          countryId: JSON.stringify(values.countryId),
+          productId: JSON.stringify(values.productId),
+          innovationId: JSON.stringify(values.innovationId),
+          techId: JSON.stringify(values.techId),
+        })
+      }).then(res => {
+        setContestId(res.result.id);
+      }) : fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -44,28 +56,33 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
         setContestId(res.result.id);
       });
     }
-    setStep(step + 1);
-    if(step === 2) {
-      console.log(contestId);
+    if(step === 1) {
       fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...values,
-          description: values.description,
-          marketRules: values.marketRules,
-          officialRules: values.officialRules,
+          userId: JSON.stringify(values.userId)
+        })
+      });
+    }else if(step === 2) {
+      fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...values,
           criterias: JSON.stringify(values.criterias),
           prize: JSON.stringify(values.prize),
         })
       });
     }
+    setStep(step + 1);
   };
   const handleStepPrevClick = () => {
     step - 1 < 0 ? setStep(0) : setStep(step - 1);
   };
   return <SettingDrawer
-    visible={visible}
+  visible={visible}
     onHide={onHide}
     title={
       <Space>

@@ -1,9 +1,16 @@
 import React from 'react';
-import { Form, Switch, Input } from 'antd';
+import { Form, Switch, Input, Select } from 'antd';
 import { UploadImage } from '../../UploadImage';
+import { UserSelect } from '../UserSelect';
+import useSWR from 'swr';
+import { fetcher } from '../../../utils';
+import { API } from '../../../constants';
+const { Option } = Select;
 
 export const ContestIdentify = () => {
   const [isCompany, setIsCompany] = React.useState(false);
+  const [coOrganize, setCoOrganize] = React.useState(false);
+  const { data: countryItems } = useSWR(API.GET_COUNTRY_LIST_API, fetcher);
   return (
     <React.Fragment>
       <p className='mt-3 mb-2 fw-6'></p>
@@ -19,7 +26,7 @@ export const ContestIdentify = () => {
           <React.Fragment>
             <p className='mb-2 mt-3 fw-6'>Your company details</p>
             <Form.Item
-              name='companyname'
+              name='companyName'
               label={<span className='px-1 mr-1'>name</span>}
               rules={[
                 {
@@ -31,7 +38,7 @@ export const ContestIdentify = () => {
               <Input placeholder='your company name' />
             </Form.Item>
             <Form.Item
-              name='companyaddress'
+              name='address'
               label={<span>address</span>}
               rules={[
                 {
@@ -43,19 +50,37 @@ export const ContestIdentify = () => {
               <Input placeholder='your company address' />
             </Form.Item>
             <Form.Item
-              name="companycountry"
+              name='companyCountryId'
               label={<span>country</span>}
               rules={[
                 {
                   required: true,
-                  message: 'Please input the country'
-                }
+                  message: 'Please input the area or country!',
+                },
               ]}
             >
-              <Input placeholder='your company country' />
+              <Select
+                showSearch
+                filterOption={false}
+                placeholder="Please select"
+                optionFilterProp="children"
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+                filterSort={(optionA, optionB) =>
+                  optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                }
+              >
+                {
+                  countryItems && countryItems.data &&
+                  countryItems.data.map((country, index) =>
+                    <Option key={index} value={country.id}>{country.name}</Option>
+                  )
+                }
+              </Select>
             </Form.Item>
             <Form.Item
-              name="companycity"
+              name="city"
               label={<span className='px-2 mr-2'>city</span>}
               rules={[
                 {
@@ -64,10 +89,10 @@ export const ContestIdentify = () => {
                 }
               ]}
             >
-              <Input  placeholder='your company city'/>
+              <Input placeholder='your company city' />
             </Form.Item>
             <Form.Item
-              name="companycode"
+              name="code"
               label={<span className='px-1 mr-1'>code</span>}
               rules={[
                 {
@@ -79,7 +104,7 @@ export const ContestIdentify = () => {
               <Input placeholder='your company code' />
             </Form.Item>
             <Form.Item
-              name="companystate"
+              name="state"
               label={<span className='px-2'>state</span>}
               rules={[
                 {
@@ -91,7 +116,7 @@ export const ContestIdentify = () => {
               <Input placeholder='your company state' />
             </Form.Item>
             <Form.Item
-              name='companywebsite'
+              name='website'
               label={<span>website</span>}
               rules={[
                 {
@@ -104,7 +129,7 @@ export const ContestIdentify = () => {
             </Form.Item>
             <p className='mt-3 mb-2'>Logo of your company</p>
             <Form.Item
-              name='companyLogoImgUrl'
+              name='logoImage'
               rules={[
                 {
                   required: true,
@@ -125,12 +150,26 @@ export const ContestIdentify = () => {
         <Switch />
       </Form.Item>
       <Form.Item
-        name='isCoOrganize'
+        name='isCoOrganizer'
         label={<b>Do you want to add some co_organizer to help you follow up this product competition?</b>}
         valuePropName='checked'
       >
-        <Switch />
+        <Switch onChange={(e) => setCoOrganize(e)} />
       </Form.Item>
+      {
+        coOrganize &&
+        <Form.Item
+          name='userId'
+          rules={[
+            {
+              required: true,
+              message: 'Please input the co organizer!',
+            },
+          ]}
+        >
+          <UserSelect />
+        </Form.Item>
+      }
     </React.Fragment>
   );
 };

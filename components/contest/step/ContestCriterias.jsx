@@ -128,8 +128,8 @@ export const ContestCriterias = () => {
                         <p className='mb-2 mt-4 fw-6'>Amount</p>
                         <Form.Item
                           {...field}
-                          name={[field.name, 'amount']}
-                          fieldKey={[field.fieldKey, 'amount']}
+                          name={[field.name, 'prize']}
+                          fieldKey={[field.fieldKey, 'prize']}
                           rules={[{ required: true, message: 'amount is required' }]}
                         >
                           <Input type='number' placeholder='prize amount'/>

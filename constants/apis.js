@@ -34,6 +34,7 @@ export const API = {
   FORGOT_PASSWORD_API: process.env.API_V1 + 'auth/user/forgot-password', //post
   RESET_PASSWORD_API: process.env.API_V1 + 'auth/user/reset-password', //post
   GET_USER_LIST_API: process.env.API_V1 + 'user',//get
+  GET_USER_LIST_SEARCH_API: process.env.API_V1 + 'user', //get searched user
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
   GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
   GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
