@@ -61,7 +61,6 @@ export const ContestIdentify = () => {
             >
               <Select
                 showSearch
-                filterOption={false}
                 placeholder="Please select"
                 optionFilterProp="children"
                 filterOption={(input, option) =>
