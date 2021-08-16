@@ -45,7 +45,7 @@ const ProductLauncher = ({ ...props }) => {
     setMenu(!menu);
   };
   return (
-    <MainPageHoc title='Product Launcher' auth={{ ...data }}>
+    <MainPageHoc title='Product Launcher' auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <MainBanner
           url='https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/pldt/hero-bg.jpg'
@@ -172,12 +172,12 @@ const ProductLauncher = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default ProductLauncher;

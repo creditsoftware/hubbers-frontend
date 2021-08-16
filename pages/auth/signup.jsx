@@ -41,7 +41,7 @@ const Signup = ({ ...props }) => {
       });
   };
   return (
-    <MainPageHoc title="Sign Up" auth={{ ...data }}>
+    <MainPageHoc title="Sign Up" auth={{ ...data }} query={{...props.query}}>
       <div className='signin-page'>
         <h1 className="fw-5 text-upper fs-6 text-center pt-5 pb-1 m-0">
           One more step to join Hubbers
@@ -176,12 +176,12 @@ const Signup = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Signup;

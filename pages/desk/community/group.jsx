@@ -30,8 +30,8 @@ const Groups = (props) => {
   }, [gDetail]);
   return (
     router.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Group - Hubbers' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>
+      : <DeskPageHoc title='Group - Hubbers' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }} query={{...props.query}}>
         {/* : <DeskPageHoc title='Members' activeSide={{ active: [`community-${router.query.community}-group-${router.query.group}`], open: ['community', `community-${router.query.community}-group`, `community-${router.query.community}-group-${router.query.group}`] }} auth={{ ...data }}> */}
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>

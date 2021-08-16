@@ -57,7 +57,7 @@ const HubbersTeam = ({ ...props }) => {
     });
   }, []);
   return (
-    <MainPageHoc title='Who We Are' auth={{ ...data }}>
+    <MainPageHoc title='Who We Are' auth={{ ...data }} query={{...props.query}}>
       <Container>
         <React.Fragment>
           <h1 className="fw-6 mt-5 fs-5">
@@ -101,13 +101,13 @@ const HubbersTeam = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   const hubbersTeamMemberList = {};
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user }, list: hubbersTeamMemberList } };
+    return { props: { auth: { isLoggedIn: true, ...user }, list: hubbersTeamMemberList, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false }, list: hubbersTeamMemberList } };
+    return { props: { auth: { isLoggedIn: false }, list: hubbersTeamMemberList, query } };
   }
 });
 export default HubbersTeam;

@@ -30,7 +30,7 @@ const ConfirmVerifyEmail = ({ ...props }) => {
       });
   };
   return (
-    <MainPageHoc title="Confirm email" auth={{ ...data }}>
+    <MainPageHoc title="Confirm email" auth={{ ...data }} query={{...props.query}}>
       <div className='signin-page'>
         <p className="text-center py-5 fs-1">
           Please activate your account
@@ -45,12 +45,12 @@ const ConfirmVerifyEmail = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default ConfirmVerifyEmail;

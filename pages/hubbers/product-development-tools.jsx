@@ -8,7 +8,7 @@ import { fetcher } from '../../utils/fetcher';
 const ProductDevelopmentTools = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title='Product Development Tools' auth={{ ...data }}>
+    <MainPageHoc title='Product Development Tools' auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
 
       </React.Fragment>
@@ -16,12 +16,12 @@ const ProductDevelopmentTools = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default ProductDevelopmentTools;

@@ -268,7 +268,7 @@ const SignupDetail = ({ ...props }) => {
     },
   ];
   return (
-    <MainPageHoc title="Sign Up" auth={{ ...data }}>
+    <MainPageHoc title="Sign Up" auth={{ ...data }} query={{...props.query}}>
       <Container>
         <div className="max-w-40 m-auto">
           <React.Fragment>
@@ -285,12 +285,12 @@ const SignupDetail = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default SignupDetail;

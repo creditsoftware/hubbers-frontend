@@ -32,8 +32,8 @@ const Members = (props) => {
   }, []);
   return (
     props.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Members' activeSide={{ active: [`members-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>
+      : <DeskPageHoc title='Members' activeSide={{ active: [`members-${props.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>

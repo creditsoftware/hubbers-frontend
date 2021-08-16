@@ -30,7 +30,7 @@ const Activate = ({ ...props }) => {
     return;
   };
   return (
-    <MainPageHoc title='Activate' auth={{ ...data }}>
+    <MainPageHoc title='Activate' auth={{ ...data }} query={{...props.query}}>
       <div className='max-w-80 m-auto px-3 pt-5 text-center'>
         <h1 className="fs-5 fw-6">
           Join in {communityDetail && communityDetail.name} community
@@ -43,12 +43,12 @@ const Activate = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Activate;

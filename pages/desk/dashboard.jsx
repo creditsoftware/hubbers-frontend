@@ -48,7 +48,7 @@ const Dashboard = ({ ...props }) => {
   };
   
   return (
-    <DeskPageHoc title='Dashboard' activeSide={{ active: ['dashboard'], open: [] }} auth={{ ...data }}>
+    <DeskPageHoc title='Dashboard' activeSide={{ active: ['dashboard'], open: [] }} auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <Container className={displaySize.width > 992 ? 'p-5' : 'p-4'}>
           <Row>
@@ -59,7 +59,7 @@ const Dashboard = ({ ...props }) => {
                     <Col key={index} span={24/rowSize} className="text-center py-2">
                       <Link href={`/desk/community/home?community=${item.id}`}>
                         <a>
-                          <Image preview={false} width={320} height={140} src={item.featuredImage ? item.featuredImage : DEFAULT_COMMUNITY_TOPIC_IMAGE} />
+                          <Image alt='' preview={false} width={320} height={140} src={item.featuredImage ? item.featuredImage : DEFAULT_COMMUNITY_TOPIC_IMAGE} />
                           <h1 className="text-center">{item.name}</h1>
                         </a>
                       </Link>
@@ -83,12 +83,12 @@ const Dashboard = ({ ...props }) => {
 };
 
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Dashboard;

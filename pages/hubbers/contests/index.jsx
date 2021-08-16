@@ -32,7 +32,7 @@ const ProductCompetition = ({ ...props }) => {
     slug: 'sadf-23-asdf-asdf'
   }];
   return (
-    <MainPageHoc title='Product Competition' auth={{ ...data }}>
+    <MainPageHoc title='Product Competition' auth={{ ...data }} query={{...props.query}}>
       <div className="w-100 bg-white">
         <MainBanner
           url='/images/contests-banner.jpg'
@@ -64,12 +64,12 @@ const ProductCompetition = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default ProductCompetition;

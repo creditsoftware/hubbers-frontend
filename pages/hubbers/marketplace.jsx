@@ -163,7 +163,7 @@ const Marketplace = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [overlayIndex, setOverlayIndex] = React.useState(null);
   return (
-    <MainPageHoc title='Marketplace' auth={{ ...data }}>
+    <MainPageHoc title='Marketplace' auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <MainBanner
           title='EXPLORE THE MARKETPLACE'
@@ -299,12 +299,12 @@ const Marketplace = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Marketplace;

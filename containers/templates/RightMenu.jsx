@@ -6,9 +6,11 @@ import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
 import { defaultAvatar } from '../../constants/etc';
+import { socket } from '../../utils';
 // import NImage from 'next/image';
 export const RightMenu = ({ menuType, ...props }) => {
   const { auth } = props;
+  const [notifications, setNotifications] = React.useState(null);
   const router = useRouter();
   const signout = async () => {
     const response = await fetchJson(`${API.LOCAL_SIGNOUT_API}`);
@@ -16,7 +18,59 @@ export const RightMenu = ({ menuType, ...props }) => {
       router.push('/auth/signin');
     }
   };
-  const notifications = [
+  React.useEffect(() => {
+    socket.emit('get-notifications-notify', {userId:props.auth.id});
+    socket.on('get-cpost-notifications', (e) => {
+      let nls = [];
+      for(const n of Object.values(e)){
+        if(n.categoryId === Number(props.query.community) && n.rUserId === props.auth.id) {
+          if(!nls.length) {
+            nls = [
+              {
+                id: n.id,
+                type: n.category,
+                content: n.content
+              }
+            ];
+            continue;
+          }
+          nls = [
+            ...nls,
+            {
+              id: n.id,
+              type: n.category,
+              content: n.content
+            }
+          ];
+        }
+      }
+      // let notif = null;
+      // console.log(notifications);
+      // if(notifications) {
+      //   for(const n of notifications){
+      //     if(!notif) {
+      //       notif = {[n.id]:n};
+      //       return;
+      //     }
+      //     notif = {...notif, [n.id]:n};
+      //   }
+      // }
+      // console.log(notif);
+      // if(nls) {
+      //   for(const n of nls){
+      //     if(!notif) {
+      //       notif = {[n.id]:n};
+      //       return;
+      //     }
+      //     notif = {...notif, [n.id]:n};
+      //   }
+      // }
+      // console.log(notif);
+      // setNotifications(notif?[...Object.values(notif)]:[]);
+      setNotifications([...notifications, ...nls]);
+    });
+  },[]);
+  // const notifications = [
     // {
     //   type: 'Community',
     //   content: 'Denis has Joined in Shang hai community!'
@@ -33,7 +87,7 @@ export const RightMenu = ({ menuType, ...props }) => {
     //   type: 'Community',
     //   content: 'Denis have Joined in Shang hai community.'
     // }
-  ];
+  // ];
   const messages = [
     // {
     //   title: 'Denis Kravchenko'
@@ -76,6 +130,7 @@ export const RightMenu = ({ menuType, ...props }) => {
       <List
         bordered
         dataSource={notifications}
+        style={{maxHeight:'300px', overflow:'auto'}}
         renderItem={item => (
           <List.Item style={{ width: '15rem' }}>
             <Link href='#'>
@@ -187,7 +242,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
-                  <img src="/images/icons/message.png" />
+                  <img src="/images/icons/message.png" alt='' />
                   {/* <NImage width='35' height='30' src='/images/icons/message.png' alt='' /> */}
                 </Badge>
               </Popover>
@@ -200,7 +255,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                 trigger="click"
               >
                 <Badge
-                  count={0}
+                  count={notifications?.length}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >

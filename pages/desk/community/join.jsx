@@ -48,7 +48,7 @@ const JoinInCommunity = ({ ...props }) => {
     });
   };
   return (
-    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }}>
+    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
       <div className="h-100 bg-white">
         <div className='bg-hbs-primary'>
           <div className='max-w-80 m-auto px-3 pt-4 pb-5'>
@@ -113,12 +113,12 @@ const JoinInCommunity = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default JoinInCommunity;

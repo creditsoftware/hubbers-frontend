@@ -21,7 +21,7 @@ const EventDetail = ({ ...props }) => {
     });
   }, []);
   return (
-    <MainPageHoc title='Hubers events' auth={{ ...data }}>
+    <MainPageHoc title='Hubers events' auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <MainBanner
           title={eventData.title}
@@ -39,12 +39,12 @@ const EventDetail = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default EventDetail;
