@@ -34,17 +34,18 @@ const ExpertProfile = ({ ...props }) => {
       setExpertiseCategoryList(response.data);
     });
     fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
-      console.log(response.data);
       setExpertProfileData(response.data);
     });
-  }, []);
+  }, [data]);
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...expertProfileData,
-      expertiseCategories: expertProfileData?.expertiseCategories?.map((item) => item.id)
-    });
-  }, [expertProfileData]);
+    if(expertProfileData) {
+      form.setFieldsValue({
+        ...expertProfileData,
+        expertiseCategories: expertProfileData?.expertiseCategories?.map((item) => item.id)
+      });
+    }
+  }, [expertProfileData, form]);
 
   const [portfolioState, setPortfolioState] = React.useState(null);
 
@@ -150,7 +151,7 @@ const ExpertProfile = ({ ...props }) => {
                           expertiseCategoryList?.map((item) => {
                             return <Col key={item.id} lg={6} sm={12} xs={12}>
                               <Checkbox value={item.id}>
-                                <Image preview={false} width={82} height={112} src={item.icon} />
+                                <Image preview={false} width={82} height={112} src={item.icon} alt='' />
                                 <br />{item.name}
                               </Checkbox>
                             </Col>;
@@ -169,7 +170,7 @@ const ExpertProfile = ({ ...props }) => {
                         <Form.Item name={['skill', `${item.id}`]} style={{ marginBottom: '24px' }}>
                           <ExpertProfileSkillSelect onChange={onFormChange} isArray={false} expertiseCategoryId={item.id} />
                         </Form.Item>
-                      </React.Fragment>
+                      </React.Fragment>;
                     })
                   }
                   <p className="fs-2 fw-6 mt-5 mb-3">
