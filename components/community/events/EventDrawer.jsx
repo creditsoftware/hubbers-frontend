@@ -26,7 +26,7 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 import { UploadImage } from '../../UploadImage';
-import { fetchJson, getRandomInt, openNotificationWithIcon, slugify } from '../../../utils';
+import { fetchJson, getRandomInt, openNotificationWithIcon, slugify, socket } from '../../../utils';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
 import { useEventList } from '../../../hooks';
@@ -185,6 +185,12 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
       .then((response) => {
         if (response.success) {
           openNotificationWithIcon('success', 'Success!', response.message);
+          socket.emit('create-community-event', {
+            category: props.query.group ? 'group' : 'community',
+            categoryId: !data.isGlobal ? props.query.group ? props.query.group : props.query.community : 0,
+            userId: props.auth.id,
+            content: 'created new event!'
+          });
           onHide();
           if (props.query.topic) {
             mutateTDetail();
