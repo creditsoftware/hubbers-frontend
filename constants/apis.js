@@ -36,11 +36,17 @@ export const API = {
   GET_USER_LIST_API: process.env.API_V1 + 'user',//get
   GET_USER_LIST_SEARCH_API: process.env.API_V1 + 'user', //get searched user
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
-  GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
-  GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
-  UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
   GET_THUMB_UP_API: process.env.API_V1 + 'user/thumb-up/home/',
   GET_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
+  GET_ALL_EXPERTISE_CATEGORY_API: process.env.API_V1 + 'expertise-category/expertise',
+  GET_SKILL_BY_CATEGORY_API: process.env.API_V1 + 'expertise-category/skill-by-category',
+  GET_SKILL_BY_CATEGORIES_API: process.env.API_V1 + 'expertise-category/skill-by-categories',
+  GET_EXPERT_PROFILE_API: process.env.API_V1 + 'profile/expert',
+  UPDATE_EXPERT_PROFILE_API: process.env.API_V1 + 'profile/expert',
+  UPDATE_EXPERT_PORTFOLIO_API: process.env.API_V1 + 'profile/expert',
+  GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
+  UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
+  GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
