@@ -9,6 +9,7 @@ import { ContestDescription } from './step/ContestDescription';
 import { fetchJson } from '../../utils';
 import { API } from '../../constants';
 import { ContestCriterias } from './step/ContestCriterias';
+import { ContestPayment } from './step/ContestPayment';
 
 export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChildrenClose, onHide, editable = true, content, contestType, ...props }) => {
   const [step, setStep] = React.useState(0);
@@ -44,15 +45,18 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
       }).then(res => {
         setContestId(res.result.id);
       });
-    }
-    if(step === 1 || step === 2 || step === 3) {
+      setStep(step + 1);
+    } else if(step === 1 || step === 2 || step === 3) {
       fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
       });
+      setStep(step + 1);
+    } else if(step === 4) {
+      onHide();
+      setStep(0);
     }
-    setStep(step + 1);
   };
   const handleStepPrevClick = () => {
     step - 1 < 0 ? setStep(0) : setStep(step - 1);
@@ -75,7 +79,7 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
       </Space>
     }
     submitBtn={(!content && editable) || (content && editable)}
-    submitBtnLabel={!content && editable ? 'Next' : content && editable ? 'Save' : 'Save'}
+    submitBtnLabel={step !== 4 ? 'Next' : 'Save'}
     form={form}
     {...props}
   >
@@ -98,7 +102,11 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
                 ) : (
                   step === 3 ? (
                     <ContestCriterias childrenVisible={childrenVisible} onChildrenShow={onChildrenShow} onChildrenClose={onChildrenClose} form={form} />
-                  ) : ''
+                  ) : (
+                    step === 4 ? (
+                      <ContestPayment />
+                    ) : ''
+                  )
                 )
               )
             )
