@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Space } from 'antd';
+import { Button, Form, Space, Row, Col } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Container } from '../Container';
 import { SettingDrawer } from '../community/global/SettingDrawer';
@@ -111,6 +111,21 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
               )
             )
           }
+          <Row justify='space-between' align="middle">
+            <Col lg={5}>
+              {
+                step ?
+                  <Button type='dashed' shape='round' onClick={handleStepPrevClick}>
+                    Prev
+                  </Button> : ''
+              }
+            </Col>
+            <Col lg={5} className='text-right'>
+              <Button type='dashed' shape='round' onClick={()=>form.submit()}>
+                {step !== 4 ? <span>Next</span> : <span>Save</span>}
+              </Button>
+            </Col>
+          </Row>
         </React.Fragment>
       </Container>
     </Form>
