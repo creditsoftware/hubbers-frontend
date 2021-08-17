@@ -14,6 +14,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: card } = useSWR(API.GET_CONTEST_CATEGORY_API, fetcher);
   const [visible, setVisible] = React.useState(false);
+  const [childrenDrawer, setChildrenDrawer] = React.useState(false);
   const [contestTypeName, setContestTypeName] = React.useState();
   React.useEffect(()=>{
     if(card) {
@@ -27,6 +28,12 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
     setContestTypeName(card.data[index].id);
     setVisible(!visible);
   };
+  const showChildrenDrawer = () => {
+    setChildrenDrawer(true);
+  }
+  const onChildrenClose = () => {
+    setChildrenDrawer(false);
+  }
   return (
     <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }} query={{...props.query}}>
       <Container className="py-5">
@@ -65,7 +72,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
               })
             }
           </Row>
-          <ContestDrawer visible={visible} onHide={toggleVisible} {...props} contestTypeId={contestTypeName} contestType={contestTypeList} />
+          <ContestDrawer visible={visible} childrenVisible={childrenDrawer} onChildrenShow={showChildrenDrawer} onChildrenClose={onChildrenClose}  onHide={toggleVisible} {...props} contestTypeId={contestTypeName} contestType={contestTypeList} />
         </React.Fragment>
       </Container>
     </DeskPageHoc>

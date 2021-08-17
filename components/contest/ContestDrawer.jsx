@@ -1,15 +1,17 @@
 import React from 'react';
-import { Button, Form, Space } from 'antd';
+import { Button, Form, Space, Row, Col } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Container } from '../Container';
 import { SettingDrawer } from '../community/global/SettingDrawer';
 import { ContestConfirm } from './step/ContestConfirm';
 import { ContestIdentify } from './step/ContestIdentify';
-import { ContestCriterias } from './step/ContestCriterias';
+import { ContestDescription } from './step/ContestDescription';
 import { fetchJson } from '../../utils';
 import { API } from '../../constants';
+import { ContestCriterias } from './step/ContestCriterias';
+import { ContestCheckout } from './step/ContestCheckout';
 
-export const ContestDrawer = ({ visible, onHide, editable = true, content, contestType, ...props }) => {
+export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChildrenClose, onHide, editable = true, content, contestType, ...props }) => {
   const [step, setStep] = React.useState(0);
   const [form] = Form.useForm();
   const [someDesignerDisable, setSomeDesignerDisable] = React.useState(false);
@@ -43,21 +45,18 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
       }).then(res => {
         setContestId(res.result.id);
       });
-    }
-    if(step === 1) {
+      setStep(step + 1);
+    } else if(step === 1 || step === 2 || step === 3) {
       fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
       });
-    }else if(step === 2) {
-      fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
-      });
+      setStep(step + 1);
+    } else if(step === 4) {
+      onHide();
+      setStep(0);
     }
-    setStep(step + 1);
   };
   const handleStepPrevClick = () => {
     step - 1 < 0 ? setStep(0) : setStep(step - 1);
@@ -80,7 +79,7 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
       </Space>
     }
     submitBtn={(!content && editable) || (content && editable)}
-    submitBtnLabel={!content && editable ? 'Next' : content && editable ? 'Save' : 'Save'}
+    submitBtnLabel={step !== 4 ? 'Next' : 'Save'}
     form={form}
     {...props}
   >
@@ -99,11 +98,34 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
                 <ContestIdentify />
               ) : (
                 step === 2 ? (
-                  <ContestCriterias />
-                ) : ''
+                  <ContestDescription childrenVisible={childrenVisible} onChildrenShow={onChildrenShow} onChildrenClose={onChildrenClose} form={form} />
+                ) : (
+                  step === 3 ? (
+                    <ContestCriterias childrenVisible={childrenVisible} onChildrenShow={onChildrenShow} onChildrenClose={onChildrenClose} form={form} />
+                  ) : (
+                    step === 4 ? (
+                      <ContestCheckout />
+                    ) : ''
+                  )
+                )
               )
             )
           }
+          <Row justify='space-between' align="middle">
+            <Col lg={5}>
+              {
+                step ?
+                  <Button type='dashed' shape='round' onClick={handleStepPrevClick}>
+                    Prev
+                  </Button> : ''
+              }
+            </Col>
+            <Col lg={5} className='text-right'>
+              <Button type='dashed' shape='round' onClick={()=>form.submit()}>
+                {step !== 4 ? <span>Next</span> : <span>Save</span>}
+              </Button>
+            </Col>
+          </Row>
         </React.Fragment>
       </Container>
     </Form>

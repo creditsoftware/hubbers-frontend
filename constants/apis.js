@@ -54,6 +54,7 @@ export const API = {
   // CONTEST APIS
   CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
   UPDATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  GET_CONTEST_DESCRITION_API: process.env.API_V1 + 'contest/contest-description/category',
   //-------------
   // CURRENCY APIS
   GET_CURRENCY_API: process.env.API_V1 + 'payment/currency',
