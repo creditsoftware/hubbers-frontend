@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Row, Col } from 'antd';
 import { MaskedInput } from 'antd-mask-input';
 
-export const ContestPayment = () => {
+export const ContestCheckout = () => {
   return (
     <React.Fragment>
       <p className="mt-3 mb-2">Card Number</p>

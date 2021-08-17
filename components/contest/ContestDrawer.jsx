@@ -9,7 +9,7 @@ import { ContestDescription } from './step/ContestDescription';
 import { fetchJson } from '../../utils';
 import { API } from '../../constants';
 import { ContestCriterias } from './step/ContestCriterias';
-import { ContestPayment } from './step/ContestPayment';
+import { ContestCheckout } from './step/ContestCheckout';
 
 export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChildrenClose, onHide, editable = true, content, contestType, ...props }) => {
   const [step, setStep] = React.useState(0);
@@ -104,7 +104,7 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
                     <ContestCriterias childrenVisible={childrenVisible} onChildrenShow={onChildrenShow} onChildrenClose={onChildrenClose} form={form} />
                   ) : (
                     step === 4 ? (
-                      <ContestPayment />
+                      <ContestCheckout />
                     ) : ''
                   )
                 )
