@@ -5,11 +5,12 @@ import { Container } from '../Container';
 import { SettingDrawer } from '../community/global/SettingDrawer';
 import { ContestConfirm } from './step/ContestConfirm';
 import { ContestIdentify } from './step/ContestIdentify';
-import { ContestCriterias } from './step/ContestCriterias';
+import { ContestDescription } from './step/ContestDescription';
 import { fetchJson } from '../../utils';
 import { API } from '../../constants';
+import { ContestCriterias } from './step/ContestCriterias';
 
-export const ContestDrawer = ({ visible, onHide, editable = true, content, contestType, ...props }) => {
+export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChildrenClose, onHide, editable = true, content, contestType, ...props }) => {
   const [step, setStep] = React.useState(0);
   const [form] = Form.useForm();
   const [someDesignerDisable, setSomeDesignerDisable] = React.useState(false);
@@ -44,13 +45,7 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
         setContestId(res.result.id);
       });
     }
-    if(step === 1) {
-      fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
-      });
-    }else if(step === 2) {
+    if(step === 1 || step === 2 || step === 3) {
       fetchJson(`${API.UPDATE_CONTEST_API}/${contestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -99,8 +94,12 @@ export const ContestDrawer = ({ visible, onHide, editable = true, content, conte
                 <ContestIdentify />
               ) : (
                 step === 2 ? (
-                  <ContestCriterias />
-                ) : ''
+                  <ContestDescription childrenVisible={childrenVisible} onChildrenShow={onChildrenShow} onChildrenClose={onChildrenClose} form={form} />
+                ) : (
+                  step === 3 ? (
+                    <ContestCriterias childrenVisible={childrenVisible} onChildrenShow={onChildrenShow} onChildrenClose={onChildrenClose} form={form} />
+                  ) : ''
+                )
               )
             )
           }
