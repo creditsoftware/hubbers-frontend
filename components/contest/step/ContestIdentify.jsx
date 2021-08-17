@@ -105,12 +105,6 @@ export const ContestIdentify = () => {
             <Form.Item
               name="state"
               label={<span className='px-2'>state</span>}
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input the state'
-                }
-              ]}
             >
               <Input placeholder='your company state' />
             </Form.Item>
