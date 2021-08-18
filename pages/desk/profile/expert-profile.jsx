@@ -65,11 +65,9 @@ const ExpertProfile = ({ ...props }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({...values}),
     }).then((response) => {
-      if(response.success){
-        fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
-          setExpertProfileData(response.data);
-        });
-      }
+      fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
+        setExpertProfileData(response.data);
+      });
     });
   };
 
@@ -117,11 +115,10 @@ const ExpertProfile = ({ ...props }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({data: expertProfileData.expertPortfolios}),
     }).then((response) => {
-      if(response.success){
-        fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
-          setExpertProfileData(response.data);
-        });
-      }
+      fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
+        setExpertProfileData(response.data);
+        setPortfolioState(null);
+      });
     });
   };
 
@@ -259,6 +256,12 @@ const ExpertProfile = ({ ...props }) => {
                         <Col lg={6} xs={24}>
                           <Form.Item
                             name="logo"
+                            rules={[
+                              {
+                                required: true,
+                                message: 'The image is required',
+                              },
+                            ]}
                           >
                             <UploadImage />
                           </Form.Item>
@@ -332,7 +335,7 @@ const ExpertProfile = ({ ...props }) => {
                                   },
                                 ]}
                               >
-                                <ExpertProfileSkillSelect isArray={true} expertiseCategoryId={currentPortfolioCategoryArray} bordered={false} placeholder="Please select the skill." style={{ borderBottom: '1px solid black' }} />
+                                <ExpertProfileSkillSelect isArray={true} form={portfolioForm} expertiseCategoryId={currentPortfolioCategoryArray} bordered={false} placeholder="Please select the skill." style={{ borderBottom: '1px solid black' }} />
                               </Form.Item>
                             </Col>
                           </Row>

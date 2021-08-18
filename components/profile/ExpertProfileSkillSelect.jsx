@@ -5,8 +5,26 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 
-export const ExpertProfileSkillSelect = ({ expertiseCategoryId, isArray, ...props }) => {
+export const ExpertProfileSkillSelect = ({ expertiseCategoryId, isArray, form, ...props }) => {
   const [list, setList] = React.useState({});
+
+  React.useEffect(() => {
+    if (isArray) {
+      const skillValue = form.getFieldValue("skills"); 
+      if (skillValue) {
+        let newValue = [];
+        if (list?.length) {
+          const baseList = list.map((item)=>item.id);
+          skillValue.map((item)=>{
+            if(baseList.includes(item)){
+              newValue.push(item);
+            }
+          });
+        }
+        form.setFieldsValue({skills: newValue} );
+      }
+    }
+  }, [list]);
   React.useEffect(() => {
     if (isArray) {
       fetchJson(`${API.GET_SKILL_BY_CATEGORIES_API}`, {
@@ -14,7 +32,7 @@ export const ExpertProfileSkillSelect = ({ expertiseCategoryId, isArray, ...prop
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(expertiseCategoryId),
       }).then((response) => {
-        setList(response.data); 
+        setList(response.data);
       });
     }
     else {

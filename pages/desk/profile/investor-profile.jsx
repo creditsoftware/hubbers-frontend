@@ -64,11 +64,9 @@ const InvestorProfile = ({ ...props }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
     }).then((response) => {
-      if (response.success) {
-        fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
-          setInvestorProfileData(response.data);
-        });
-      }
+      fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
+        setInvestorProfileData(response.data);
+      });
     });
   };
 
@@ -110,11 +108,10 @@ const InvestorProfile = ({ ...props }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: investorProfileData.investorPortfolios }),
     }).then((response) => {
-      if (response.success) {
-        fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
-          setInvestorProfileData(response.data);
-        });
-      }
+      fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
+        setInvestorProfileData(response.data);
+        setPortfolioState(null);
+      });
     });
   };
 
@@ -313,6 +310,12 @@ const InvestorProfile = ({ ...props }) => {
                             <Col lg={6} xs={24}>
                               <Form.Item
                                 name="logo"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: 'The image is required',
+                                  },
+                                ]}
                               >
                                 <UploadImage />
                               </Form.Item>
@@ -364,7 +367,7 @@ const InvestorProfile = ({ ...props }) => {
                                       },
                                     ]}
                                   >
-                                    <Input bordered={false} placeholder="Please enter the Portfolio Title." style={{ borderBottom: '1px solid black' }} />
+                                    <InputNumber min={1900} max={2100} bordered={false} placeholder="Please enter the portfolio year." style={{ with: '100%', borderBottom: '1px solid black' }} />
                                   </Form.Item>
                                 </Col>
                               </Row>
