@@ -30,10 +30,10 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
   };
   const showChildrenDrawer = () => {
     setChildrenDrawer(true);
-  }
+  };
   const onChildrenClose = () => {
     setChildrenDrawer(false);
-  }
+  };
   return (
     <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }} query={{...props.query}}>
       <Container className="py-5">

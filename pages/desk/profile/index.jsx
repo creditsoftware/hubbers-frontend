@@ -9,7 +9,7 @@ import { fetcher } from '../../../utils/fetcher';
 import { MainProfile, ProfileNavbar, CountrySelect, UploadImage } from '../../../components';
 import { Container } from '../../../components/Container';
 import { DatePicker, Select, Row, Form, Input, Col, Button } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import moment from 'moment';
 
@@ -346,22 +346,22 @@ const Profile = ({ ...props }) => {
                         if (!item.removed) {
                           return (
                             <div
-                            key={index}
-                            className="general-portfolio-item mr-3 mb-3"
-                            onClick={() => { editPastJob(index); }}
-                          >
-                            <div
-                              className="portfolio-image"
-                              style={{ backgroundImage: `url(${item.logo})` }}
+                              key={index}
+                              className="general-portfolio-item mr-3 mb-3"
+                              onClick={() => { editPastJob(index); }}
                             >
-                              <div className='general-portfolio-item-actions'>
-                                <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
+                              <div
+                                className="portfolio-image"
+                                style={{ backgroundImage: `url(${item.logo})` }}
+                              >
+                                <div className='general-portfolio-item-actions'>
+                                  <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
+                                </div>
+                              </div>
+                              <div className="portfolio-title">
+                                <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
                               </div>
                             </div>
-                            <div className="portfolio-title">
-                              <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
-                            </div>
-                          </div>
                           );
                         }
                       })

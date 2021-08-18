@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
 import { withSession } from '../../../utils/withSession';
 import { API, primaryColor } from '../../../constants/index';
@@ -55,7 +55,6 @@ const InvestorProfile = ({ ...props }) => {
   }, [investorProfileData]);
 
   const onFormChange = () => {
-    console.log("asdfasfasdf");
     form.submit();
   };
 

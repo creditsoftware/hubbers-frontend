@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import React, { useState, useEffect } from 'react';
 import { Form, Select, Radio, Input, Checkbox, Row, Col, Image, Button } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { fetchJson } from '../../../utils';
 import { jwtDecode } from '../../../utils/jwt';
 import { withSession } from '../../../utils/withSession';

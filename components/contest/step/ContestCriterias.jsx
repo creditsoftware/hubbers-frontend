@@ -1,16 +1,11 @@
 import React from 'react';
-import { Form, Input, Row, Col, Button, Select, Drawer, Radio } from 'antd';
-import {
-  PlusOutlined
-} from '@ant-design/icons';
+import { Form, Row, Col, Button, Drawer, Radio } from 'antd';
 import useSWR from 'swr';
 import { API } from '../../../constants';
 import { fetcher } from '../../../utils';
 import { CKEditor5 } from '../../CKEditor5';
-const { Option } = Select;
 
 export const ContestCriterias = ({ childrenVisible, onChildrenShow, onChildrenClose, form }) => {
-  const { data: currency } = useSWR(API.GET_CURRENCY_API, fetcher);
   const [rule, setRule] = React.useState(null);
   const [state, setState] = React.useState();
   const { data: official } = useSWR(`${API.GET_CONTEST_DESCRITION_API}/official`, fetcher);
@@ -23,28 +18,28 @@ export const ContestCriterias = ({ childrenVisible, onChildrenShow, onChildrenCl
       setState(0);
       onChildrenShow();
     } else {
-      form.setFieldsValue({ official: '' })
+      form.setFieldsValue({ official: '' });
     }
     setOfficialValue(e.target.value);
-  }
+  };
   const handleMarketChange = (e) => {
     if (e.target.value === 1) {
       setRule(market.data);
       setState(1);
       onChildrenShow();
     } else {
-      form.setFieldsValue({ market: '' })
+      form.setFieldsValue({ market: '' });
     }
     setMarketValue(e.target.value);
-  }
-  const handleClick = (idx, e) => {
+  };
+  const handleClick = (idx) => {
     if(state) {
-      form.setFieldsValue({ marketRules: rule[idx].description })
+      form.setFieldsValue({ marketRules: rule[idx].description });
     } else {
-      form.setFieldsValue({ officialRules: rule[idx].description })
+      form.setFieldsValue({ officialRules: rule[idx].description });
     }
     onChildrenClose();
-  }
+  };
   return (
     <React.Fragment>
       <Drawer
