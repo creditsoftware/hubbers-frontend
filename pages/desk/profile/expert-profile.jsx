@@ -39,7 +39,7 @@ const ExpertProfile = ({ ...props }) => {
   }, [data]);
 
   useEffect(() => {
-    if(expertProfileData) {
+    if (expertProfileData) {
       form.setFieldsValue({
         ...expertProfileData,
         expertiseCategories: expertProfileData?.expertiseCategories?.map((item) => item.id)
@@ -63,8 +63,8 @@ const ExpertProfile = ({ ...props }) => {
     fetchJson(`${API.UPDATE_EXPERT_PROFILE_API}/${data.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({...values}),
-    }).then((response) => {
+      body: JSON.stringify({ ...values }),
+    }).then(() => {
       fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
         setExpertProfileData(response.data);
       });
@@ -113,8 +113,8 @@ const ExpertProfile = ({ ...props }) => {
     fetchJson(`${API.UPDATE_EXPERT_PORTFOLIO_API}/${data.id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({data: expertProfileData.expertPortfolios}),
-    }).then((response) => {
+      body: JSON.stringify({ data: expertProfileData.expertPortfolios }),
+    }).then(() => {
       fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
         setExpertProfileData(response.data);
         setPortfolioState(null);
@@ -123,7 +123,7 @@ const ExpertProfile = ({ ...props }) => {
   };
 
   return (
-    <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }} query={{...props.query}}>
+    <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }} query={{ ...props.query }}>
       <React.Fragment>
         <MainProfile auth={data} />
         <Container className="mt-4">

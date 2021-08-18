@@ -48,9 +48,9 @@ const InvestorProfile = ({ ...props }) => {
     form.setFieldsValue({
       ...investorProfileData,
       considerNum: investorProfileData?.consider,
-      productCategory: investorProfileData?.productCategory?.map((item)=>item.productCategoryId),
-      innovationCategory: investorProfileData?.innovationCategory?.map((item)=>item.innovationCategoryId),
-      techCategory: investorProfileData?.techCategory?.map((item)=>item.techCategoryId)
+      productCategory: investorProfileData?.productCategory?.map((item) => item.productCategoryId),
+      innovationCategory: investorProfileData?.innovationCategory?.map((item) => item.innovationCategoryId),
+      techCategory: investorProfileData?.techCategory?.map((item) => item.techCategoryId)
     });
   }, [investorProfileData]);
 
@@ -63,7 +63,7 @@ const InvestorProfile = ({ ...props }) => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
-    }).then((response) => {
+    }).then(() => {
       fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
         setInvestorProfileData(response.data);
       });
@@ -107,7 +107,7 @@ const InvestorProfile = ({ ...props }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: investorProfileData.investorPortfolios }),
-    }).then((response) => {
+    }).then(() => {
       fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
         setInvestorProfileData(response.data);
         setPortfolioState(null);
@@ -202,8 +202,8 @@ const InvestorProfile = ({ ...props }) => {
                         <Slider
                           min={50}
                           max={2000}
-                          onChange={(value)=>{
-                            form.setFieldsValue({ consider: value});
+                          onChange={(value) => {
+                            form.setFieldsValue({ consider: value });
                             onFormChange();
                           }}
                         />
@@ -235,7 +235,7 @@ const InvestorProfile = ({ ...props }) => {
                     {
                       !investorProfileData?.allGeographical &&
                       <Form.Item name="country">
-                        <CountrySelect bordered={false} style={{ width: '200px', borderBottom: '1px solid grey' }} onChange={onFormChange}/>
+                        <CountrySelect bordered={false} style={{ width: '200px', borderBottom: '1px solid grey' }} onChange={onFormChange} />
                       </Form.Item>
                     }
                   </Row>

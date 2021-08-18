@@ -54,7 +54,7 @@ const CreatorProfile = ({ ...props }) => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
-    }).then((response) => {
+    }).then(() => {
       fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
         setCreatorProfileData(response.data);
       });
@@ -104,7 +104,7 @@ const CreatorProfile = ({ ...props }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: creatorProfileData.creatorPortfolios }),
-    }).then((response) => {
+    }).then(() => {
       fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
         setCreatorProfileData(response.data);
         setPortfolioState(null);

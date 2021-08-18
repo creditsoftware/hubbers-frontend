@@ -10,7 +10,7 @@ export const ExpertProfileSkillSelect = ({ expertiseCategoryId, isArray, form, .
 
   React.useEffect(() => {
     if (isArray) {
-      const skillValue = form.getFieldValue("skills"); 
+      const skillValue = form.getFieldValue('skills'); 
       if (skillValue) {
         let newValue = [];
         if (list?.length) {
@@ -24,7 +24,7 @@ export const ExpertProfileSkillSelect = ({ expertiseCategoryId, isArray, form, .
         form.setFieldsValue({skills: newValue} );
       }
     }
-  }, [list]);
+  }, [list, form, isArray]);
   React.useEffect(() => {
     if (isArray) {
       fetchJson(`${API.GET_SKILL_BY_CATEGORIES_API}`, {
