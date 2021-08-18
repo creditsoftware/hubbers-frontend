@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, Checkbox, Row, Col, Image, Button } from 'antd';
 import { API, creatorBio, primaryColor } from '../../../constants/index';
 import { DeskPageHoc } from '../../../containers/hocs/DeskPageHoc';
@@ -62,7 +62,7 @@ const ExpertProfile = ({ ...props }) => {
     fetchJson(`${API.UPDATE_EXPERT_PROFILE_API}/${data.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({data: values}),
+      body: JSON.stringify({...values}),
     }).then((response) => {
       if(response.success){
         fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
@@ -208,16 +208,18 @@ const ExpertProfile = ({ ...props }) => {
                           <div
                             key={index}
                             className="general-portfolio-item mr-3 mb-3"
-                            style={{ backgroundImage: `url(${item.logo})` }}
+                            onClick={() => { editPortfolio(index); }}
                           >
-                            <div className="portfolio-mask px-3">
-                              <div>
-                                <p className="fw-6 fs-1 text-center mb-3">{item.title}</p>
-                              </div>
+                            <div
+                              className="portfolio-image"
+                              style={{ backgroundImage: `url(${item.logo})` }}
+                            >
                               <div className='general-portfolio-item-actions'>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPortfolio(index); }} />
-                                <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePortfolio(index); }} />
+                                <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deletePortfolio(index); }} />
                               </div>
+                            </div>
+                            <div className="portfolio-title">
+                              <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
                             </div>
                           </div>
                         );
@@ -322,12 +324,12 @@ const ExpertProfile = ({ ...props }) => {
                                 label="Skills"
                                 className="mb-1"
                                 style={{ width: '100%' }}
-                                // rules={[
-                                //   {
-                                //     required: true,
-                                //     message: 'Skill is required',
-                                //   },
-                                // ]}
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: 'Skill is required',
+                                  },
+                                ]}
                               >
                                 <ExpertProfileSkillSelect isArray={true} expertiseCategoryId={currentPortfolioCategoryArray} bordered={false} placeholder="Please select the skill." style={{ borderBottom: '1px solid black' }} />
                               </Form.Item>
