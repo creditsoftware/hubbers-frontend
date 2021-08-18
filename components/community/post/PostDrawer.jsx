@@ -103,11 +103,11 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
     httpRequestLocal(`${API.CREATE_POST_API}`, REQUEST_TYPE.POST, v)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
-        socket.emit('create-community-post', { 
+        socket.emit('create-community-post', {
           category: props.query.group ? 'group' : 'community',
           categoryId: props.query.group ? props.query.group : props.query.community,
           userId: props.auth.id,
-          content: 'created new post!'
+          content: `created new ${article ? 'article' : 'post'}!`
         });
 
         if (props.query?.topic) {

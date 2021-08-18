@@ -9,7 +9,7 @@ import { fetcher } from '../../../utils/fetcher';
 import { MainProfile, ProfileNavbar, CountrySelect, UploadImage } from '../../../components';
 import { Container } from '../../../components/Container';
 import { DatePicker, Select, Row, Form, Input, Col, Button } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import moment from 'moment';
 
@@ -348,17 +348,18 @@ const Profile = ({ ...props }) => {
                             <div
                               key={index}
                               className="general-portfolio-item mr-3 mb-3"
-                              style={{ backgroundImage: `url(${item.logo})` }}
+                              onClick={() => { editPastJob(index); }}
                             >
-                              <div className="portfolio-mask px-3">
-                                <div>
-                                  <p className="fw-6 fs-1 text-center mb-0">{item.title}</p>
-                                  <p className="fs-1 text-center mb-3">{item.location}</p>
-                                </div>
+                              <div
+                                className="portfolio-image"
+                                style={{ backgroundImage: `url(${item.logo})` }}
+                              >
                                 <div className='general-portfolio-item-actions'>
-                                  <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPastJob(index); }} />
-                                  <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
+                                  <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
                                 </div>
+                              </div>
+                              <div className="portfolio-title">
+                                <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
                               </div>
                             </div>
                           );
@@ -524,17 +525,18 @@ const Profile = ({ ...props }) => {
                           <div
                             key={index}
                             className="general-portfolio-item mr-3 mb-3"
-                            style={{ backgroundImage: `url(${item.logo})` }}
+                            onClick={() => { editEducation(index); }}
                           >
-                            <div className="portfolio-mask px-3">
-                              <div>
-                                <p className="fw-6 fs-1 fc-white mb-0">{item.university}</p>
-                                <p className="fw-6 fs-1 fc-white mb-3">{item.title}</p>
+                            <div
+                              className="portfolio-image"
+                              style={{ backgroundImage: `url(${item.logo})` }}
+                            >
+                              <div className='general-portfolio-item-actions'>
+                                <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deleteEducation(index); }} />
                               </div>
-                              <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editEducation(index); }} />
-                                <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deleteEducation(index); }} />
-                              </div>
+                            </div>
+                            <div className="portfolio-title">
+                              <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
                             </div>
                           </div>
                         );

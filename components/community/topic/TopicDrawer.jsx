@@ -3,7 +3,7 @@ import { Input, Select, Form } from 'antd';
 import { ColorPicker } from '../../ColorPicker';
 import { Container } from '../../Container';
 import { UploadImage } from '../../UploadImage';
-import { fetchJson, openNotificationWithIcon } from '../../../utils';
+import { fetchJson, openNotificationWithIcon, socket } from '../../../utils';
 import { API, primaryColor } from '../../../constants';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { useRouter } from 'next/router';
@@ -40,6 +40,12 @@ export const TopicDrawer = ({ visible, onHide, editable = true, content, ...prop
         body: JSON.stringify(v)
       }).then(() => {
         openNotificationWithIcon('success', 'Success', 'Successed to create topic!');
+        socket.emit('create-community-topic', {
+          category: props.query.group ? 'group' : 'community',
+          categoryId: props.query.group ? props.query.group : props.query.community,
+          userId: props.auth.id,
+          content: 'created new topic!'
+        });
         form.resetFields();
         onHide();
       });

@@ -20,10 +20,10 @@ export const RightMenu = ({ menuType, ...props }) => {
   };
   React.useEffect(() => {
     socket.emit('get-notifications-notify', {userId:props.auth.id});
-    socket.on('get-cpost-notifications', (e) => {
+    socket.on('get-notifications', (e) => {
       let nls = [];
       for(const n of Object.values(e)){
-        if(n.categoryId === Number(props.query.community) && n.rUserId === props.auth.id) {
+        if(n.rUserId === props.auth.id) {
           if(!nls.length) {
             nls = [
               {
@@ -44,50 +44,18 @@ export const RightMenu = ({ menuType, ...props }) => {
           ];
         }
       }
-      // let notif = null;
-      // console.log(notifications);
-      // if(notifications) {
-      //   for(const n of notifications){
-      //     if(!notif) {
-      //       notif = {[n.id]:n};
-      //       return;
-      //     }
-      //     notif = {...notif, [n.id]:n};
-      //   }
-      // }
-      // console.log(notif);
-      // if(nls) {
-      //   for(const n of nls){
-      //     if(!notif) {
-      //       notif = {[n.id]:n};
-      //       return;
-      //     }
-      //     notif = {...notif, [n.id]:n};
-      //   }
-      // }
-      // console.log(notif);
-      // setNotifications(notif?[...Object.values(notif)]:[]);
-      setNotifications([...notifications, ...nls]);
+      if(notifications) {
+        nls = [...nls, ...notifications];
+      }
+      let distinct = [];
+      for (let i of nls){
+        if(distinct.filter((d) => d.id === i.id).length === 0) {
+          distinct.push(i);
+        }
+      }
+      setNotifications([...distinct]);
     });
   },[]);
-  // const notifications = [
-    // {
-    //   type: 'Community',
-    //   content: 'Denis has Joined in Shang hai community!'
-    // },
-    // {
-    //   type: 'Project',
-    //   content: 'Denis has created new project!'
-    // },
-    // {
-    //   type: 'Job',
-    //   content: 'Denis has published new job!'
-    // },
-    // {
-    //   type: 'Community',
-    //   content: 'Denis have Joined in Shang hai community.'
-    // }
-  // ];
   const messages = [
     // {
     //   title: 'Denis Kravchenko'
@@ -125,6 +93,10 @@ export const RightMenu = ({ menuType, ...props }) => {
     </React.Fragment>
   );
   const notifyTitle = <span>Notifications</span>;
+  const onClickNotification = (id) => (event) => {
+    event.preventDefault();
+    socket.emit('read-notifications-notify', {id});
+  };
   const notifyContent = (
     <React.Fragment>
       <List
@@ -134,7 +106,7 @@ export const RightMenu = ({ menuType, ...props }) => {
         renderItem={item => (
           <List.Item style={{ width: '15rem' }}>
             <Link href='#'>
-              <a className='primary-link'>
+              <a className='primary-link' onClick={onClickNotification(item.id)}>
                 <Typography.Text mark>[{item.type}]</Typography.Text> {item.content}
               </a>
             </Link>

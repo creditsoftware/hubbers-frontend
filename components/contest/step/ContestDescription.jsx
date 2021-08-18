@@ -18,13 +18,13 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
     if(e.target.value) {
       onChildrenShow();
     } else {
-      form.setFieldsValue({ description: '' })
+      form.setFieldsValue({ description: '' });
     }
-  }
-  const handleClick = (idx, e) => {
-    form.setFieldsValue({ description: description.data[idx].description })
+  };
+  const handleClick = (idx) => {
+    form.setFieldsValue({ description: description.data[idx].description });
     onChildrenClose();
-  }
+  };
   return (
     <React.Fragment>
       <Row justify='space-between' align="middle">
