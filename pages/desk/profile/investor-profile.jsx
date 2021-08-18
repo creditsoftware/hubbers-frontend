@@ -110,6 +110,7 @@ const InvestorProfile = ({ ...props }) => {
     }).then((response) => {
       fetchJson(`${API.GET_INVESTOR_PROFILE_API}/${data.id}`).then((response) => {
         setInvestorProfileData(response.data);
+        setPortfolioState(null);
       });
     });
   };

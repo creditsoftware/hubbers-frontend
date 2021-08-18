@@ -115,6 +115,7 @@ const ExpertProfile = ({ ...props }) => {
     }).then((response) => {
       fetchJson(`${API.GET_EXPERT_PROFILE_API}/${data.id}`).then((response) => {
         setExpertProfileData(response.data);
+        setPortfolioState(null);
       });
     });
   };

@@ -107,6 +107,7 @@ const CreatorProfile = ({ ...props }) => {
     }).then((response) => {
       fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
         setCreatorProfileData(response.data);
+        setPortfolioState(null);
       });
     });
   };
