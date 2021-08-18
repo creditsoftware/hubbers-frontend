@@ -7,10 +7,33 @@ import { fetcher } from '../../../utils';
 import { API } from '../../../constants';
 const { Option } = Select;
 
-export const ContestIdentify = () => {
-  const [isCompany, setIsCompany] = React.useState(false);
-  const [coOrganize, setCoOrganize] = React.useState(false);
+export const ContestIdentify = ({form, ...props}) => {
+  const [isCompany, setIsCompany] = React.useState(form.getFieldsValue(true).isCompany);
+  const [coOrganize, setCoOrganize] = React.useState(form.getFieldsValue(true).isCoOrganizer);
   const { data: countryItems } = useSWR(API.GET_COUNTRY_LIST_API, fetcher);
+  const { data: contest } = useSWR(API.CONTEST_API, fetcher);
+  React.useEffect(() => {
+    if (form && props.contestTypeId !== undefined) {
+      form.setFieldsValue({
+        contestTypeId: props.contestTypeId
+      });
+    }
+    console.log(contest);
+    if(contest && contest.result) {
+      const v = contest.result.filter((d) => d.createdBy === props.auth.id && d.isDraft === true)[0];
+      if(v) {
+        let userId = [];
+        v.coOrganizer.map((val) => {
+          userId = [...userId,val.email];
+        })
+        form.setFieldsValue({
+          ...v,
+          ...v.company,
+          userId
+        });
+      }
+    }
+  }, [props.contestTypeId, form, contest]);
   return (
     <React.Fragment>
       <p className='mt-3 mb-2 fw-6'></p>

@@ -8,7 +8,7 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form }) => {
-  const [isGlobal, setIsGlobal] = React.useState(false);
+  const [isGlobal, setIsGlobal] = React.useState(form.getFieldsValue(true).isGlobal);
   const { data: industryItems } = useSWR(API.GET_PRODUCT_CATTEGORY_API, fetcher);
   const { data: innovationItems } = useSWR(API.GET_INNOVATION_CATTEGORY_API, fetcher);
   const { data: techItems } = useSWR(API.GET_TECH_CATTEGORY_API, fetcher);
