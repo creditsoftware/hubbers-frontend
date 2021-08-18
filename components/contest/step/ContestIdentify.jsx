@@ -24,7 +24,7 @@ export const ContestIdentify = ({form, ...props}) => {
       if(v) {
         let userId = [];
         v.coOrganizer.map((val) => {
-          userId = [...userId,val.email];
+          userId = [...userId,val.id];
         })
         form.setFieldsValue({
           ...v,
