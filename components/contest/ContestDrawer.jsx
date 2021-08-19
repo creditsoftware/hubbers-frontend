@@ -24,7 +24,7 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
         contestTypeId: props.contestTypeId
       });
     }
-    console.log(contest)
+    console.log(contest);
     if(contest && contest.result) {
       const v = contest.result.filter((d) => d.createdBy === props.auth.id && d.isDraft === true)[0];
       if(v){
@@ -32,19 +32,19 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
         let productId = [];
         v.products.map((val) => {
           productId = [...productId,val.id];
-        })
+        });
         let innovationId = [];
         v.innovations.map((val) => {
           innovationId = [...innovationId,val.id];
-        })
+        });
         let techId = [];
         v.techs.map((val) => {
           techId = [...techId,val.id];
-        })
+        });
         let countryId = [];
         v.country.map((val) => {
           countryId = [...countryId,val.id];
-        })
+        });
         form.setFieldsValue({
           ...v,
           productId,
