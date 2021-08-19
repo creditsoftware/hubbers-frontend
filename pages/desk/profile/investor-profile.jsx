@@ -201,7 +201,7 @@ const InvestorProfile = ({ ...props }) => {
                       <Form.Item name="considerNum">
                         <Slider
                           min={50}
-                          max={2000}
+                          max={20000}
                           onChange={(value)=>{
                             form.setFieldsValue({ consider: value});
                             onFormChange();
