@@ -1,7 +1,8 @@
 {
   "name": "hubbers-front-new",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "Hubbers Front",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -52,5 +53,16 @@
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-react": "^7.23.2",
     "redux-devtools-extension": "^2.13.9"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/.js": [
+      "eslint pages --ext .jsx --no-error-on-unmatched-pattern && eslint components --ext .jsx --no-error-on-unmatched-pattern && eslint containers --ext .jsx --no-error-on-unmatched-pattern && eslint locales --ext .jsx --no-error-on-unmatched-pattern",
+      "git add"
+    ]
   }
 }
