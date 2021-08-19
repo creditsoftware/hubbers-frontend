@@ -15,7 +15,8 @@
     "lint": "eslint pages --ext .jsx --no-error-on-unmatched-pattern && eslint components --ext .jsx --no-error-on-unmatched-pattern && eslint containers --ext .jsx --no-error-on-unmatched-pattern && eslint locales --ext .jsx --no-error-on-unmatched-pattern",
     "lint:init": "eslint --init",
     "lint:fix": "eslint --fix pages --ext .jsx --no-error-on-unmatched-pattern && eslint --fix components --ext .jsx --no-error-on-unmatched-pattern && eslint --fix containers --ext .jsx --no-error-on-unmatched-pattern && eslint --fix locales --ext .jsx --no-error-on-unmatched-pattern",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "postinit": "yarn husky add .husky/pre-commit \"yarn lint-staged\""
   },
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^3.0.2",
