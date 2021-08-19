@@ -116,9 +116,10 @@ const Profile = ({ ...props }) => {
       data.pastJob.push({ ...values });
     }
     else {
-      data.pastJob[pastJobSelect] = { ...values };
+      data.pastJob[pastJobSelect] = { ...data.pastJob[pastJobSelect], ...values };
     }
     setGeneralProfile(data);
+    setPastJobState(null);
     pastJobForm.resetFields();
     form.submit();
   };
@@ -143,6 +144,7 @@ const Profile = ({ ...props }) => {
       data.detail.education[educationSelect] = { ...values };
     }
     setGeneralProfile(data);
+    setEducationState(null);
     educationForm.resetFields();
     form.submit();
   };
@@ -397,6 +399,12 @@ const Profile = ({ ...props }) => {
                           <Col lg={6} xs={24}>
                             <Form.Item
                               name="logo"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'The image is required',
+                                },
+                              ]}
                             >
                               <UploadImage />
                             </Form.Item>
@@ -573,6 +581,12 @@ const Profile = ({ ...props }) => {
                           <Col lg={6} xs={24}>
                             <Form.Item
                               name="logo"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'The image is required',
+                                },
+                              ]}
                             >
                               <UploadImage />
                             </Form.Item>
