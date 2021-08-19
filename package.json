@@ -14,7 +14,8 @@
     "ncu:doctor": "ncu --doctor -u",
     "lint": "eslint pages --ext .jsx --no-error-on-unmatched-pattern && eslint components --ext .jsx --no-error-on-unmatched-pattern && eslint containers --ext .jsx --no-error-on-unmatched-pattern && eslint locales --ext .jsx --no-error-on-unmatched-pattern",
     "lint:init": "eslint --init",
-    "lint:fix": "eslint --fix pages --ext .jsx --no-error-on-unmatched-pattern && eslint --fix components --ext .jsx --no-error-on-unmatched-pattern && eslint --fix containers --ext .jsx --no-error-on-unmatched-pattern && eslint --fix locales --ext .jsx --no-error-on-unmatched-pattern"
+    "lint:fix": "eslint --fix pages --ext .jsx --no-error-on-unmatched-pattern && eslint --fix components --ext .jsx --no-error-on-unmatched-pattern && eslint --fix containers --ext .jsx --no-error-on-unmatched-pattern && eslint --fix locales --ext .jsx --no-error-on-unmatched-pattern",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^3.0.2",
@@ -52,17 +53,8 @@
     "eslint": "^7.25.0",
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-react": "^7.23.2",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
     "redux-devtools-extension": "^2.13.9"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/.js": [
-      "eslint pages --ext .jsx --no-error-on-unmatched-pattern && eslint components --ext .jsx --no-error-on-unmatched-pattern && eslint containers --ext .jsx --no-error-on-unmatched-pattern && eslint locales --ext .jsx --no-error-on-unmatched-pattern",
-      "git add"
-    ]
   }
 }
