@@ -8,7 +8,7 @@ import { API } from '../../constants/index';
 import { jwtDecode } from '../../utils/jwt';
 import { fetcher } from '../../utils/fetcher';
 import { Modal, Form, Image, Input, Button } from 'antd';
-const createProduct = ({ ...props }) => {
+const CreateProduct = ({ ...props }) => {
   
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [form] = Form.useForm();
@@ -19,10 +19,9 @@ const createProduct = ({ ...props }) => {
     setModalVisible(!modalVisible);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     setModal();
-    console.log(e);
-  }
+  };
 
   return (
     <DeskPageHoc title='Create Product' activeSide={{ active: ['create-product'], open: [] }} auth={{ ...data }} query={{...props.query}}>
@@ -31,7 +30,7 @@ const createProduct = ({ ...props }) => {
           <h1 className="fw-6 fs-6 pt-5 mb-5">Start your project!</h1>
           <p className="fw-5 fs-3 mb-1">Have an amazing product to launch?</p>
           <p className="fw-5 fs-3 mb-4">Just click on start a project and get access to great experts & resources</p>
-          <Image width={250} height={150} src="/images/activity/activity1.png" preview={false} />
+          <Image width={250} alt='' height={150} src="/images/activity/activity1.png" preview={false} />
           <p className="fs-1 max-w-40 m-auto py-5">
             Hubbers community is all about creating new products, find experts for your projects,
             get resources in a framework that has been thought BY and FOR innovators.
@@ -78,4 +77,4 @@ export const getServerSideProps = withSession(async (ctx) => {
     return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
-export default createProduct;
+export default CreateProduct;
