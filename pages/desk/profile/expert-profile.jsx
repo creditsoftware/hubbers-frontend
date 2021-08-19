@@ -128,7 +128,7 @@ const ExpertProfile = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <ProfileNavbar auth={data} />
+            <ProfileNavbar auth={data} actived='expert' />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <Form

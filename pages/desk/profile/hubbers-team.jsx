@@ -47,7 +47,7 @@ const HubbersTeam = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <ProfileNavbar auth={data} />
+            <ProfileNavbar auth={data} actived='hubbers-team' />
             <div className="bg-white p-5">
               <Form
                 form={form}
