@@ -50,14 +50,14 @@ const HubbersTeam = ({ ...props }) => {
   const [terminated, setTerminated] = React.useState([]);
 
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  React.useEffect(()=>{
+  React.useEffect(() => {
     fetchJson(`${API.GET_HUBBERS_TEAM_LIST_API}`).then((response) => {
       setCurrent(response.data.filter((item) => item.isTerminated === false));
       setTerminated(response.data.filter((item) => item.isTerminated === true));
     });
   }, []);
   return (
-    <MainPageHoc title='Who We Are' auth={{ ...data }} query={{...props.query}}>
+    <MainPageHoc title='Who We Are' auth={{ ...data }} query={{ ...props.query }}>
       <Container>
         <React.Fragment>
           <h1 className="fw-6 mt-5 fs-5">
@@ -87,7 +87,7 @@ const HubbersTeam = ({ ...props }) => {
             {
               terminated &&
               terminated.map((item, index) => {
-                return <HubbersTeamMemberTile key={index} data={item} /> ;
+                return <HubbersTeamMemberTile key={index} data={item} />;
               })
             }
           </Slider>
