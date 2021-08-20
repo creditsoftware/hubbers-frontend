@@ -1,13 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
+import { API } from '../../constants/index';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
+import { fetchJson, slugify } from '../../utils';
 import { withSession } from '../../utils/withSession';
-import { API } from '../../constants/index';
 import { jwtDecode } from '../../utils/jwt';
 import { fetcher } from '../../utils/fetcher';
 import { Modal, Form, Image, Input, Button } from 'antd';
+
 const CreateProduct = ({ ...props }) => {
   
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
@@ -19,8 +21,16 @@ const CreateProduct = ({ ...props }) => {
     setModalVisible(!modalVisible);
   };
 
-  const onSubmit = () => {
-    setModal();
+  const onSubmit = (value) => {
+    fetchJson(`${API.CREATE_PRODUCT_API}/${data.id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({...value}),
+    }).then((response) => {
+      if(response.success){
+        setModal();
+      }
+    });
   };
 
   return (
@@ -57,8 +67,23 @@ const CreateProduct = ({ ...props }) => {
             >
               <h1>All start with a name</h1>
               <p>You can change later.</p>
-              <Form.Item name="name" rules={[{ required: true, message: 'Please enter the product name' }]}>
-                <Input type="text" className="mb-2" placeholder="Enter a project name for your product."/>
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter the product name'
+                  }
+                ]}>
+                <Input
+                  type="text"
+                  className="mb-2"
+                  placeholder="Enter a project name for your product."
+                  onChange={(e)=> form.setFieldsValue({ slug: slugify(e.target.value) })}
+                />
+              </Form.Item>
+              <Form.Item name="slug" hidden={true}>
+                <Input type="text" />
               </Form.Item>
               <Button type="hbs-primary" shape="round" className="mt-1" htmlType="submit">CREATE</Button>
             </Form>
@@ -70,7 +95,7 @@ const CreateProduct = ({ ...props }) => {
 };
 export const getServerSideProps = withSession(async (ctx) => {
   const { req, query } = ctx;
-  const user = jwtDecode(await req.session.get('accessToken'))?.data;
+  const user = jwtDecode(await req.session.get('accessToken'))?.data; 
   if (user) {
     return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
