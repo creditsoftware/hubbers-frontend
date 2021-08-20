@@ -124,7 +124,7 @@ export const RightMenu = ({ menuType, ...props }) => {
           <Link href='/desk/profile'>
             <a className='ml-2 primary-link'>
               {
-                auth.isLoggedIn && ((auth.firstname !== null ? auth.firstname : '') + ' ' + (auth.lastname !== null ? auth.lastname : auth.email))
+                auth.isLoggedIn && (auth.firstname || auth.lastname ? (auth.firstname !== null ? auth.firstname : '') + ' ' + (auth.lastname !== null ? auth.lastname : '') : auth.email)
               }
             </a>
           </Link>

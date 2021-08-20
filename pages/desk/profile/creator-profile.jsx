@@ -30,20 +30,24 @@ const CreatorProfile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
 
   useEffect(() => {
-    fetchJson(`${API.GET_ALL_EXPERTISE_CATEGORY_API}`).then((response) => {
-      setExpertiseCategoryList(response.data);
-    });
-    fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
-      setCreatorProfileData(response.data);
-    });
-  }, []);
+    if (data) {
+      fetchJson(`${API.GET_ALL_EXPERTISE_CATEGORY_API}`).then((response) => {
+        setExpertiseCategoryList(response.data);
+      });
+      fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
+        setCreatorProfileData(response.data);
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...creatorProfileData,
-      expertiseCategories: creatorProfileData?.expertiseCategories?.map((item) => item.id)
-    });
-  }, [creatorProfileData]);
+    if (form, creatorProfileData) {
+      form.setFieldsValue({
+        ...creatorProfileData,
+        expertiseCategories: creatorProfileData?.expertiseCategories?.map((item) => item.id)
+      });
+    }
+  }, [creatorProfileData, form]);
 
   const onFormChange = () => {
     form.submit();
@@ -171,7 +175,7 @@ const CreatorProfile = ({ ...props }) => {
                           expertiseCategoryList?.map((item) => {
                             return <Col key={item.id} lg={6} sm={12} xs={12}>
                               <Checkbox value={item.id}>
-                                <Image preview={false} width={82} height={112} src={item.icon} />
+                                <Image alt='' preview={false} width={82} height={112} src={item.icon} />
                                 <br />{item.name}
                               </Checkbox>
                             </Col>;
@@ -308,7 +312,7 @@ const CreatorProfile = ({ ...props }) => {
                                 <Select onChange={portfolioCategoryChange} mode="multiple" bordered={false} placeholder="Please select the expertise category." style={{ borderBottom: '1px solid black' }}>
                                   {
                                     expertiseCategoryList?.map((item) => {
-                                      return <Option key={item.id} values={item.id}>{item.name}</Option>;
+                                      return <Option key={item.id} value={item.id}>{item.name}</Option>;
                                     })
                                   }
                                 </Select>

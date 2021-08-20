@@ -316,7 +316,7 @@ const ExpertProfile = ({ ...props }) => {
                                 <Select onChange={portfolioCategoryChange} mode="multiple" bordered={false} placeholder="Please select the expertise category." style={{ borderBottom: '1px solid black' }}>
                                   {
                                     expertiseCategoryList?.map((item) => {
-                                      return <Option key={item.id} values={item.id}>{item.name}</Option>;
+                                      return <Option key={item.id} value={item.id}>{item.name}</Option>;
                                     })
                                   }
                                 </Select>
