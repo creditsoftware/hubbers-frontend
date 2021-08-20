@@ -20,6 +20,7 @@ export default withSession(async (req, res) => {
       res.status(200).json(response.data?.res.user);
     }
   } catch (err) {
+    console.log(err);
     const { response: fetchResponse } = err;
     res.status(fetchResponse?.status || 500).json(err.response?.data || {message: 'Failed to signin!'});
   }
