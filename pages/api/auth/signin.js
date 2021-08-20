@@ -12,6 +12,7 @@ export default withSession(async (req, res) => {
     const response = await axios.post(`${API.SIGNIN_API}`, {
       ...data
     });
+    console.log(response.data?.res);
     if(response.data?.success){
       req.session.set('refreshToken',response.data?.res.refreshToken);
       req.session.set('accessToken',response.data?.res.accessToken);
