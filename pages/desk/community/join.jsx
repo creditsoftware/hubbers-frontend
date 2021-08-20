@@ -22,7 +22,7 @@ const JoinInCommunity = ({ ...props }) => {
   React.useEffect(() => {
     getData();
   }, [getData]);
-  const selectCommunityEvnet = (e) => {
+  const selectCommunityEvent = (e) => {
     // if(data.communityMember.length > 1) return;
     // if(data.communityMember.length + selectedCommunities.length > 1) return;
     if (selectedCommunities.filter((i) => i === e).length > 0) {
@@ -83,7 +83,7 @@ const JoinInCommunity = ({ ...props }) => {
                                 key={c.id}
                                 disabled={data.communityMember?.filter((m) => m.communityId === c.id).length > 0}
                                 checked={(selectedCommunities.filter((i) => i === Number(c.id)).length > 0)||(data.communityMember?.filter((m) => m.communityId === c.id).length > 0)}
-                                onChange={() => selectCommunityEvnet(Number(c.id))}
+                                onChange={() => selectCommunityEvent(Number(c.id))}
                                 label={c.name} />;
                             })
                         }
