@@ -48,7 +48,7 @@ const JoinInCommunity = ({ ...props }) => {
     });
   };
   return (
-    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
+    <DeskPageHoc title='Join in Community' activeSide={{ active: ['home'], open: ['community'] }} auth={{ ...data }} query={{ ...props.query }}>
       <div className="h-100 bg-white">
         <div className='bg-hbs-primary'>
           <div className='max-w-80 m-auto px-3 pt-4 pb-5'>
@@ -82,7 +82,7 @@ const JoinInCommunity = ({ ...props }) => {
                               return <CheckBtn
                                 key={c.id}
                                 disabled={data.communityMember?.filter((m) => m.communityId === c.id).length > 0}
-                                checked={(selectedCommunities.filter((i) => i === Number(c.id)).length > 0)||(data.communityMember?.filter((m) => m.communityId === c.id).length > 0)}
+                                checked={(selectedCommunities.filter((i) => i === Number(c.id)).length > 0) || (data.communityMember?.filter((m) => m.communityId === c.id).length > 0)}
                                 onChange={() => selectCommunityEvent(Number(c.id))}
                                 label={c.name} />;
                             })
