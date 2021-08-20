@@ -14,7 +14,8 @@ export default withSession(async (req, res) => {
     });
     console.log(response.data?.res);
     if(response.data?.success){
-      req.session.set('refreshToken',response.data?.res.refreshToken);
+      // req.session.set('refreshToken',response.data?.res.refreshToken);
+      req.session.set('refreshToken','');
       req.session.set('accessToken',response.data?.res.accessToken);
       // req.session.set('user',response.data?.res.user);
       await req.session.save();
