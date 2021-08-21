@@ -1,13 +1,13 @@
 import { Col, Row } from 'antd';
 import React from 'react';
 import { LinkedinOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
-import { MainPageHoc } from '../../../containers/hocs/MainPageHoc';
+import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
 import { Form, Input, Button } from 'antd';
-import { jwtDecode } from '../../../utils/jwt';
+import { jwtDecode } from '../../utils/jwt';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { API, URLS, signupFeatureObj } from '../../../constants/index';
-import { Promise, withSession, openNotificationWithIcon, fetcher } from '../../../utils';
+import { API, URLS, signupFeatureObj } from '../../constants/index';
+import { Promise, withSession, openNotificationWithIcon, fetcher } from '../../utils';
 import axios from 'axios';
 import useSWR from 'swr';
 const Signup = ({ ...props }) => {

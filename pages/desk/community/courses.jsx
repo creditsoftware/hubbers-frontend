@@ -9,6 +9,7 @@ import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
 import { CourseManageBtn, CreateCourseBtn, CourseListItem, SwitchCommunity } from '../../../components';
 import { jwtDecode } from '../../../utils/jwt';
+// import { CourseFilter } from '../../../components/community/course/CourseFilter';
 
 const Courses = (props) => {
   const router = useRouter();
@@ -35,6 +36,7 @@ const Courses = (props) => {
                 </Space>
               </Col>
             </Row>
+            {/* <CourseFilter /> */}
             {
               courseList?.map((course, index) => {
                 return <CourseListItem key={index} data={course} auth={{ ...data }} />;
