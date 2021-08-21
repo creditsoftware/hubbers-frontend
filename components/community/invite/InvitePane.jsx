@@ -16,7 +16,8 @@ import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { defaultMsgOfCommunityMemberInvitation } from '../../../constants/defaultMsgOfCommunityMemberInvitation';
 import { API } from '../../../constants';
-import { UserSelector } from '../../UserSelector';
+// import { UserSelector } from '../../UserSelector';
+import { UserTags } from '../../contest/UserTags';
 const { Option } = Select;
 export const InvitePane = ({...props}) => {
   const router = useRouter();
@@ -39,7 +40,7 @@ export const InvitePane = ({...props}) => {
     getData();
   }, [router, getData]);
   const invite = (values) => {
-    let data = { ...values, communityRoleId: props.gid ? 2 : 1, communityId: props.gid ?? router.query.community, from: props && props.data && props.data.members.filter((member) => member.communityId === Number(props.gid ?? router.query.community))[0].id };
+    let data = { ...values, communityRoleId: props.gid ? 2 : 1, communityId: props.gid ?? router.query.community, from: props && props.auth && props.auth.communityMember.filter((member) => member.communityId === Number(props.gid ?? router.query.community))[0].id };
     httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
@@ -66,7 +67,7 @@ export const InvitePane = ({...props}) => {
         name='to'
         rules={[{ required: true, message: 'Please input emails!' }]}
       >
-        <UserSelector />
+        <UserTags />
       </Form.Item>
       <Form.Item
         name='message'
