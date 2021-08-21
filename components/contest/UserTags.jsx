@@ -4,7 +4,6 @@ import { API } from '../../constants';
 import Avatar from 'antd/lib/avatar/avatar';
 import useSWR from 'swr';
 import { fetcher } from '../../utils';
-import { defaultAvatar } from '../../constants/etc';
 const { Option } = Select;
 
 export const UserTags = ({...props}) => {
