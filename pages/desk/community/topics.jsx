@@ -34,8 +34,8 @@ const Topics = (props) => {
   }, [router, getTopics]);
   return (
     router.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Topic - Hubbers Community' activeSide={{ active: [`topics-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>
+      : <DeskPageHoc title='Topic - Hubbers Community' activeSide={{ active: [`topics-${router.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>

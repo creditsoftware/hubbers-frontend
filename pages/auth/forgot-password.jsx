@@ -31,7 +31,7 @@ const ForgotPassword = ({ ...props }) => {
   };
 
   return (
-    <MainPageHoc title="Forgot password" auth={{ ...data }}>
+    <MainPageHoc title="Forgot password" auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <h1 className="fw-5 text-upper fs-6 text-center py-5 m-0">
           Forgot your password?
@@ -79,12 +79,12 @@ const ForgotPassword = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default ForgotPassword;

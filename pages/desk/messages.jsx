@@ -8,7 +8,7 @@ import { fetcher } from '../../utils/fetcher';
 const Messages = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <DeskPageHoc title='Messages' activeSide={{ active: ['messages'], open: [] }} auth={{ ...data }}>
+    <DeskPageHoc title='Messages' activeSide={{ active: ['messages'], open: [] }} auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
 
       </React.Fragment>
@@ -16,12 +16,12 @@ const Messages = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Messages;

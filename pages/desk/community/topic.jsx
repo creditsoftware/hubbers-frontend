@@ -42,7 +42,7 @@ const TopicDetail = (props) => {
   // }, [postList]);
   return (
     props.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>
       : <DeskPageHoc
         title={`Topic ${props.data?.name} - Hubbers Community`}
         activeSide={{
@@ -50,6 +50,7 @@ const TopicDetail = (props) => {
           open: ['community']
         }}
         auth={{ ...data }}
+        query={{...props.query}}
       >
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>

@@ -17,8 +17,8 @@ const Course = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
     router.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title={`Course ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`course-${router.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}} />
+      : <DeskPageHoc title={`Course ${props.data?.name} - Hubbers Community`} activeSide={{ active: [`course-${router.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>
@@ -48,13 +48,13 @@ const Course = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (!user) {
     await req.session.destroy();
-    return { props: { auth: { isLoggedIn: false, ...user } } };
+    return { props: { auth: { isLoggedIn: false, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   }
 });
 export default Course;

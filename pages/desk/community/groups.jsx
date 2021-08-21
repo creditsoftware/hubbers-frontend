@@ -27,8 +27,8 @@ const Groups = (props) => {
   }, [result]);
   return (
     props.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Groups - Hubbers' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>
+      : <DeskPageHoc title='Groups - Hubbers' activeSide={{ active: [`community-${props.query.community}-group`], open: ['community', `community-${props.query.community}-group`] }} auth={{ ...data }} query={{...props.query}}>
         <React.Fragment>
           <div className='max-w-80 m-auto px-3 pt-5'>
             <Row>

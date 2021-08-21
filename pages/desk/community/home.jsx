@@ -25,8 +25,8 @@ const Home = ({ ...props }) => {
   }, [props]);
   return (
     props.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Home' activeSide={{ active: [`home-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}} />
+      : <DeskPageHoc title='Home' activeSide={{ active: [`home-${props.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
         <div className='max-w-80 m-auto px-3'>
           <div className="f-right" style={{ right: 10, top: 70 }}>
             {/* <CommunityManageBtn /> */}

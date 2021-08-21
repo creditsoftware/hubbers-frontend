@@ -6,9 +6,11 @@ import { fetchJson } from '../../utils/fetchJson';
 import { API } from '../../constants';
 import { useRouter } from 'next/router';
 import { defaultAvatar } from '../../constants/etc';
+import { socket } from '../../utils';
 // import NImage from 'next/image';
 export const RightMenu = ({ menuType, ...props }) => {
   const { auth } = props;
+  const [notifications, setNotifications] = React.useState(null);
   const router = useRouter();
   const signout = async () => {
     const response = await fetchJson(`${API.LOCAL_SIGNOUT_API}`);
@@ -16,24 +18,44 @@ export const RightMenu = ({ menuType, ...props }) => {
       router.push('/auth/signin');
     }
   };
-  const notifications = [
-    // {
-    //   type: 'Community',
-    //   content: 'Denis has Joined in Shang hai community!'
-    // },
-    // {
-    //   type: 'Project',
-    //   content: 'Denis has created new project!'
-    // },
-    // {
-    //   type: 'Job',
-    //   content: 'Denis has published new job!'
-    // },
-    // {
-    //   type: 'Community',
-    //   content: 'Denis have Joined in Shang hai community.'
-    // }
-  ];
+  React.useEffect(() => {
+    socket.emit('get-notifications-notify', { userId: props.auth.id });
+    socket.on('get-notifications', (e) => {
+      let nls = [];
+      for (const n of Object.values(e)) {
+        if (n.rUserId === props.auth.id) {
+          if (!nls.length) {
+            nls = [
+              {
+                id: n.id,
+                type: n.category,
+                content: n.content
+              }
+            ];
+            continue;
+          }
+          nls = [
+            ...nls,
+            {
+              id: n.id,
+              type: n.category,
+              content: n.content
+            }
+          ];
+        }
+      }
+      if (notifications) {
+        nls = [...nls, ...notifications];
+      }
+      let distinct = [];
+      for (let i of nls) {
+        if (distinct.filter((d) => d.id === i.id).length === 0) {
+          distinct.push(i);
+        }
+      }
+      setNotifications([...distinct]);
+    });
+  }, []);
   const messages = [
     // {
     //   title: 'Denis Kravchenko'
@@ -71,15 +93,20 @@ export const RightMenu = ({ menuType, ...props }) => {
     </React.Fragment>
   );
   const notifyTitle = <span>Notifications</span>;
+  const onClickNotification = (id) => (event) => {
+    event.preventDefault();
+    socket.emit('read-notifications-notify', { id });
+  };
   const notifyContent = (
     <React.Fragment>
       <List
         bordered
         dataSource={notifications}
+        style={{ maxHeight: '300px', overflow: 'auto' }}
         renderItem={item => (
           <List.Item style={{ width: '15rem' }}>
             <Link href='#'>
-              <a className='primary-link'>
+              <a className='primary-link' onClick={onClickNotification(item.id)}>
                 <Typography.Text mark>[{item.type}]</Typography.Text> {item.content}
               </a>
             </Link>
@@ -97,7 +124,7 @@ export const RightMenu = ({ menuType, ...props }) => {
           <Link href='/desk/profile'>
             <a className='ml-2 primary-link'>
               {
-                auth.isLoggedIn && ((auth.firstname !== null ? auth.firstname : '') + ' ' + (auth.lastname !== null ? auth.lastname : auth.email))
+                auth.isLoggedIn && (auth.firstname || auth.lastname ? (auth.firstname !== null ? auth.firstname : '') + ' ' + (auth.lastname !== null ? auth.lastname : '') : auth.email)
               }
             </a>
           </Link>
@@ -187,7 +214,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
-                  <img src="/images/icons/message.png" />
+                  <img src="/images/icons/message.png" alt='' />
                   {/* <NImage width='35' height='30' src='/images/icons/message.png' alt='' /> */}
                 </Badge>
               </Popover>
@@ -200,7 +227,7 @@ export const RightMenu = ({ menuType, ...props }) => {
                 trigger="click"
               >
                 <Badge
-                  count={0}
+                  count={notifications?.length}
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >

@@ -26,7 +26,7 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 import { UploadImage } from '../../UploadImage';
-import { fetchJson, getRandomInt, openNotificationWithIcon, slugify } from '../../../utils';
+import { fetchJson, getRandomInt, openNotificationWithIcon, slugify, socket } from '../../../utils';
 import { useRouter } from 'next/router';
 import { SettingDrawer } from '../global';
 import { useEventList } from '../../../hooks';
@@ -95,10 +95,10 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   React.useEffect(() => {
     if (content) {
       let schedules = [];
-      if(content.schedules) {
+      if (content.schedules) {
         schedules = [...content.schedules];
         schedules = schedules.map((s) => {
-          return {...s, time: s.time ? moment(s.time, 'HH:mm:ss') : ''};
+          return { ...s, time: s.time ? moment(s.time, 'HH:mm:ss') : '' };
         });
         delete content.schedules;
       }
@@ -169,13 +169,13 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
     if (props.query?.group) {
       data = { ...data, communityId: props.query?.group };
     }
-    if(data.schedules) {
+    if (data.schedules) {
       let schedules = [...data.schedules];
       schedules = schedules.map((s) => {
-        return {...s, time: s.time.format('HH:mm:ss')};
+        return { ...s, time: s.time.format('HH:mm:ss') };
       });
       delete data.schedules;
-      data = {...data, schedules: [...schedules]};
+      data = { ...data, schedules: [...schedules] };
     }
     fetchJson(`${API.CREATE_EVENT_API}`, {
       method: 'POST',
@@ -185,6 +185,12 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
       .then((response) => {
         if (response.success) {
           openNotificationWithIcon('success', 'Success!', response.message);
+          socket.emit('create-community-event', {
+            category: props.query.group ? 'group' : 'community',
+            categoryId: !data.isGlobal ? props.query.group ? props.query.group : props.query.community : 0,
+            userId: props.auth.id,
+            content: 'created new event!'
+          });
           onHide();
           if (props.query.topic) {
             mutateTDetail();

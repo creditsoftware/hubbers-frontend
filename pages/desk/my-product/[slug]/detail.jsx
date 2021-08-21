@@ -8,7 +8,7 @@ import { fetcher } from '../../../../utils/fetcher';
 const Detail = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <DeskPageHoc title='Project Detail' activeSide={{ active: ['product-detail'], open: ['my-product', 'product1'] }} auth={{ ...data }}>
+    <DeskPageHoc title='Project Detail' activeSide={{ active: ['product-detail'], open: ['my-product', 'product1'] }} auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
 
       </React.Fragment>
@@ -16,12 +16,12 @@ const Detail = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Detail;

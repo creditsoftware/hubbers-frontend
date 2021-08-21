@@ -25,6 +25,12 @@ export const API = {
   LOCAL_UPLOAD_IMAGE_API: process.env.LOCAL_API_V1 + '/api/upload/image',
   LOCAL_UPLOAD_AVATAR_API: process.env.LOCAL_API_V1 + '/api/upload/avatar',
   //SERVER APIS : TO BACKEND
+
+  GET_USER_ROLES_API: process.env.API_V1 + 'user-role/',
+  USER_SIGN_UP_STEP_ONE: process.env.API_V1 + 'user/sign-up-step-one',  //put
+  USER_SIGN_UP_STEP_TWO: process.env.API_V1 + 'user/sign-up-step-two',  //post
+  USER_SIGN_UP_STEP_THREE: process.env.API_V1 + 'user/sign-up-step-three',  //put
+
   SIGNIN_API: process.env.API_V1 + 'auth/user/signin',
   SIGNOUT_API: process.env.API_V1 + 'auth/user/signout',
   REFRESH_API: process.env.API_V1 + 'auth/user/refresh',
@@ -36,18 +42,39 @@ export const API = {
   GET_USER_LIST_API: process.env.API_V1 + 'user',//get
   GET_USER_LIST_SEARCH_API: process.env.API_V1 + 'user', //get searched user
   GET_COMMUNITY_LIST_API: process.env.API_V1 + 'community',//get
-  GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
-  GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
-  UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
   GET_THUMB_UP_API: process.env.API_V1 + 'user/thumb-up/home/',
   GET_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
+  GET_ALL_EXPERTISE_CATEGORY_API: process.env.API_V1 + 'expertise-category/expertise',
+  GET_SKILL_BY_CATEGORY_API: process.env.API_V1 + 'expertise-category/skill-by-category',
+  GET_SKILL_BY_CATEGORIES_API: process.env.API_V1 + 'expertise-category/skill-by-categories',
+
+  GET_CREATOR_PROFILE_API: process.env.API_V1 + 'profile/creator',
+  UPDATE_CREATOR_PROFILE_API: process.env.API_V1 + 'profile/creator',
+  UPDATE_CREATOR_PORTFOLIO_API: process.env.API_V1 + 'profile/creator',
+
+  GET_EXPERT_PROFILE_API: process.env.API_V1 + 'profile/expert',
+  UPDATE_EXPERT_PROFILE_API: process.env.API_V1 + 'profile/expert',
+  UPDATE_EXPERT_PORTFOLIO_API: process.env.API_V1 + 'profile/expert',
+
+  GET_INVESTOR_PROFILE_API: process.env.API_V1 + 'profile/investor',
+  UPDATE_INVESTOR_PROFILE_API: process.env.API_V1 + 'profile/investor',
+  UPDATE_INVESTOR_PORTFOLIO_API: process.env.API_V1 + 'profile/investor',
+
+  GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
+  UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
+  GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
+
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
+
+  CREATE_PRODUCT_API: process.env.API_V1 + 'product',
+
   // CONTEST APIS
-  CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
-  UPDATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  
+  GET_CONTEST_DESCRITION_API: process.env.API_V1 + 'contest/contest-description/category',
   //-------------
   // CURRENCY APIS
   GET_CURRENCY_API: process.env.API_V1 + 'payment/currency',

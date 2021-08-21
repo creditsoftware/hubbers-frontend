@@ -43,7 +43,7 @@ const GrabAShare = ({ ...props }) => {
   }];
 
   return (
-    <MainPageHoc title="Grab a share" auth={{ ...data }}>
+    <MainPageHoc title="Grab a share" auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <MainBanner
           url='https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/grab-a-share-banner.jpg'
@@ -140,12 +140,12 @@ const GrabAShare = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default GrabAShare;

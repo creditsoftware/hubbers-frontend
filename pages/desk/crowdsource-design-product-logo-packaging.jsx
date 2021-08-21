@@ -14,6 +14,7 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: card } = useSWR(API.GET_CONTEST_CATEGORY_API, fetcher);
   const [visible, setVisible] = React.useState(false);
+  const [childrenDrawer, setChildrenDrawer] = React.useState(false);
   const [contestTypeName, setContestTypeName] = React.useState();
   React.useEffect(()=>{
     if(card) {
@@ -27,8 +28,14 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
     setContestTypeName(card.data[index].id);
     setVisible(!visible);
   };
+  const showChildrenDrawer = () => {
+    setChildrenDrawer(true);
+  };
+  const onChildrenClose = () => {
+    setChildrenDrawer(false);
+  };
   return (
-    <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
+    <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }} query={{...props.query}}>
       <Container className="py-5">
         <React.Fragment>
           <div className="max-w-40 m-auto text-center py-5">
@@ -65,19 +72,19 @@ const CrowdsourceDesignProductLogoPackaging = ({ ...props }) => {
               })
             }
           </Row>
-          <ContestDrawer visible={visible} onHide={toggleVisible} {...props} contestTypeId={contestTypeName} contestType={contestTypeList} />
+          <ContestDrawer visible={visible} childrenVisible={childrenDrawer} onChildrenShow={showChildrenDrawer} onChildrenClose={onChildrenClose}  onHide={toggleVisible} {...props} contestTypeId={contestTypeName} contestType={contestTypeList} />
         </React.Fragment>
       </Container>
     </DeskPageHoc>
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default CrowdsourceDesignProductLogoPackaging;

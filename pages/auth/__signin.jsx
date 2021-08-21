@@ -57,7 +57,7 @@ const Signin = ({ ...props }) => {
   };
 
   return (
-    <MainPageHoc title="Sign in" auth={{ ...data }}>
+    <MainPageHoc title="Sign in" auth={{ ...data }} query={{...props.query}}>
       <div className='signin-page'>
         <h1 className="fw-5 text-upper fs-6 text-center py-5 m-0">
           welcome back to hubbers
@@ -157,12 +157,12 @@ const Signin = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Signin;

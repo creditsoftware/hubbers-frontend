@@ -24,8 +24,8 @@ const Discover = ({ ...props }) => {
   }, [props.query.community]);
   return (
     props.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} />
-      : <DeskPageHoc title='Discover' activeSide={{ active: [`discover-${props.query.community}`], open: ['community'] }} auth={{ ...data }}>
+      <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>
+      : <DeskPageHoc title='Discover' activeSide={{ active: [`discover-${props.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
         <div className='max-w-80 m-auto px-3 pt-5'>
           <h1 className="fw-6 fs-5">
             Discover

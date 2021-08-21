@@ -9,7 +9,7 @@ import { fetcher } from '../../../utils/fetcher';
 import { MainProfile, ProfileNavbar, CountrySelect, UploadImage } from '../../../components';
 import { Container } from '../../../components/Container';
 import { DatePicker, Select, Row, Form, Input, Col, Button } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import moment from 'moment';
 
@@ -31,19 +31,21 @@ const Profile = ({ ...props }) => {
   const [educationState, setEducationState] = React.useState(null);
   const [educationSelect, setEducationSelect] = React.useState(null);
   React.useEffect(() => {
-    fetchJson(`${API.GET_PRODUCT_CATTEGORY_API}`).then((response) => {
-      setProductCategory(response.data);
-    });
-    fetchJson(`${API.GET_INNOVATION_CATTEGORY_API}`).then((response) => {
-      setInnovationCategory(response.data);
-    });
-    fetchJson(`${API.GET_TECH_CATTEGORY_API}`).then((response) => {
-      setTechCategory(response.data);
-    });
-    fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
-      setGeneralProfile(response.data);
-    });
-  }, []);
+    if (data) {
+      fetchJson(`${API.GET_PRODUCT_CATTEGORY_API}`).then((response) => {
+        setProductCategory(response.data);
+      });
+      fetchJson(`${API.GET_INNOVATION_CATTEGORY_API}`).then((response) => {
+        setInnovationCategory(response.data);
+      });
+      fetchJson(`${API.GET_TECH_CATTEGORY_API}`).then((response) => {
+        setTechCategory(response.data);
+      });
+      fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
+        setGeneralProfile(response.data);
+      });
+    }
+  }, [data]);
   React.useEffect(() => {
     let bio = generalProfile?.detail?.bio ? generalProfile?.detail?.bio : creatorBio;
     let productCategoryList = [];
@@ -116,9 +118,10 @@ const Profile = ({ ...props }) => {
       data.pastJob.push({ ...values });
     }
     else {
-      data.pastJob[pastJobSelect] = { ...values };
+      data.pastJob[pastJobSelect] = { ...data.pastJob[pastJobSelect], ...values };
     }
     setGeneralProfile(data);
+    setPastJobState(null);
     pastJobForm.resetFields();
     form.submit();
   };
@@ -143,11 +146,12 @@ const Profile = ({ ...props }) => {
       data.detail.education[educationSelect] = { ...values };
     }
     setGeneralProfile(data);
+    setEducationState(null);
     educationForm.resetFields();
     form.submit();
   };
   return (
-    <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }}>
+    <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }} query={{ ...props.query }}>
       <React.Fragment>
         <MainProfile auth={data} />
         <Container className="mt-4">
@@ -348,17 +352,18 @@ const Profile = ({ ...props }) => {
                             <div
                               key={index}
                               className="general-portfolio-item mr-3 mb-3"
-                              style={{ backgroundImage: `url(${item.logo})` }}
+                              onClick={() => { editPastJob(index); }}
                             >
-                              <div className="portfolio-mask px-3">
-                                <div>
-                                  <p className="fw-6 fs-1 text-center mb-0">{item.title}</p>
-                                  <p className="fs-1 text-center mb-3">{item.location}</p>
-                                </div>
+                              <div
+                                className="portfolio-image"
+                                style={{ backgroundImage: `url(${item.logo})` }}
+                              >
                                 <div className='general-portfolio-item-actions'>
-                                  <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editPastJob(index); }} />
-                                  <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
+                                  <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deletePastJob(index); }} />
                                 </div>
+                              </div>
+                              <div className="portfolio-title">
+                                <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
                               </div>
                             </div>
                           );
@@ -396,6 +401,12 @@ const Profile = ({ ...props }) => {
                           <Col lg={6} xs={24}>
                             <Form.Item
                               name="logo"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'The image is required',
+                                },
+                              ]}
                             >
                               <UploadImage />
                             </Form.Item>
@@ -524,17 +535,18 @@ const Profile = ({ ...props }) => {
                           <div
                             key={index}
                             className="general-portfolio-item mr-3 mb-3"
-                            style={{ backgroundImage: `url(${item.logo})` }}
+                            onClick={() => { editEducation(index); }}
                           >
-                            <div className="portfolio-mask px-3">
-                              <div>
-                                <p className="fw-6 fs-1 fc-white mb-0">{item.university}</p>
-                                <p className="fw-6 fs-1 fc-white mb-3">{item.title}</p>
+                            <div
+                              className="portfolio-image"
+                              style={{ backgroundImage: `url(${item.logo})` }}
+                            >
+                              <div className='general-portfolio-item-actions'>
+                                <Button type="text" danger icon={<DeleteOutlined />} onClick={() => { deleteEducation(index); }} />
                               </div>
-                              <div>
-                                <Button className="mr-2" type="primary" icon={<EditOutlined />} onClick={() => { editEducation(index); }} />
-                                <Button className="ml-2" type='primary' danger icon={<DeleteOutlined />} onClick={() => { deleteEducation(index); }} />
-                              </div>
+                            </div>
+                            <div className="portfolio-title">
+                              <p className="fw-6 fs-1 mb-0 pt-3 text-center">{item.title}</p>
                             </div>
                           </div>
                         );
@@ -571,6 +583,12 @@ const Profile = ({ ...props }) => {
                           <Col lg={6} xs={24}>
                             <Form.Item
                               name="logo"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'The image is required',
+                                },
+                              ]}
                             >
                               <UploadImage />
                             </Form.Item>
@@ -682,12 +700,12 @@ const Profile = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default Profile;

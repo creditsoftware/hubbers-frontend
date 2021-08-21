@@ -6,7 +6,7 @@ import { useWindowSize } from '../../../hooks';
 import { CKEditor5 } from '../../CKEditor5';
 import { API } from '../../../constants';
 import { useRouter } from 'next/router';
-import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../utils';
+import { httpRequestLocal, openNotificationWithIcon, fetchJson, socket } from '../../../utils';
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { mutate } from 'swr';
 import { SettingDrawer } from '../global/SettingDrawer';
@@ -92,7 +92,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
       };
     } else {
       openNotificationWithIcon('error', 'Something went wrong!', '');
-      return;  
+      return;
     }
     if (props.query?.group) {
       v = {
@@ -103,6 +103,13 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
     httpRequestLocal(`${API.CREATE_POST_API}`, REQUEST_TYPE.POST, v)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
+        socket.emit('create-community-post', {
+          category: props.query.group ? 'group' : 'community',
+          categoryId: props.query.group ? props.query.group : props.query.community,
+          userId: props.auth.id,
+          content: `created new ${article ? 'article' : 'post'}!`
+        });
+
         if (props.query?.topic) {
           mutateTDetail();
           return;
@@ -188,7 +195,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
               : <Space direction='vertical' style={{ width: '100%' }}>
                 {
                   !editable &&
-                  <PostTile auth={{...props.auth}} post={{ ...props.data }} query={{...props.query}} />
+                  <PostTile auth={{ ...props.auth }} post={{ ...props.data }} query={{ ...props.query }} />
                   // <div className='ck-content oy-auto p-3 pb-0' dangerouslySetInnerHTML={{ __html: post.content }}></div>
                 }
                 {

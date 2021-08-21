@@ -11,7 +11,7 @@ import { jwtDecode } from '../../utils/jwt';
 const GetOurApp = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   return (
-    <MainPageHoc title="Get Our App" auth={{ ...data }}>
+    <MainPageHoc title="Get Our App" auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
         <div className="p-rel w-100 get-our-app">
           <MainBanner className='p-abs' url='/images/app_store_banner.png' />
@@ -58,12 +58,12 @@ const GetOurApp = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default GetOurApp;

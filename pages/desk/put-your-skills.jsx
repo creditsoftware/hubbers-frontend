@@ -42,7 +42,7 @@ const PutYourSkills = ({ ...props }) => {
     }
   ];
   return (
-    <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }}>
+    <DeskPageHoc title='Activities' activeSide={{ active: ['activities'], open: [] }} auth={{ ...data }} query={{...props.query}}>
       <Container className="py-5">
         <React.Fragment>
           <div className="max-w-50 m-auto text-center py-5">
@@ -97,7 +97,7 @@ const PutYourSkills = ({ ...props }) => {
                         <p className="fs-1 text-center">{item.content}</p>
                       </Col>
                       <Col sm={8} xs={24} className="d-flex f-align-center fjc-center">
-                        <Image width={145} height={140} src={item.image} />
+                        <Image width={145} height={140} src={item.image} alt='' />
                       </Col>
                     </Row>
                   </Col>
@@ -121,12 +121,12 @@ const PutYourSkills = ({ ...props }) => {
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const user = jwtDecode(await req.session.get('accessToken'))?.data;
   if (user) {
-    return { props: { auth: { isLoggedIn: true, ...user } } };
+    return { props: { auth: { isLoggedIn: true, ...user }, query } };
   } else {
-    return { props: { auth: { isLoggedIn: false } } };
+    return { props: { auth: { isLoggedIn: false }, query } };
   }
 });
 export default PutYourSkills;
