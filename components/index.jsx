@@ -123,3 +123,7 @@ export {
   Translate,
   LazyLoading
 } from './global';
+
+export {
+  ProductDetailHeader,
+} from './product';

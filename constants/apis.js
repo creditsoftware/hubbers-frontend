@@ -69,7 +69,10 @@ export const API = {
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
 
-  CREATE_PRODUCT_API: process.env.API_V1 + 'product',
+  GET_PRODUCT_LIST_BY_USER_API: process.env.API_V1 + 'project/get-list-by-user', //get/:userId
+  GET_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //get/:id
+  UPDATE_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //put/:id
+  CREATE_PRODUCT_API: process.env.API_V1 + 'project',  //post
 
   // CONTEST APIS
   CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
@@ -81,6 +84,7 @@ export const API = {
   //--------------
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
+  GET_LANGUAGE_LIST_API: process.env.API_V1 + 'language/',
   GET_ALL_JOB_API: process.env.API_V1 + 'job/',
   CHECK_APPLY_STATE_API: process.env.API_V1 + 'job-application/check',
   CREATE_JOB_APPLICATION_API: process.env.API_V1 + 'job-application',

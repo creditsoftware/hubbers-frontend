@@ -1,8 +1,8 @@
 import React from 'react';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 import { Collapse, DatePicker, Empty, Space, Col, Row, Select, Form, Input, Button, Steps } from 'antd';
 import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
-import { useRouter } from 'next/router';
 import { jwtDecode } from '../../utils/jwt';
 import { Container, CheckBtn } from '../../components';
 import { countryList } from '../../constants/index';
