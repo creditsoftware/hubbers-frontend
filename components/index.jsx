@@ -110,7 +110,8 @@ export {
 } from './membership';
 export {
   LinkedinLogin,
-  AuthLink
+  AuthLink,
+  SingupProgress,
 } from './auth';
 export {
   ContestTile
