@@ -126,6 +126,7 @@ export const API = {
   JOININ_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/join', //patch /:groupId/:userId
   GET_REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //get /:communityId
   REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //post /:communityId/:userId
+  CREATE_COURSE_BASIC_DATA_API: process.env.API_V1 + 'community/course/basic', // post
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
   //socket stream endpoint
   SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1
