@@ -50,6 +50,7 @@ export const Language = () => {
               src={`/images/lang-flags/${router.locale}_64.png`}
               width={20}
               height={20}
+              alt=''
             />
             {languageList.filter((item)=>item.shortName === router.locale)[0].fullName}
           </Space>

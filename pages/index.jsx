@@ -10,7 +10,7 @@
 // );
 
 import { Button, Col, Row, Space } from 'antd';
-import { Container, HomepageMainBanner, Translate, Userdata  } from '../components';
+import { Container, HomepageMainBanner, Translate, Userdata } from '../components';
 import Image from 'next/image';
 import React from 'react';
 import { MainPageHoc } from '../containers';
@@ -26,7 +26,7 @@ import { fetcher } from '../utils/fetcher';
 const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [thumbUp, setThumbup] = React.useState([]);
-  React.useEffect(()=>{
+  React.useEffect(() => {
     fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
       setThumbup(response);
     });
@@ -50,7 +50,7 @@ const Home = ({ ...props }) => {
       date: 'Apr - 2021',
     }];
   return (
-    <MainPageHoc title="Hubbers" auth={{ ...data }} query={{...props.query}}>
+    <MainPageHoc title="Hubbers" auth={{ ...data }} query={{ ...props.query }}>
       <React.Fragment>
         <HomepageMainBanner />
         <Container>
@@ -89,7 +89,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -101,7 +101,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -113,7 +113,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -125,7 +125,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -137,7 +137,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -149,7 +149,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -182,7 +182,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -194,7 +194,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -206,7 +206,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -218,7 +218,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -230,7 +230,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -242,7 +242,7 @@ const Home = ({ ...props }) => {
                 <Row className='mb-3'>
                   <Col span={2}>
                     <div className="max-w-1_5">
-                      <Image src='/images/homepage/right_sign.png' width={100} height={100} />
+                      <Image src='/images/homepage/right_sign.png' width={100} height={100} alt='' />
                     </div>
                   </Col>
                   <Col span={22}>
@@ -285,7 +285,7 @@ const Home = ({ ...props }) => {
             <Row>
               <Col lg={8} md={8} sm={8} xs={24}>
                 <div className='text-center'>
-                  <Image width={100} height={100} src='/images/homepage/ideate_icon_img.png' />
+                  <Image width={100} height={100} src='/images/homepage/ideate_icon_img.png' alt='' />
                   <h2 className="fw-5 fs-4">
                     Ideate
                   </h2>
@@ -293,7 +293,7 @@ const Home = ({ ...props }) => {
               </Col>
               <Col lg={8} md={8} sm={8} xs={24}>
                 <div className='text-center'>
-                  <Image width={100} height={100} src='/images/homepage/design_icon_img.png' />
+                  <Image width={100} height={100} src='/images/homepage/design_icon_img.png' alt='' />
                   <h2 className="fw-5 fs-4">
                     Design
                   </h2>
@@ -301,7 +301,7 @@ const Home = ({ ...props }) => {
               </Col>
               <Col lg={8} md={8} sm={8} xs={24}>
                 <div className='text-center'>
-                  <Image width={100} height={100} src='/images/homepage/make_icon_img.png' />
+                  <Image width={100} height={100} src='/images/homepage/make_icon_img.png' alt='' />
                   <h2 className="fw-5 fs-4">
                     Make
                   </h2>
@@ -315,7 +315,7 @@ const Home = ({ ...props }) => {
               <Col lg={12} md={12} sm={12} xs={24}>
                 <Row className="mb-3">
                   <Col span={4}>
-                    <Image width={100} height={100} src='/images/homepage/create-community_icon_one.png' />
+                    <Image width={100} height={100} src='/images/homepage/create-community_icon_one.png' alt='' />
                   </Col>
                   <Col span={20}>
                     <h2 className="fw-5 fs-2">
@@ -325,7 +325,7 @@ const Home = ({ ...props }) => {
                 </Row>
                 <Row className="mb-3">
                   <Col span={4}>
-                    <Image width={100} height={100} src='/images/homepage/create-community_icon_two.png' />
+                    <Image width={100} height={100} src='/images/homepage/create-community_icon_two.png' alt='' />
                   </Col>
                   <Col span={20}>
                     <h2 className="fw-5 fs-2">
@@ -337,7 +337,7 @@ const Home = ({ ...props }) => {
               <Col lg={12} md={12} sm={12} xs={24}>
                 <Row className="mb-3">
                   <Col span={4}>
-                    <Image width={100} height={100} src='/images/homepage/create-community_icon_three.png' />
+                    <Image width={100} height={100} src='/images/homepage/create-community_icon_three.png' alt='' />
                   </Col>
                   <Col span={20}>
                     <h2 className="fw-5 fs-2">
@@ -347,7 +347,7 @@ const Home = ({ ...props }) => {
                 </Row>
                 <Row className="mb-3">
                   <Col span={4}>
-                    <Image width={100} height={100} src='/images/homepage/create-community_icon_four.png' />
+                    <Image width={100} height={100} src='/images/homepage/create-community_icon_four.png' alt='' />
                   </Col>
                   <Col span={20}>
                     <h2 className="fw-5 fs-2">
@@ -380,7 +380,7 @@ const Home = ({ ...props }) => {
                 <Col lg={12} md={12} sm={12} xs={24}>
                   <Row className="mb-3">
                     <Col span={4}>
-                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_one.png' />
+                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_one.png' alt='' />
                     </Col>
                     <Col span={20}>
                       <h2 className="fw-5 fs-2">
@@ -390,7 +390,7 @@ const Home = ({ ...props }) => {
                   </Row>
                   <Row className="mb-3">
                     <Col span={4}>
-                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_two.png' />
+                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_two.png' alt='' />
                     </Col>
                     <Col span={20}>
                       <h2 className="fw-5 fs-2">
@@ -402,7 +402,7 @@ const Home = ({ ...props }) => {
                 <Col lg={12} md={12} sm={12} xs={24}>
                   <Row className="mb-3">
                     <Col span={4}>
-                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_three.png' />
+                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_three.png' alt='' />
                     </Col>
                     <Col span={20}>
                       <h2 className="fw-5 fs-2">
@@ -412,7 +412,7 @@ const Home = ({ ...props }) => {
                   </Row>
                   <Row className="mb-3">
                     <Col span={4}>
-                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_four.png' />
+                      <Image width={100} height={100} src='/images/homepage/community_feature_icon_four.png' alt='' />
                     </Col>
                     <Col span={20}>
                       <h2 className="fw-5 fs-2">
@@ -428,7 +428,7 @@ const Home = ({ ...props }) => {
                 </Col>
               </Row>
               <div>
-                <img width='100%' src='/images/homepage/map.png' />
+                <Image src='/images/homepage/map.png' alt='' width={1600} height={800} />
               </div>
               <h2 className="fw-5 fs-4">
                 Find your Hubbers community in Shanghai, Singapore, Paris, Berlin, Seoul and many other Cities.
