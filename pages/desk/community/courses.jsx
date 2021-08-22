@@ -9,6 +9,7 @@ import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
 import { CourseManageBtn, CreateCourseBtn, CourseListItem, SwitchCommunity } from '../../../components';
 import { jwtDecode } from '../../../utils/jwt';
+import { useGetCourseList } from '../../../hooks/useSWR/community/useGetCourseList';
 // import { CourseFilter } from '../../../components/community/course/CourseFilter';
 
 const Courses = (props) => {
@@ -18,6 +19,10 @@ const Courses = (props) => {
     contents: 'content 1',
     description: 'description1 description1 description1 description1 description1 description1 description1 description1'
   }];
+  const {data: cl} = useGetCourseList(props.query.community, props.auth.id);
+  React.useEffect(() => {
+    console.log(cl);
+  },[cl]);
   return (
     router.query.community === 'join' ?
       <JoinInCommunity auth={{ ...data }} query={{...props.query}}/>

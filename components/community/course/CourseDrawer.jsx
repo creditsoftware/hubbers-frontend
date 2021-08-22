@@ -10,10 +10,15 @@ import { CreateCourseInstructor } from './CreateCourseInstructor';
 import { CreateCourseDone } from './CreateCourseDone';
 import { fetchJson, openNotificationWithIcon } from '../../../utils';
 import { API } from '../../../constants';
+import { useGetDraftedCourse } from '../../../hooks/useSWR/community/useGetDraftedCourse';
 
 export const CourseDrawer = ({ visible, onHide, ...props }) => {
   const [progress, setProgress] = React.useState(0);
   const [form] = Form.useForm();
+  const {data: draftedCourse} = useGetDraftedCourse(props.query.community, props.auth.id);
+  React.useEffect(() => {
+    console.log(draftedCourse);
+  },[draftedCourse]);
   const onFinish = (values) => {
     const d = {
       ...values,
