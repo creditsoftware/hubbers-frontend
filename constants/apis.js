@@ -75,8 +75,8 @@ export const API = {
   CREATE_PRODUCT_API: process.env.API_V1 + 'project',  //post
 
   // CONTEST APIS
-  CREATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
-  UPDATE_CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  
   GET_CONTEST_DESCRITION_API: process.env.API_V1 + 'contest/contest-description/category',
   //-------------
   // CURRENCY APIS
