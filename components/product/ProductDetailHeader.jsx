@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { Row, Col } from 'antd';
 import { EyeOutlined, HeartOutlined, ShareAltOutlined } from '@ant-design/icons';
 
@@ -15,8 +14,8 @@ export const ProductDetailHeader = ({ current, changePage, data }) => {
         backgroundPosition: 'center',
         backgroundImage: `url(${data?.featuredImageUrl})`,
         backgroundColor: 'lightgrey',
-        }}
-      ></Col>
+      }}
+      />
       <Col span={12} className="px-5 py-3">
         <label className="mr-3"><EyeOutlined />&nbsp;&nbsp;{data?.view?.length ?? 0}</label>
         <label className="ml-3 mr-3"><HeartOutlined />&nbsp;&nbsp;{data?.like?.length ?? 0}</label>

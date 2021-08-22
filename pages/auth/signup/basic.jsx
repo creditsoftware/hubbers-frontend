@@ -8,23 +8,25 @@ import { MainPageHoc } from '../../../containers/hocs/MainPageHoc';
 import { fetcher, fetchJson, withSession } from '../../../utils';
 import { jwtDecode } from '../../../utils/jwt';
 
+const { Option } = Select;
+
 const SignupBasic = ({ ...props }) => {
   const router = useRouter();
   const email = router.query.email;
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [userRoleList, setUserRoleList] = React.useState([]);
-  
-  React.useEffect(()=>{
+
+  React.useEffect(() => {
     fetchJson(`${API.GET_USER_ROLES_API}`).then((response) => {
       setUserRoleList(response);
     });
-  },[]);
+  }, []);
 
   const onFinish = (values) => {
     fetchJson(`${API.USER_SIGN_UP_STEP_ONE}/${email}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({...values}),
+      body: JSON.stringify({ ...values }),
     });
     router.push(`/auth/signup/community?email=${email}`);
   };

@@ -41,7 +41,7 @@ const Signup = ({ ...props }) => {
       });
   };
   return (
-    <MainPageHoc title="Sign Up" auth={{ ...data }} query={{...props.query}}>
+    <MainPageHoc title="Sign Up" auth={{ ...data }} query={{ ...props.query }}>
       <div className='signin-page'>
         <h1 className="fw-5 text-upper fs-6 text-center pt-5 pb-1 m-0">
           One more step to join Hubbers
@@ -76,7 +76,7 @@ const Signup = ({ ...props }) => {
               </Form.Item>
               <Form.Item
                 name="email"
-                rules={[{ required: true, type:'email', message: 'Please input your email!' }]}
+                rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
               >
                 <Input size='large' placeholder='Email' prefix={<UserOutlined />} />
               </Form.Item>

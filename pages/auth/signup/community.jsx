@@ -19,17 +19,17 @@ const SignupCommunity = ({ ...props }) => {
   const [communityList, setCommunityList] = React.useState([]);
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     fetchJson(`${API.GET_COMMUNITY_LIST_API}`).then((response) => {
       setCommunityList(response.data);
     });
-  },[]);
+  }, []);
 
   const next = () => {
     fetchJson(`${API.USER_SIGN_UP_STEP_TWO}/${email}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({community: selectedCommunities}),
+      body: JSON.stringify({ community: selectedCommunities }),
     });
     router.push(`/auth/signup/profile?email=${email}`);
   };

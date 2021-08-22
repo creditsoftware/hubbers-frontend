@@ -59,7 +59,7 @@ const Details = ({ ...props }) => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...values }),
-    }).then((response) => {
+    }).then(() => {
       mutatePDetails();
     });
   };
@@ -130,7 +130,7 @@ const Details = ({ ...props }) => {
                     </Select>
                   </Form.Item>
                   <h1>MARKET</h1>
-                  <p>Here you describe the people who according to you will say 'whoaou' to your project. How you see them: Age, gender, occupations. Reasons they will like it.</p>
+                  <p>Here you describe the people who according to you will say &apos;whoaou&apos; to your project. How you see them: Age, gender, occupations. Reasons they will like it.</p>
                   <Form.Item name="market">
                     <TextArea rows={3} onBlur={()=>form.submit()}/>
                   </Form.Item>
