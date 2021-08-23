@@ -21,9 +21,9 @@ const ContestsDetail = ({ ...props }) => {
   const { data: product } = useSWR(`${API.CONTEST_API}/slug/${props.query.slug[0]}`);
   React.useEffect(() => {
     if(product && product.result) {
-      setContest(product)
+      setContest(product);
     }
-  },[product])
+  },[product]);
   const products = {
     image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/6V1GLLP2-.png',
     title: 'Scooter Delivery Case',

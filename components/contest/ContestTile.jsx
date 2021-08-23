@@ -5,11 +5,11 @@ import moment from 'moment';
 import { API } from '../../constants';
 
 export const ContestTile = ({ ...props }) => {
-  const addView = (e) => {
+  const addView = () => {
     fetch(`${API.ADD_CONTEST_VIEW_API}/${props.auth.id}/${props.slug}`, {
       method: 'PUT'
-    })
-  }
+    });
+  };
   return <Link href={`contests/${props.slug}`}>
     <a onClick={addView}>
       <div className="contest-tile">

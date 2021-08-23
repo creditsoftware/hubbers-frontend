@@ -23,7 +23,8 @@ const SignupCommunity = ({ ...props }) => {
     fetchJson(`${API.GET_COMMUNITY_LIST_API}`).then((response) => {
       setCommunityList(response.data);
     });
-  }, []);
+    setSelectedCommunities([Number(router.query.community)]);
+  }, [router]);
 
   const next = () => {
     fetchJson(`${API.USER_SIGN_UP_STEP_TWO}/${email}`, {
@@ -71,7 +72,7 @@ const SignupCommunity = ({ ...props }) => {
                         communityList && communityList.filter((c) => c.country?.continent === item).map((c) => {
                           return <CheckBtn
                             key={c.id}
-                            disabled={(selectedCommunities.length > 1) && !selectedCommunities.includes(c.id)}
+                            disabled={((selectedCommunities.length > 1) && !selectedCommunities.includes(c.id))}
                             checked={selectedCommunities.includes(c.id)}
                             onChange={() => selectCommunityEvnet(Number(c.id))}
                             label={c.name} />;

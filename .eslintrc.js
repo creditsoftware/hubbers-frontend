@@ -62,7 +62,6 @@ module.exports = {
     'semi': [
       'error',
       'always'
-    ],
-    'linebreak-style':0
+    ]
   }
 };
