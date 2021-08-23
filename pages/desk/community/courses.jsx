@@ -15,13 +15,12 @@ import { useGetCourseList } from '../../../hooks/useSWR/community/useGetCourseLi
 const Courses = (props) => {
   const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const courseList = [{
-    contents: 'content 1',
-    description: 'description1 description1 description1 description1 description1 description1 description1 description1'
-  }];
+  const [courseList, setCourseList] = React.useState(null);
   const {data: cl} = useGetCourseList(props.query.community, props.auth.id);
   React.useEffect(() => {
-    console.log(cl);
+    if(cl) {
+      setCourseList(cl.data);
+    }
   },[cl]);
   return (
     router.query.community === 'join' ?

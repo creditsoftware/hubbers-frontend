@@ -18,14 +18,23 @@ export const CourseDrawer = ({ visible, onHide, ...props }) => {
   const {data: draftedCourse} = useGetDraftedCourse(props.query.community, props.auth.id);
   React.useEffect(() => {
     console.log(draftedCourse);
-  },[draftedCourse]);
+    if(draftedCourse && form) {
+      form.setFieldsValue({...draftedCourse.data});
+    }
+  },[draftedCourse, form]);
   const onFinish = (values) => {
-    const d = {
+    let d = {
       ...values,
       communityId: props.query.community,
       isGlobal: false,
       createdBy: props.auth.id
     };
+    if(draftedCourse) {
+      d = {
+        ...draftedCourse.data,
+        ...d
+      };
+    }
     switch (progress) {
       case 0:
         fetchJson(`${API.CREATE_COURSE_BASIC_DATA_API}`, {
