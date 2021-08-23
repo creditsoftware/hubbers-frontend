@@ -2,11 +2,27 @@ import React from 'react';
 import { Row, Col, Menu, Dropdown, Button } from 'antd';
 import { EyeOutlined, HeartOutlined, ShareAltOutlined } from '@ant-design/icons';
 import Image from 'next/image';
+import { API, primaryColor } from '../../constants';
+import { fetchJson } from '../../utils';
 export const GeneralDetails = props => {
+  const [like, setLike] = React.useState('');
+  const [contest, setContest] = React.useState(null);
+  React.useEffect(() => {
+    setContest(props.data);
+  },[props.data])
+  React.useEffect(() => {
+    if(contest) {
+      let likeItem = -1, like = contest.like;
+      like.map((item, index) => {
+        if(item === props.auth.id) likeItem = index;
+      })
+      likeItem >= 0 ? setLike(primaryColor) : setLike('');
+    }
+  },[contest])
   const product = (
     <Menu>
       {
-        props.data.products.map((item, index) => {
+        contest && contest.products.map((item, index) => {
           return <Menu.Item key={index}>{item.name}</Menu.Item>;
         })
       }
@@ -15,7 +31,7 @@ export const GeneralDetails = props => {
   const innovation = (
     <Menu>
       {
-        props.data.innovations.map((item, index) => {
+        contest && contest.innovations.map((item, index) => {
           return <Menu.Item key={index}>{item.name}</Menu.Item>;
         })
       }
@@ -24,12 +40,21 @@ export const GeneralDetails = props => {
   const geography = (
     <Menu>
       {
-        props.data.country.map((item, index) => {
+        contest && contest.country.map((item, index) => {
           return <Menu.Item key={index}>{item.name}</Menu.Item>;
         })
       }
     </Menu>
   );
+  const handleLike = () => {
+    fetchJson(`${API.CONTEST_API}/like/${props.auth.id}`,{
+      method: 'PUT'
+    }).then(res => {
+      if(res.success === true) {
+        setContest(res.result);
+      }
+    });
+  }
   return (
     <React.Fragment>
       <Row style={{ color: 'gray', padding: '0 24px', backgroundColor: 'rgb(255 252 247)' }}>
@@ -59,8 +84,8 @@ export const GeneralDetails = props => {
           </Row>
         </Col>
         <Col lg={12} xs={24} className="d-flex fjc-end">
-          <p className="pt-3 mb-0">CONTESTANTS&nbsp;&nbsp;<label style={{ color: '#75ac2a', fontWeight: 'bold' }}>{props.data.nbContestant}</label></p>
-          <p className="pt-3 pl-4 mb-0">JUDGES&nbsp;&nbsp;<label style={{ color: '#75ac2a', fontWeight: 'bold' }}>{props.data.nbJudge}</label></p>
+          <p className="pt-3 mb-0">CONTESTANTS&nbsp;&nbsp;<label style={{ color: '#75ac2a', fontWeight: 'bold' }}>{contest && contest.nbContestant}</label></p>
+          <p className="pt-3 pl-4 mb-0">JUDGES&nbsp;&nbsp;<label style={{ color: '#75ac2a', fontWeight: 'bold' }}>{contest && contest.nbJudge}</label></p>
         </Col>
       </Row>
       <Row style={{ paddingBottom: '20px' }}>
@@ -70,7 +95,7 @@ export const GeneralDetails = props => {
           style={{
             position: 'relative',
             backgroundColor: '#333',
-            backgroundImage: `url(${props.data.featuredImageUrl})`,
+            backgroundImage: `url(${contest && contest.featuredImageUrl})`,
             width: '100%',
             height: '25rem',
             backgroundRepeat: 'no-repeat',
@@ -78,9 +103,9 @@ export const GeneralDetails = props => {
             backgroundSize: 'cover'
           }}
         >
-          <div className="p-abs l-0 b-0 w-100 p-4 fc-white" style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}>
-            <label><EyeOutlined />&nbsp;&nbsp;{props.data.view.length}</label>
-            <label className="px-4"><HeartOutlined />&nbsp;&nbsp;{props.data.like.length}</label>
+          <div className="p-abs l-0 b-0 w-100 p-4 fc-white contest-detail-gray" style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}>
+            <label><EyeOutlined />&nbsp;&nbsp;{contest && contest.view.length}</label>
+            <label className="px-4" onClick={handleLike} style={{color: [like]}}><HeartOutlined />&nbsp;&nbsp;{contest && contest.like.length}</label>
             <label><ShareAltOutlined />&nbsp;&nbsp;{0}</label>
           </div>
         </Col>
@@ -88,7 +113,7 @@ export const GeneralDetails = props => {
           <h1 className="pt-5 fc-white">PRIZES</h1>
           <Row className="px-4 pt-3">
             {
-              props.data.prize.map((item, index) => 
+              contest && contest.prize.map((item, index) => 
                 <Col span={8}>
                   <Image width={60} height={82} src={`/images/prize${item.standing}.png`} />
                   <p style={{ color: 'gray' }}>{item.name}</p>

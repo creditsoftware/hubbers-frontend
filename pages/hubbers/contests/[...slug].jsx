@@ -124,7 +124,7 @@ const ContestsDetail = ({ ...props }) => {
               </div>
             </div>
             <div className="details-content">
-              { pageKey == 'general' ? <GeneralDetails data={contest.result} /> : null }
+              { pageKey == 'general' ? <GeneralDetails data={contest.result} {...props} /> : null }
               { pageKey == 'criteria' ? <CriteriaDetails data={contest.result} /> : null }
               { pageKey == 'contestants' ? <ContestantsDetails data={products} /> : null }
               { pageKey == 'award-judges' ? <AwardJudgesDetails data={products} /> : null }

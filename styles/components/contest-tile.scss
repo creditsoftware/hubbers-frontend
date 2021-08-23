@@ -35,7 +35,7 @@
 
         .gray-text {
             color: gray;
-            &>label:hover{
+            &>label{
                 cursor: pointer;
                 color: $primary-color;
             }
