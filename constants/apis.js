@@ -25,6 +25,12 @@ export const API = {
   LOCAL_UPLOAD_IMAGE_API: process.env.LOCAL_API_V1 + '/api/upload/image',
   LOCAL_UPLOAD_AVATAR_API: process.env.LOCAL_API_V1 + '/api/upload/avatar',
   //SERVER APIS : TO BACKEND
+
+  GET_USER_ROLES_API: process.env.API_V1 + 'user-role/',
+  USER_SIGN_UP_STEP_ONE: process.env.API_V1 + 'user/sign-up-step-one',  //put
+  USER_SIGN_UP_STEP_TWO: process.env.API_V1 + 'user/sign-up-step-two',  //post
+  USER_SIGN_UP_STEP_THREE: process.env.API_V1 + 'user/sign-up-step-three',  //put
+
   SIGNIN_API: process.env.API_V1 + 'auth/user/signin',
   SIGNOUT_API: process.env.API_V1 + 'auth/user/signout',
   REFRESH_API: process.env.API_V1 + 'auth/user/refresh',
@@ -57,10 +63,17 @@ export const API = {
   GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
   UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
   GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
+
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
+
+  GET_PRODUCT_LIST_BY_USER_API: process.env.API_V1 + 'project/get-list-by-user', //get/:userId
+  GET_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //get/:id
+  UPDATE_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //put/:id
+  CREATE_PRODUCT_API: process.env.API_V1 + 'project',  //post
+
   // CONTEST APIS
   CONTEST_API: process.env.API_V1 + 'contest/contest-list',
   ADD_CONTEST_VIEW_API: process.env.API_V1 + 'contest/contest-list/view',
@@ -72,6 +85,7 @@ export const API = {
   //--------------
   UPDATE_GENERAL_PROFILE_API: process.env.API_V1 + 'profile/general',
   GET_COUNTRY_LIST_API: process.env.API_V1 + 'country/',
+  GET_LANGUAGE_LIST_API: process.env.API_V1 + 'language/',
   GET_ALL_JOB_API: process.env.API_V1 + 'job/',
   CHECK_APPLY_STATE_API: process.env.API_V1 + 'job-application/check',
   CREATE_JOB_APPLICATION_API: process.env.API_V1 + 'job-application',
@@ -117,6 +131,9 @@ export const API = {
   JOININ_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/join', //patch /:groupId/:userId
   GET_REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //get /:communityId
   REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //post /:communityId/:userId
+  GET_COURSE_LIST_API: process.env.API_V1 + 'community/course/all', // get /:communityId/:userId
+  GET_DRAFTED_COURSE_API: process.env.API_V1 + 'community/course/draft', // get /:communityId/:userId
+  CREATE_COURSE_BASIC_DATA_API: process.env.API_V1 + 'community/course/basic', // post
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
   //socket stream endpoint
   SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1

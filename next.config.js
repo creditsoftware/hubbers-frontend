@@ -39,6 +39,7 @@ module.exports = withFonts({
       'i.ytimg.com',
       'cdn.pixabay.com',
       'fiverr-res.cloudinary.com',
+      'eu.ui-avatars.com',
       'images.pexels.com',
       'ui-avatars.com',
       'blog.hubbers.io',

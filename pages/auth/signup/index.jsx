@@ -1,13 +1,13 @@
 import { Col, Row } from 'antd';
 import React from 'react';
 import { LinkedinOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
-import { MainPageHoc } from '../../containers/hocs/MainPageHoc';
+import { MainPageHoc } from '../../../containers/hocs/MainPageHoc';
 import { Form, Input, Button } from 'antd';
-import { jwtDecode } from '../../utils/jwt';
+import { jwtDecode } from '../../../utils/jwt';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { API, URLS, signupFeatureObj } from '../../constants/index';
-import { Promise, withSession, openNotificationWithIcon, fetcher } from '../../utils';
+import { API, URLS, signupFeatureObj } from '../../../constants/index';
+import { Promise, withSession, openNotificationWithIcon, fetcher } from '../../../utils';
 import axios from 'axios';
 import useSWR from 'swr';
 const Signup = ({ ...props }) => {
@@ -41,7 +41,7 @@ const Signup = ({ ...props }) => {
       });
   };
   return (
-    <MainPageHoc title="Sign Up" auth={{ ...data }} query={{...props.query}}>
+    <MainPageHoc title="Sign Up" auth={{ ...data }} query={{ ...props.query }}>
       <div className='signin-page'>
         <h1 className="fw-5 text-upper fs-6 text-center pt-5 pb-1 m-0">
           One more step to join Hubbers
@@ -76,7 +76,7 @@ const Signup = ({ ...props }) => {
               </Form.Item>
               <Form.Item
                 name="email"
-                rules={[{ required: true, type:'email', message: 'Please input your email!' }]}
+                rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
               >
                 <Input size='large' placeholder='Email' prefix={<UserOutlined />} />
               </Form.Item>

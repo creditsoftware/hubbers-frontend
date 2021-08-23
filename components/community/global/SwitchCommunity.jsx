@@ -29,22 +29,24 @@ export const SwitchCommunity = () => {
   return <Dropdown
     overlay={
       router.query.community ?
-        <Menu defaultSelectedKeys={['-']}>
-          {
-            communityList &&
-            communityList.length > 0 &&
-            communityList.map((community) => (
-              <Menu.Item key={`${community.id}`} onClick={() => handleClick(`${community.id}`)}>
-                {
-                  community.name
-                }
-              </Menu.Item>
-            ))
-          }
-          <Menu.Item key='join' onClick={() => handleClick('join')}>
-            Join in ...
-          </Menu.Item>
-        </Menu>
+        <div style={{maxHeight:'300px', overflow:'auto', boxShadow:'0px 2px 5px #999'}}>
+          <Menu defaultSelectedKeys={['-']}>
+            <Menu.Item key='join' onClick={() => handleClick('join')}>
+              Join in ...
+            </Menu.Item>
+            {
+              communityList &&
+              communityList.length > 0 &&
+              communityList.map((community) => (
+                <Menu.Item key={`${community.id}`} onClick={() => handleClick(`${community.id}`)}>
+                  {
+                    community.name
+                  }
+                </Menu.Item>
+              ))
+            }
+          </Menu>
+        </div>
         :
         <Empty />
     }

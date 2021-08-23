@@ -21,7 +21,7 @@ const ConfirmVerifyEmail = ({ ...props }) => {
         }
         setBtnLoading(false);
         setTimeout(() => {
-          router.push('/auth/signin');
+          router.push(`/auth/signup/basic?email=${email}`);
         }, 300);
       })
       .catch((err) => {

@@ -69,7 +69,7 @@ const ProductLauncher = ({ ...props }) => {
                     0%
                   </div>
                   <div className="buttons">
-                    <Button className="save" type="text" shape="round"onClick={beforeModal}>SAVE DRAFT</Button>
+                    <Button className="save" type="text" shape="round" onClick={beforeModal}>SAVE DRAFT</Button>
                     <Button className="start" type="text" shape="round">START AGAIN</Button>
                   </div>
                 </Row>

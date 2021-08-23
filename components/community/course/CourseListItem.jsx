@@ -4,7 +4,7 @@ import { DEFAULT_COMMUNITY_COURSE_IMAGE } from '../../../constants/etc';
 import { useWindowSize } from '../../../hooks';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { CourseContextMenu } from './CourseContextMenu';
+// import { CourseContextMenu } from './CourseContextMenu';
 
 export const CourseListItem = ({ ...props }) => {
   const router = useRouter();
@@ -43,7 +43,7 @@ export const CourseListItem = ({ ...props }) => {
                 <Button shape='round' type='hbs-outline-primary'>More Details</Button>
               </a>
             </Link>
-            <CourseContextMenu {...props}/>
+            {/* <CourseContextMenu {...props}/> */}
           </Space>
         </div>
       </Col>

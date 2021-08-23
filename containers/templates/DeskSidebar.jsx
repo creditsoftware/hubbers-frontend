@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
 import { Layout, Menu, Badge } from 'antd';
+import { useRouter } from 'next/router';
+import { AuthLink } from '../../components';
+import { useCommunityList } from '../../hooks';
+import { useProductList } from '../../hooks/useSWR/product/useProductList';
 import {
   StarOutlined,
   PieChartOutlined,
@@ -15,12 +19,12 @@ import {
   BuildOutlined,
   GiftOutlined,
 } from '@ant-design/icons';
-import { useRouter } from 'next/router';
-import { AuthLink } from '../../components';
-import { useCommunityList } from '../../hooks';
+
 const { SubMenu } = Menu;
 const { Sider } = Layout;
+
 export const DeskSidebar = ({ active, ...props }) => {
+
   const router = useRouter();
   const [collapsed, setCollapsed] = React.useState(false);
   const [communityId, setCommunityId] = React.useState(null);
@@ -30,9 +34,11 @@ export const DeskSidebar = ({ active, ...props }) => {
   const onCollapse = c => {
     setCollapsed(c);
   };
-  const {data} = useCommunityList();
-  React.useEffect(()=>{
-    if(data && data.data) {
+  const { data } = useCommunityList();
+  const { data: productList } = useProductList(props.auth.id);
+
+  React.useEffect(() => {
+    if (data && data.data) {
       setCommunityList(data.data.data);
       if (router.pathname.indexOf('community') > 0) {
         if (data.data.data?.length > 0) {
@@ -46,7 +52,8 @@ export const DeskSidebar = ({ active, ...props }) => {
         }
       }
     }
-  },[data, router]);
+  }, [data, router]);
+
   useEffect(() => {
     if (router.query.community) {
       setCommunityId(router.query.community);
@@ -62,6 +69,7 @@ export const DeskSidebar = ({ active, ...props }) => {
     });
     onCollapse(window.innerWidth < 1024);
   }, [router]);
+
   const onChangeOpenKeys = (k) => {
     if (openKeys.filter((key) => key === k).length) {
       setOpenKeys([...openKeys.filter((key) => key !== k)]);
@@ -69,9 +77,11 @@ export const DeskSidebar = ({ active, ...props }) => {
       setOpenKeys([...openKeys, k]);
     }
   };
+
   useEffect(() => {
     setOpenKeys([...active.open, `community-${communityId}`]);
   }, [communityId, active]);
+  
   return (
     <Sider collapsible collapsedWidth={0} collapsed={collapsed} onCollapse={onCollapse} className='desk-sider' width={300}>
       <Menu
@@ -415,60 +425,64 @@ export const DeskSidebar = ({ active, ...props }) => {
             </AuthLink>
           }
         >
-          <SubMenu
-            key="product1"
-            onTitleClick={() => onChangeOpenKeys('product1')}
-            icon={<TeamOutlined />}
-            title={
-              <AuthLink href='/desk/my-product/product1' {...props}>
-                <a>
-                  Product1&nbsp;&nbsp;
-                  <Badge
-                    // count={1}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            }
-          >
-            <Menu.Item key="product-detail">
-              <AuthLink href='/desk/my-product/product1/detail' {...props}>
-                <a>
-                  Product Detail&nbsp;&nbsp;
-                  <Badge
-                    // count={0}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            </Menu.Item>
-            <Menu.Item key="team-setting">
-              <AuthLink href='/desk/my-product/product1/team-setting' {...props}>
-                <a>
-                  Team &amp; Setttings&nbsp;&nbsp;
-                  <Badge
-                    // count={0}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            </Menu.Item>
-            <Menu.Item key="workspace">
-              <AuthLink href='/desk/my-product/product1/workspace' {...props}>
-                <a>
-                  Workspace&nbsp;&nbsp;
-                  <Badge
-                    // count={0}
-                    size='small'
-                    style={{ backgroundColor: '#52c41a' }}
-                  />
-                </a>
-              </AuthLink>
-            </Menu.Item>
-          </SubMenu>
+          {
+            productList?.data?.map((product) => {
+              return <SubMenu
+                key={`product-${product.id}`}
+                icon={<TeamOutlined />}
+                onTitleClick={() => onChangeOpenKeys(`product-${product.id}`)}
+                title={
+                  <AuthLink href={`/desk/my-product/${product.id}`} {...props}>
+                    <a>
+                      {product.name}&nbsp;&nbsp;
+                      <Badge
+                        // count={1}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                }
+              >
+                <Menu.Item key="product-detail">
+                  <AuthLink href={`/desk/my-product/${product.id}`} {...props}>
+                    <a>
+                      Product Detail&nbsp;&nbsp;
+                      <Badge
+                        // count={0}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+                <Menu.Item key="team-setting">
+                  <AuthLink href={`/desk/my-product/${product.id}/team-setting`} {...props}>
+                    <a>
+                      Team &amp; Setttings&nbsp;&nbsp;
+                      <Badge
+                        // count={0}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+                <Menu.Item key="workspace">
+                  <AuthLink href={`/desk/my-product/${product.id}/workspace`} {...props}>
+                    <a>
+                      Workspace&nbsp;&nbsp;
+                      <Badge
+                        // count={0}
+                        size='small'
+                        style={{ backgroundColor: '#52c41a' }}
+                      />
+                    </a>
+                  </AuthLink>
+                </Menu.Item>
+              </SubMenu>;
+            })
+          }
         </SubMenu>
         <SubMenu key="my-expertise"
           icon={<GoldOutlined />}

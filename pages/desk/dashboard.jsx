@@ -53,6 +53,7 @@ const Dashboard = ({ ...props }) => {
         <Container className={displaySize.width > 992 ? 'p-5' : 'p-4'}>
           <Row>
             {
+              communityList &&
               communityList.map((item, index) => {
                 if(index < rowSize*rowNum){
                   return(

@@ -95,10 +95,10 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   React.useEffect(() => {
     if (content) {
       let schedules = [];
-      if(content.schedules) {
+      if (content.schedules) {
         schedules = [...content.schedules];
         schedules = schedules.map((s) => {
-          return {...s, time: s.time ? moment(s.time, 'HH:mm:ss') : ''};
+          return { ...s, time: s.time ? moment(s.time, 'HH:mm:ss') : '' };
         });
         delete content.schedules;
       }
@@ -169,13 +169,13 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
     if (props.query?.group) {
       data = { ...data, communityId: props.query?.group };
     }
-    if(data.schedules) {
+    if (data.schedules) {
       let schedules = [...data.schedules];
       schedules = schedules.map((s) => {
-        return {...s, time: s.time.format('HH:mm:ss')};
+        return { ...s, time: s.time.format('HH:mm:ss') };
       });
       delete data.schedules;
-      data = {...data, schedules: [...schedules]};
+      data = { ...data, schedules: [...schedules] };
     }
     fetchJson(`${API.CREATE_EVENT_API}`, {
       method: 'POST',

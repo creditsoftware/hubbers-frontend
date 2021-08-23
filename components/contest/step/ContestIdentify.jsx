@@ -25,7 +25,7 @@ export const ContestIdentify = ({form, ...props}) => {
         let userId = [];
         v.coOrganizer.map((val) => {
           userId = [...userId,val.id];
-        })
+        });
         form.setFieldsValue({
           ...v,
           ...v.company,

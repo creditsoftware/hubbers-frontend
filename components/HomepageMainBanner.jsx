@@ -29,7 +29,7 @@ export const HomepageMainBanner = () => {
                   Community-powered Hub to launch innovative products
                 </h1>
                 <h2 className="fw-5 fs-4 text-center">
-                  Bridging the gap between product creators, experts, resourses
+                  Bridging the gap between product creators, experts, resources
                 </h2>
                 <div className="my-5">
                   <MailChimp
@@ -61,7 +61,7 @@ export const HomepageMainBanner = () => {
                   Access the right tools to launch your product
                 </h1>
                 <h2 className="fw-5 fs-4">
-                  Bridging the gap between product creators, experts, resourses
+                  Bridging the gap between product creators, experts, resources
                 </h2>
                 <div className="my-5">
                   <MailChimp
@@ -93,7 +93,7 @@ export const HomepageMainBanner = () => {
                   Community-powered Hub to launch innovative products
                 </h1>
                 <h2 className="fw-5 fs-4 text-center">
-                  Bridging the gap between product creators, experts, resourses
+                  Bridging the gap between product creators, experts, resources
                 </h2>
                 <div className="my-5">
                   <MailChimp
@@ -125,7 +125,7 @@ export const HomepageMainBanner = () => {
                   Access the right tools to launch your product
                 </h1>
                 <h2 className="fw-5 fs-4">
-                  Bridging the gap between product creators, experts, resourses
+                  Bridging the gap between product creators, experts, resources
                 </h2>
                 <div className="my-5">
                   <MailChimp
