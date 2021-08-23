@@ -53,7 +53,7 @@ module.exports = {
     'react/prop-types': 'off',
     'linebreak-style': [
       'error',
-      'windows'
+      process.platform === 'win32' ? 'windows' : 'unix'
     ],
     'quotes': [
       'error',
