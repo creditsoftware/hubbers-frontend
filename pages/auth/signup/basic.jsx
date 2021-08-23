@@ -23,6 +23,7 @@ const SignupBasic = ({ ...props }) => {
   
   const onFinish = (values) => {
     const email = router.query.email;
+    console.log(email);
     const community = router.query ? router.query.community : undefined;
     fetchJson(`${API.USER_SIGN_UP_STEP_ONE}/${email}`, {
       method: 'PUT',
