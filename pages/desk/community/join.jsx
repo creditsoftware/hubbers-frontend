@@ -1,11 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
+import useSWR from 'swr';
 import { withSession } from '../../../utils/withSession';
 import { DeskPageHoc } from '../../../containers';
 import { Col, Collapse, Empty, Row, Button, Space } from 'antd';
 import { CheckBtn, SwitchCommunity } from '../../../components';
-import Image from 'next/image';
 import { API, CONTINENTS } from '../../../constants/index';
-import useSWR from 'swr';
 import { fetcher } from '../../../utils/fetcher';
 import { jwtDecode } from '../../../utils/jwt';
 import { openNotificationWithIcon } from '../../../utils';
@@ -82,7 +82,7 @@ const JoinInCommunity = ({ ...props }) => {
                               return <CheckBtn
                                 key={c.id}
                                 disabled={data.communityMember?.filter((m) => m.communityId === c.id).length > 0}
-                                checked={selectedCommunities.filter((i) => i === Number(c.id)).length > 0}
+                                checked={(selectedCommunities.filter((i) => i === Number(c.id)).length > 0)||(data.communityMember?.filter((m) => m.communityId === c.id).length > 0)}
                                 onChange={() => selectCommunityEvnet(Number(c.id))}
                                 label={c.name} />;
                             })

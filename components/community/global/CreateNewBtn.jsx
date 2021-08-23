@@ -7,7 +7,7 @@ import { PostDrawer } from '../post';
 import { TopicDrawer } from '../topic/TopicDrawer';
 import { EventDrawer } from '../events';
 
-export const CreateNewBtn = ({...props}) => {
+export const CreateNewBtn = ({ ...props }) => {
   const router = useRouter();
   const [visible, setVisible] = React.useState({
     popover: false,

@@ -30,20 +30,24 @@ const CreatorProfile = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
 
   useEffect(() => {
-    fetchJson(`${API.GET_ALL_EXPERTISE_CATEGORY_API}`).then((response) => {
-      setExpertiseCategoryList(response.data);
-    });
-    fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
-      setCreatorProfileData(response.data);
-    });
-  }, []);
+    if (data) {
+      fetchJson(`${API.GET_ALL_EXPERTISE_CATEGORY_API}`).then((response) => {
+        setExpertiseCategoryList(response.data);
+      });
+      fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
+        setCreatorProfileData(response.data);
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...creatorProfileData,
-      expertiseCategories: creatorProfileData?.expertiseCategories?.map((item) => item.id)
-    });
-  }, [creatorProfileData]);
+    if (form, creatorProfileData) {
+      form.setFieldsValue({
+        ...creatorProfileData,
+        expertiseCategories: creatorProfileData?.expertiseCategories?.map((item) => item.id)
+      });
+    }
+  }, [creatorProfileData, form]);
 
   const onFormChange = () => {
     form.submit();
@@ -54,12 +58,10 @@ const CreatorProfile = ({ ...props }) => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
-    }).then((response) => {
-      if (response.success) {
-        fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
-          setCreatorProfileData(response.data);
-        });
-      }
+    }).then(() => {
+      fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
+        setCreatorProfileData(response.data);
+      });
     });
   };
 
@@ -106,12 +108,11 @@ const CreatorProfile = ({ ...props }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: creatorProfileData.creatorPortfolios }),
-    }).then((response) => {
-      if (response.success) {
-        fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
-          setCreatorProfileData(response.data);
-        });
-      }
+    }).then(() => {
+      fetchJson(`${API.GET_CREATOR_PROFILE_API}/${data.id}`).then((response) => {
+        setCreatorProfileData(response.data);
+        setPortfolioState(null);
+      });
     });
   };
 
@@ -121,7 +122,7 @@ const CreatorProfile = ({ ...props }) => {
         <MainProfile auth={data} />
         <Container className="mt-4">
           <React.Fragment>
-            <ProfileNavbar auth={data} />
+            <ProfileNavbar auth={data} actived='creator' />
             <div className="bg-white p-5">
               <div className="max-w-50 m-auto">
                 <Form
@@ -174,7 +175,7 @@ const CreatorProfile = ({ ...props }) => {
                           expertiseCategoryList?.map((item) => {
                             return <Col key={item.id} lg={6} sm={12} xs={12}>
                               <Checkbox value={item.id}>
-                                <Image preview={false} width={82} height={112} src={item.icon} />
+                                <Image alt='' preview={false} width={82} height={112} src={item.icon} />
                                 <br />{item.name}
                               </Checkbox>
                             </Col>;
@@ -251,6 +252,12 @@ const CreatorProfile = ({ ...props }) => {
                         <Col lg={6} xs={24}>
                           <Form.Item
                             name="logo"
+                            rules={[
+                              {
+                                required: true,
+                                message: 'The image is required',
+                              },
+                            ]}
                           >
                             <UploadImage />
                           </Form.Item>
@@ -305,7 +312,7 @@ const CreatorProfile = ({ ...props }) => {
                                 <Select onChange={portfolioCategoryChange} mode="multiple" bordered={false} placeholder="Please select the expertise category." style={{ borderBottom: '1px solid black' }}>
                                   {
                                     expertiseCategoryList?.map((item) => {
-                                      return <Option key={item.id} values={item.id}>{item.name}</Option>;
+                                      return <Option key={item.id} value={item.id}>{item.name}</Option>;
                                     })
                                   }
                                 </Select>
@@ -324,7 +331,7 @@ const CreatorProfile = ({ ...props }) => {
                                   },
                                 ]}
                               >
-                                <ExpertProfileSkillSelect isArray={true} expertiseCategoryId={currentPortfolioCategoryArray} bordered={false} placeholder="Please select the skill." style={{ borderBottom: '1px solid black' }} />
+                                <ExpertProfileSkillSelect isArray={true} form={portfolioForm} expertiseCategoryId={currentPortfolioCategoryArray} bordered={false} placeholder="Please select the skill." style={{ borderBottom: '1px solid black' }} />
                               </Form.Item>
                             </Col>
                           </Row>

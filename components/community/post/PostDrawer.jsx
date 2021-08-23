@@ -92,7 +92,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
       };
     } else {
       openNotificationWithIcon('error', 'Something went wrong!', '');
-      return;  
+      return;
     }
     if (props.query?.group) {
       v = {
@@ -195,7 +195,7 @@ export const PostDrawer = ({ visible, onHide, article, editable = true, content,
               : <Space direction='vertical' style={{ width: '100%' }}>
                 {
                   !editable &&
-                  <PostTile auth={{...props.auth}} post={{ ...props.data }} query={{...props.query}} />
+                  <PostTile auth={{ ...props.auth }} post={{ ...props.data }} query={{ ...props.query }} />
                   // <div className='ck-content oy-auto p-3 pb-0' dangerouslySetInnerHTML={{ __html: post.content }}></div>
                 }
                 {

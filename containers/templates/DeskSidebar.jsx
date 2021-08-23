@@ -30,9 +30,9 @@ export const DeskSidebar = ({ active, ...props }) => {
   const onCollapse = c => {
     setCollapsed(c);
   };
-  const {data} = useCommunityList();
-  React.useEffect(()=>{
-    if(data && data.data) {
+  const { data } = useCommunityList();
+  React.useEffect(() => {
+    if (data && data.data) {
       setCommunityList(data.data.data);
       if (router.pathname.indexOf('community') > 0) {
         if (data.data.data?.length > 0) {
@@ -46,7 +46,7 @@ export const DeskSidebar = ({ active, ...props }) => {
         }
       }
     }
-  },[data, router]);
+  }, [data, router]);
   useEffect(() => {
     if (router.query.community) {
       setCommunityId(router.query.community);

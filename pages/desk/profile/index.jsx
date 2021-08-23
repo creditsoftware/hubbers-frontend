@@ -31,19 +31,21 @@ const Profile = ({ ...props }) => {
   const [educationState, setEducationState] = React.useState(null);
   const [educationSelect, setEducationSelect] = React.useState(null);
   React.useEffect(() => {
-    fetchJson(`${API.GET_PRODUCT_CATTEGORY_API}`).then((response) => {
-      setProductCategory(response.data);
-    });
-    fetchJson(`${API.GET_INNOVATION_CATTEGORY_API}`).then((response) => {
-      setInnovationCategory(response.data);
-    });
-    fetchJson(`${API.GET_TECH_CATTEGORY_API}`).then((response) => {
-      setTechCategory(response.data);
-    });
-    fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
-      setGeneralProfile(response.data);
-    });
-  }, []);
+    if (data) {
+      fetchJson(`${API.GET_PRODUCT_CATTEGORY_API}`).then((response) => {
+        setProductCategory(response.data);
+      });
+      fetchJson(`${API.GET_INNOVATION_CATTEGORY_API}`).then((response) => {
+        setInnovationCategory(response.data);
+      });
+      fetchJson(`${API.GET_TECH_CATTEGORY_API}`).then((response) => {
+        setTechCategory(response.data);
+      });
+      fetchJson(`${API.GET_GENERAL_PROFILE_API}/${data.id}`).then((response) => {
+        setGeneralProfile(response.data);
+      });
+    }
+  }, [data]);
   React.useEffect(() => {
     let bio = generalProfile?.detail?.bio ? generalProfile?.detail?.bio : creatorBio;
     let productCategoryList = [];
@@ -116,9 +118,10 @@ const Profile = ({ ...props }) => {
       data.pastJob.push({ ...values });
     }
     else {
-      data.pastJob[pastJobSelect] = { ...values };
+      data.pastJob[pastJobSelect] = { ...data.pastJob[pastJobSelect], ...values };
     }
     setGeneralProfile(data);
+    setPastJobState(null);
     pastJobForm.resetFields();
     form.submit();
   };
@@ -143,11 +146,12 @@ const Profile = ({ ...props }) => {
       data.detail.education[educationSelect] = { ...values };
     }
     setGeneralProfile(data);
+    setEducationState(null);
     educationForm.resetFields();
     form.submit();
   };
   return (
-    <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }} query={{...props.query}}>
+    <DeskPageHoc title='Profile' activeSide={{ active: ['profile'], open: [] }} auth={{ ...data }} query={{ ...props.query }}>
       <React.Fragment>
         <MainProfile auth={data} />
         <Container className="mt-4">
@@ -397,6 +401,12 @@ const Profile = ({ ...props }) => {
                           <Col lg={6} xs={24}>
                             <Form.Item
                               name="logo"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'The image is required',
+                                },
+                              ]}
                             >
                               <UploadImage />
                             </Form.Item>
@@ -573,6 +583,12 @@ const Profile = ({ ...props }) => {
                           <Col lg={6} xs={24}>
                             <Form.Item
                               name="logo"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'The image is required',
+                                },
+                              ]}
                             >
                               <UploadImage />
                             </Form.Item>

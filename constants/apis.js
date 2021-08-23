@@ -25,6 +25,12 @@ export const API = {
   LOCAL_UPLOAD_IMAGE_API: process.env.LOCAL_API_V1 + '/api/upload/image',
   LOCAL_UPLOAD_AVATAR_API: process.env.LOCAL_API_V1 + '/api/upload/avatar',
   //SERVER APIS : TO BACKEND
+
+  GET_USER_ROLES_API: process.env.API_V1 + 'user-role/',
+  USER_SIGN_UP_STEP_ONE: process.env.API_V1 + 'user/sign-up-step-one',  //put
+  USER_SIGN_UP_STEP_TWO: process.env.API_V1 + 'user/sign-up-step-two',  //post
+  USER_SIGN_UP_STEP_THREE: process.env.API_V1 + 'user/sign-up-step-three',  //put
+
   SIGNIN_API: process.env.API_V1 + 'auth/user/signin',
   SIGNOUT_API: process.env.API_V1 + 'auth/user/signout',
   REFRESH_API: process.env.API_V1 + 'auth/user/refresh',
@@ -57,10 +63,14 @@ export const API = {
   GET_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'hubbers-team/', // /:userId
   UPDATE_HUBBERS_TEAM_PROFILE_API: process.env.API_V1 + 'profile/hubbers-team/', // /:userId
   GET_HUBBERS_TEAM_LIST_API: process.env.API_V1 + 'hubbers-team',
+
   GET_PRODUCT_CATTEGORY_API: process.env.API_V1 + 'basic-type/product/',
   GET_INNOVATION_CATTEGORY_API: process.env.API_V1 + 'basic-type/innovation/',
   GET_CONTEST_CATEGORY_API: process.env.API_V1 + 'basic-type/contest/',
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
+
+  CREATE_PRODUCT_API: process.env.API_V1 + 'product',
+
   // CONTEST APIS
   CONTEST_API: process.env.API_V1 + 'contest/contest-list',
   ADD_CONTEST_VIEW_API: process.env.API_V1 + 'contest/contest-list/view',
