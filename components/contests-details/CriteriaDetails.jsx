@@ -1,7 +1,6 @@
 import React from 'react';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 export const CriteriaDetails = props => {
-  console.log(props)
   const [titleNum, setTitleNum] = React.useState(0);
   const titleNumChange = (num) => {
     setTitleNum(num);

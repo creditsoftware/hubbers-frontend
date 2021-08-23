@@ -88,9 +88,9 @@ export const GeneralDetails = props => {
           <h1 className="pt-5 fc-white">PRIZES</h1>
           <Row className="px-4 pt-3">
             {
-              props.data.prize.map((item, index) => 
-                <Col span={8}>
-                  <Image width={60} height={82} src={`/images/prize${item.standing}.png`} />
+              props.data.prize.map((item) => 
+                <Col span={8} key={item.standing}>
+                  <Image width={60} height={82} alt='' src={`/images/prize${item.standing}.png`} />
                   <p style={{ color: 'gray' }}>{item.name}</p>
                   <h1 className="fc-white">{item.prize} USD</h1>
                   <p className="fc-white" dangerouslySetInnerHTML={{ __html: item.description }}></p>

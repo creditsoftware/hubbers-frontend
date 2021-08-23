@@ -18,17 +18,17 @@ export const CommunityMembersTable = ({ ...props }) => {
         result.data.map((item, index) => {
           d.push({
             key: index,
-            firstName: item?.toMember?.user?.firstname,
-            lastName: item?.toMember?.user?.lastname,
-            email: item?.toMember?.user?.email,
+            firstName: item?.user?.firstname,
+            lastName: item?.user?.lastname,
+            email: item?.user?.email,
             invitedBy: <React.Fragment>
               <Space>
                 <Avatar size={40} src={<Image src={item?.fromMember?.user?.avatar} width={40} height={40} alt='' />} />
                 <span className="fw-6">{item?.fromMember?.user?.firstname + ' ' + item?.fromMember?.user?.lastname}</span>
               </Space>
             </React.Fragment>,
-            lastUpdated: item?.toMember?.invitedAt,
-            status: <span className={`fw-6 fc-${item?.toMember?.status.toLowerCase()}`}>{item?.toMember?.status}</span>
+            lastUpdated: item?.invitedAt,
+            status: <span className={`fw-6 fc-${item?.status.toLowerCase()}`}>{item?.status}</span>
           });
         });
       }

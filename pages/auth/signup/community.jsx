@@ -71,8 +71,8 @@ const SignupCommunity = ({ ...props }) => {
                         communityList && communityList.filter((c) => c.country?.continent === item).map((c) => {
                           return <CheckBtn
                             key={c.id}
-                            disabled={(selectedCommunities.length > 1) && !selectedCommunities.includes(c.id)}
-                            checked={selectedCommunities.includes(c.id)}
+                            disabled={((selectedCommunities.length > 1) && !selectedCommunities.includes(c.id)) || c.id === Number(router.query.community)}
+                            checked={selectedCommunities.includes(c.id) || c.id === Number(router.query.community)}
                             onChange={() => selectCommunityEvnet(Number(c.id))}
                             label={c.name} />;
                         })
