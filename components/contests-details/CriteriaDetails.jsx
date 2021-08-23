@@ -8,11 +8,11 @@ export const CriteriaDetails = props => {
   return (
     <React.Fragment>
       <div className="bg-white w-100 p-5" style={{ borderTop: '1px solid #bbb' }}>
-        <p>To win the contest, the products must adhere to the following 7 criteria.</p>
+        <p>To win the contest, the products must adhere to the following {props.data.criterias.length} criteria.</p>
         <p>The Awards judges will evaluate entries based on how the product performs according to the requirements of the specific contest.</p>
       </div>
       {
-        props.data.criteria.map((item, index) => {
+        props.data.criterias.map((item, index) => {
           return <div key={index}>
             <div
               onClick={()=>{titleNumChange(index);}}
@@ -27,7 +27,7 @@ export const CriteriaDetails = props => {
               &nbsp;&nbsp;&nbsp;{item.title}
             </div>
             {
-              titleNum == index ? <div className="bg-white p-5">{item.description}</div> : null
+              titleNum == index ? <div className="bg-white p-5" dangerouslySetInnerHTML={{__html: item.description}}></div> : null
             }
           </div>;
         })

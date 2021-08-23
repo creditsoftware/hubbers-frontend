@@ -22,7 +22,7 @@ const ConfirmVerifyEmail = ({ ...props }) => {
         }
         setBtnLoading(false);
         setTimeout(() => {
-          router.push(`/auth/signup-detail?email=${email}${community?'&community=' + community : ''}`);
+          router.push(`/auth/signup/basic?email=${email}${community?'&community=' + community : ''}`);
         }, 300);
       })
       .catch((err) => {
