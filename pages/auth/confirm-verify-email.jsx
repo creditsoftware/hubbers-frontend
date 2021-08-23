@@ -13,15 +13,16 @@ const ConfirmVerifyEmail = ({ ...props }) => {
   const [btnLoading, setBtnLoading] = React.useState(false);
   const confirmHandle = () => {
     setBtnLoading(true);
-    const email = router.query.email;
-    axios.post(`${API.LOCAL_VERIFY_EMAIL_API}`, { email: email })
+    const email = router.query ? router.query.email : undefined;
+    const community = router.query ? router.query.community : undefined;
+    axios.post(`${API.LOCAL_VERIFY_EMAIL_API}`, { email: email, community:community })
       .then((response) => {
         if (response.data.success === true) {
           openNotificationWithIcon('success', 'Success', response.data.message);
         }
         setBtnLoading(false);
         setTimeout(() => {
-          router.push(`/auth/signup-detail?email=${email}`);
+          router.push(`/auth/signup-detail?email=${email}${community?'&community=' + community : ''}`);
         }, 300);
       })
       .catch((err) => {

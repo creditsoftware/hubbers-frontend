@@ -41,6 +41,8 @@ export const InvitePane = ({...props}) => {
   }, [router, getData]);
   const invite = (values) => {
     let data = { ...values, communityRoleId: props.gid ? 2 : 1, communityId: props.gid ?? router.query.community, from: props && props.auth && props.auth.communityMember.filter((member) => member.communityId === Number(props.gid ?? router.query.community))[0].id };
+    // httpRequestLocal(`${API.TEST_LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
+    console.log(data);
     httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);

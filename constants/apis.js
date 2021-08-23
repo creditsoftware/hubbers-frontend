@@ -106,6 +106,7 @@ export const API = {
   GET_MEMBER_LIST_API: process.env.API_V1 + 'community/member/published', //get /:communityId
   GET_MEMBER_ROLE_LIST_API: process.env.API_V1 + 'community/member-role', //get
   COMMUNITY_MEMBER_INVITE_API: process.env.API_V1 + 'community/member/invite', //post
+  NEW_COMMUNITY_MEMBER_INVITE_API: process.env.API_V1 + 'community/member/new-invite', //post
   GET_COMMUNITY_MEMBER_INVITES_API: process.env.API_V1 + 'community/member-invite', //get /:communityId
   GET_GLOBAL_EVENT_API: process.env.API_V1 + 'community/event/global',
   GET_EVENT_SLUG_API: process.env.API_V1 + 'community/event/single', //get /:slug

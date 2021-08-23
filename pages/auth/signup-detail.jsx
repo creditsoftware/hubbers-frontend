@@ -25,7 +25,7 @@ const SignupDetail = ({ ...props }) => {
   const [productCategory, setProductCategory] = React.useState([]);
   const [innovationCategory, setInnovationCategory] = React.useState([]);
   const [communityList, setCommunityList] = React.useState([]);
-  const [selectedCommunities, setSelectedCommunities] = React.useState([]);
+  const [selectedCommunities, setSelectedCommunities] = React.useState([Number(props.query.communityId)]);
   
   React.useEffect(()=>{
     fetchJson(`${API.GET_USER_ROLES_API}`).then((response) => {
@@ -85,10 +85,12 @@ const SignupDetail = ({ ...props }) => {
     setCurrent(current - 1);
   };
   const selectCommunityEvnet = (e) => {
-    if (selectedCommunities.includes(e)) {
-      setSelectedCommunities([...selectedCommunities.filter((i) => i !== e)]);
-    } else {
-      setSelectedCommunities([...selectedCommunities, e]);
+    if(e !== Number(props.query.communityId)){
+      if (selectedCommunities.includes(e)) {
+        setSelectedCommunities([...selectedCommunities.filter((i) => i !== e)]);
+      } else {
+        setSelectedCommunities([...selectedCommunities, e]);
+      }
     }
   };
   const steps = [

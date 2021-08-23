@@ -119,6 +119,7 @@ export const RightMenu = ({ menuType, ...props }) => {
     <React.Fragment>
       {
         auth &&
+        auth.isLoggedIn &&
         <React.Fragment>
           <Avatar size='large' src={<Image src={auth.isLoggedIn ? auth.avatar !== null ? auth.avatar : defaultAvatar : ''} alt='' />} />
           <Link href='/desk/profile'>
