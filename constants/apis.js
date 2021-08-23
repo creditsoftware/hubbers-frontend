@@ -63,6 +63,7 @@ export const API = {
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
   // CONTEST APIS
   CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  ADD_CONTEST_VIEW_API: process.env.API_V1 + 'contest/contest-list/view',
   
   GET_CONTEST_DESCRITION_API: process.env.API_V1 + 'contest/contest-description/category',
   //-------------

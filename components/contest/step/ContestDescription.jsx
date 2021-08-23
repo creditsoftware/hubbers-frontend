@@ -165,8 +165,8 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                         <p className='mb-2 mt-4 fw-6'>Currency</p>
                         <Form.Item
                           {...field}
-                          name={[field.name, 'currency']}
-                          fieldKey={[field.fieldKey, 'currency']}
+                          name={[field.name, 'currencyId']}
+                          fieldKey={[field.fieldKey, 'currencyId']}
                           rules={[{ required: true, message: 'currency is required' }]}
                         >
                           <Select>
