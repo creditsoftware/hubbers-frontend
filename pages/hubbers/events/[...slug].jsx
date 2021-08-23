@@ -1,15 +1,15 @@
 import React from 'react';
+import moment from 'moment';
+import useSWR from 'swr';
 import { MainPageHoc } from '../../../containers';
 import { MainBanner, Talent, GuestSpeakers, TalkAbout, Location } from '../../../components';
 import { useRouter } from 'next/router';
 import { withSession } from '../../../utils/withSession';
 import { API } from '../../../constants/index';
 import { jwtDecode } from '../../../utils/jwt';
-import useSWR from 'swr';
 import { fetchJson } from '../../../utils';
 import { fetcher } from '../../../utils/fetcher';
 import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../../constants/etc';
-import moment from 'moment';
 
 const EventDetail = ({ ...props }) => {
   const router = useRouter();

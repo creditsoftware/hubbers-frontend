@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 import { API } from '../../constants/index';
 import { DeskPageHoc } from '../../containers/hocs/DeskPageHoc';
 import { Container } from '../../components';
@@ -12,6 +13,7 @@ import { Modal, Form, Image, Input, Button } from 'antd';
 
 const CreateProduct = ({ ...props }) => {
   
+  const router = useRouter();
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const [form] = Form.useForm();
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -21,14 +23,15 @@ const CreateProduct = ({ ...props }) => {
     setModalVisible(!modalVisible);
   };
 
-  const onSubmit = (value) => {
-    fetchJson(`${API.CREATE_PRODUCT_API}/${data.id}`, {
+  const onSubmit = (values) => {
+    fetchJson(`${API.CREATE_PRODUCT_API}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({...value}),
+      body: JSON.stringify({...values, userId: data.id}),
     }).then((response) => {
       if(response.success){
         setModal();
+        router.push(`/desk/my-product/${response.data.id}`);
       }
     });
   };
@@ -56,6 +59,7 @@ const CreateProduct = ({ ...props }) => {
           </p>
           <Button type="hbs-primary" size="large" shape="round" onClick={setModal}>START YOUR PROJECT</Button>
           <Modal
+            centered
             visible={modalVisible}
             onCancel={setModal}
             footer={null}

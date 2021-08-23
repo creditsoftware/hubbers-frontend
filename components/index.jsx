@@ -110,7 +110,8 @@ export {
 } from './membership';
 export {
   LinkedinLogin,
-  AuthLink
+  AuthLink,
+  SingupProgress,
 } from './auth';
 export {
   ContestTile
@@ -123,3 +124,7 @@ export {
   Translate,
   LazyLoading
 } from './global';
+
+export {
+  ProductDetailHeader,
+} from './product';
