@@ -76,6 +76,7 @@ export const API = {
 
   // CONTEST APIS
   CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  ADD_CONTEST_VIEW_API: process.env.API_V1 + 'contest/contest-list/view',
   
   GET_CONTEST_DESCRITION_API: process.env.API_V1 + 'contest/contest-description/category',
   //-------------

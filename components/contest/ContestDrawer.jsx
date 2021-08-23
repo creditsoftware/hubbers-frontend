@@ -24,7 +24,6 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
         contestTypeId: props.contestTypeId
       });
     }
-    console.log(contest);
     if(contest && contest.result) {
       const v = contest.result.filter((d) => d.createdBy === props.auth.id && d.isDraft === true)[0];
       if(v){
@@ -71,7 +70,7 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
       }).then(res => {
         setContestId(res.result.id);
       }) : fetchJson(`${API.CONTEST_API}/${contestId}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
       }).then(res => {
