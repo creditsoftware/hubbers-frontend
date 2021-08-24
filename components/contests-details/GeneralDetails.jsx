@@ -9,16 +9,16 @@ export const GeneralDetails = props => {
   const [contest, setContest] = React.useState(null);
   React.useEffect(() => {
     setContest(props.data);
-  },[props.data])
+  }, [props.data]);
   React.useEffect(() => {
-    if(contest) {
+    if (contest) {
       let likeItem = -1, like = contest.like;
       like.map((item, index) => {
-        if(item === props.auth.id) likeItem = index;
-      })
+        if (item === props.auth.id) likeItem = index;
+      });
       likeItem >= 0 ? setLike(primaryColor) : setLike('');
     }
-  },[contest])
+  }, [contest, props.auth.id]);
   const product = (
     <Menu>
       {
@@ -47,14 +47,14 @@ export const GeneralDetails = props => {
     </Menu>
   );
   const handleLike = () => {
-    fetchJson(`${API.CONTEST_API}/like/${props.auth.id}`,{
+    fetchJson(`${API.CONTEST_API}/like/${props.auth.id}`, {
       method: 'PUT'
     }).then(res => {
-      if(res.success === true) {
+      if (res.success === true) {
         setContest(res.result);
       }
     });
-  }
+  };
   return (
     <React.Fragment>
       <Row style={{ color: 'gray', padding: '0 24px', backgroundColor: 'rgb(255 252 247)' }}>
@@ -63,21 +63,21 @@ export const GeneralDetails = props => {
             <Col span={8} className="py-3">
               <Dropdown overlay={product} arrow>
                 <div className="d-flex f-align-center" style={{ cursor: 'pointer' }}>
-                  <Image width={24} height={24} src="/images/icons/product.png" />&nbsp;&nbsp;PRODUCT
+                  <Image width={24} height={24} alt='' src="/images/icons/product.png" />&nbsp;&nbsp;PRODUCT
                 </div>
               </Dropdown>
             </Col>
             <Col span={8} className="pt-3">
               <Dropdown overlay={innovation} arrow>
                 <div className="d-flex f-align-center" style={{ cursor: 'pointer' }}>
-                  <Image width={18} height={24} src="/images/icons/innovation.png" />&nbsp;&nbsp;INNOVATION
+                  <Image width={18} height={24} alt='' src="/images/icons/innovation.png" />&nbsp;&nbsp;INNOVATION
                 </div>
               </Dropdown>
             </Col>
             <Col span={8} className="pt-3">
               <Dropdown overlay={geography} arrow>
                 <div className="d-flex f-align-center" style={{ cursor: 'pointer' }}>
-                  <Image width={24} height={24} src="/images/icons/geography.png" />{props.isGlobal ? <span>&nbsp;&nbsp;GEOGRAPHY</span> : <span>&nbsp;&nbsp;GLOBAL</span>}
+                  <Image width={24} height={24} alt='' src="/images/icons/geography.png" />{props.isGlobal ? <span>&nbsp;&nbsp;GEOGRAPHY</span> : <span>&nbsp;&nbsp;GLOBAL</span>}
                 </div>
               </Dropdown>
             </Col>
@@ -105,7 +105,7 @@ export const GeneralDetails = props => {
         >
           <div className="p-abs l-0 b-0 w-100 p-4 fc-white contest-detail-gray" style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}>
             <label><EyeOutlined />&nbsp;&nbsp;{contest && contest.view.length}</label>
-            <label className="px-4" onClick={handleLike} style={{color: [like]}}><HeartOutlined />&nbsp;&nbsp;{contest && contest.like.length}</label>
+            <label className="px-4" onClick={handleLike} style={{ color: [like] }}><HeartOutlined />&nbsp;&nbsp;{contest && contest.like.length}</label>
             <label><ShareAltOutlined />&nbsp;&nbsp;{0}</label>
           </div>
         </Col>
@@ -113,9 +113,9 @@ export const GeneralDetails = props => {
           <h1 className="pt-5 fc-white">PRIZES</h1>
           <Row className="px-4 pt-3">
             {
-              contest && contest.prize.map((item, index) => 
-                <Col span={8}>
-                  <Image width={60} height={82} src={`/images/prize${item.standing}.png`} />
+              contest && contest.prize.map((item) =>
+                <Col span={8} key={item.id}>
+                  <Image width={60} height={82} alt='' src={`/images/prize${item.standing}.png`} />
                   <p style={{ color: 'gray' }}>{item.name}</p>
                   <h1 className="fc-white">{item.prize} USD</h1>
                   <p className="fc-white" dangerouslySetInnerHTML={{ __html: item.description }}></p>
