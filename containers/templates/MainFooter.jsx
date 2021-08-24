@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Image } from 'antd';
 import { Container } from '../../components';
 import { Footer } from 'antd/lib/layout/layout';
 import { InstagramOutlined, LinkedinOutlined, FacebookFilled, TwitterOutlined } from '@ant-design/icons';
@@ -168,7 +168,7 @@ export const MainFooter = ({ className, ...props }) => {
               <div className="footer-bottom-left">
                 <Row>
                   <Col xs={24} sm={24} md={6} lg={6}>
-                    <img src="/images/logo/logo_b_w.png" />
+                    <Image src="/images/logo/logo_b_w.png" preview={false} alt='' />
                   </Col>
                   <Col xs={24} sm={24} md={18} lg={18}>
                     <div className='mt-2'>

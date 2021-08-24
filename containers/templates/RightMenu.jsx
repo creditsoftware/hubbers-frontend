@@ -24,7 +24,7 @@ export const RightMenu = ({ menuType, ...props }) => {
       let nls = [];
       for (const n of Object.values(e)) {
         if (n.rUserId === props.auth.id) {
-          if (!nls.length) {
+          if (!nls?.length) {
             nls = [
               {
                 id: n.id,
@@ -49,13 +49,13 @@ export const RightMenu = ({ menuType, ...props }) => {
       }
       let distinct = [];
       for (let i of nls) {
-        if (distinct.filter((d) => d.id === i.id).length === 0) {
+        if (distinct.filter((d) => d.id === i.id)?.length === 0) {
           distinct.push(i);
         }
       }
       setNotifications([...distinct]);
     });
-  }, []);
+  }, [props.auth.id, notifications]);
   const messages = [
     // {
     //   title: 'Denis Kravchenko'
@@ -75,7 +75,7 @@ export const RightMenu = ({ menuType, ...props }) => {
     <React.Fragment>
       <List
         itemLayout="horizontal"
-        dataSource={messages}
+        dataSource={messages ? messages : []}
         renderItem={item => (
           <List.Item style={{ width: '15rem' }}>
             <Link href='#'>
@@ -101,7 +101,7 @@ export const RightMenu = ({ menuType, ...props }) => {
     <React.Fragment>
       <List
         bordered
-        dataSource={notifications}
+        dataSource={notifications ? notifications : []}
         style={{ maxHeight: '300px', overflow: 'auto' }}
         renderItem={item => (
           <List.Item style={{ width: '15rem' }}>
@@ -215,8 +215,9 @@ export const RightMenu = ({ menuType, ...props }) => {
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
-                  <img src="/images/icons/message.png" alt='' />
-                  {/* <NImage width='35' height='30' src='/images/icons/message.png' alt='' /> */}
+                  <div style={{ height: '14px', display: 'flex' }}>
+                    <Image preview={false} src='/images/icons/message.png' alt='' />
+                  </div>
                 </Badge>
               </Popover>
             </Menu.Item>
@@ -232,8 +233,9 @@ export const RightMenu = ({ menuType, ...props }) => {
                   size='small'
                   style={{ backgroundColor: '#52c41a' }}
                 >
-                  <img src="/images/icons/notification.png" alt='' />
-                  {/* <NImage width='30' height='35' src='/images/icons/notification.png' alt='' /> */}
+                  <div style={{ height: '17px', display: 'flex' }}>
+                    <Image preview={false} src='/images/icons/notification.png' alt='' />
+                  </div>
                 </Badge>
               </Popover>
             </Menu.Item>
