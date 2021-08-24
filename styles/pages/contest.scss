@@ -14,7 +14,12 @@
             }
         }
     }
-
+    .contest-detail-gray{
+        &>label:hover{
+            cursor: pointer;
+            color: $primary-color;
+        }
+    }
     .details-nav {
         width: 100%;
         display: flex;
