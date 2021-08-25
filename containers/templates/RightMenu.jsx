@@ -55,7 +55,7 @@ export const RightMenu = ({ menuType, ...props }) => {
       }
       setNotifications([...distinct]);
     });
-  }, [props.auth.id, notifications]);
+  }, [props.auth.id]);
   const messages = [
     // {
     //   title: 'Denis Kravchenko'
