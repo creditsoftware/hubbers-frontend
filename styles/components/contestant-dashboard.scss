@@ -1,0 +1,21 @@
+.contest-member-dashboard {
+    .ant-card-head {
+        .ant-card-head-title {
+            overflow: unset;
+            white-space: unset;
+            text-overflow: unset;
+        }
+    }
+}
+.ant-modal-header{
+    border-bottom: none;
+}
+.contestant-tip{
+    overflow: auto;
+    padding: 2rem;
+    height: 530px;
+    background-color: #333;
+    &>p{
+        color: white;
+    }
+}
