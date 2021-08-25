@@ -3,6 +3,7 @@ import { MainPageHoc } from '../../../containers';
 import { useRouter } from 'next/router';
 import { Button } from 'antd';
 import { fetchJson, openNotificationWithIcon, withSession, fetcher } from '../../../utils';
+import { REQUEST_TYPE } from '../../../constants/requestType';
 import { API } from '../../../constants/index';
 import { jwtDecode } from '../../../utils/jwt';
 import useSWR from 'swr';
@@ -20,8 +21,9 @@ const Activate = ({ ...props }) => {
     fetchCommunity();
   }, [router]);
   const activate = async () => {
-    let result = await fetchJson(`${process.env.API_V1}community/member-invite/activate/${router.query.community}/${props.auth?.id}`);
+    let result = await fetchJson(`${process.env.API_V1}community/member-invite/activate/${router.query.community}/${router.query.email}`);
     if (result && result.success) {
+      await fetchJson(`${API.LOCAL_REFRESH_API}`, {method: REQUEST_TYPE.POST, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(router.query.token) });
       openNotificationWithIcon('success', 'Activated you', `${result.message}`);
       router.push(`/desk/community/home?community=${router.query.community}`);
     } else {

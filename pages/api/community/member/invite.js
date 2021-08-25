@@ -16,7 +16,9 @@ export default withSession((req, res) => {
         Authorization: `Bearer ${accessToken}`
       }
     });
-    apiInstance.post(`${API.COMMUNITY_MEMBER_INVITE_API}`, {...data})
+    console.log(data);
+    apiInstance.post(`${API.NEW_COMMUNITY_MEMBER_INVITE_API}`, {...data})
+    // apiInstance.post(`${API.COMMUNITY_MEMBER_INVITE_API}`, {...data})
       .then((response) => {
         res.status(200).json(response.data);
       })

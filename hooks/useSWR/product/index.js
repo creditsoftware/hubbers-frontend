@@ -1,2 +1,2 @@
 export { useProductList } from './useProductList';
-export { useProductData } from './useProductData'
+export { useProductData } from './useProductData';

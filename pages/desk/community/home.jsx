@@ -24,29 +24,31 @@ const Home = ({ ...props }) => {
     setCommunity(props.data?.data);
   }, [props]);
   return (
-    props.query.community === 'join' ?
-      <JoinInCommunity auth={{ ...data }} query={{...props.query}} />
-      : <DeskPageHoc title='Home' activeSide={{ active: [`home-${props.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
-        <div className='max-w-80 m-auto px-3'>
-          <div className="f-right" style={{ right: 10, top: 70 }}>
-            {/* <CommunityManageBtn /> */}
-            <CreateNewBtn auth={{ ...data }} query={{...props.query}} />
-            <SwitchCommunity />
+    data && (
+      props.query.community === 'join' ?
+        <JoinInCommunity auth={{ ...data }} query={{...props.query}} />
+        : <DeskPageHoc title='Home' activeSide={{ active: [`home-${props.query.community}`], open: ['community'] }} auth={{ ...data }} query={{...props.query}}>
+          <div className='max-w-80 m-auto px-3'>
+            <div className="f-right" style={{ right: 10, top: 70 }}>
+              {/* <CommunityManageBtn /> */}
+              <CreateNewBtn auth={{ ...data }} query={{...props.query}} />
+              <SwitchCommunity />
+            </div>
+            <h1 className="fw-6 fs-5 mt-5">
+              {
+                community &&
+                community.name
+              }
+              &nbsp;Community
+            </h1>
+            <div>
+              <HomeFilter />
+              <HomeSorter className='ml-2' />
+            </div>
+            <HomeBody auth={{ ...data }} query={{...props.query}} />
           </div>
-          <h1 className="fw-6 fs-5 mt-5">
-            {
-              community &&
-              community.name
-            }
-            &nbsp;Community
-          </h1>
-          <div>
-            <HomeFilter />
-            <HomeSorter className='ml-2' />
-          </div>
-          <HomeBody auth={{ ...data }} query={{...props.query}} />
-        </div>
-      </DeskPageHoc>
+        </DeskPageHoc>
+    )
   );
 };
 export const getServerSideProps = withSession(async (ctx) => {
