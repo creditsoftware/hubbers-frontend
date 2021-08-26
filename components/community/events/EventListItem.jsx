@@ -5,12 +5,13 @@ import {
   // Dropdown,
   // Menu,
   Row,
-  Space
+  Space,
+  Image
 } from 'antd';
 // import Link from 'next/link';
 import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../../constants/etc';
 import Avatar from 'antd/lib/avatar/avatar';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useWindowSize } from '../../../hooks';
 // import {
 //   DownOutlined
@@ -30,7 +31,23 @@ export const EventListItem = ({ ...props }) => {
         <Col flex="180px">
           <div className='m-3'>
             <div className="text-center">
-              <Avatar src={<Image width={100} height={100} src={DEFAULT_COMMUNITY_TOPIC_IMAGE} alt='' />} size={100} style={{ marginBottom: '-8px' }} />
+              <Avatar
+                src={
+                  <Image
+                    preview={false}
+                    width={100}
+                    height={100}
+                    src={
+                      props.headerImageUrl ?
+                        props.headerImageUrl :
+                        DEFAULT_COMMUNITY_TOPIC_IMAGE
+                    }
+                    alt=''
+                  />
+                }
+                size={100}
+                style={{ marginBottom: '-8px' }}
+              />
             </div>
           </div>
         </Col>

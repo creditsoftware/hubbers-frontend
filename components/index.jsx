@@ -20,6 +20,7 @@ export { GlobalPartnerSlider } from './GlobalPartnerSlider';
 export { GlobalEventSlider } from './GlobalEventSlider';
 export { GlobalBlogSlider } from './GlobalBlogSlider';
 export { UserSelector } from './UserSelector';
+export { TimezoneSelector } from './TimezoneSelector';
 export { Userdata } from './Userdata';
 export { CustomSlider1 } from './CustomSlider1';
 export * as Communities from './community';

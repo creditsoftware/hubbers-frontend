@@ -16,7 +16,6 @@ import {
 import { Container } from '../../Container';
 import {
   EventRepeatPeriod,
-  timezoneList,
   EventOnlineType,
   EventRepeatPeriodCustomUnit,
   WeekDays,
@@ -33,6 +32,7 @@ import { useEventList } from '../../../hooks';
 import moment from 'moment';
 import { useTopicDetail } from '../../../hooks/useSWR/community/useTopicDetail';
 import { useGroupDetail } from '../../../hooks/useSWR/community/useGroupDetail';
+import { TimezoneSelector } from '../../TimezoneSelector';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -322,13 +322,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
               { required: true, message: 'Please set timezone!' }
             ]}
           >
-            <Select disabled={!editable} placeholder='Timezone' allowClear>
-              {
-                timezoneList.map((zone, index) => {
-                  return <Option value={zone.value} key={index}>{zone.abbr}({zone.value})</Option>;
-                })
-              }
-            </Select>
+            <TimezoneSelector disabled={!editable} placeholder='Timezone' allowClear />
           </Form.Item>
           <Row>
             <Col lg={11} md={11} sm={11}>

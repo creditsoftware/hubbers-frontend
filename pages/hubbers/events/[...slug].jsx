@@ -28,9 +28,9 @@ const EventDetail = ({ ...props }) => {
           date={eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5) + ' ' + moment(eventData.startDate).format('MMMM, DD YYYY')}
           url={eventData.headerImageUrl ?? DEFAULT_COMMUNITY_TOPIC_IMAGE}
         />
-        <Talent eventData={eventData} />
+        <Talent eventData={eventData} auth={{ ...data }} />
         {
-          eventData.speakers && <GuestSpeakers eventData={eventData} />
+          eventData.speakers?.length && <GuestSpeakers eventData={eventData} />
         }
         <TalkAbout eventData={eventData} />
         <Location eventData={eventData} />

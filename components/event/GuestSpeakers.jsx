@@ -8,7 +8,7 @@ SwiperCore.use([Navigation]);
 
 export const GuestSpeakers = ({ eventData }) => {
   return (
-    <div className='guest-speaker'>
+    <div className='guest-speaker mt-5'>
       <div className='text-center mb-4'>
         <span className='text-upper fw-6 fs-3'>OUR GUEST SPEAKERS</span>
       </div>
@@ -17,7 +17,6 @@ export const GuestSpeakers = ({ eventData }) => {
         slidesPerView={1}
         navigation
         observer
-        loop
         observeParents
       >
         {

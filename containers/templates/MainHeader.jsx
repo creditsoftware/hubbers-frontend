@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, Image } from 'antd';
 import { Layout } from 'antd';
 import Link from 'next/link';
 import { LeftMenu } from './LeftMenu';
@@ -24,7 +24,7 @@ export const MainHeader = (props) => {
       <Header className="main-header">
         <Link href="/">
           <a className="logo">
-            <img src="/images/logo/hubbers-logo.png" className="logo" />
+            <Image preview={false} alt='' src="/images/logo/hubbers-logo.png" className="logo" />
           </a>
         </Link>
         <div className="menu-content">
