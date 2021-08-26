@@ -5,7 +5,7 @@ import { TwitterOutlined, FacebookOutlined, LinkedinOutlined } from '@ant-design
 export const Location = ({eventData}) => {
   return (
     <div>
-      <div className='text-center fw-6 fs-3 text-upper lts-1 pt-5 pb-5'>
+      <div className='text-center fw-6 fs-3 text-upper lts-1 pb-5'>
         Location
       </div>
       <div style={{ height: '400px'}}>

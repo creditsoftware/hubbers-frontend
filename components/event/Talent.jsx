@@ -4,7 +4,8 @@ import { Container } from '../Container';
 import Link from 'next/link';
 import moment from 'moment';
 
-export const Talent = ({eventData}) => {
+export const Talent = ({ eventData, auth }) => {
+  console.log(auth);
   return (
     <div className='talent-creators-list'>
       <Container>
@@ -14,8 +15,8 @@ export const Talent = ({eventData}) => {
           </div>
           <div className='talent-creators-items'>
             <Row className='text-center'>
-              <Col className='br-e text-center pr-3 mb-3' xs={24} sm={24} md={8}>
-                <Row>
+              <Col className='br-e pr-3 mb-3' xs={24} sm={24} md={8}>
+                <Row className="fjc-center">
                   <div className='talent-creators-list-items-left'>
                     <img src='/images/icons/business_event_icon.png' width='50px' height='40px' />
                   </div>
@@ -26,20 +27,20 @@ export const Talent = ({eventData}) => {
                   </div>
                 </Row>
               </Col>
-              <Col className='br-e text-center pr-3 mb-3' xs={24} sm={24} md={8}>
-                <Row>
+              <Col className='br-e pr-3 mb-3' xs={24} sm={24} md={8}>
+                <Row className="fjc-center">
                   <div className='talent-creators-list-items-left'>
                     <img src='/images/icons/clock_icon.png' width='40px' height='40px' />
                   </div>
                   <div className='talent-creators-list-items-right text-left'>
                     <div className='mt-1'>
-                      <span>{moment(eventData.startDate).format('MMMM, DD YYYY')}<br/>{eventData.startTime?.substring(0,5) + '-' + eventData.endTime?.substring(0,5)}</span>
+                      <span>{moment(eventData.startDate).format('MMMM, DD YYYY')}<br />{eventData.startTime?.substring(0, 5) + '-' + eventData.endTime?.substring(0, 5)}</span>
                     </div>
                   </div>
                 </Row>
               </Col>
-              <Col className='text-center pr-3 mb-3' xs={24} sm={24} md={8}>
-                <Row>
+              <Col className='pr-3 mb-3' xs={24} sm={24} md={8}>
+                <Row className="fjc-center">
                   <div className='talent-creators-list-items-left'>
                     <img src='/images/icons/location_icon.png' width='40px' height='40px' />
                   </div>
@@ -56,14 +57,16 @@ export const Talent = ({eventData}) => {
             </Row>
           </div>
           <div className="text-center mt-3">
-            <Button type='hbs-outline-primary' shape='round' size='large'>Attend</Button>
-            <div className='mt-3'>
-              <Link href='/auth/signin'>
-                <a className='primary-link'>
-                  <em>Sign in to attend</em>
-                </a>
-              </Link>
-            </div>
+            {
+              auth.isLoggedIn ? <Button type='hbs-outline-primary' shape='round' size='large'>Attend</Button>
+                : <div className='mt-3'>
+                  <Link href='/auth/signin'>
+                    <a className='primary-link'>
+                      <em>Sign in to attend</em>
+                    </a>
+                  </Link>
+                </div>
+            }
           </div>
         </React.Fragment>
       </Container>
