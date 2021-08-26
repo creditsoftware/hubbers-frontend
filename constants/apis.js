@@ -103,6 +103,7 @@ export const API = {
   CREATE_EVENT_API: process.env.API_V1 + 'community/event', //post
   DELETE_EVENT_API: process.env.API_V1 + 'community/event', //delete
   GET_EVENT_LIST_API: process.env.API_V1 + 'community/event/all', //get /:communityId
+  GET_TIMEZONE_LIST_API: process.env.API_V1 + 'timezone', //get
   CREATE_POST_API: process.env.API_V1 + 'community/post', //post
   UPDATE_POST_API: process.env.API_V1 + 'community/post', //put /:id of post
   REPLY_POST_API: process.env.API_V1 + 'community/post/reply', //post /:parentId
