@@ -433,8 +433,6 @@ const Home = ({ ...props }) => {
               <h2 className="fw-5 fs-4">
                 Find your Hubbers community in Shanghai, Singapore, Paris, Berlin, Seoul and many other Cities.
               </h2>
-              <GlobalEventSlider />
-              <GlobalPartnerSlider />
             </React.Fragment>
           </Container>
         </div>
@@ -450,12 +448,12 @@ const Home = ({ ...props }) => {
         </Container>
         <Container>
           <React.Fragment>
-            {/* hubbers worldwide events */}
+            <GlobalEventSlider />
           </React.Fragment>
         </Container>
         <Container>
           <React.Fragment>
-            {/* sponsors */}
+            <GlobalPartnerSlider />
           </React.Fragment>
         </Container>
       </React.Fragment>
