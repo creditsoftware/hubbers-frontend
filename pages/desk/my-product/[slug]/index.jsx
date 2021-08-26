@@ -61,7 +61,7 @@ const Details = ({ ...props }) => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...values }),
-    }).then((response) => {
+    }).then(() => {
       mutatePDetails();
     });
   };

@@ -30,7 +30,7 @@ const Home = ({ ...props }) => {
     fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
       setThumbup(response);
     });
-    console.log(thumbUp);
+    console.log("=>>>>>>", thumbUp);
   }, []);
   const hubbers = [
     {
@@ -364,8 +364,8 @@ const Home = ({ ...props }) => {
             </div>
           </React.Fragment>
         </Container>
-        <div className="bg-white pb-3">
-          <Container className="pb-4">
+        <div className="bg-white">
+          <Container>
             <React.Fragment>
               <h1 className="fw-6 fs-6 pt-5 text-center">
                 Hubbers Community
@@ -433,8 +433,6 @@ const Home = ({ ...props }) => {
               <h2 className="fw-5 fs-4">
                 Find your Hubbers community in Shanghai, Singapore, Paris, Berlin, Seoul and many other Cities.
               </h2>
-              <GlobalEventSlider />
-              <GlobalPartnerSlider />
             </React.Fragment>
           </Container>
         </div>
@@ -450,12 +448,12 @@ const Home = ({ ...props }) => {
         </Container>
         <Container>
           <React.Fragment>
-            {/* hubbers worldwide events */}
+            <GlobalEventSlider />
           </React.Fragment>
         </Container>
         <Container>
           <React.Fragment>
-            {/* sponsors */}
+            <GlobalPartnerSlider />
           </React.Fragment>
         </Container>
       </React.Fragment>

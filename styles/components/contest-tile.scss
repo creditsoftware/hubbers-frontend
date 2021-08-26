@@ -24,10 +24,21 @@
             color: yellowgreen;
             font-weight: bold;
             padding-bottom: 10px;
+            &>label{
+                transition: .4s;
+                &:hover{
+                    cursor: pointer;
+                    color: blue;
+                }
+            }
         }
 
         .gray-text {
             color: gray;
+            &>label{
+                cursor: pointer;
+                color: $primary-color;
+            }
         }
     }
 }

@@ -51,10 +51,7 @@ module.exports = {
       }
     ],
     'react/prop-types': 'off',
-    'linebreak-style': [
-      'error',
-      'windows'
-    ],
+    'linebreak-style': 0,
     'quotes': [
       'error',
       'single'
@@ -62,7 +59,6 @@ module.exports = {
     'semi': [
       'error',
       'always'
-    ],
-    'linebreak-style':0
+    ]
   }
 };

@@ -76,6 +76,9 @@ export const API = {
 
   // CONTEST APIS
   CONTEST_API: process.env.API_V1 + 'contest/contest-list',
+  CONTEST_MEMBER_API: process.env.API_V1 + 'contest/contest-member',
+  ADD_CONTEST_VIEW_API: process.env.API_V1 + 'contest/contest-list/view',
+  CONTEST_ENTRY_LIST_API: process.env.API_V1 + 'contest/contest-entry',
   
   GET_CONTEST_DESCRITION_API: process.env.API_V1 + 'contest/contest-description/category',
   //-------------
@@ -111,6 +114,7 @@ export const API = {
   GET_MEMBER_LIST_API: process.env.API_V1 + 'community/member/published', //get /:communityId
   GET_MEMBER_ROLE_LIST_API: process.env.API_V1 + 'community/member-role', //get
   COMMUNITY_MEMBER_INVITE_API: process.env.API_V1 + 'community/member/invite', //post
+  NEW_COMMUNITY_MEMBER_INVITE_API: process.env.API_V1 + 'community/member/new-invite', //post
   GET_COMMUNITY_MEMBER_INVITES_API: process.env.API_V1 + 'community/member-invite', //get /:communityId
   GET_GLOBAL_EVENT_API: process.env.API_V1 + 'community/event/global',
   GET_EVENT_SLUG_API: process.env.API_V1 + 'community/event/single', //get /:slug
@@ -132,6 +136,9 @@ export const API = {
   JOININ_COMMUNITY_GROUP_API: process.env.API_V1 + 'community/group/join', //patch /:groupId/:userId
   GET_REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //get /:communityId
   REQUEST_TO_JOIN_LIST_API: process.env.API_V1 + 'community/join-request', //post /:communityId/:userId
+  GET_COURSE_LIST_API: process.env.API_V1 + 'community/course/all', // get /:communityId/:userId
+  GET_DRAFTED_COURSE_API: process.env.API_V1 + 'community/course/draft', // get /:communityId/:userId
+  CREATE_COURSE_BASIC_DATA_API: process.env.API_V1 + 'community/course/basic', // post
   SYNC_GET_POST_LIST_API: process.env.LP_API_V1 + 'community/post/list', //get /:communityId
   //socket stream endpoint
   SOCKET_STREAM_API: process.env.SOCKET_STREAM_API_V1

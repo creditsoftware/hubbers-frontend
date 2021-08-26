@@ -35,11 +35,11 @@ const SignupProfile = ({ ...props }) => {
     fetchJson(`${API.USER_SIGN_UP_STEP_THREE}/${email}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'applicatison/json' },
-      body: JSON.stringify({...values}),
+      body: JSON.stringify({ ...values }),
     });
     router.push('/auth/signin');
   };
-  
+
   const prev = () => {
     router.push(`/auth/signup/community?email=${email}`);
   };
