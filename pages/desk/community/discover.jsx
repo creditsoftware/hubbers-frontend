@@ -5,7 +5,8 @@ import React from 'react';
 import {
   TopicSwiper,
   // TopPostSwiper,
-  SwitchCommunity
+  SwitchCommunity,
+  GlobalPartnerSlider
 } from '../../../components';
 import { jwtDecode } from '../../../utils/jwt';
 import { DeskPageHoc } from '../../../containers';
@@ -65,6 +66,7 @@ const Discover = ({ ...props }) => {
             Topics
           </div>
           <TopicSwiper />
+          <GlobalPartnerSlider community={props.query.community} />
         </div>
       </DeskPageHoc>
   );

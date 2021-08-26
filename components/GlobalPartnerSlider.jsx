@@ -5,12 +5,18 @@ import { API } from '../constants/index';
 import { fetchJson } from '../utils';
 import { CustomSlider1 } from './CustomSlider1';
 
-export const GlobalPartnerSlider = () => {
+export const GlobalPartnerSlider = ({community = null}) => {
   const [list, setList] = React.useState([]);
   React.useEffect(() => {
-    fetchJson(`${API.GET_GLOBAL_PARTNER_API}`).then((response) => {
-      setList(response);
-    });
+    if (community) {
+      fetchJson(`${API.GET_GLOBAL_LOCAL_PARTNER_API}/${community}`).then((response) => {
+        setList(response);
+      });
+    } else {
+      fetchJson(`${API.GET_GLOBAL_PARTNER_API}`).then((response) => {
+        setList(response);
+      });
+    }
   }, []);
   return (
     <React.Fragment>
@@ -25,7 +31,7 @@ export const GlobalPartnerSlider = () => {
                 <a className="d-block text-center">
                   <Image width={300} height={200} src={item.featuredImageUrl} preview={false} />
                   <h3 className="mt-3 fs-2">{item.name}</h3>
-                </a>
+                </a>  
               </Link>
             );
           })

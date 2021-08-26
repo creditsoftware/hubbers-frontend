@@ -25,6 +25,7 @@ export const TopicSwiper = () => {
       delay: 100,
       disableOnInteraction: false
     }}
+    style={{ marginBottom: '50px' }}
   >
     {
       topicList &&

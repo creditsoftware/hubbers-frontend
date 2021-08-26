@@ -115,6 +115,7 @@ export const API = {
   GET_GLOBAL_EVENT_API: process.env.API_V1 + 'community/event/global',
   GET_EVENT_SLUG_API: process.env.API_V1 + 'community/event/single', //get /:slug
   GET_GLOBAL_PARTNER_API: process.env.API_V1 + 'partner/global',
+  GET_GLOBAL_LOCAL_PARTNER_API: process.env.API_V1 + 'partner/global-local',  //get /:communityId
   GET_PARTNER_DETAIL_API: process.env.API_V1 + 'partner', //get /:partnerId
   CONTACT_PARTNER_API: process.env.API_V1 + 'partner-contact/send-message',
   GET_TESTIMONIALS_API: process.env.API_V1 + 'testimonials',
