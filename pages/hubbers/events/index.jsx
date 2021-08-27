@@ -17,9 +17,9 @@ const Event = ({ ...props }) => {
     });
   }, []);
   return (
-    <MainPageHoc title='Hubers events' auth={{ ...data }} query={{...props.query}}>
+    <MainPageHoc title='Hubbers Events' auth={{ ...data }} query={{...props.query}}>
       <React.Fragment>
-        <MainBanner title={'GLOVAL EVENTS'} date={''} url={'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/home-banner-1.jpg'} />
+        <MainBanner title={'GLOBAL EVENTS'} date={''} url={'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/assets/home/banners/home-banner-1.jpg'} />
         <div className='event-group mt-5 mb-5'>
           {
             list.map((item, index) => {

@@ -12,16 +12,16 @@ export const GeneralDetails = props => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   React.useEffect(() => {
     setContest(props.data);
-  }, [props.data])
+  }, [props.data]);
   React.useEffect(() => {
     if (contest) {
       let likeItem = -1, like = contest.like;
       like.map((item, index) => {
         if (item === props.auth.id) likeItem = index;
-      })
+      });
       likeItem >= 0 ? setLike(primaryColor) : setLike('');
     }
-  }, [contest])
+  }, [contest, props.auth.id]);
   const product = (
     <Menu>
       {
@@ -92,21 +92,21 @@ export const GeneralDetails = props => {
             <Col span={8} className="py-3">
               <Dropdown overlay={product} arrow>
                 <div className="d-flex f-align-center" style={{ cursor: 'pointer' }}>
-                  <Image width={24} height={24} src="/images/icons/product.png" />&nbsp;&nbsp;PRODUCT
+                  <Image width={24} height={24} alt='' src="/images/icons/product.png" />&nbsp;&nbsp;PRODUCT
                 </div>
               </Dropdown>
             </Col>
             <Col span={8} className="pt-3">
               <Dropdown overlay={innovation} arrow>
                 <div className="d-flex f-align-center" style={{ cursor: 'pointer' }}>
-                  <Image width={18} height={24} src="/images/icons/innovation.png" />&nbsp;&nbsp;INNOVATION
+                  <Image width={18} height={24} alt='' src="/images/icons/innovation.png" />&nbsp;&nbsp;INNOVATION
                 </div>
               </Dropdown>
             </Col>
             <Col span={8} className="pt-3">
               <Dropdown overlay={geography} arrow>
                 <div className="d-flex f-align-center" style={{ cursor: 'pointer' }}>
-                  <Image width={24} height={24} src="/images/icons/geography.png" />{props.isGlobal ? <span>&nbsp;&nbsp;GEOGRAPHY</span> : <span>&nbsp;&nbsp;GLOBAL</span>}
+                  <Image width={24} height={24} alt='' src="/images/icons/geography.png" />{props.isGlobal ? <span>&nbsp;&nbsp;GEOGRAPHY</span> : <span>&nbsp;&nbsp;GLOBAL</span>}
                 </div>
               </Dropdown>
             </Col>
