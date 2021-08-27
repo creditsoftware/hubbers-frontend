@@ -70,9 +70,12 @@ export const API = {
   GET_TECH_CATTEGORY_API: process.env.API_V1 + 'basic-type/tech/',
 
   GET_PRODUCT_LIST_BY_USER_API: process.env.API_V1 + 'project/get-list-by-user', //get/:userId
-  GET_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //get/:id
-  UPDATE_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //put/:id
+  GET_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //get/:projectId
   CREATE_PRODUCT_API: process.env.API_V1 + 'project',  //post
+  UPDATE_PRODUCT_DETAIL_API: process.env.API_V1 + 'project',  //put/:projectId
+  GET_PROJECT_TAGS_LIST: process.env.API_V1 + 'project/tags',
+  GET_BUSINESS_NEED_LIST: process.env.API_V1 + 'project/business-need',  //get/:projectId
+  CREATE_BUSINESS_NEED: process.env.API_V1 + 'project/business-need',  //post
 
   // CONTEST APIS
   CONTEST_API: process.env.API_V1 + 'contest/contest-list',

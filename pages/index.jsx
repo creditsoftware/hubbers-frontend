@@ -9,46 +9,20 @@
 //   /* eslint-enable */
 // );
 
-import { Button, Col, Row, Space } from 'antd';
-import { Container, HomepageMainBanner, Translate, Userdata } from '../components';
-import Image from 'next/image';
 import React from 'react';
-import { MainPageHoc } from '../containers';
-import { withSession } from '../utils/withSession';
 import Link from 'next/link';
-import { API } from '../constants';
+import Image from 'next/image';
 import useSWR from 'swr';
-import { GlobalPartnerSlider, GlobalEventSlider } from '../components';
+import { Button, Col, Row } from 'antd';
+import { MainPageHoc } from '../containers';
+import { API } from '../constants';
+import { Container, HomepageMainBanner, Thumbup, Translate, GlobalPartnerSlider, GlobalEventSlider } from '../components';
+import { withSession } from '../utils/withSession';
 import { jwtDecode } from '../utils/jwt';
-import { fetchJson } from '../utils';
 import { fetcher } from '../utils/fetcher';
 
 const Home = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
-  const [thumbUp, setThumbup] = React.useState([]);
-  React.useEffect(() => {
-    fetchJson(`${API.GET_THUMB_UP_API}`).then((response) => {
-      setThumbup(response);
-    });
-    console.log("=>>>>>>", thumbUp);
-  }, []);
-  const hubbers = [
-    {
-      image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
-      name: 'Benjamin Vignon',
-      country: 'France',
-      date: 'Dec - 2017',
-    }, {
-      image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJfo814Dr.jpg',
-      name: 'Himanshi',
-      country: 'Singapore',
-      date: 'Apr - 2021',
-    }, {
-      image: 'https://hubbers-hk.oss-cn-hongkong.aliyuncs.com/rktekaIRX.jpg',
-      name: 'Rakesh  Murali',
-      country: 'Singapore',
-      date: 'Apr - 2021',
-    }];
   return (
     <MainPageHoc title="Hubbers" auth={{ ...data }} query={{ ...props.query }}>
       <React.Fragment>
@@ -256,26 +230,7 @@ const Home = ({ ...props }) => {
           </React.Fragment>
         </Container>
         <Container className="text-center">
-          <React.Fragment>
-            <h1 className="fw-6 fs-6 mt-5 mb-2">
-              Thumb up!...
-            </h1>
-            <p className="fw-6 fs-2 mb-5">They just joined us.</p>
-            <Space wrap size={42}>
-              {
-                hubbers.map((item, index) => {
-                  return <Userdata key={index} image={item.image} name={item.name} country={item.country} date={item.date} />;
-                })
-              }
-            </Space>
-            <div className="mt-5">
-              <Link href="/auth/signin">
-                <a>
-                  <Button type="hbs-primary" shape="round" size="large">Thumb up</Button>
-                </a>
-              </Link>
-            </div>
-          </React.Fragment>
+          <Thumbup />
         </Container>
         <Container>
           <React.Fragment>
