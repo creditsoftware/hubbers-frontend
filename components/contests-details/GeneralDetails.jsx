@@ -5,14 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { API, primaryColor } from '../../constants';
 import { fetchJson } from '../../utils';
-import ContestantDashboard from '../contest/CotestantDashboard';
-import JudgeDashboard from '../contest/JudgeDashboard';
+
 export const GeneralDetails = props => {
   const [like, setLike] = React.useState('');
   const [contest, setContest] = React.useState(null);
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [role, setRole] = React.useState('');
-  const [contestStatus, setContestStatus] = React.useState(0);
   React.useEffect(() => {
     setContest(props.data);
   }, [props.data]);
@@ -23,13 +20,6 @@ export const GeneralDetails = props => {
         if (item === props.auth.id) likeItem = index;
       });
       likeItem >= 0 ? setLike(primaryColor) : setLike('');
-      contest.contestMembers.map((v) => {
-        if (v.contestId === props.data.id) {
-          if (v.isActive === true) setContestStatus(2);
-          else setContestStatus(1);
-        }
-      })
-      setRole(contest.contestMembers[0].role)
     }
   }, [contest, props.auth.id]);
   const product = (
@@ -163,11 +153,11 @@ export const GeneralDetails = props => {
             }
           </Row>
           {
-            !contestStatus ? <div className="p-abs l-0 b-0 w-100 d-flex py-3" style={{ borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
+            !props.contestStatus ? <div className="p-abs l-0 b-0 w-100 d-flex py-3" style={{ borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
               <Button type="hbs-primary" size="large" shape="round" onClick={() => showModal('contestant')}>BECOME A CONTESTANT</Button>
               <Button type="hbs-primary" size="large" shape="round" onClick={() => showModal('judge')}>BECOME A JUDGE</Button>
               <Modal
-                title={role === 'contestant' ? 'CONTESTANT USER’S DISCLAIMER OF USE:' : 'AWARDS JUDGE USER’S DISCLAIMER OF USE:'}
+                title={props.role === 'contestant' ? 'CONTESTANT USER’S DISCLAIMER OF USE:' : 'AWARDS JUDGE USER’S DISCLAIMER OF USE:'}
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -205,22 +195,24 @@ export const GeneralDetails = props => {
                   </li>
                 </ul>
               </Modal>
-            </div> : contestStatus === 1 ? <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: primaryColor,color: 'white', borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
-              <Space><Image width={20} height={20} src="/images/icons/clock_icon.png" /><span>YOUR APPLICATION FOR CONTESTANT BEING PROCESSED.</span></Space>
+            </div> : props.contestStatus === 1 ? <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: primaryColor,color: 'white', borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
+              <Space><Image width={20} height={20} src="/images/icons/clock_icon.png" /><span>{props.role === 'contestant' ? <span>YOUR APPLICATION FOR CONTESTANT BEING PROCESSED.</span> : <span>YOUR APPLICATION FOR JUDGE BEING PROCESSED.</span> }</span></Space>
               <div>It will take maximum 23 hours</div>
-            </div> : <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: primaryColor,color: 'white', borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
-              <p className="fs-4 mb-1"><Image width={30} height={30} src="/images/marketplace/legal.png" />{role === 'contestant' ? 'CONTESTANT' : 'JUDGE'}</p>
+            </div> : <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: 'rgb(51 51 51)',color: primaryColor, justifyContent: 'space-around' }}>
+              <p className="fs-4 mb-1"><Image width={30} height={30} src={props.role === 'contestant' ? "/images/contestant-accepted-icon.png": "/images/judge-accepted-icon.png"} />{props.role === 'contestant' ? 'CONTESTANT' : 'JUDGE'}</p>
               <div>You're a Contestant on this contest</div>
             </div>
           }
-
         </Col>
       </Row>
-      {
-        role === 'contestant' ?
-          <ContestantDashboard {...props} /> :
-            <JudgeDashboard />
-      }
+      <div
+        className=" mb-3 w-100 p-3 fs-1"
+        dangerouslySetInnerHTML={{__html: contest.description}}
+        style={{
+          backgroundColor: 'white',
+          boxShadow: '3px 3px 8px rgba(0,0,0,0.2)'
+        }}
+      ></div>
     </React.Fragment>
   );
 };

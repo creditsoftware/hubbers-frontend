@@ -2,6 +2,39 @@ import React from 'react';
 import { Table, Space } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 export const ContestantsDetails = props => {
+  console.log(props)
+  const [contestants, setContestants] = React.useState(null);
+  const [marks, setMarks] = React.useState(null);
+  React.useEffect(() => {
+    if(props.data) {
+      let v = props.data.contestMembers.filter((contestant) => contestant.role ==='contestant');
+      if(v) setContestants(v);
+    }
+  },[props.data])
+  React.useEffect(() => {
+    if(contestants) {
+      let mark = [];
+      contestants.map((contestant, index) => {
+        let e = props.data.entry.filter((i) => i.userId === contestant.userId);
+        console.log(e)
+        let design = 0, functionality = 0, manuFacturability = 0, marketPotential = 0, average;
+        e.map((entry) => {
+          let mark = props.data.entryMarks.filter((m) => entry.id === m.entryId)[0];
+          design += mark.designMark;
+          functionality += mark.functionalityMark;
+          manuFacturability += mark.manuFacturabilityMark;
+          marketPotential += mark.marketPotentialMark;
+        })
+        design = design/e.length;
+        functionality = functionality/e.length;
+        manuFacturability = manuFacturability/e.length;
+        marketPotential = marketPotential/e.length;
+        average = (design+functionality+manuFacturability+marketPotential)/4;
+        mark = [...mark, {avatar: contestant.user.avatar, firstname: contestant.user.firstname, lastname: contestant.user.lastname, design: design.toFixed(2), functionality: functionality.toFixed(2), usability: manuFacturability.toFixed(2), marketPotential: marketPotential.toFixed(2), average: average.toFixed(2)}];
+      })
+      setMarks(mark);
+    }
+  },[contestants])
   const columns = [
     {
       title: 'ID',
@@ -39,50 +72,52 @@ export const ContestantsDetails = props => {
       dataIndex: 'design',
       /* eslint-disable */
       render: (_, record) => {
-        {record.design? record.design : '-'}
-      }
+        console.log(record)
+        return (
+        <span>{record.design !== 'NaN' ? record.design : '-'}</span>
+      )}
       /* eslint-enable */
     },
     {
       title: 'FUNCTIONALITY',
       dataIndex: 'functionality',
       /* eslint-disable */
-      render: (_, record) => {
-        {record.functionality? record.functionality : '-'}
-      }
+      render: (_, record) => (
+        <span>{record.functionality !== 'NaN' ? record.functionality : '-'}</span>
+      )
       /* eslint-enable */
     },
     {
       title: 'USABILITY',
       dataIndex: 'usability',
       /* eslint-disable */
-      render: (_, record) => {
-        {record.usability? record.usability : '-'}
-      }
+      render: (_, record) => (
+        <span>{record.usability !== 'NaN' ? record.usability : '-'}</span>
+      )
       /* eslint-enable */
     },
     {
       title: 'MARKET POTENTIAL',
       dataIndex: 'marketPotential',
       /* eslint-disable */
-      render: (_, record) => {
-        {record.marketPotential? record.marketPotential : '-'}
-      }
+      render: (_, record) => (
+        <span>{record.marketPotential !== 'NaN' ? record.marketPotential : '-'}</span>
+      )
       /* eslint-enable */
     },
     {
       title: 'AVERAGE',
       dataIndex: 'average',
       /* eslint-disable */
-      render: (_, record) => {
-        {record.average? record.average : '-'}
-      }
+      render: (_, record) => (
+        <span>{record.average !== 'NaN' ? record.average : '-'}</span>
+      )
       /* eslint-enable */
     },
   ];
   return (
     <React.Fragment>
-      <Table rowKey='id' dataSource={props.data.contestants} columns={columns} />
+      <Table rowKey='id' dataSource={marks} columns={columns} />
     </React.Fragment>
   );
 };

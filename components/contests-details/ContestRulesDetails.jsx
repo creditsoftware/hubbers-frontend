@@ -1,10 +1,7 @@
 import React from 'react';
-export const ContestRulesDetails = props => {
+export const ContestRulesDetails = ({data}) => {
   return (
-    <div className="p-5 bg-white" style={{ borderTop: '1px solid #bbb' }}>
-      {
-        props.data.rules
-      }
+    <div className="p-5 bg-white" style={{ borderTop: '1px solid #bbb' }} dangerouslySetInnerHTML={{__html: data.officialRules}}>
     </div>
   );
 };

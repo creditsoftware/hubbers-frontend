@@ -11,27 +11,6 @@ import { jwtDecode } from '../../../utils/jwt';
 const ProductCompetition = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: contests } = useSWR(API.CONTEST_API, fetcher);
-  // const contests = [{
-  //   image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/6V1GLLP2-.png',
-  //   title: 'Scooter Delivery Case',
-  //   date: 'Ended 92 days ago',
-  //   contestants: 4,
-  //   judges: 1,
-  //   view: 181,
-  //   like: 3,
-  //   share: 0,
-  //   slug: 'asdfasd-asdf-asdf'
-  // }, {
-  //   image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/SJgt5sJ8p.jpg',
-  //   title: 'Travel Kit',
-  //   date: 'Ended 20 days ago',
-  //   contestants: 30,
-  //   judges: 12,
-  //   view: 1938,
-  //   like: 3,
-  //   share: 0,
-  //   slug: 'sadf-23-asdf-asdf'
-  // }];
   return (
     <MainPageHoc title='Product Competition' auth={{ ...data }} query={{...props.query}}>
       <div className="w-100 bg-white">
