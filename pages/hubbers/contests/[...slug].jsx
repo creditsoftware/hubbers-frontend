@@ -9,11 +9,15 @@ import { fetcher } from '../../../utils/fetcher';
 import Image from 'next/image';
 import { jwtDecode } from '../../../utils/jwt';
 import moment from 'moment';
+import ContestantDashboard from '../../../components/contest/CotestantDashboard';
+import JudgeDashboard from '../../../components/contest/JudgeDashboard';
 
 const ContestsDetail = ({ ...props }) => {
   // const router = useRouter();
   const [pageKey, setPageKey] = React.useState('general');
   const [contest, setContest] = React.useState(null);
+  const [role, setRole] = React.useState('');
+  const [contestStatus, setContestStatus] = React.useState(0);
   const pageKeyChange = (key) => {
     setPageKey(key);
   };
@@ -24,44 +28,17 @@ const ContestsDetail = ({ ...props }) => {
       setContest(product);
     }
   },[product]);
-  const products = {
-    image: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/6V1GLLP2-.png',
-    title: 'Scooter Delivery Case',
-    date: 'Ended 92 days ago',
-    view: 181,
-    like: 3,
-    share: 0,
-    slug: 'asdfasd-asdf-asdf',
-    startTime: 'July, 8th 03:21 pm',
-    finishTime: 'August, 17th 03:21 pm',
-    product: ['Clothing and aparel', 'Fitness', 'Household'],
-    innovation: ['Low cost', 'Article'],
-    geography: ['item1', 'item2'],
-    criteria: [{
-      title: 'CRITERIA TITLE 1',
-      description: 'criteria description'
-    },{
-      title: 'CRITERIA TITLE 2',
-      description : 'asdf ad fasd fasd fasdf asdf asdf'
-    }],
-    contestants: [{
-      id: '1',
-      avatar: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
-      firstname: 'Benjamin',
-      lastname: 'Vignon',
-      rank: '',
-      design: '',
-      functionality: '',
-      usability: '',
-      marketPotential: '',
-      average: ''
-    }],
-    judges: [{
-      avatar: 'https://hubbers-us.oss-us-west-1.aliyuncs.com/HJH6dR7r4.jpeg',
-      name: 'Benjamin Vignon'
-    }],
-    rules: 'asfddfaf'
-  };
+  React.useEffect(() => {
+    if (contest) {
+      contest.result.contestMembers.map((v) => {
+        if (v.userId === props.auth.id) {
+          if (v.isActive === true) setContestStatus(2);
+          else setContestStatus(1);
+          setRole(v.role)
+        }
+      })
+    }
+  }, [contest])
   return (
     <MainPageHoc title='Hubers events' auth={{ ...data }} query={{...props.query}}>
       {
@@ -124,11 +101,17 @@ const ContestsDetail = ({ ...props }) => {
               </div>
             </div>
             <div className="details-content">
-              { pageKey == 'general' ? <GeneralDetails data={contest.result} {...props} /> : null }
+              { pageKey == 'general' ? <GeneralDetails pageKeyChange={pageKeyChange} role={role} contestStatus={contestStatus} data={contest.result} {...props} /> : null }
               { pageKey == 'criteria' ? <CriteriaDetails data={contest.result} /> : null }
-              { pageKey == 'contestants' ? <ContestantsDetails data={products} /> : null }
-              { pageKey == 'award-judges' ? <AwardJudgesDetails data={products} /> : null }
-              { pageKey == 'contest-rules' ? <ContestRulesDetails data={products} /> : null }
+              { pageKey == 'contestants' ? <ContestantsDetails data={contest.result} {...props} /> : null }
+              { pageKey == 'award-judges' ? <AwardJudgesDetails data={contest.result} {...props} /> : null }
+              { pageKey == 'contest-rules' ? <ContestRulesDetails data={contest.result} /> : null }
+              {
+                role === 'contestant' && contestStatus && contestStatus === 2 && <ContestantDashboard data={contest.result} {...props} />
+              }
+              {
+                role === 'judge' && contestStatus && contestStatus === 2 && <JudgeDashboard data={contest.result} {...props} />
+              }
             </div>
           </React.Fragment>
         </Container>
