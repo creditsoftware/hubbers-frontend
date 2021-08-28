@@ -19,6 +19,7 @@ export { CountrySelect } from './CountrySelect';
 export { GlobalPartnerSlider } from './GlobalPartnerSlider';
 export { GlobalEventSlider } from './GlobalEventSlider';
 export { GlobalBlogSlider } from './GlobalBlogSlider';
+export { Thumbup } from './Thumbup';
 export { UserSelector } from './UserSelector';
 export { TimezoneSelector } from './TimezoneSelector';
 export { Userdata } from './Userdata';
@@ -128,4 +129,6 @@ export {
 
 export {
   ProductDetailHeader,
+  ProductDetails,
+  ProductBusiness,
 } from './product';
