@@ -16,25 +16,24 @@ const JudgeDashboard = (props) => {
   const [totalRating, setTotalRating] = React.useState();
   const { data: entry } = useSWR(`${API.CONTEST_ENTRY_LIST_API}/${props.data.id}`);
   React.useEffect(() => {
-    if(entry) setEntryList(entry.data);
-  },[entry])
+    if (entry) setEntryList(entry.data);
+  }, [entry]);
   const toggoleModal = (idx = null) => {
-    console.log(idx)
-    let r, t, sum=0;
+    let r, t, sum = 0;
     r = props.data.entryMarks.filter((i) => i.entryId === idx && i.userId === props.auth.id)[0];
     t = props.data.entryMarks.filter((i) => i.entryId === idx);
     t.map((i) => {
       sum += i.averageMark;
-    })
-    sum = sum/t.length;
-    if(r){
+    });
+    sum = sum / t.length;
+    if (r) {
       setTotalRating(sum);
       setMyRating(r.averageMark);
     }
     setEntryId(idx);
     setVisible(!visible);
-  }
-  return(
+  };
+  return (
     <React.Fragment>
       <div>
         <Card
@@ -74,28 +73,28 @@ const JudgeDashboard = (props) => {
             onSlideChange={() => console.log('slide change')}
           >
             {
-              entryList && entryList.map((item, index) =>
-              <SwiperSlide style={{width: "20%"}}>
-                <div className="text-center">
-                  <Avatar
-                    size={150}
-                    style={{border: `4px solid ${primaryColor}`, cursor: 'pointer'}}
-                    shape="circle"
-                    src={item.user.avatar}
-                    onClick={() => toggoleModal(item.id)}
-                  />
-                  <p className="fs-1 mt-2"><b>{item.user.firstname} {item.user.lastname}</b></p>
-                  <p className="fs-1 mt-2"><b>{moment().diff(moment(item.createdAt),'days') ? `${moment().diff(moment(item.createdAt),'days')} days` : `${moment().diff(moment(item.createdAt),'hours')} hours`}</b></p> 
-                </div>
-              </SwiperSlide>
+              entryList && entryList.map((item) =>
+                <SwiperSlide style={{ width: '20%' }} key={item.id}>
+                  <div className="text-center">
+                    <Avatar
+                      size={150}
+                      style={{ border: `4px solid ${primaryColor}`, cursor: 'pointer' }}
+                      shape="circle"
+                      src={item.user.avatar}
+                      onClick={() => toggoleModal(item.id)}
+                    />
+                    <p className="fs-1 mt-2"><b>{item.user.firstname} {item.user.lastname}</b></p>
+                    <p className="fs-1 mt-2"><b>{moment().diff(moment(item.createdAt), 'days') ? `${moment().diff(moment(item.createdAt), 'days')} days` : `${moment().diff(moment(item.createdAt), 'hours')} hours`}</b></p>
+                  </div>
+                </SwiperSlide>
               )
             }
           </Swiper>
-          <EntryMarkModal toggoleShow={toggoleModal} visible={visible} entryList={entryList} entryId={entryId} totalRating={totalRating} myRating={myRating} {...props}/>
+          <EntryMarkModal toggoleShow={toggoleModal} visible={visible} entryList={entryList} entryId={entryId} totalRating={totalRating} myRating={myRating} {...props} />
         </Card>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default JudgeDashboard;

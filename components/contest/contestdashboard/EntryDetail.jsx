@@ -12,10 +12,10 @@ const EntryDetail = (props) => {
     }else {
       if(props.entryList) {
         const v = props.entryList.filter((entry) => entry.id === props.entryId)[0];
-        form.setFieldsValue(v)
+        form.setFieldsValue(v);
       }
     }
-  },[props])
+  },[props]);
   const handleSaveDraft = (values) => {
     fetchJson(`${API.CONTEST_ENTRY_LIST_API}/${props.entryId}`, {
       method: 'POST',
@@ -23,13 +23,13 @@ const EntryDetail = (props) => {
       body: JSON.stringify({...values, userId: props.auth.id, contestId: props.data.id, stepOne: true})
     }).then(res => {
       if(res.success) {
-        props.handleStep('upload',res.data.id)
+        props.handleStep('upload',res.data.id);
       }
-    })
-  }
+    });
+  };
   const handleClick = () => {
     form.submit();
-  }
+  };
   return (
     <React.Fragment>
       <Row>
@@ -134,7 +134,7 @@ const EntryDetail = (props) => {
         </Col>
       </Row>
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default EntryDetail;

@@ -27,8 +27,8 @@ const Details = ({ ...props }) => {
           <ProductDetailHeader current={currentPage} changePage={onChangePage} data={productData?.data} />
           {
             currentPage === 'details' ? <ProductDetails />
-            : currentPage === 'business' ? <ProductBusiness />
-            : null
+              : currentPage === 'business' ? <ProductBusiness />
+                : null
           }
         </React.Fragment>
       </Container>

@@ -8,20 +8,19 @@ import { Col, Image, Row } from 'antd';
 export const ContestTile = ({ ...props }) => {
   const [member, setMember] = React.useState('');
   React.useEffect(() => {
-    if(props && props.contestMembers) {
+    if (props && props.contestMembers) {
       let m = props.contestMembers.filter((i) => i.userId === props.auth.id)[0];
-      if(m) {
-        if(m.role === 'contestant') {
+      if (m) {
+        if (m.role === 'contestant') {
           setMember('contestant');
-        } else if(m.role === 'judge') {
+        } else if (m.role === 'judge') {
           setMember('judge');
         } else {
           setMember('');
         }
       }
     }
-  },[props])
-  console.log(props)
+  }, [props]);
   const addView = () => {
     fetch(`${API.ADD_CONTEST_VIEW_API}/${props.auth.id}/${props.slug}`, {
       method: 'PUT'
@@ -34,10 +33,10 @@ export const ContestTile = ({ ...props }) => {
         <div className="contest-tile-content">
           <h1 className="fw-6">{props.name}</h1>
           {
-            moment(props.createdAt).isBefore(moment()) && moment(props.startTime).isAfter(moment()) ? 
-              <p className="fc-black">Pushed {moment().diff(moment(props.createdAt),'days')} days ago.</p> : 
+            moment(props.createdAt).isBefore(moment()) && moment(props.startTime).isAfter(moment()) ?
+              <p className="fc-black">Pushed {moment().diff(moment(props.createdAt), 'days')} days ago.</p> :
               moment(props.startTime).isBefore(moment()) && moment(props.endTime).isAfter(moment()) ?
-                <p className="fc-black">Started {moment().diff(moment(props.startTime),'days')} days ago.</p> : <p className="fc-black">Ended {moment().diff(moment(props.endTime),'days')} days ago.</p>
+                <p className="fc-black">Started {moment().diff(moment(props.startTime), 'days')} days ago.</p> : <p className="fc-black">Ended {moment().diff(moment(props.endTime), 'days')} days ago.</p>
           }
           <Row>
             <Col lg={12} md={24} sm={24} xs={24}>
@@ -55,7 +54,7 @@ export const ContestTile = ({ ...props }) => {
               {
                 member === 'contestant' ?
                   <Image preview={false} src="/images/contest/contest-participating.png" width={50} /> :
-                    member === 'judge' ? <Image preview={false} src="/images/contest/contest-judging.png" width={50} /> : ''
+                  member === 'judge' ? <Image preview={false} src="/images/contest/contest-judging.png" width={50} /> : ''
               }
             </Col>
           </Row>

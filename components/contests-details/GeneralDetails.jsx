@@ -9,6 +9,7 @@ import { fetchJson } from '../../utils';
 export const GeneralDetails = props => {
   const [like, setLike] = React.useState('');
   const [contest, setContest] = React.useState(null);
+  const [role, setRole] = React.useState(null);
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   React.useEffect(() => {
     setContest(props.data);
@@ -53,17 +54,17 @@ export const GeneralDetails = props => {
     fetchJson(`${API.CONTEST_API}/like/${props.data.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({userId: props.auth.id})
+      body: JSON.stringify({ userId: props.auth.id })
     }).then(res => {
       if (res.success === true) {
         setContest(res.result);
       }
     });
-  }
+  };
   const showModal = (role) => {
     setIsModalVisible(true);
     setRole(role);
-  }
+  };
   const handleOk = () => {
     setIsModalVisible(false);
     fetchJson(`${API.CONTEST_MEMBER_API}`, {
@@ -75,11 +76,10 @@ export const GeneralDetails = props => {
         role
       })
     }).then(res => {
-      console.log(res);
       if (res.status === 200) {
         setContest(res.data);
       }
-    })
+    });
   };
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -142,8 +142,8 @@ export const GeneralDetails = props => {
           <h1 className="pt-5 fc-white">PRIZES</h1>
           <Row className="px-4 pt-3">
             {
-              contest && contest.prize.map((item, index) =>
-                <Col span={8}>
+              contest && contest.prize.map((item) =>
+                <Col span={8} key={item.standing}>
                   <Image width={60} height={82} src={`/images/prize${item.standing}.png`} />
                   <p style={{ color: 'gray' }}>{item.name.toUpperCase()}</p>
                   <h1 className="fc-white">{item.prize} USD</h1>
@@ -153,61 +153,79 @@ export const GeneralDetails = props => {
             }
           </Row>
           {
-            !props.contestStatus ? <div className="p-abs l-0 b-0 w-100 d-flex py-3" style={{ borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
-              <Button type="hbs-primary" size="large" shape="round" onClick={() => showModal('contestant')}>BECOME A CONTESTANT</Button>
-              <Button type="hbs-primary" size="large" shape="round" onClick={() => showModal('judge')}>BECOME A JUDGE</Button>
-              <Modal
-                title={props.role === 'contestant' ? 'CONTESTANT USER’S DISCLAIMER OF USE:' : 'AWARDS JUDGE USER’S DISCLAIMER OF USE:'}
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                width={700}
-                footer={[
-                  <Button onClick={handleOk} style={{backgroundColor: primaryColor}}>
-                    I Agree
-                  </Button>,
-                  <Button onClick={handleCancel}>
-                    Deline
-                  </Button>,
-                ]}
-              >
-                <p>
-                  You are submitting an entry to a product innovation contest. By doing so you might be allowed to use https://hubbers.io website as a “Contestant”. By clicking “I agree”, you agree to be unconditionally bound to Hubbers’s Innovation Contest Policy , Hubbers Terms of use and Hubbers Privacy Policy .
-                </p>
-                <p>
-                  By clicking “I agree”, you agree to be unconditionally bound to Hubbers’s Innovation <Link href="#"><a style={{ color: `${primaryColor}` }}>Contest Policy</a></Link> , Hubbers <Link href="#"><a style={{ color: `${primaryColor}` }}>Terms of use</a></Link> and Hubbers <Link href="#"><a style={{ color: `${primaryColor}` }}>Privacy Policy</a></Link>.
-                </p>
-                <p>
-                  In particular, by clicking “I agree” you agree that :
-                </p>
-                <ul>
-                  <li>
-                    The contest is subject to hubbers’ Terms of Use. If you do not agree with the terms in any way, please do not use hubbers's website.
-                  </li>
-                  <li>
-                    You have carefully read the Contest Rules and the <Link href="#"><a style={{ color: `${primaryColor}` }}>Tips for contestants</a></Link>.
-                  </li>
-                  <li>
-                    You might be granting, waiving or releasing important legal rights (as per above documents). In particular, you are aware that prizes are granted to the winners on the condition that he/she agrees and signs a licence agreement with Hubbers to develop, produce and sell the proposed product. Please read Article 3 of Hubbers Contest policy.
-                  </li>
-                  <li>
-                    Your entry does not infringe any intellectual property rights, or any pre-existing licensing or commercial rights. Please read Article 9 of Hubbers Contest policy.
-                  </li>
-                </ul>
-              </Modal>
-            </div> : props.contestStatus === 1 ? <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: primaryColor,color: 'white', borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
-              <Space><Image width={20} height={20} src="/images/icons/clock_icon.png" /><span>{props.role === 'contestant' ? <span>YOUR APPLICATION FOR CONTESTANT BEING PROCESSED.</span> : <span>YOUR APPLICATION FOR JUDGE BEING PROCESSED.</span> }</span></Space>
-              <div>It will take maximum 23 hours</div>
-            </div> : <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: 'rgb(51 51 51)',color: primaryColor, justifyContent: 'space-around' }}>
-              <p className="fs-4 mb-1"><Image width={30} height={30} src={props.role === 'contestant' ? "/images/contestant-accepted-icon.png": "/images/judge-accepted-icon.png"} />{props.role === 'contestant' ? 'CONTESTANT' : 'JUDGE'}</p>
-              <div>You're a Contestant on this contest</div>
-            </div>
+            !props.contestStatus
+              ?
+              <div className="p-abs l-0 b-0 w-100 d-flex py-3" style={{ borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
+                <Button type="hbs-primary" size="large" shape="round" onClick={() => showModal('contestant')}>BECOME A CONTESTANT</Button>
+                <Button type="hbs-primary" size="large" shape="round" onClick={() => showModal('judge')}>BECOME A JUDGE</Button>
+                <Modal
+                  title={props.role === 'contestant' ? 'CONTESTANT USER’S DISCLAIMER OF USE:' : 'AWARDS JUDGE USER’S DISCLAIMER OF USE:'}
+                  visible={isModalVisible}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  width={700}
+                  footer={
+                    <React.Fragment>
+                      <Button onClick={handleOk} style={{ backgroundColor: primaryColor }}>
+                        I Agree
+                      </Button>
+                      <Button onClick={handleCancel}>
+                        Deline
+                      </Button>
+                    </React.Fragment>
+                  }
+                >
+                  <p>
+                    You are submitting an entry to a product innovation contest. By doing so you might be allowed to use https://hubbers.io website as a “Contestant”. By clicking “I agree”, you agree to be unconditionally bound to Hubbers’s Innovation Contest Policy , Hubbers Terms of use and Hubbers Privacy Policy .
+                  </p>
+                  <p>
+                    By clicking “I agree”, you agree to be unconditionally bound to Hubbers’s Innovation <Link href="#"><a style={{ color: `${primaryColor}` }}>Contest Policy</a></Link> , Hubbers <Link href="#"><a style={{ color: `${primaryColor}` }}>Terms of use</a></Link> and Hubbers <Link href="#"><a style={{ color: `${primaryColor}` }}>Privacy Policy</a></Link>.
+                  </p>
+                  <p>
+                    In particular, by clicking “I agree” you agree that :
+                  </p>
+                  <ul>
+                    <li>
+                      The contest is subject to hubbers&apos; Terms of Use. If you do not agree with the terms in any way, please do not use hubbers&apos;s website.
+                    </li>
+                    <li>
+                      You have carefully read the Contest Rules and the <Link href="#"><a style={{ color: `${primaryColor}` }}>Tips for contestants</a></Link>.
+                    </li>
+                    <li>
+                      You might be granting, waiving or releasing important legal rights (as per above documents). In particular, you are aware that prizes are granted to the winners on the condition that he/she agrees and signs a licence agreement with Hubbers to develop, produce and sell the proposed product. Please read Article 3 of Hubbers Contest policy.
+                    </li>
+                    <li>
+                      Your entry does not infringe any intellectual property rights, or any pre-existing licensing or commercial rights. Please read Article 9 of Hubbers Contest policy.
+                    </li>
+                  </ul>
+                </Modal>
+              </div>
+              :
+              props.contestStatus === 1
+                ?
+                <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: primaryColor, color: 'white', borderTop: '1px solid #bbb', justifyContent: 'space-around' }}>
+                  <Space>
+                    <Image width={20} height={20} src="/images/icons/clock_icon.png" />
+                    <span>{props.role === 'contestant' ?
+                      <span>YOUR APPLICATION FOR CONTESTANT BEING PROCESSED.</span> :
+                      <span>YOUR APPLICATION FOR JUDGE BEING PROCESSED.</span>
+                    }
+                    </span>
+                  </Space>
+                  <div>It will take maximum 23 hours</div>
+                </div>
+                :
+                <div className="p-abs fw-6 l-0 b-0 w-100 p-3" style={{ backgroundColor: 'rgb(51 51 51)', color: primaryColor, justifyContent: 'space-around' }}>
+                  <p className="fs-4 mb-1">
+                    <Image width={30} height={30} src={props.role === 'contestant' ? '/images/contestant-accepted-icon.png' : '/images/judge-accepted-icon.png'} />{props.role === 'contestant' ? 'CONTESTANT' : 'JUDGE'}</p>
+                  <div>You&apos;re a Contestant on this contest</div>
+                </div>
           }
         </Col>
       </Row>
       <div
         className=" mb-3 w-100 p-3 fs-1"
-        dangerouslySetInnerHTML={{__html: contest.description}}
+        dangerouslySetInnerHTML={{ __html: contest.description }}
         style={{
           backgroundColor: 'white',
           boxShadow: '3px 3px 8px rgba(0,0,0,0.2)'
