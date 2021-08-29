@@ -8,47 +8,45 @@ export const Marks = (props) => {
   const [current, setCurrent] = React.useState('comment');
   const [entryMarkId, setEntryMarkId] = React.useState();
   const saveMarks = (values) => {
-    console.log(values);
-    let averageMark = (values.designMark + values.functionalityMark + values.manuFacturabilityMark + values.marketPotentialMark)/4;
+    let averageMark = (values.designMark + values.functionalityMark + values.manuFacturabilityMark + values.marketPotentialMark) / 4;
     fetchJson(`${API.CONTEST_ENTRY_MARK_API}`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({...values, entryId: props.entryList.id, userId: props.userId, contestId: props.entryList.contest.id, averageMark })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...values, entryId: props.entryList.id, userId: props.userId, contestId: props.entryList.contest.id, averageMark })
     }).then(res => {
-      console.log(res);
-      if(res.success) {
+      if (res.success) {
         setEntryMarkId(res.data.id);
         form.resetFields();
         setCurrent('feedback');
       }
-    })
-  }
+    });
+  };
   const saveFeedback = (values) => {
     fetchJson(`${API.CONTEST_ENTRY_MARK_API}/${entryMarkId}`, {
       method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
     }).then(res => {
-      if(res.success) {
+      if (res.success) {
         form.resetFields();
         setCurrent('comment');
         props.toggoleShow();
       }
-    })
-  }
-  return(
+    });
+  };
+  return (
     <div>
       <Menu onClick={(e) => setCurrent(e.key)} selectedKeys={current} mode="horizontal">
-        <Menu.Item key="comment" style={{width: '46%', textAlign: 'center'}}>
+        <Menu.Item key="comment" style={{ width: '46%', textAlign: 'center' }}>
           <span>COMMENT</span>
         </Menu.Item>
-        <Menu.Item key="feedback" style={{width: '47%', textAlign: 'center'}}>
+        <Menu.Item key="feedback" style={{ width: '47%', textAlign: 'center' }}>
           <span>FEEDBACK</span>
         </Menu.Item>
       </Menu>
-      <div className="px-3" style={{height: '500px', overflow: 'auto'}}>
+      <div className="px-3" style={{ height: '500px', overflow: 'auto' }}>
         {
-          current === 'comment' ? 
+          current === 'comment' ?
             <Form
               form={form}
               layout="vertical"
@@ -96,14 +94,14 @@ export const Marks = (props) => {
                     <p className="mb-1">Is this product easy and feasible to manufacture?</p>
                   </span>
                 }
-                >
+              >
                 <Slider
                   defaultValue={0}
                   min={0}
                   max={10}
                   trackStyle={{ backgroundColor: primaryColor }}
                   handleStyle={{ borderColor: primaryColor }}
-                  />
+                />
               </Form.Item>
               <Form.Item
                 name="marketPotentialMark"
@@ -122,7 +120,7 @@ export const Marks = (props) => {
                   handleStyle={{ borderColor: primaryColor }}
                 />
               </Form.Item>
-            </Form> : 
+            </Form> :
             <Form
               form={form}
               layout="vertical"
@@ -143,7 +141,7 @@ export const Marks = (props) => {
               <Form.Item
                 name="manufacturabilityFeedback"
                 label={<b>MANUFACTURABILITY</b>}
-                >
+              >
                 <Input.TextArea rows={3} placeholder="Is this product easy and feasible to manufacture?" />
               </Form.Item>
               <Form.Item
@@ -158,10 +156,11 @@ export const Marks = (props) => {
       {
         current === 'comment' ? <div>
           <Button type="hbs-primary" shape="round" block onClick={() => form.submit()}>Save Mark</Button>
-        </div> : <div>
-          <Button type="hbs-primary" shape="round" block onClick={() => form.submit()}>Save Feedback</Button>
-        </div>
+        </div> :
+          <div>
+            <Button type="hbs-primary" shape="round" block onClick={() => form.submit()}>Save Feedback</Button>
+          </div>
       }
     </div>
-  )
-}
+  );
+};

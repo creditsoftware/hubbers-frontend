@@ -36,10 +36,10 @@ export const ProductBusiness = () => {
 
   const onBusinessSubmit = (values) => {
     fetchJson(`${API.CREATE_BUSINESS_NEED}`, {
-      method: "POST",
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...values, projectId: Number(router.query.slug) })
-    }).then(res => {
+    }).then(() => {
       fetchJson(`${API.GET_PROJECT_TAGS_LIST}`).then((response) => {
         setProjectTagsList(response.data);
       });
@@ -47,7 +47,7 @@ export const ProductBusiness = () => {
         setBusinessNeedList(response.data);
         setModalVisible(!modalVisible);
       });
-    })
+    });
   };
 
   const limitTags = (value) => {
@@ -79,7 +79,7 @@ export const ProductBusiness = () => {
             <Col span={4} className="p-3">{item.bid ?? '-'}</Col>
             <Col span={5} className="p-3">{item.avgAmount ?? '-'}</Col>
             <Col span={7} className="p-3">{item.avgDeliveryTime ?? '-'}</Col>
-          </Row>
+          </Row>;
         })
       }
       <h1 className="fs-3 pt-5">POST A BUSINESS NEED</h1>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Space, Button } from 'antd'
+import { Space, Button } from 'antd';
 import { API } from '../constants/index';
 import { fetchJson } from '../utils';
 import { Userdata } from '../components';
@@ -30,7 +30,7 @@ export const Thumbup = () => {
               image={item.avatar}
               name={`${item.firstname ? item.firstname : ''} ${item.lastname ? item.lastname : ''}`}
               country={item.detail.nationality}
-              date={moment(item.detail.joinedDate).format("MMM - yyyy")}
+              date={moment(item.detail.joinedDate).format('MMM - yyyy')}
             />;
           })
         }

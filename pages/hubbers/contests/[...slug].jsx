@@ -24,35 +24,35 @@ const ContestsDetail = ({ ...props }) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: product } = useSWR(`${API.CONTEST_API}/slug/${props.query.slug[0]}`);
   React.useEffect(() => {
-    if(product && product.result) {
+    if (product && product.result) {
       setContest(product);
     }
-  },[product]);
+  }, [product]);
   React.useEffect(() => {
     if (contest) {
       contest.result.contestMembers.map((v) => {
         if (v.userId === props.auth.id) {
           if (v.isActive === true) setContestStatus(2);
           else setContestStatus(1);
-          setRole(v.role)
+          setRole(v.role);
         }
-      })
+      });
     }
-  }, [contest])
+  }, [contest]);
   return (
-    <MainPageHoc title='Hubers events' auth={{ ...data }} query={{...props.query}}>
+    <MainPageHoc title='Hubers events' auth={{ ...data }} query={{ ...props.query }}>
       {
         contest && contest.result &&
         <Container className="contests-detail pt-4">
           <React.Fragment>
             <div className="details-header">
-              <h1 className="fs-5 fw-6">{ contest.result.name }</h1>
+              <h1 className="fs-5 fw-6">{contest.result.name}</h1>
               <p style={{ color: 'gray' }}>
                 {
-                  moment(contest.result.createdAt).isBefore(moment()) && moment(contest.result.startTime).isAfter(moment()) ? 
-                    <p className="fc-black">Pushed {moment().diff(moment(contest.result.createdAt),'days')} days ago.</p> : 
+                  moment(contest.result.createdAt).isBefore(moment()) && moment(contest.result.startTime).isAfter(moment()) ?
+                    <p className="fc-black">Pushed {moment().diff(moment(contest.result.createdAt), 'days')} days ago.</p> :
                     moment(contest.result.startTime).isBefore(moment()) && moment(contest.result.endTime).isAfter(moment()) ?
-                      <p className="fc-black">Started {moment().diff(moment(contest.result.startTime),'days')} days ago.</p> : <p className="fc-black">Ended {moment().diff(moment(props.endTime),'days')} days ago.</p>
+                      <p className="fc-black">Started {moment().diff(moment(contest.result.startTime), 'days')} days ago.</p> : <p className="fc-black">Ended {moment().diff(moment(props.endTime), 'days')} days ago.</p>
                 }
               </p>
               <div className="details-time">
@@ -71,41 +71,41 @@ const ContestsDetail = ({ ...props }) => {
             <div className="details-nav">
               <div
                 className={pageKey == 'general' ? 'nav-item nav-active' : 'nav-item'}
-                onClick={()=>{pageKeyChange('general');}}
+                onClick={() => { pageKeyChange('general'); }}
               >
                 GENERAL
               </div>
               <div
                 className={pageKey == 'criteria' ? 'nav-item nav-active' : 'nav-item'}
-                onClick={()=>{pageKeyChange('criteria');}}
+                onClick={() => { pageKeyChange('criteria'); }}
               >
                 CRITERIA
               </div>
               <div
                 className={pageKey == 'contestants' ? 'nav-item nav-active' : 'nav-item'}
-                onClick={()=>{pageKeyChange('contestants');}}
+                onClick={() => { pageKeyChange('contestants'); }}
               >
                 CONTESTANTS
               </div>
               <div
                 className={pageKey == 'award-judges' ? 'nav-item nav-active' : 'nav-item'}
-                onClick={()=>{pageKeyChange('award-judges');}}
+                onClick={() => { pageKeyChange('award-judges'); }}
               >
                 AWARD JUDGES
               </div>
               <div
                 className={pageKey == 'contest-rules' ? 'nav-item nav-active' : 'nav-item'}
-                onClick={()=>{pageKeyChange('contest-rules');}}
+                onClick={() => { pageKeyChange('contest-rules'); }}
               >
                 CONTEST RULES
               </div>
             </div>
             <div className="details-content">
-              { pageKey == 'general' ? <GeneralDetails pageKeyChange={pageKeyChange} role={role} contestStatus={contestStatus} data={contest.result} {...props} /> : null }
-              { pageKey == 'criteria' ? <CriteriaDetails data={contest.result} /> : null }
-              { pageKey == 'contestants' ? <ContestantsDetails data={contest.result} {...props} /> : null }
-              { pageKey == 'award-judges' ? <AwardJudgesDetails data={contest.result} {...props} /> : null }
-              { pageKey == 'contest-rules' ? <ContestRulesDetails data={contest.result} /> : null }
+              {pageKey == 'general' ? <GeneralDetails pageKeyChange={pageKeyChange} role={role} contestStatus={contestStatus} data={contest.result} {...props} /> : null}
+              {pageKey == 'criteria' ? <CriteriaDetails data={contest.result} /> : null}
+              {pageKey == 'contestants' ? <ContestantsDetails data={contest.result} {...props} /> : null}
+              {pageKey == 'award-judges' ? <AwardJudgesDetails data={contest.result} {...props} /> : null}
+              {pageKey == 'contest-rules' ? <ContestRulesDetails data={contest.result} /> : null}
               {
                 role === 'contestant' && contestStatus && contestStatus === 2 && <ContestantDashboard data={contest.result} {...props} />
               }
