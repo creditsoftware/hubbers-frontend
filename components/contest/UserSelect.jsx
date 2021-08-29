@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select, Space } from 'antd';
 import { API } from '../../constants';
 import Avatar from 'antd/lib/avatar/avatar';
 import useSWR from 'swr';
@@ -9,7 +9,7 @@ const { Option } = Select;
 export const UserSelect = ({...props}) => {
   const [searchValue, setSearchValue] = React.useState(null);
   const [state, setState] = React.useState([]);
-  const { data: users, mutate } = useSWR(searchValue ? `${API.GET_USER_LIST_SEARCH_API}/search/${searchValue}` : null, fetcher);
+  const { data: users, mutate } = useSWR(searchValue ? `${API.GET_USER_LIST_SEARCH_API}/search/${searchValue}` : `${API.GET_USER_LIST_API}`, fetcher);
   const handleChange = (value) => {
     setSearchValue(value);
   };
@@ -35,10 +35,10 @@ export const UserSelect = ({...props}) => {
       {
         state && state.map((user) =>
           <Option key={user.id} value={user.id}>
-            <div className="demo-option-label-item">
-              <Avatar size='small' src={user.avatar}></Avatar>
-              <span>{' ' + user.email}</span>
-            </div>
+            <Space>
+              <Avatar size='small' src={user.avatar} />
+              <span>{' ' + user.firstname ? user.firstname : ''} {user.lastname ? user.lastname : ''}</span>
+            </Space>
           </Option>
         )
       }

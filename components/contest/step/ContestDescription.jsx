@@ -12,26 +12,32 @@ const { Option } = Select;
 export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildrenClose, form }) => {
   const { data: currency } = useSWR(API.GET_CURRENCY_API, fetcher);
   const { data: description } = useSWR(`${API.GET_CONTEST_DESCRITION_API}/description`, fetcher);
+  const [btn, setBtn] = React.useState(false);
+  const [template, setTemplate] = React.useState();
   const [value, setValue] = React.useState(0);
   const handleChange = (e) => {
     setValue(e.target.value);
     if(e.target.value) {
-      onChildrenShow();
+      setBtn(true);
     } else {
+      setBtn(false);
       form.setFieldsValue({ description: '' });
     }
   };
   const handleClick = (idx) => {
-    form.setFieldsValue({ description: description.data[idx].description });
-    onChildrenClose();
+    setTemplate(description.data[idx].description);
   };
+  const handleChoose = () => {
+    form.setFieldsValue({ description: template });
+    onChildrenClose();
+  }
   return (
     <React.Fragment>
       <Row justify='space-between' align="middle">
         <Col lg={10} md={12}>
           <p className='mb-2 mt-3 fw-6'>Description</p>
         </Col>
-        <Col lg={10} md={12}>
+        <Col lg={12} md={12}>
           <Radio.Group
             value={value}
             onChange={handleChange}
@@ -39,6 +45,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
             <Radio value={0}>Write yours</Radio>
             <Radio value={1}>Use an existing template</Radio>
           </Radio.Group>
+          {btn && <Button type="hbs-primary" shape="round" onClick={() => onChildrenShow()}>Templates</Button>}
         </Col>
       </Row>
       <Form.Item
@@ -54,11 +61,12 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
       </Form.Item>
       <Drawer
         title="Templates"
-        width={320}
+        width={800}
         closable={false}
         onClose={onChildrenClose}
         visible={childrenVisible}
       >
+        <div style={{height: '400px', overflow: 'auto'}}>
         {
           description && description.data && description.data.map((val, index) => 
             <Button
@@ -69,9 +77,12 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
               onClick={(e) => handleClick(index, e)}
             >
               {val.title}
-            </Button>
+              </Button>
           )
         }
+        </div>
+        <div className='mt-3 p-3' style={{border: '1px solid #c4c4c4',height: '350px', overflow: 'auto'}} dangerouslySetInnerHTML={{__html: template}}></div>
+        <div className="text-right mt-3"><Button shape='round' type='hbs-primary' onClick={handleChoose}>Choose</Button></div>
       </Drawer>
       <p className='mb-2 mt-3 fw-6'>Criterias</p>
       <Form.List name="criterias">
@@ -80,7 +91,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
             {fields.map(field => (
               <React.Fragment key={field.key}>
                 <Row>
-                  <Col md={11}>
+                  <Col md={24}>
                     <p className='mb-2 mt-4 fw-6'>Title</p>
                     <Form.Item
                       {...field}
@@ -91,9 +102,8 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                       <Input placeholder='criterias title'/>
                     </Form.Item>
                   </Col>
-                  <Col lg={2} md={2} sm={2} />
-                  <Col md={11}>
-                    <p className='mb-2 mt-4 fw-6'>Description</p>
+                  <Col md={24}>
+                    <p className='mb-2 fw-6'>Description</p>
                     <Form.Item
                       {...field}
                       name={[field.name, 'description']}

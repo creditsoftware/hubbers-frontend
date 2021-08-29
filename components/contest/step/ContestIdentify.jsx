@@ -8,17 +8,17 @@ import { API } from '../../../constants';
 const { Option } = Select;
 
 export const ContestIdentify = ({form, ...props}) => {
+  const [contest, setContest] = React.useState(null);
   const [isCompany, setIsCompany] = React.useState(form.getFieldsValue(true).isCompany);
   const [coOrganize, setCoOrganize] = React.useState(form.getFieldsValue(true).isCoOrganizer);
   const { data: countryItems } = useSWR(API.GET_COUNTRY_LIST_API, fetcher);
-  const { data: contest } = useSWR(API.CONTEST_API, fetcher);
+  const { data: contests } = useSWR(API.CONTEST_API, fetcher);
   React.useEffect(() => {
     if (form && props.contestTypeId !== undefined) {
       form.setFieldsValue({
         contestTypeId: props.contestTypeId
       });
     }
-    console.log(contest);
     if(contest && contest.result) {
       const v = contest.result.filter((d) => d.createdBy === props.auth.id && d.isDraft === true)[0];
       if(v) {
@@ -34,6 +34,9 @@ export const ContestIdentify = ({form, ...props}) => {
       }
     }
   }, [props.contestTypeId, form, contest]);
+  React.useEffect(() => {
+    if(contests) setContest(contests)
+  },[contests])
   return (
     <React.Fragment>
       <p className='mt-3 mb-2 fw-6'></p>
