@@ -23,6 +23,7 @@ export const Thumbup = () => {
       <p className="fw-6 fs-2 mb-5">They just joined us.</p>
       <Space wrap size={42}>
         {
+          thumbUp &&
           thumbUp.map((item, index) => {
             return <Userdata
               key={index}
