@@ -37,7 +37,7 @@ export const UserTags = ({...props}) => {
           <Option key={user.id} value={user.email}>
             <Space>
               <Avatar size='small' src={user.avatar}></Avatar>
-              <span>{' ' + user.email}</span>
+              <span>{' ' + user.firstname ? user.firstname : ''} {user.lastname ? user.lastname : ''}</span>
             </Space>
           </Option>
         )
