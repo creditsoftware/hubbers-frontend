@@ -5,7 +5,6 @@ import Link from 'next/link';
 import moment from 'moment';
 
 export const Talent = ({ eventData, auth }) => {
-  console.log(auth);
   return (
     <div className='talent-creators-list'>
       <Container>

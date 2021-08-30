@@ -93,6 +93,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   }, [selectedCommunity, allTopicList, props.query, content, form]);
 
   React.useEffect(() => {
+
     if (content) {
       let schedules = [];
       if (content.schedules) {
@@ -700,6 +701,17 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
             rules={[{ required: true, message: 'Please enter description!' }]}
           >
             <TextArea disabled={!editable} type='text' placeholder='decribe your new event' />
+          </Form.Item>
+          <Form.Item
+            name="agenda"
+            rules={[{ required: true, message: 'Please enter agenda!' }]}
+          >
+            <TextArea
+              rows={3}
+              type="text"
+              disabled={!editable}
+              placeholder="Please enter agenda"
+            />
           </Form.Item>
           <Form.List name="speakers">
             {(fields, { add, remove }) => (

@@ -30,7 +30,7 @@ const EventDetail = ({ ...props }) => {
         />
         <Talent eventData={eventData} auth={{ ...data }} />
         {
-          eventData.speakers?.length && <GuestSpeakers eventData={eventData} />
+          eventData.speakers?.length > 0 && <GuestSpeakers eventData={eventData} />
         }
         <TalkAbout eventData={eventData} />
         <Location eventData={eventData} />
