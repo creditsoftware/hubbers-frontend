@@ -36,7 +36,7 @@ export const MemberInvitationDrawer = ({ visible, onCloseInvitation, ...props })
   >
     <Tabs defaultActiveKey="1" centered>
       <TabPane tab="Invite" key="1">
-        <InvitePane {...props} />
+        <InvitePane {...props} onClose={onCloseInvitation} />
       </TabPane>
       <TabPane tab="Sent Invites" key="2">
         <SentInvitePane gid={props.gid} />

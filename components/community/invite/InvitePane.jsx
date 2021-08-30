@@ -16,15 +16,22 @@ import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../
 import { REQUEST_TYPE } from '../../../constants/requestType';
 import { defaultMsgOfCommunityMemberInvitation } from '../../../constants/defaultMsgOfCommunityMemberInvitation';
 import { API } from '../../../constants';
-// import { UserSelector } from '../../UserSelector';
 import { UserTags } from '../../contest/UserTags';
+import { useCommunityDetail } from '../../../hooks/useSWR/community/useCommunityDetail';
 const { Option } = Select;
 export const InvitePane = ({...props}) => {
   const router = useRouter();
   const [auth, setAuth] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
   const [roles, setRoles] = React.useState(null);
+  const [community, setCommunity] = React.useState(null);
   const [form] = Form.useForm();
+  const {data} = useCommunityDetail(props.query.community ? props.query.community : null);
+  React.useEffect(() => {
+    if(data) {
+      setCommunity(data.data);
+    }
+  }, [data]);
   const getData = React.useCallback(async () => {
     const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
     setAuth(response);
@@ -42,10 +49,10 @@ export const InvitePane = ({...props}) => {
   const invite = (values) => {
     let data = { ...values, communityRoleId: props.gid ? 2 : 1, communityId: props.gid ?? router.query.community, from: props && props.auth && props.auth.communityMember.filter((member) => member.communityId === Number(router.query.community))[0].id };
     // httpRequestLocal(`${API.TEST_LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
-    console.log(data);
     httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
+        props.onClose();
         // mutate(`${API.LOCAL_GET_POST_LIST_API}`, async () => {
         //   if (router.query.community) {
         //     let response = await fetch(`${API.LOCAL_GET_POST_LIST_API}?communityId=${router.query.community}`);
@@ -90,7 +97,10 @@ export const InvitePane = ({...props}) => {
           Network Permissions
         </p>
         <p>
-          Choose what permissions these members will have hubby.
+          {
+            community &&
+            `Choose what permissions these members will have ${community.name}.`
+          }
         </p>
         <Form.Item
           name='roleId'
