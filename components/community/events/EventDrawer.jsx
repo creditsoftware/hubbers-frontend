@@ -51,6 +51,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
   const [communityList, setCommunityList] = React.useState(null);
   const [topicList, setTopicList] = React.useState(null);
   const [allTopicList, setAllTopicList] = React.useState(null);
+  const [socialList, setSocialList] = React.useState(null);
   const [selectedCommunity, setSelectedCommunity] = React.useState(null);
   const [isRepeat, setIsRepeat] = React.useState(false);
   const [isGlobal, setIsGlobal] = React.useState(false);
@@ -137,6 +138,10 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
         setIsRepeat(content.isRepeat);
       }
     }
+    // get social list
+    fetchJson(`${API.GET_ALL_SOCIAL_LIST_API}`).then((response) => {
+      setSocialList(response.data);
+    })
     //get community list
     fetchJson(`${API.GET_MY_COMMUNITY_AND_GROUP_LIST_API}/${props.auth?.id}`)
       .then((response) => {
@@ -700,8 +705,9 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
             name='description'
             rules={[{ required: true, message: 'Please enter description!' }]}
           >
-            <TextArea disabled={!editable} type='text' placeholder='decribe your new event' />
+            <TextArea rows={3} disabled={!editable} type='text' placeholder='decribe your new event' />
           </Form.Item>
+          <p className='mb-2 mt-4 fw-6'>Agenda</p>
           <Form.Item
             name="agenda"
             rules={[{ required: true, message: 'Please enter agenda!' }]}
@@ -822,6 +828,15 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
               </>
             )}
           </Form.List>
+          <h1 style={{ fontSize: '17px' }}>Social Link</h1>
+          {
+            socialList?.length > 0 &&
+            socialList.map((item) => {
+              return <Form.Item key={item.id} name={['social', `${item.name}`]}>
+                <Input disabled={!editable} placeholder={`${item.name} link.`} />
+              </Form.Item>;
+            })
+          }
         </React.Fragment>
       </Form>
     </Container>

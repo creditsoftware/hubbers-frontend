@@ -19,7 +19,6 @@ const Events = (props) => {
   const { data } = useSWR(API.GET_USER_FROM_SESSIOM_API, fetcher, { initialData: props.auth });
   const { data: events } = useEventList(props.query.community);
   React.useEffect(() => {
-    console.log(events);
     if (events) {
       setEventList(events.data);
     }

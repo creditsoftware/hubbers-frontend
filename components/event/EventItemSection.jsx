@@ -18,7 +18,7 @@ export const EventItemSection = props => {
                 <span className='fw-6'>{moment(props.startDate).format('DD')}</span>
                 <p className='fw-6 fs-4 text-upper'>{moment(props.startDate).format('MMM')}</p>
                 <p className='fw-4 fs-2'>{props.startTime.split(':')[0] + ':' + props.startTime.split(':')[1]}</p>
-                <p className='fw-4 fs-1'>{props.timezoneDetail.abbr}</p>
+                <p className='fw-4 fs-1'>{props.timezoneDetail?.abbr}</p>
               </div>
             </Col>
             <Col xs={24} sm={24} md={15}>
