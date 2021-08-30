@@ -4,6 +4,7 @@ import { API, primaryColor } from '../../../constants';
 import useSWR from 'swr';
 import { fetcher, getRandomInt, slugify } from '../../../utils';
 import { UploadImage } from '../../UploadImage';
+import moment from 'moment';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -263,24 +264,19 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
         <UploadImage />
       </Form.Item>
       <p className="mt-2 mb-3 fw-6">Start and End Date</p>
-      <Form.Item
-        name='date'
-        rules={[
-          {
-            required: true,
-            message: 'Please input the date'
-          }
-        ]}
-      >
-        <RangePicker showTime style={{ width: '100%' }} onChange={(ds) => {
-          let duration = ds[1].diff(ds[0], 'days');
+      <RangePicker
+        showTime
+        style={{ width: '100%' }}
+        defaultValue={[moment(form.getFieldsValue(true).startTime, 'YYYY-MM-DD'), moment(form.getFieldsValue(true).endTime, 'YYYY-MM-DD')]}
+        onChange={(ds) => {
+        let duration = ds[1].diff(ds[0], 'days');
           form.setFieldsValue({
             startTime:ds[0].format(),
             endTime:ds[1].format(),
             duration: duration
           });
-        }} />
-      </Form.Item>
+        }}
+      />
       <Form.Item
         name='startTime'
         hidden

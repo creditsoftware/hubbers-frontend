@@ -151,7 +151,7 @@ export const ContestDrawer = ({ visible, childrenVisible, onChildrenShow, onChil
                   </Button> : ''
               }
             </Col>
-            <Col lg={5} className='text-right'>
+            <Col lg={5} className='text-right mt-4'>
               <Button type='dashed' shape='round' onClick={()=>form.submit()}>
                 {step !== 4 ? <span>Next</span> : <span>Save</span>}
               </Button>
