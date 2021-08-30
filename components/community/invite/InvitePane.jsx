@@ -14,24 +14,30 @@ import {
 import { useRouter } from 'next/router';
 import { httpRequestLocal, openNotificationWithIcon, fetchJson } from '../../../utils';
 import { REQUEST_TYPE } from '../../../constants/requestType';
-import { defaultMsgOfCommunityMemberInvitation } from '../../../constants/defaultMsgOfCommunityMemberInvitation';
 import { API } from '../../../constants';
 import { UserTags } from '../../contest/UserTags';
 import { useCommunityDetail } from '../../../hooks/useSWR/community/useCommunityDetail';
 const { Option } = Select;
-export const InvitePane = ({...props}) => {
+export const InvitePane = ({ ...props }) => {
   const router = useRouter();
   const [auth, setAuth] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
+  const [placeholder, setPlaceHolder] = React.useState(null);
   const [roles, setRoles] = React.useState(null);
   const [community, setCommunity] = React.useState(null);
+  const [selectedRole, setSelectedRole] = React.useState(3);
   const [form] = Form.useForm();
-  const {data} = useCommunityDetail(props.query.community ? props.query.community : null);
+  const { data } = useCommunityDetail(props.query.community ? props.query.community : null);
   React.useEffect(() => {
-    if(data) {
+    if (data && roles && auth) {
       setCommunity(data.data);
+      const role = roles.filter((r) => r.id === selectedRole)[0];
+      const m = `Hi,\n\nWelcome to the Hubbers Community. We are excited that you are here and we are inviting you to join Hubbers as a "${role.name}" of "${data.data.name}".\n\nAt Hubbers, we are building global communities and we craft products and services that help reduce waste, combat climate change, and create healthy, safe, and sustainable cities.\n\nBy being part of "${data.data.name}" you will have access to a network of inspiring, talented and driven people, innovative projects, and resources to support your innovation journey.\n\n${auth.firstname ? auth.firstname : ''} ${auth.lastname ? auth.lastname : ''}`;
+      setMsg(m);
+      setPlaceHolder(m);
+      form.setFieldsValue({ message: m });
     }
-  }, [data]);
+  }, [data, roles, auth, selectedRole, form]);
   const getData = React.useCallback(async () => {
     const response = await fetchJson(`${API.GET_USER_FROM_SESSIOM_API}`);
     setAuth(response);
@@ -42,26 +48,16 @@ export const InvitePane = ({...props}) => {
     } else {
       setRoles([]);
     }
-  }, [router]);
+  }, [form]);
   React.useEffect(() => {
     getData();
   }, [router, getData]);
   const invite = (values) => {
     let data = { ...values, communityRoleId: props.gid ? 2 : 1, communityId: props.gid ?? router.query.community, from: props && props.auth && props.auth.communityMember.filter((member) => member.communityId === Number(router.query.community))[0].id };
-    // httpRequestLocal(`${API.TEST_LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
     httpRequestLocal(`${API.LOCAL_COMMUNITY_MEMBER_INVITE_API}`, REQUEST_TYPE.POST, data)
       .then((response) => {
         openNotificationWithIcon('success', 'Success', response.message);
         props.onClose();
-        // mutate(`${API.LOCAL_GET_POST_LIST_API}`, async () => {
-        //   if (router.query.community) {
-        //     let response = await fetch(`${API.LOCAL_GET_POST_LIST_API}?communityId=${router.query.community}`);
-        //     response = await response.json();
-        //     return response.data;
-        //   } else {
-        //     return [];
-        //   }
-        // });
       });
   };
   return <React.Fragment>
@@ -84,7 +80,7 @@ export const InvitePane = ({...props}) => {
       >
         <AvatarTextarea
           avatar={props.auth?.avatar ?? defaultAvatar}
-          placeholder={`${defaultMsgOfCommunityMemberInvitation}\n${auth && auth.firstname ? auth.firstname : ''} ${auth && auth.lastname ? auth.lastname : ''}`}
+          placeholder={placeholder}
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
         />
@@ -106,7 +102,7 @@ export const InvitePane = ({...props}) => {
           name='roleId'
           rules={[{ required: true, message: 'Please select role!' }]}
         >
-          <Select defaultValue={3} size='large' style={{ width: '100%' }} allowClear>
+          <Select initialvalues={3} size='large' style={{ width: '100%' }} onChange={setSelectedRole}>
             {
               roles && roles.map((r) => {
                 return <Option value={r.id} key={r.id}>{r.name}</Option>;
@@ -124,7 +120,7 @@ export const InvitePane = ({...props}) => {
         </Col>
         <Col span={8} className='text-right'>
           <Form.Item>
-            <Button htmlType='submit' type='hbs-primary' size='large' onClick={(e)=>e.stopPropagation()}>Send</Button>
+            <Button htmlType='submit' type='hbs-primary' size='large' onClick={(e) => e.stopPropagation()}>Send</Button>
           </Form.Item>
         </Col>
       </Row>

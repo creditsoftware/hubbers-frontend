@@ -5,7 +5,6 @@ import { DEFAULT_COMMUNITY_TOPIC_IMAGE } from '../../constants/etc';
 import moment from 'moment';
 
 export const EventItemSection = props => {
-  console.log(props);
   return (
     <Container
       className={'mt-5'}
@@ -30,7 +29,7 @@ export const EventItemSection = props => {
                   {
                     props.eventType === 'local' &&
                     <div className="d-flex f-align-center">
-                      <Image preview={false} width={24} height={24} src="/images/icons/location_icon.png" />
+                      <Image preview={false} width={24} height={24} src="/images/icons/location_icon.png" alt='' />
                       <span className="ml-2">{props.localContent?.location?.streetAddress}</span>
                     </div>
                   }

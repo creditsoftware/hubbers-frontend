@@ -1,6 +1,5 @@
 import React from 'react';
 import { Avatar, Input, Card, Space, Image } from 'antd';
-// import Image from 'next/image';
 const { TextArea } = Input;
 export const AvatarTextarea = ({ avatar, placeholder, value, onChange }) => {
   return (

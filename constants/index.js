@@ -12,7 +12,6 @@ export {
 } from './color';
 export { CONTINENTS } from './continents';
 export { countryList } from './countries';
-export { defaultMsgOfCommunityMemberInvitation } from './defaultMsgOfCommunityMemberInvitation';
 export { EventOnlineType } from './eventOnlineType';
 export { EventRepeatPeriod } from './eventRepeatPeriod';
 export { EventRepeatPeriodCustomUnit } from './eventRepeatPeriodCustomUnit';
