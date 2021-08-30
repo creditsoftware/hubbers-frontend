@@ -122,6 +122,7 @@ export const API = {
   GET_COMMUNITY_MEMBER_INVITES_API: process.env.API_V1 + 'community/member-invite', //get /:communityId
   GET_GLOBAL_EVENT_API: process.env.API_V1 + 'community/event/global',
   GET_EVENT_SLUG_API: process.env.API_V1 + 'community/event/single', //get /:slug
+  GET_ALL_SOCIAL_LIST_API: process.env.API_V1 + 'social', //get
   GET_GLOBAL_PARTNER_API: process.env.API_V1 + 'partner/global',
   GET_GLOBAL_LOCAL_PARTNER_API: process.env.API_V1 + 'partner/global-local',  //get /:communityId
   GET_PARTNER_DETAIL_API: process.env.API_V1 + 'partner', //get /:partnerId
