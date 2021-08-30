@@ -26,7 +26,7 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
           },
         ]}
       >
-        <Input onChange={(e)=>form.setFieldsValue({slug:`${slugify(e.target.value)}-${getRandomInt(100000, 999999)}`})} />
+        <Input onChange={(e) => form.setFieldsValue({ slug: `${slugify(e.target.value)}-${getRandomInt(100000, 999999)}` })} />
       </Form.Item>
       <p className='mb-2 mt-3 fw-6'>Slug</p>
       <Form.Item
@@ -269,10 +269,10 @@ export const ContestConfirm = ({ handleCheck, designerDisable, contestType, form
         style={{ width: '100%' }}
         defaultValue={[moment(form.getFieldsValue(true).startTime, 'YYYY-MM-DD'), moment(form.getFieldsValue(true).endTime, 'YYYY-MM-DD')]}
         onChange={(ds) => {
-        let duration = ds[1].diff(ds[0], 'days');
+          let duration = ds[1].diff(ds[0], 'days');
           form.setFieldsValue({
-            startTime:ds[0].format(),
-            endTime:ds[1].format(),
+            startTime: ds[0].format(),
+            endTime: ds[1].format(),
             duration: duration
           });
         }}

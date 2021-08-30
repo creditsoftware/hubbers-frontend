@@ -7,7 +7,7 @@ import { fetcher } from '../../../utils';
 import { API } from '../../../constants';
 const { Option } = Select;
 
-export const ContestIdentify = ({form, ...props}) => {
+export const ContestIdentify = ({ form, ...props }) => {
   const [contest, setContest] = React.useState(null);
   const [isCompany, setIsCompany] = React.useState(form.getFieldsValue(true).isCompany);
   const [coOrganize, setCoOrganize] = React.useState(form.getFieldsValue(true).isCoOrganizer);
@@ -19,12 +19,12 @@ export const ContestIdentify = ({form, ...props}) => {
         contestTypeId: props.contestTypeId
       });
     }
-    if(contest && contest.result) {
+    if (contest && contest.result) {
       const v = contest.result.filter((d) => d.createdBy === props.auth.id && d.isDraft === true)[0];
-      if(v) {
+      if (v) {
         let userId = [];
         v.coOrganizer.map((val) => {
-          userId = [...userId,val.id];
+          userId = [...userId, val.id];
         });
         form.setFieldsValue({
           ...v,
@@ -35,8 +35,8 @@ export const ContestIdentify = ({form, ...props}) => {
     }
   }, [props.contestTypeId, form, contest]);
   React.useEffect(() => {
-    if(contests) setContest(contests)
-  },[contests])
+    if (contests) setContest(contests);
+  }, [contests]);
   return (
     <React.Fragment>
       <p className='mt-3 mb-2 fw-6'></p>

@@ -141,7 +141,7 @@ export const EventDrawer = ({ visible, onHide, editable = true, content, ...prop
     // get social list
     fetchJson(`${API.GET_ALL_SOCIAL_LIST_API}`).then((response) => {
       setSocialList(response.data);
-    })
+    });
     //get community list
     fetchJson(`${API.GET_MY_COMMUNITY_AND_GROUP_LIST_API}/${props.auth?.id}`)
       .then((response) => {

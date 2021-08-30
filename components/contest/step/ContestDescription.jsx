@@ -17,7 +17,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
   const [value, setValue] = React.useState(0);
   const handleChange = (e) => {
     setValue(e.target.value);
-    if(e.target.value) {
+    if (e.target.value) {
       setBtn(true);
     } else {
       setBtn(false);
@@ -30,7 +30,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
   const handleChoose = () => {
     form.setFieldsValue({ description: template });
     onChildrenClose();
-  }
+  };
   return (
     <React.Fragment>
       <Row justify='space-between' align="middle">
@@ -66,22 +66,22 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
         onClose={onChildrenClose}
         visible={childrenVisible}
       >
-        <div style={{height: '400px', overflow: 'auto'}}>
-        {
-          description && description.data && description.data.map((val, index) => 
-            <Button
-              key={index}
-              block
-              type='dashed'
-              className='mt-2'
-              onClick={(e) => handleClick(index, e)}
-            >
-              {val.title}
+        <div style={{ height: '400px', overflow: 'auto' }}>
+          {
+            description && description.data && description.data.map((val, index) =>
+              <Button
+                key={index}
+                block
+                type='dashed'
+                className='mt-2'
+                onClick={(e) => handleClick(index, e)}
+              >
+                {val.title}
               </Button>
-          )
-        }
+            )
+          }
         </div>
-        <div className='mt-3 p-3' style={{border: '1px solid #c4c4c4',height: '350px', overflow: 'auto'}} dangerouslySetInnerHTML={{__html: template}}></div>
+        <div className='mt-3 p-3' style={{ border: '1px solid #c4c4c4', height: '350px', overflow: 'auto' }} dangerouslySetInnerHTML={{ __html: template }}></div>
         <div className="text-right mt-3"><Button shape='round' type='hbs-primary' onClick={handleChoose}>Choose</Button></div>
       </Drawer>
       <p className='mb-2 mt-3 fw-6'>Criterias</p>
@@ -99,7 +99,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                       fieldKey={[field.fieldKey, 'title']}
                       rules={[{ required: true, message: 'Title is required' }]}
                     >
-                      <Input placeholder='criterias title'/>
+                      <Input placeholder='criterias title' />
                     </Form.Item>
                   </Col>
                   <Col md={24}>
@@ -143,7 +143,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                           fieldKey={[field.fieldKey, 'name']}
                           rules={[{ required: true, message: 'name is required' }]}
                         >
-                          <Input placeholder='prize name'/>
+                          <Input placeholder='prize name' />
                         </Form.Item>
                       </Col>
                       <Col lg={1} md={1} sm={1} />
@@ -155,7 +155,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                           fieldKey={[field.fieldKey, 'standing']}
                           rules={[{ required: true, message: 'standing is required' }]}
                         >
-                          <Input type='number' placeholder='prize standing'/>
+                          <Input type='number' placeholder='prize standing' />
                         </Form.Item>
                       </Col>
                       <Col lg={1} md={1} sm={1} />
@@ -167,7 +167,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                           fieldKey={[field.fieldKey, 'prize']}
                           rules={[{ required: true, message: 'amount is required' }]}
                         >
-                          <Input type='number' placeholder='prize amount'/>
+                          <Input type='number' placeholder='prize amount' />
                         </Form.Item>
                       </Col>
                       <Col lg={1} md={1} sm={1} />
@@ -198,7 +198,7 @@ export const ContestDescription = ({ childrenVisible, onChildrenShow, onChildren
                           fieldKey={[field.fieldKey, 'royalty']}
                           rules={[{ required: true, message: 'royalty is required' }]}
                         >
-                          <Input type='number' placeholder='prize royalty'/>
+                          <Input type='number' placeholder='prize royalty' />
                         </Form.Item>
                       </Col>
                     </Row>

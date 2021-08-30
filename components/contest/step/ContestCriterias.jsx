@@ -38,13 +38,13 @@ export const ContestCriterias = ({ childrenVisible, onChildrenShow, onChildrenCl
     setMarketValue(e.target.value);
   };
   const handleChoose = () => {
-    if(state) {
+    if (state) {
       form.setFieldsValue({ marketRules: template });
     } else {
       form.setFieldsValue({ officialRules: template });
     }
     onChildrenClose();
-  }
+  };
   const handleClick = (idx) => {
     setTemplate(rule[idx].description);
   };
@@ -57,22 +57,22 @@ export const ContestCriterias = ({ childrenVisible, onChildrenShow, onChildrenCl
         onClose={onChildrenClose}
         visible={childrenVisible}
       >
-        <div style={{height: '400px', overflow: 'auto'}}>
-        {
-          rule && rule.map((val, index) =>
-            <Button
-              key={index}
-              block
-              type='dashed'
-              className='mt-2'
-              onClick={(e) => handleClick(index, e)}
-            >
-              {val.title}
-            </Button>
-          )
-        }
+        <div style={{ height: '400px', overflow: 'auto' }}>
+          {
+            rule && rule.map((val, index) =>
+              <Button
+                key={index}
+                block
+                type='dashed'
+                className='mt-2'
+                onClick={(e) => handleClick(index, e)}
+              >
+                {val.title}
+              </Button>
+            )
+          }
         </div>
-        <div className='mt-3 p-3' style={{border: '1px solid #c4c4c4',height: '350px', overflow: 'auto'}} dangerouslySetInnerHTML={{__html: template}}></div>
+        <div className='mt-3 p-3' style={{ border: '1px solid #c4c4c4', height: '350px', overflow: 'auto' }} dangerouslySetInnerHTML={{ __html: template }}></div>
         <div className="text-right mt-3"><Button shape='round' type='hbs-primary' onClick={handleChoose}>Choose</Button></div>
       </Drawer>
       <Row justify='space-between' align="middle">
