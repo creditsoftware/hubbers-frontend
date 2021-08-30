@@ -172,17 +172,13 @@ export const MainFooter = ({ className, ...props }) => {
                   </Col>
                   <Col xs={24} sm={24} md={18} lg={18}>
                     <div className='mt-2'>
-                      <Link href="/">
-                        <a>
-                          Privacy Policy
-                        </a>
-                      </Link>
+                      <a href='https://hubbers.tawk.help/article/hubbers-privacy-policy'>
+                        Privacy Policy
+                      </a>
                       <span>|</span>
-                      <Link href="/">
-                        <a>
-                          Terms of service
-                        </a>
-                      </Link>
+                      <a href='https://hubbers.tawk.help/article/hubbers-terms-of-service'>
+                        Terms of service
+                      </a>
                       <span className='copy-operator'>
                         &copy;
                         2018-{new Date().getFullYear()}
