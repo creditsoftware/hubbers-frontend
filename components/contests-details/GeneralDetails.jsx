@@ -225,7 +225,7 @@ export const GeneralDetails = props => {
       </Row>
       <div
         className=" mb-3 w-100 p-3 fs-1"
-        dangerouslySetInnerHTML={{ __html: contest.description }}
+        dangerouslySetInnerHTML={{ __html: contest && contest.description }}
         style={{
           backgroundColor: 'white',
           boxShadow: '3px 3px 8px rgba(0,0,0,0.2)'
