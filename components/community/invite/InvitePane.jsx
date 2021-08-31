@@ -29,10 +29,10 @@ export const InvitePane = ({ ...props }) => {
   const [form] = Form.useForm();
   const { data } = useCommunityDetail(props.query.community ? props.query.community : null);
   React.useEffect(() => {
-    if (data && roles && auth) {
+    if (data && roles) {
       setCommunity(data.data);
       const role = roles.filter((r) => r.id === selectedRole)[0];
-      const m = `Hi,\n\nWelcome to the Hubbers Community. We are excited that you are here and we are inviting you to join Hubbers as a "${role.name}" of "${data.data.name}".\n\nAt Hubbers, we are building global communities and we craft products and services that help reduce waste, combat climate change, and create healthy, safe, and sustainable cities.\n\nBy being part of "${data.data.name}" you will have access to a network of inspiring, talented and driven people, innovative projects, and resources to support your innovation journey.\n\n${auth.firstname ? auth.firstname : ''} ${auth.lastname ? auth.lastname : ''}`;
+      const m = `Hi,\n\nWelcome to the Hubbers Community. We are excited that you are here and we are inviting you to join Hubbers as a "${role.name}" of "${data.data.name}".\n\nAt Hubbers, we are building global communities and we craft products and services that help reduce waste, combat climate change, and create healthy, safe, and sustainable cities.\n\nBy being part of "${data.data.name}" you will have access to a network of inspiring, talented and driven people, innovative projects, and resources to support your innovation journey.\n\nWelcome to the ${data.data.name} Hubbers Community!\nWe are a global network of creators, contributors, and experts co-creating innovative new products. Click the button below to start your discovery of your local community and join fellow Hubbers in ${data.data.name}\n\nSincerely,\n\nThe Hubbers Team`;
       setMsg(m);
       setPlaceHolder(m);
       form.setFieldsValue({ message: m });
